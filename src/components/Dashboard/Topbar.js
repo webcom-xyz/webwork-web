@@ -4,13 +4,15 @@ import { SearchIcon, ChevronDownIcon } from "@heroicons/react/solid";
 import { Menu, Transition } from "@headlessui/react";
 import classNames from "../../utils/classNames";
 import { useHistory, useLocation } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getCurrentUser,
+  updateCurrentUserAvatar,
+  getCurrentUserAvatar,
+} from "../../actions/user";
 
 export default function Topbar(props) {
-  const [currentUser, setCurrentUser] = useState(
-    JSON.parse(localStorage.getItem("current-user"))
-  );
-  const [sideBarOpen, setSidebarOpen] = useState(false);
+  const currentUser = useSelector((state) => state.user.userData);
   const location = useLocation();
   const dispatch = useDispatch();
   const history = useHistory();
@@ -19,12 +21,9 @@ export default function Topbar(props) {
     e.preventDefault();
     dispatch({ type: "SIGN_OUT" });
     history.push("/sign-in");
-    setCurrentUser(null);
   };
 
-  useEffect(() => {
-    setCurrentUser(JSON.parse(localStorage.getItem("current-user")));
-  }, [location]);
+  useEffect(() => {}, []);
 
   return (
     <div
@@ -32,7 +31,7 @@ export default function Topbar(props) {
     >
       <button
         className="px-4 border-r border-gray-200 text-gray-400 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-cyan-500 lg:hidden"
-        onClick={() => setSidebarOpen(true)}
+        onClick={() => props.setSidebarOpen(true)}
       >
         <span className="sr-only">Open sidebar</span>
         <MenuAlt1Icon className="h-6 w-6" aria-hidden="true" />
@@ -75,7 +74,7 @@ export default function Topbar(props) {
                   <Menu.Button className="max-w-xs bg-white rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 lg:p-2 lg:rounded-md lg:hover:bg-gray-50">
                     <img
                       className="h-8 w-8 rounded-full"
-                      src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                      src={`http://localhost:3000/${currentUser?.data.avatarUrl}`}
                       alt=""
                     />
                     <span className="hidden ml-3 text-gray-700 text-sm font-medium lg:block">

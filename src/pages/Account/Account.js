@@ -1,21 +1,47 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Sidebar from "../../components/Dashboard/Sidebar";
 import Topbar from "../../components/Dashboard/Topbar";
+import { useSelector, useDispatch } from "react-redux";
+import { getCurrentUser, updateCurrentUserAvatar } from "../../actions/user";
+import FormData from "form-data";
+import { useHistory, useLocation } from "react-router-dom";
 
 export default function Account() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const currentUser = useSelector((state) => state.user.userData);
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const location = useLocation();
+
+  const [selectedFile, setSelectedFile] = useState(null);
+
+  const handleSubmitProfile = (e) => {
+    e.preventDefault();
+    var formData = new FormData();
+    formData.append("avatar", selectedFile);
+    dispatch(updateCurrentUserAvatar(formData, history));
+  };
+
+  useEffect(() => {
+    dispatch(getCurrentUser());
+  }, []);
+
   return (
     <div className="h-screen flex overflow-hidden bg-gray-100">
-      <Sidebar sidebarOpen={sidebarOpen} accountActive={true} />
+      <Sidebar
+        sidebarOpen={sidebarOpen}
+        setSidebarOpen={setSidebarOpen}
+        accountActive={true}
+      />
 
       <div className="flex-1 overflow-auto focus:outline-none">
-        <Topbar shadow={"shadow"} />
+        <Topbar setSidebarOpen={setSidebarOpen} shadow={"shadow"} />
 
         <main className="flex-1 relative pb-8 z-0 overflow-y-auto">
           <div className="mt-8">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="space-y-6 sm:px-6 lg:px-0 lg:col-span-9">
-                <form action="#" method="POST">
+                <form onSubmit={handleSubmitProfile}>
                   <div className="shadow sm:rounded-md sm:overflow-hidden">
                     <div className="bg-white py-6 px-4 space-y-6 sm:p-6">
                       <div>
@@ -87,8 +113,19 @@ export default function Account() {
                                 <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
                               </svg>
                             </span>
+                            <input
+                              type="file"
+                              hidden={true}
+                              id="avatarUpload"
+                              onChange={(e) =>
+                                setSelectedFile(e.target.files[0])
+                              }
+                            />
                             <button
                               type="button"
+                              onClick={() =>
+                                document.getElementById("avatarUpload").click()
+                              }
                               className="ml-5 bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                             >
                               Change
@@ -150,7 +187,7 @@ export default function Account() {
                   </div>
                 </form>
 
-                <form action="#" method="POST">
+                <form method="POST">
                   <div className="shadow sm:rounded-md sm:overflow-hidden">
                     <div className="bg-white py-6 px-4 space-y-6 sm:p-6">
                       <div>
@@ -207,6 +244,7 @@ export default function Account() {
                             name="email_address"
                             id="email_address"
                             autoComplete="email"
+                            placeholder={currentUser?.data.email}
                             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                           />
                         </div>

@@ -27,7 +27,8 @@ import classNames from "../../utils/classNames";
 
 // Import libraries
 import { useHistory, useLocation } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getCurrentUser, getCurrentUserAvatar } from "../../actions/user";
 
 const cards = [
   {
@@ -121,10 +122,8 @@ const statusStyles = {
   failed: "bg-gray-100 text-gray-800",
 };
 
-export default function Dashboard() {
-  const [currentUser, setCurrentUser] = useState(
-    JSON.parse(localStorage.getItem("current-user"))
-  );
+export default function Dashboard(props) {
+  const currentUser = useSelector((state) => state.user.userData);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const dispatch = useDispatch();
@@ -132,19 +131,19 @@ export default function Dashboard() {
   const history = useHistory();
 
   useEffect(() => {
-    try {
-      setCurrentUser(JSON.parse(localStorage.getItem("current-user")));
-    } catch (error) {
-      console.log(error);
-    }
-  }, [location]);
+    dispatch(getCurrentUser());
+  }, []);
 
   return (
     <div className="h-screen flex overflow-hidden bg-gray-100">
-      <Sidebar sidebarOpen={sidebarOpen} homeActive={true} />
+      <Sidebar
+        sidebarOpen={sidebarOpen}
+        setSidebarOpen={setSidebarOpen}
+        homeActive={true}
+      />
 
       <div className="flex-1 overflow-auto focus:outline-none">
-        <Topbar />
+        <Topbar setSidebarOpen={setSidebarOpen} />
         {/* Page */}
         <main className="flex-1 relative pb-8 z-0 overflow-y-auto">
           {/* Page header */}
