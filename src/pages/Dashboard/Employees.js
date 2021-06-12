@@ -64,10 +64,10 @@ export default function Employees() {
 
   return (
     <div className="h-screen flex overflow-hidden bg-gray-100">
-      <Sidebar sidebarOpen={sidebarOpen} employeesActive={true} />
+      <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} employeesActive={true} />
 
       <div className="flex-1 overflow-auto focus:outline-none">
-        <Topbar shadow={"shadow"} />
+        <Topbar setSidebarOpen={setSidebarOpen} shadow={"shadow"} />
 
         {/* Page */}
         <main className="flex-1 relative pb-8 z-0 overflow-y-auto">

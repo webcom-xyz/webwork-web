@@ -19,3 +19,9 @@ export const signUp = (authData) =>
 
 // User
 export const getCurrentUser = () => API.get("user");
+export const updateCurrentUserAvatar = (formData) =>
+  API.put("user/avatar", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });

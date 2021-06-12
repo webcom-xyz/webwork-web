@@ -8,10 +8,10 @@ export default function Projects() {
 
   return (
     <div className="h-screen flex overflow-hidden bg-gray-100">
-      <Sidebar sidebarOpen={sidebarOpen} projectsActive={true} />
+      <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}  projectsActive={true} />
 
       <div className="flex-1 overflow-auto focus:outline-none">
-        <Topbar shadow={"shadow"} />
+        <Topbar setSidebarOpen={setSidebarOpen} shadow={"shadow"} />
       </div>
     </div>
   );

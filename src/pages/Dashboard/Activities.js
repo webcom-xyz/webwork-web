@@ -8,10 +8,10 @@ export default function Activities() {
 
   return (
     <div className="h-screen flex overflow-hidden bg-gray-100">
-      <Sidebar sidebarOpen={sidebarOpen} activitiesActive={true} />
+      <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}  activitiesActive={true} />
 
       <div className="flex-1 overflow-auto focus:outline-none">
-        <Topbar shadow={"shadow"} />
+        <Topbar setSidebarOpen={setSidebarOpen}  shadow={"shadow"} />
       </div>
     </div>
   );
