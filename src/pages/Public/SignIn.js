@@ -1,7 +1,7 @@
 import logo from "../../assets/logo_4.svg";
 import { useHistory } from "react-router-dom";
 import handleLink from "../../utils/handleLink";
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { signIn } from "../../actions/auth";
 import Alert from "../../parts/Alert";
@@ -25,7 +25,7 @@ export default function SignIn() {
 
     try {
       setError("");
-      dispatch(signIn(authData, history));
+      dispatch(signIn(authData));
     } catch {
       setError("Failed to sign in.");
     }

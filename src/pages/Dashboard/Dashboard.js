@@ -123,15 +123,19 @@ const statusStyles = {
 };
 
 export default function Dashboard(props) {
-  const currentUser = useSelector((state) => state.user.userData);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
+  const currentUser = useSelector((state) => state.user.currentUser);
   const dispatch = useDispatch();
   const location = useLocation();
   const history = useHistory();
 
   useEffect(() => {
-    dispatch(getCurrentUser());
+    try {
+      dispatch(getCurrentUser());
+    } catch (error) {
+      console.log(error);
+    }
   }, []);
 
   return (

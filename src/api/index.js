@@ -11,17 +11,4 @@ API.interceptors.request.use((req) => {
   return req;
 });
 
-// Authentication
-export const signIn = (authData) =>
-  API.post("authentication/local/sign-in", authData);
-export const signUp = (authData) =>
-  API.post("authentication/local/sign-up", authData);
-
-// User
-export const getCurrentUser = () => API.get("user");
-export const updateCurrentUserAvatar = (formData) =>
-  API.put("user/avatar", formData, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
-  });
+ export default API;

@@ -1,15 +1,26 @@
-import { AUTH, SIGN_OUT } from "../constants/types";
+// import { SET_CURRENT_USER, SIGN_IN } from "../constants/types";
+
+// const auth = (state = { authData: null }, action) => {
+//     switch (action.type) {
+
+//         case SET_CURRENT_USER:
+//             localStorage.setItem("x-auth-token", action.currentUser.access_token);
+//             return { ...state, authData: action };
+            
+//         default:
+//             return state;
+//     }
+// }
+
+// export default auth;
+
+import { SET_TOKEN } from "../constants/types";
 
 const auth = (state = { authData: null }, action) => {
     switch (action.type) {
 
-        case AUTH:
-            localStorage.setItem("x-auth-token", action?.data.access_token);
-            return {...state, authData: action?.data };
-
-        case SIGN_OUT:
-            localStorage.clear();
-            return { ...state, authData: null };
+        case SET_TOKEN:
+            return { ...state, authData: action };
             
         default:
             return state;

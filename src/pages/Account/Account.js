@@ -8,7 +8,7 @@ import { useHistory, useLocation } from "react-router-dom";
 
 export default function Account() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const currentUser = useSelector((state) => state.user.userData);
+  const currentUser = useSelector((state) => state.user.currentUser);
   const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation();
@@ -17,13 +17,23 @@ export default function Account() {
 
   const handleSubmitProfile = (e) => {
     e.preventDefault();
-    var formData = new FormData();
-    formData.append("avatar", selectedFile);
-    dispatch(updateCurrentUserAvatar(formData, history));
+
+    try {
+      var formData = new FormData();
+      formData.append("avatar", selectedFile);
+      // console.log(formData);
+      dispatch(updateCurrentUserAvatar(formData));
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
-    dispatch(getCurrentUser());
+    try {
+      dispatch(getCurrentUser());
+    } catch (error) {
+      console.log(error);
+    }
   }, []);
 
   return (
