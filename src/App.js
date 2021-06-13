@@ -16,6 +16,7 @@ import Account from "./pages/Account/Account";
 
 // Import components
 import PrivateRoute from "./components/Dashboard/PrivateRoute";
+import Test from "./pages/Public/Test";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route exact path="/" component={Landing} />
           <Route path="/sign-in" component={SignIn} />
           <Route path="/sign-up" component={SignUp} />
+          <Route path="/test" component={Test} />
 
           {/* Dashboard routes */}
           <PrivateRoute path="/dashboard/home" component={Dashboard} />

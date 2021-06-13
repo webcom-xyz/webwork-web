@@ -58,7 +58,7 @@ export default function SignUp() {
 
     try {
       setError("");
-      dispatch(signUp(authData, history));
+      dispatch(signUp(authData));
     } catch {
       setError("Failed to create account.");
     }

@@ -5,25 +5,32 @@ import { Menu, Transition } from "@headlessui/react";
 import classNames from "../../utils/classNames";
 import { useHistory, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getCurrentUser,
-  updateCurrentUserAvatar,
-  getCurrentUserAvatar,
-} from "../../actions/user";
+import { getCurrentUser } from "../../actions/user";
+import { signOut } from "../../actions/auth";
 
 export default function Topbar(props) {
-  const currentUser = useSelector((state) => state.user.userData);
+  const currentUser = useSelector((state) => state.user.currentUser);
   const location = useLocation();
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const signOut = (e) => {
+  const handleSignOut = (e) => {
     e.preventDefault();
-    dispatch({ type: "SIGN_OUT" });
-    history.push("/sign-in");
+
+    try {
+      dispatch(signOut());
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    try {
+      dispatch(getCurrentUser());
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
 
   return (
     <div
@@ -131,7 +138,7 @@ export default function Topbar(props) {
                       {({ active }) => (
                         <a
                           href="#"
-                          onClick={signOut}
+                          onClick={handleSignOut}
                           className={classNames(
                             active ? "bg-gray-100" : "",
                             "block px-4 py-2 text-sm text-gray-700"
