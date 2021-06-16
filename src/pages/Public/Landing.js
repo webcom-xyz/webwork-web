@@ -74,7 +74,7 @@ export default function Landing() {
                       <div className="flex items-center flex-grow flex-shrink-0 lg:flex-grow-0">
                         <div className="flex items-center justify-between w-full md:w-auto">
                           <a href="#">
-                            <span className="sr-only">Workflow</span>
+                            <span className="sr-only">Webwork</span>
                             <img
                               className="h-8 w-auto sm:h-10"
                               src={logo}
@@ -156,7 +156,7 @@ export default function Landing() {
                         </div>
                         <a
                           href="#"
-                          onClick={(e) => handleLink(e, "/signin", history)}
+                          onClick={(e) => handleLink(e, "/sign-in", history)}
                           className="block w-full px-5 py-3 text-center font-medium text-blue-600 bg-gray-50 hover:bg-gray-100"
                         >
                           Sign in
@@ -172,7 +172,7 @@ export default function Landing() {
               <div className="sm:text-center lg:text-left">
                 <h1 className="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
                   <span className="block xl:inline">Data to optimize </span>{" "}
-                  <span className="block text-blue-600 xl:inline">
+                  <span className="block text-blue-600 xl:inline animate-pulse">
                     productivity
                   </span>
                 </h1>

@@ -1,9 +1,5 @@
 import React, { Fragment, useState, useEffect } from "react";
-
-// Import Tailwind
 import { Menu, Transition } from "@headlessui/react";
-
-// Import icons
 import {
   BellIcon,
   MenuAlt1Icon,
@@ -16,104 +12,28 @@ import {
   ChevronDownIcon,
   ChevronRightIcon,
   SearchIcon,
+  XCircleIcon,
 } from "@heroicons/react/solid";
-
-// Import components
 import Sidebar from "../../components/Dashboard/Sidebar";
 import Topbar from "../../components/Dashboard/Topbar";
-
-// Import utils
+import Drawer from "../../components/Dashboard/Drawer";
 import classNames from "../../utils/classNames";
-
-// Import libraries
 import { useHistory, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getCurrentUser, getCurrentUserAvatar } from "../../actions/user";
+import { getAllWorkspaces } from "../../actions/workspace";
+import logo from "../../assets/logo_blue_bg.svg";
+import moment from "moment";
 
 const cards = [
   {
     name: "Productivity",
     href: "#",
     icon: PresentationChartLineIcon,
-    amount: "+101%",
+    amount: "_",
   },
   { name: "N/A", href: "#", icon: PresentationChartLineIcon, amount: "_" },
   { name: "N/A", href: "#", icon: PresentationChartLineIcon, amount: "_" },
-];
-
-const transactions = [
-  {
-    id: 1,
-    name: "Thien Hung",
-    href: "#",
-    amount: "35",
-    status: "failed",
-    type: "General",
-    date: "June 4, 2021",
-    datetime: "2020-07-11",
-  },
-  {
-    id: 2,
-    name: "Thien Hung Marketing",
-    href: "#",
-    amount: "7",
-    status: "success",
-    type: "Marketing",
-    date: "June 4, 2021",
-    datetime: "2020-07-11",
-  },
-  {
-    id: 3,
-    name: "Thien Hung Product",
-    href: "#",
-    amount: "16",
-    status: "processing",
-    type: "Development",
-    date: "June 4, 2021",
-    datetime: "2020-07-11",
-  },
-];
-
-const people = [
-  {
-    id: "1",
-    work: "+12%",
-    time: "+6%",
-    name: "Free Angels",
-    title: "Marketing",
-    department: "WFH",
-    onboard: "March 13, 2021",
-    email: "15 employees",
-    employees: "15",
-    image:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60",
-  },
-  {
-    id: "2",
-    work: "+1.2%",
-    time: "-23%",
-    name: "Courageous Trolls",
-    title: "Engineering",
-    department: "In-office",
-    onboard: "March 13, 2021",
-    email: "6 employees",
-    employees: "15",
-    image:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60",
-  },
-  {
-    id: "2",
-    work: "-4.5%",
-    time: "-32%",
-    name: "Courageous Trolls",
-    title: "Engineering",
-    department: "Remote",
-    onboard: "March 13, 2021",
-    email: "9 employees",
-    employees: "15",
-    image:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60",
-  },
 ];
 
 const statusStyles = {
@@ -124,15 +44,23 @@ const statusStyles = {
 
 export default function Dashboard(props) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [slideoverOpen, setSlideoverOpen] = useState(false);
 
   const currentUser = useSelector((state) => state.user.currentUser);
+  const workspaces = useSelector((state) => state.workspace);
+  console.log(workspaces);
   const dispatch = useDispatch();
   const location = useLocation();
   const history = useHistory();
 
+  const triggerNewWorkspaceSlideover = () => {
+    setSlideoverOpen(true);
+  };
+
   useEffect(() => {
     try {
       dispatch(getCurrentUser());
+      dispatch(getAllWorkspaces());
     } catch (error) {
       console.log(error);
     }
@@ -145,7 +73,10 @@ export default function Dashboard(props) {
         setSidebarOpen={setSidebarOpen}
         homeActive={true}
       />
-
+      <Drawer
+        slideoverOpen={slideoverOpen}
+        setSlideoverOpen={setSlideoverOpen}
+      />
       <div className="flex-1 overflow-auto focus:outline-none">
         <Topbar setSidebarOpen={setSidebarOpen} />
         {/* Page */}
@@ -157,31 +88,66 @@ export default function Dashboard(props) {
                 <div className="flex-1 min-w-0">
                   {/* Profile */}
                   <div className="flex items-center">
-                    <img
-                      className="hidden h-16 w-16 rounded-full sm:block"
-                      src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.6&w=256&h=256&q=80"
-                      alt=""
-                    />
+                    {currentUser ? (
+                      <img
+                        className="hidden h-16 w-16 rounded-full sm:block"
+                        src={`http://localhost:3000/${currentUser?.data.avatarUrl}`}
+                        alt="avatar"
+                      />
+                    ) : (
+                      <div className="animate-pulse">
+                        <div class="hidden sm:block rounded-full bg-gray-200 h-16 w-16"></div>
+                      </div>
+                    )}
+
                     <div>
+                      {/* Sm */}
                       <div className="flex items-center">
-                        <img
-                          className="h-16 w-16 rounded-full sm:hidden"
-                          src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.6&w=256&h=256&q=80"
-                          alt=""
-                        />
-                        <h1 className="ml-3 text-2xl font-bold leading-7 text-gray-900 sm:leading-9 sm:truncate">
-                          {currentUser?.data.name}
-                        </h1>
+                        {currentUser ? (
+                          <img
+                            className="h-16 w-16 rounded-full sm:hidden"
+                            src={`http://localhost:3000/${currentUser?.data.avatarUrl}`}
+                            alt="avatar"
+                          />
+                        ) : (
+                          <div className="animate-pulse">
+                            <div class="h-16 w-16 rounded-full bg-gray-200 sm:hidden"></div>
+                          </div>
+                        )}
+                        {currentUser ? (
+                          <h1 className="ml-3 text-2xl font-bold leading-7 text-gray-900 sm:leading-9 sm:truncate">
+                            {currentUser.data.name}
+                          </h1>
+                        ) : (
+                          <div className="animate-pulse flex-1">
+                            <h1 className="ml-3 text-2xl font-bold leading-7 text-gray-900 sm:leading-9 sm:truncate bg-gray-200 rounded">
+                              ⠀
+                            </h1>
+                          </div>
+                        )}
                       </div>
                       <dl className="mt-6 flex flex-col sm:ml-3 sm:mt-1 sm:flex-row sm:flex-wrap">
                         <dt className="sr-only">Account status</dt>
-                        <dd className="mt-3 flex items-center text-sm text-gray-500 font-medium sm:mr-6 sm:mt-0 capitalize">
-                          <CheckCircleIcon
+                        {currentUser ? (
+                          <dd className="mt-3 flex items-center text-sm text-gray-500 font-medium sm:mr-6 sm:mt-0 capitalize">
+                            {/* <CheckCircleIcon
                             className="flex-shrink-0 mr-1.5 h-5 w-5 text-green-400"
                             aria-hidden="true"
-                          />
-                          Verified account
-                        </dd>
+                          /> */}
+                            <XCircleIcon
+                              className="flex-shrink-0 mr-1.5 h-5 w-5 text-red-400"
+                              aria-hidden="true"
+                            />
+                            Unverified account
+                          </dd>
+                        ) : (
+                          <dd className="mt-3 flex items-center text-sm text-gray-500 font-medium sm:mr-6 sm:mt-0 capitalize animate-pulse">
+                            <div class="flex-shrink-0 mr-1.5 rounded-full bg-gray-200 h-5 w-5"></div>
+                            <div className="bg-gray-200 rounded">
+                              {"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"}
+                            </div>
+                          </dd>
+                        )}
                       </dl>
                     </div>
                   </div>
@@ -189,6 +155,7 @@ export default function Dashboard(props) {
                 <div className="mt-6 flex space-x-3 md:mt-0 md:ml-4">
                   <button
                     type="button"
+                    onClick={triggerNewWorkspaceSlideover}
                     className="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                   >
                     New workspace
@@ -260,28 +227,67 @@ export default function Dashboard(props) {
             {/* Activity list (smallest breakpoint only) */}
             <div className="shadow sm:hidden">
               <ul className="mt-2 divide-y divide-gray-200 overflow-hidden shadow sm:hidden">
-                {transactions.map((transaction) => (
-                  <li key={transaction.id}>
+                {workspaces.workspace ? (
+                  workspaces.workspace.response.data.map((workspace) => (
+                    <li key={workspace._id}>
+                      <a
+                        href="#"
+                        className="block px-4 py-4 bg-white hover:bg-gray-50"
+                      >
+                        <span className="flex items-center space-x-4">
+                          <span className="flex-1 flex space-x-2 truncate">
+                            {/* <OfficeBuildingIcon
+                              className="flex-shrink-0 h-5 w-5 text-gray-400"
+                              aria-hidden="true"
+                            /> */}
+                            <img
+                              className="flex-shrink-0 h-16 w-16 rounded text-gray-400"
+                              src={logo}
+                              alt="avatar"
+                            />
+                            <span className="flex flex-col text-gray-500 text-sm truncate">
+                              <span className="truncate font-medium">
+                                {workspace.name}
+                              </span>
+                              <span>
+                                <span className="text-gray-500">
+                                  {workspace.department} | {workspace.team}
+                                </span>
+                              </span>
+                              <time dateTime={workspace.createDate}>
+                                {moment(workspace.createDate).format(
+                                  "DD/MM/YYYY"
+                                )}
+                              </time>
+                            </span>
+                          </span>
+                          <ChevronRightIcon
+                            className="flex-shrink-0 h-5 w-5 text-gray-400"
+                            aria-hidden="true"
+                          />
+                        </span>
+                      </a>
+                    </li>
+                  ))
+                ) : (
+                  <li>
                     <a
-                      href={transaction.href}
+                      href="#"
                       className="block px-4 py-4 bg-white hover:bg-gray-50"
                     >
                       <span className="flex items-center space-x-4">
                         <span className="flex-1 flex space-x-2 truncate">
-                          <OfficeBuildingIcon
-                            className="flex-shrink-0 h-5 w-5 text-gray-400"
-                            aria-hidden="true"
-                          />
-                          <span className="flex flex-col text-gray-500 text-sm truncate">
-                            <span className="truncate">{transaction.name}</span>
-                            <span>
-                              <span className="text-gray-900 font-medium">
-                                {transaction.amount}
-                              </span>
+                          <div className="animate-pulse">
+                            <div class="flex-shrink-0 h-16 w-16 rounded text-gray-400 bg-gray-200"></div>
+                          </div>
+                          <span className="flex flex-col flex-1 text-gray-500 text-sm truncate animate-pulse">
+                            <span className="truncate font-medium bg-gray-200 rounded">
+                              {"⠀"}
                             </span>
-                            <time dateTime={transaction.datetime}>
-                              {transaction.date}
-                            </time>
+                            <span className="text-gray-500 bg-gray-200 rounded">
+                              {"⠀"}
+                            </span>
+                            <span className="bg-gray-200 rounded">{"⠀"}</span>
                           </span>
                         </span>
                         <ChevronRightIcon
@@ -291,7 +297,7 @@ export default function Dashboard(props) {
                       </span>
                     </a>
                   </li>
-                ))}
+                )}
               </ul>
 
               <nav
@@ -339,13 +345,13 @@ export default function Dashboard(props) {
                             scope="col"
                             className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                           >
-                            Work
+                            Overall
                           </th>
                           <th
                             scope="col"
                             className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                           >
-                            Time
+                            Security
                           </th>
                           <th
                             scope="col"
@@ -359,59 +365,115 @@ export default function Dashboard(props) {
                         </tr>
                       </thead>
                       <tbody className="bg-white divide-y divide-gray-200">
-                        {people.map((person) => (
-                          <tr key={person.email}>
+                        {workspaces.workspace ? (
+                          workspaces.workspace?.response.data.map(
+                            (workspace) => (
+                              <tr key={workspace._id}>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                  <div className="flex items-center">
+                                    <div className="flex-shrink-0 h-10 w-10">
+                                      <img
+                                        className="h-10 w-10 rounded"
+                                        src={logo}
+                                        alt="worrkspace_avatar"
+                                      />
+                                    </div>
+                                    <div className="ml-4">
+                                      <div className="text-sm font-medium text-gray-500">
+                                        {workspace.name}
+                                      </div>
+                                      <div className="text-sm text-gray-500">
+                                        N/A employees
+                                      </div>
+                                    </div>
+                                  </div>
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                  <div className="text-sm text-gray-900">
+                                    {workspace.department}
+                                  </div>
+                                  <div className="text-sm text-gray-500">
+                                    {workspace.team}
+                                  </div>
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                  <span
+                                    className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800}`}
+                                  >
+                                    +N/A%
+                                  </span>
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                  Private
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                  {moment(workspace.createDate).format(
+                                    "DD/MM/YYYY"
+                                  )}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                  <a
+                                    href="#"
+                                    className="text-blue-600 hover:text-blue-900"
+                                  >
+                                    Settings
+                                  </a>
+                                </td>
+                              </tr>
+                            )
+                          )
+                        ) : (
+                          <tr>
                             <td className="px-6 py-4 whitespace-nowrap">
                               <div className="flex items-center">
                                 <div className="flex-shrink-0 h-10 w-10">
-                                  <img
-                                    className="h-10 w-10 rounded"
-                                    src={person.image}
-                                    alt=""
-                                  />
-                                </div>
-                                <div className="ml-4">
-                                  <div className="text-sm font-medium text-gray-500">
-                                    {person.name}
+                                  <div className="animate-pulse">
+                                    <div class="rounded bg-gray-200 h-10 w-10"></div>
                                   </div>
-                                  <div className="text-sm text-gray-500">
-                                    {person.email}
+                                  {/* <img
+                                    className="h-10 w-10 rounded"
+                                    src={logo}
+                                    alt="worrkspace_avatar"
+                                  /> */}
+                                </div>
+                                <div className="ml-4 flex-1 animate-pulse">
+                                  <div className="text-sm font-medium text-gray-500 bg-gray-200 rounded">
+                                    {"⠀"}
+                                  </div>
+                                  <div className="text-sm text-gray-500 bg-gray-200 rounded">
+                                    {"⠀"}
                                   </div>
                                 </div>
                               </div>
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">
-                              <div className="text-sm text-gray-900">
-                                {person.title}
+                              <div className="text-sm text-gray-900 flex-1 animate-pulse">
+                                <div className="bg-gray-200 rounded">{"⠀"}</div>
                               </div>
-                              <div className="text-sm text-gray-500">
-                                {person.department}
+                              <div className="text-sm text-gray-500 flex-1 animate-pulse">
+                                <div className="bg-gray-200 rounded">{"⠀"}</div>
                               </div>
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 flex-1">
                               <span
-                                className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                                  person.work.startsWith("+")
-                                    ? "bg-green-100 text-green-800"
-                                    : "bg-red-100 text-red-800"
+                                className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
+                                    bg-gray-200 text-green-800
                                 }`}
                               >
-                                {person.work}
+                                {"⠀⠀⠀⠀"}
                               </span>
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                               <span
-                                className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                                  person.time.startsWith("+")
-                                    ? "bg-green-100 text-green-800"
-                                    : "bg-red-100 text-red-800"
+                                className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
+                                    bg-gray-200 text-red-800
                                 }`}
                               >
-                                {person.time}
+                                {"⠀⠀⠀⠀"}
                               </span>
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                              {person.onboard}
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 flex-1 animate-pulse">
+                              <div className="bg-gray-200 rounded">{"⠀"}</div>
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                               <a
@@ -422,7 +484,7 @@ export default function Dashboard(props) {
                               </a>
                             </td>
                           </tr>
-                        ))}
+                        )}
                       </tbody>
                     </table>
                     {/* Pagination */}
@@ -432,9 +494,19 @@ export default function Dashboard(props) {
                     >
                       <div className="hidden sm:block">
                         <p className="text-sm text-gray-700">
-                          Showing <span className="font-medium">1</span> to{" "}
-                          <span className="font-medium">10</span> of{" "}
-                          <span className="font-medium">20</span> results
+                          Showing{" "}
+                          <span className="font-medium">
+                            {workspaces.workspace?.response.data.length}
+                          </span>{" "}
+                          to{" "}
+                          <span className="font-medium">
+                            {workspaces.workspace?.response.data.length}
+                          </span>{" "}
+                          of{" "}
+                          <span className="font-medium">
+                            {workspaces.workspace?.response.data.length}
+                          </span>{" "}
+                          results
                         </p>
                       </div>
                       <div className="flex-1 flex justify-between sm:justify-end">
