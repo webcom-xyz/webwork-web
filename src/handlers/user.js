@@ -13,7 +13,7 @@ export function* handleGetCurrentUser(action) {
 
 export function* handleSetCurrentUser(action) {
     try {
-        yield localStorage.setItem("current-user", JSON.stringify(action.currentUser.data));
+        yield localStorage.setItem("current-user", JSON.stringify(action.payload.currentUser.data));
     } catch (error) {
         console.log(error);
     }
@@ -21,7 +21,7 @@ export function* handleSetCurrentUser(action) {
 
 export function* handleUpdateCurrentUserAvatar(action) {
     try {
-        yield call(requestUpdateCurrentUserAvatar, action.formData);
+        yield call(requestUpdateCurrentUserAvatar, action.payload.formData);
     } catch (error) {
         console.log(error);
     }

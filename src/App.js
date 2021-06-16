@@ -2,7 +2,6 @@ import React from "react";
 import "./styles/App.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-// Import pages
 import SignIn from "./pages/Public/SignIn";
 import SignUp from "./pages/Public/SignUp";
 import Landing from "./pages/Public/Landing";
@@ -14,7 +13,6 @@ import Reports from "./pages/Dashboard/Reports";
 import Billing from "./pages/Dashboard/Billing";
 import Account from "./pages/Account/Account";
 
-// Import components
 import PrivateRoute from "./components/Dashboard/PrivateRoute";
 import Test from "./pages/Public/Test";
 

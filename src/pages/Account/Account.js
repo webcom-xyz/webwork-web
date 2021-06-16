@@ -21,7 +21,6 @@ export default function Account() {
     try {
       var formData = new FormData();
       formData.append("avatar", selectedFile);
-      // console.log(formData);
       dispatch(updateCurrentUserAvatar(formData));
     } catch (error) {
       console.log(error);

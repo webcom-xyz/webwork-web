@@ -1,20 +1,21 @@
-import { SIGN_UP, SET_TOKEN, SIGN_IN, SIGN_OUT } from "../constants/types";
+import { SIGN_UP, SET_TOKEN, SIGN_IN, SIGN_OUT, SIGN_IN_WITH_GOOGLE } from "../constants/types";
 
-export const signUp = (authData) => ({
+export const signUp = (authData, history) => ({
   type: SIGN_UP,
-  authData
-})
+  payload: { authData, history },
+});
 
 export const setToken = (token) => ({
   type: SET_TOKEN,
-  token
-})
+  payload: { token },
+});
 
-export const signIn = (authData) => ({
+export const signIn = (authData, history) => ({
   type: SIGN_IN,
-  authData
-})
+  payload: { authData, history },
+});
 
-export const signOut = () => ({
-  type: SIGN_OUT
-})
+export const signOut = (history) => ({
+  type: SIGN_OUT,
+  payload: { history },
+});
