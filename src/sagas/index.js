@@ -10,6 +10,7 @@ import {
   CREATE_NEW_WORKSPACE,
   GET_ALL_WORKSPACES,
   SET_WORKSPACE,
+  UPDATE_CURRENT_USER
 } from "../constants/types";
 import {
   handleSignUp,
@@ -21,6 +22,7 @@ import {
   handleGetCurrentUser,
   handleSetCurrentUser,
   handleUpdateCurrentUserAvatar,
+  handleUpdateCurrentUser
 } from "../handlers/user";
 import {
   handleCreateNewWorkspace,
@@ -38,6 +40,7 @@ export function* watcherSaga() {
   yield takeLatest(GET_CURRENT_USER, handleGetCurrentUser);
   yield takeLatest(SET_CURRENT_USER, handleSetCurrentUser);
   yield takeLatest(UPDATE_CURRENT_USER_AVATAR, handleUpdateCurrentUserAvatar);
+  yield takeLatest(UPDATE_CURRENT_USER, handleUpdateCurrentUser)
 
   // Workspace
   yield takeLatest(CREATE_NEW_WORKSPACE, handleCreateNewWorkspace);

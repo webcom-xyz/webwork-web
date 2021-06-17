@@ -1,6 +1,6 @@
 import { call, put } from "redux-saga/effects";
 import { getCurrentUser, setCurrentUser } from "../actions/user";
-import { requestGetCurrentUser, requestUpdateCurrentUserAvatar } from "../requests/user";
+import { requestGetCurrentUser, requestUpdateCurrentUserAvatar, requestUpdateCurrentUser } from "../requests/user";
 
 export function* handleGetCurrentUser(action) {
     try {
@@ -22,6 +22,14 @@ export function* handleSetCurrentUser(action) {
 export function* handleUpdateCurrentUserAvatar(action) {
     try {
         yield call(requestUpdateCurrentUserAvatar, action.payload.formData);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export function* handleUpdateCurrentUser(action) {
+    try {
+        yield call(requestUpdateCurrentUser, action.payload.userData);
     } catch (error) {
         console.log(error);
     }

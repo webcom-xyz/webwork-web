@@ -93,7 +93,7 @@ export default function Topbar(props) {
                     {currentUser ? (
                       <span className="hidden ml-3 text-gray-700 text-sm font-medium lg:block">
                         <span className="sr-only">Open user menu for </span>
-                        {currentUser.data.name}
+                        {currentUser.data.fullName}
                       </span>
                     ) : (
                       <div className="animate-pulse flex-1">

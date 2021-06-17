@@ -10,3 +10,8 @@ export const requestUpdateCurrentUserAvatar = (formData) =>
       "Content-Type": "multipart/form-data",
     },
   });
+
+
+export const requestUpdateCurrentUser = (userData) => {
+  return API.put("user", userData);
+}

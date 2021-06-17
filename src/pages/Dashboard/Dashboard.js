@@ -116,7 +116,7 @@ export default function Dashboard(props) {
                         )}
                         {currentUser ? (
                           <h1 className="ml-3 text-2xl font-bold leading-7 text-gray-900 sm:leading-9 sm:truncate">
-                            {currentUser.data.name}
+                            {currentUser.data.fullName}
                           </h1>
                         ) : (
                           <div className="animate-pulse flex-1">

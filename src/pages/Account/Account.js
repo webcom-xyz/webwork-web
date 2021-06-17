@@ -1,10 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Sidebar from "../../components/Dashboard/Sidebar";
 import Topbar from "../../components/Dashboard/Topbar";
 import { useSelector, useDispatch } from "react-redux";
-import { getCurrentUser, updateCurrentUserAvatar } from "../../actions/user";
+import {
+  getCurrentUser,
+  updateCurrentUser,
+  updateCurrentUserAvatar,
+} from "../../actions/user";
 import FormData from "form-data";
 import { useHistory, useLocation } from "react-router-dom";
+import Alert from "../../parts/shared/Alert";
 
 export default function Account() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -13,6 +18,11 @@ export default function Account() {
   const history = useHistory();
   const location = useLocation();
 
+  const [error, setError] = useState("");
+  const firstName = useRef("");
+  const lastName = useRef("");
+
+  const [userData, setUserData] = useState({ firstName: "", lastName: "" });
   const [selectedFile, setSelectedFile] = useState(null);
 
   const handleSubmitProfile = (e) => {
@@ -22,6 +32,34 @@ export default function Account() {
       var formData = new FormData();
       formData.append("avatar", selectedFile);
       dispatch(updateCurrentUserAvatar(formData));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleChange = (e) => {
+    if (firstName.current.value == "")
+      setUserData({
+        firstName: currentUser?.data.fullName.split(" ")[0],
+        lastName: lastName.current.value,
+      });
+    if (lastName.current.value == "")
+      setUserData({
+        firstName: firstName.current.value,
+        lastName: currentUser?.data.fullName.split(" ")[1],
+      });
+  };
+
+  const handleUpdateCurrentUser = (e) => {
+    e.preventDefault();
+
+    if (userData.firstName == "" && userData.lastName == "") {
+      setError("First name and last name cannot be empty.");
+      return;
+    }
+
+    try {
+      dispatch(updateCurrentUser(userData));
     } catch (error) {
       console.log(error);
     }
@@ -47,6 +85,7 @@ export default function Account() {
         <Topbar setSidebarOpen={setSidebarOpen} shadow={"shadow"} />
 
         <main className="flex-1 relative pb-8 z-0 overflow-y-auto">
+          {error && <Alert message={error} />}
           <div className="mt-8">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="space-y-6 sm:px-6 lg:px-0 lg:col-span-9">
@@ -79,7 +118,6 @@ export default function Account() {
                               type="text"
                               name="username"
                               id="username"
-                              autoComplete="username"
                               className="focus:ring-indigo-500 focus:border-indigo-500 flex-grow block w-full min-w-0 rounded-none rounded-r-md sm:text-sm border-gray-300"
                             />
                           </div>
@@ -126,6 +164,7 @@ export default function Account() {
                               type="file"
                               hidden={true}
                               id="avatarUpload"
+                              accept="image/png, image/jpeg"
                               onChange={(e) =>
                                 setSelectedFile(e.target.files[0])
                               }
@@ -196,7 +235,7 @@ export default function Account() {
                   </div>
                 </form>
 
-                <form method="POST">
+                <form onSubmit={handleUpdateCurrentUser} method="POST">
                   <div className="shadow sm:rounded-md sm:overflow-hidden">
                     <div className="bg-white py-6 px-4 space-y-6 sm:p-6">
                       <div>
@@ -218,9 +257,13 @@ export default function Account() {
                           </label>
                           <input
                             type="text"
-                            name="first_name"
+                            name="firstName"
                             id="first_name"
-                            autoComplete="given-name"
+                            ref={firstName}
+                            onChange={handleChange}
+                            placeholder={
+                              currentUser?.data.fullName.split(" ")[0]
+                            }
                             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                           />
                         </div>
@@ -234,9 +277,13 @@ export default function Account() {
                           </label>
                           <input
                             type="text"
-                            name="last_name"
+                            name="lastName"
                             id="last_name"
-                            autoComplete="family-name"
+                            ref={lastName}
+                            onChange={handleChange}
+                            placeholder={
+                              currentUser?.data.fullName.split(" ")[1]
+                            }
                             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                           />
                         </div>

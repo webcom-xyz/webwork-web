@@ -54,9 +54,11 @@ export default function Drawer(props) {
 
   const dispatch = useDispatch();
 
-  const initialData = { name: "", team: "", department: "" };
-
-  const [workspaceData, setWorkspaceData] = useState(initialData);
+  const [workspaceData, setWorkspaceData] = useState({
+    name: "",
+    team: "Remote",
+    department: "Design",
+  });
 
   const handleChange = (e) => {
     setWorkspaceData({ ...workspaceData, [e.target.name]: e.target.value });
@@ -281,7 +283,7 @@ export default function Drawer(props) {
                                 <div className="pl-7 text-sm">
                                   <label
                                     htmlFor="privacy_public"
-                                    className="font-medium text-gray-900"
+                                    className="text-gray-900"
                                   >
                                     Remote
                                   </label>
@@ -304,7 +306,7 @@ export default function Drawer(props) {
                                   <div className="pl-7 text-sm">
                                     <label
                                       htmlFor="privacy_private-to-project"
-                                      className="font-medium text-gray-900"
+                                      className="text-gray-900"
                                     >
                                       Work-from-home
                                     </label>
@@ -327,7 +329,7 @@ export default function Drawer(props) {
                                   <div className="pl-7 text-sm">
                                     <label
                                       htmlFor="privacy_private-to-project"
-                                      className="font-medium text-gray-900"
+                                      className="text-gray-900"
                                     >
                                       In-office
                                     </label>
@@ -359,7 +361,7 @@ export default function Drawer(props) {
                                 <div className="pl-7 text-sm">
                                   <label
                                     htmlFor="privacy_public"
-                                    className="font-medium text-gray-900"
+                                    className="text-gray-900"
                                   >
                                     Design
                                   </label>
@@ -382,7 +384,7 @@ export default function Drawer(props) {
                                   <div className="pl-7 text-sm">
                                     <label
                                       htmlFor="privacy_private-to-project"
-                                      className="font-medium text-gray-900"
+                                      className="text-gray-900"
                                     >
                                       Engineering
                                     </label>
@@ -406,7 +408,7 @@ export default function Drawer(props) {
                                   <div className="pl-7 text-sm">
                                     <label
                                       htmlFor="privacy_private-to-project"
-                                      className="font-medium text-gray-900"
+                                      className="text-gray-900"
                                     >
                                       Human resources
                                     </label>
@@ -430,7 +432,7 @@ export default function Drawer(props) {
                                   <div className="pl-7 text-sm">
                                     <label
                                       htmlFor="privacy_private-to-project"
-                                      className="font-medium text-gray-900"
+                                      className="text-gray-900"
                                     >
                                       Marketing
                                     </label>
@@ -454,7 +456,7 @@ export default function Drawer(props) {
                                   <div className="pl-7 text-sm">
                                     <label
                                       htmlFor="privacy_private-to-project"
-                                      className="font-medium text-gray-900"
+                                      className="text-gray-900"
                                     >
                                       Product management
                                     </label>
@@ -478,7 +480,7 @@ export default function Drawer(props) {
                                   <div className="pl-7 text-sm">
                                     <label
                                       htmlFor="privacy_private-to-project"
-                                      className="font-medium text-gray-900"
+                                      className="text-gray-900"
                                     >
                                       Sales
                                     </label>
@@ -502,7 +504,7 @@ export default function Drawer(props) {
                                   <div className="pl-7 text-sm">
                                     <label
                                       htmlFor="privacy_private-to-project"
-                                      className="font-medium text-gray-900"
+                                      className="text-gray-900"
                                     >
                                       Support
                                     </label>
