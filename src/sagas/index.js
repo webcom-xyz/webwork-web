@@ -7,10 +7,13 @@ import {
   SIGN_UP,
   UPDATE_CURRENT_USER_AVATAR,
   SIGN_OUT,
-  CREATE_NEW_WORKSPACE,
-  GET_ALL_WORKSPACES,
-  SET_WORKSPACE,
-  UPDATE_CURRENT_USER
+  UPDATE_CURRENT_USER,
+  CREATE_NEW_SCORECARD_FROM_TEMPLATE,
+  GET_ALL_SCORECARDS,
+  CREATE_NEW_OBJECTIVE,
+  GET_ALL_OBJECTIVES,
+  CREATE_NEW_SCORECARD,
+  CREATE_NEW_PERSPECTIVE,
 } from "../constants/types";
 import {
   handleSignUp,
@@ -22,12 +25,18 @@ import {
   handleGetCurrentUser,
   handleSetCurrentUser,
   handleUpdateCurrentUserAvatar,
-  handleUpdateCurrentUser
+  handleUpdateCurrentUser,
 } from "../handlers/user";
 import {
-  handleCreateNewWorkspace,
-  handleGetAllWorkspaces,
-} from "../handlers/workspace";
+  handleCreateNewScorecard,
+  handleCreateNewScorecardFromTemplate,
+  handleGetAllScorecards,
+} from "../handlers/scorecard";
+import { handleCreateNewPerspective } from "../handlers/perspective";
+import {
+  handleCreateNewObjective,
+  handleGetAllObjectves,
+} from "../handlers/objective";
 
 export function* watcherSaga() {
   // Authentication
@@ -40,9 +49,20 @@ export function* watcherSaga() {
   yield takeLatest(GET_CURRENT_USER, handleGetCurrentUser);
   yield takeLatest(SET_CURRENT_USER, handleSetCurrentUser);
   yield takeLatest(UPDATE_CURRENT_USER_AVATAR, handleUpdateCurrentUserAvatar);
-  yield takeLatest(UPDATE_CURRENT_USER, handleUpdateCurrentUser)
+  yield takeLatest(UPDATE_CURRENT_USER, handleUpdateCurrentUser);
 
-  // Workspace
-  yield takeLatest(CREATE_NEW_WORKSPACE, handleCreateNewWorkspace);
-  yield takeLatest(GET_ALL_WORKSPACES, handleGetAllWorkspaces);
+  // Scorecard
+  yield takeLatest(CREATE_NEW_SCORECARD, handleCreateNewScorecard);
+  yield takeLatest(
+    CREATE_NEW_SCORECARD_FROM_TEMPLATE,
+    handleCreateNewScorecardFromTemplate
+  );
+  yield takeLatest(GET_ALL_SCORECARDS, handleGetAllScorecards);
+
+  // Perspective
+  yield takeLatest(CREATE_NEW_PERSPECTIVE, handleCreateNewPerspective);
+
+  // Objective
+  yield takeLatest(CREATE_NEW_OBJECTIVE, handleCreateNewObjective);
+  yield takeLatest(GET_ALL_OBJECTIVES, handleGetAllObjectves);
 }

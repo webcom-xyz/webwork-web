@@ -17,7 +17,7 @@ export function* handleSignIn(action) {
         const { data } = yield call(requestSignIn, action.payload);
         yield put(setToken(data));
         const { history } = action.payload;
-        history.push("/dashboard/home");
+        history.push("/scorecard/dashboard");
     } catch (error) {
         console.log(error);
     }

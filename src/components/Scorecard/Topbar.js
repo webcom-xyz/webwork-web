@@ -7,6 +7,7 @@ import { useHistory, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getCurrentUser } from "../../actions/user";
 import { signOut } from "../../actions/auth";
+import handleLink from "../../utils/handleLink";
 
 export default function Topbar(props) {
   const currentUser = useSelector((state) => state.user.currentUser);
@@ -34,7 +35,7 @@ export default function Topbar(props) {
 
   return (
     <div
-      className={`relative z-10 flex-shrink-0 flex h-16 bg-white border-b border-gray-200 lg:border-none ${props.shadow}`}
+      className={`relative z-10 flex-shrink-0 flex h-16 bg-white border-b border-gray-200 ${props.shadow}`}
     >
       <button
         className="px-4 border-r border-gray-200 text-gray-400 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-cyan-500 lg:hidden"
@@ -129,13 +130,13 @@ export default function Topbar(props) {
                     <Menu.Item>
                       {({ active }) => (
                         <a
-                          href="#"
+                          onClick={(e) => handleLink(e, "/account", history)}
                           className={classNames(
                             active ? "bg-gray-100" : "",
-                            "block px-4 py-2 text-sm text-gray-700"
+                            "block px-4 py-2 text-sm text-gray-700 cursor-pointer"
                           )}
                         >
-                          Your Profile
+                          Profile & Account
                         </a>
                       )}
                     </Menu.Item>

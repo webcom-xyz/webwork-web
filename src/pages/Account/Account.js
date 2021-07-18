@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
-import Sidebar from "../../components/Dashboard/Sidebar";
-import Topbar from "../../components/Dashboard/Topbar";
+import Sidebar from "../../components/Scorecard/Sidebar";
+import Topbar from "../../components/Scorecard/Topbar";
 import { useSelector, useDispatch } from "react-redux";
 import {
   getCurrentUser,

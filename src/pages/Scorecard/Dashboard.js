@@ -14,20 +14,21 @@ import {
   SearchIcon,
   XCircleIcon,
 } from "@heroicons/react/solid";
-import Sidebar from "../../components/Dashboard/Sidebar";
-import Topbar from "../../components/Dashboard/Topbar";
-import Drawer from "../../components/Dashboard/Drawer";
+import Sidebar from "../../components/Scorecard/Sidebar";
+import Topbar from "../../components/Scorecard/Topbar";
+import Drawer from "../../components/Scorecard/CreateNewScorecardDrawer";
 import classNames from "../../utils/classNames";
 import { useHistory, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getCurrentUser, getCurrentUserAvatar } from "../../actions/user";
-import { getAllWorkspaces } from "../../actions/workspace";
+import { getAllScorecards } from "../../actions/scorecard";
 import logo from "../../assets/logo_blue_bg.svg";
+import logo4 from "../../assets/logo_4.svg";
 import moment from "moment";
 
 const cards = [
   {
-    name: "Productivity",
+    name: "Hiệu suất",
     href: "#",
     icon: PresentationChartLineIcon,
     amount: "_",
@@ -47,8 +48,11 @@ export default function Dashboard(props) {
   const [slideoverOpen, setSlideoverOpen] = useState(false);
 
   const currentUser = useSelector((state) => state.user.currentUser);
-  const workspaces = useSelector((state) => state.workspace);
-  console.log(workspaces);
+  const scorecards = useSelector((state) => state.scorecard);
+
+  const [createFromTemplate, setCreateFromTemplate] = useState(false);
+  const [drawerTitle, setDrawerTitle] = useState("");
+
   const dispatch = useDispatch();
   const location = useLocation();
   const history = useHistory();
@@ -57,10 +61,22 @@ export default function Dashboard(props) {
     setSlideoverOpen(true);
   };
 
+  const handleCreateNewScorecard = () => {
+    setDrawerTitle("Thẻ điểm mới"); 
+    setCreateFromTemplate(false); 
+    setSlideoverOpen(true);
+  }
+
+  const handleCreateNewScorecardFromTemplate = () => {
+    setDrawerTitle("Thẻ điểm mới theo mẫu"); 
+    setCreateFromTemplate(true); 
+    setSlideoverOpen(true);
+  }
+
   useEffect(() => {
     try {
       dispatch(getCurrentUser());
-      dispatch(getAllWorkspaces());
+      dispatch(getAllScorecards());
     } catch (error) {
       console.log(error);
     }
@@ -76,6 +92,8 @@ export default function Dashboard(props) {
       <Drawer
         slideoverOpen={slideoverOpen}
         setSlideoverOpen={setSlideoverOpen}
+        title={drawerTitle}
+        createFromTemplate={createFromTemplate}
       />
       <div className="flex-1 overflow-auto focus:outline-none">
         <Topbar setSidebarOpen={setSidebarOpen} />
@@ -155,16 +173,17 @@ export default function Dashboard(props) {
                 <div className="mt-6 flex space-x-3 md:mt-0 md:ml-4">
                   <button
                     type="button"
-                    onClick={triggerNewWorkspaceSlideover}
+                    onClick={handleCreateNewScorecard}
                     className="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                   >
-                    New workspace
+                    Thẻ điểm mới
                   </button>
                   <button
                     type="button"
+                    onClick={handleCreateNewScorecardFromTemplate}
                     className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                   >
-                    Advanced workspace
+                    Thẻ điểm theo mẫu
                   </button>
                 </div>
               </div>
@@ -174,7 +193,7 @@ export default function Dashboard(props) {
           <div className="mt-8">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
               <h2 className="text-lg leading-6 font-medium text-gray-900">
-                Overview
+                Tổng quan
               </h2>
               <div className="mt-2 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
                 {/* Card */}
@@ -185,9 +204,9 @@ export default function Dashboard(props) {
                   >
                     <div className="p-5">
                       <div className="flex items-center">
-                        <div className="flex-shrink-0">
+                        <div className="flex-shrink-0 bg-blue-500 rounded-md p-3">
                           <card.icon
-                            className="h-6 w-6 text-gray-400"
+                            className="h-6 w-6 text-white"
                             aria-hidden="true"
                           />
                         </div>
@@ -211,7 +230,7 @@ export default function Dashboard(props) {
                           href={card.href}
                           className="font-medium text-blue-700 hover:text-blue-900"
                         >
-                          View all
+                          Xem tất cả
                         </a>
                       </div>
                     </div>
@@ -221,15 +240,15 @@ export default function Dashboard(props) {
             </div>
 
             <h2 className="max-w-6xl mx-auto mt-8 px-4 text-lg leading-6 font-medium text-gray-900 sm:px-6 lg:px-8">
-              Workspaces
+              Thẻ điểm
             </h2>
 
             {/* Activity list (smallest breakpoint only) */}
             <div className="shadow sm:hidden">
               <ul className="mt-2 divide-y divide-gray-200 overflow-hidden shadow sm:hidden">
-                {workspaces.workspace ? (
-                  workspaces.workspace.response.data.map((workspace) => (
-                    <li key={workspace._id}>
+                {scorecards.scorecard ? (
+                  scorecards.scorecard.response.data.map((scorecard) => (
+                    <li key={scorecard._id}>
                       <a
                         href="#"
                         className="block px-4 py-4 bg-white hover:bg-gray-50"
@@ -247,15 +266,15 @@ export default function Dashboard(props) {
                             />
                             <span className="flex flex-col text-gray-500 text-sm truncate">
                               <span className="truncate font-medium">
-                                {workspace.name}
+                                {scorecard.name}
                               </span>
                               <span>
                                 <span className="text-gray-500">
-                                  {workspace.department} | {workspace.team}
+                                  {scorecard.type}
                                 </span>
                               </span>
-                              <time dateTime={workspace.createDate}>
-                                {moment(workspace.createDate).format(
+                              <time dateTime={scorecard.createDate}>
+                                {moment(scorecard.createDate).format(
                                   "DD/MM/YYYY"
                                 )}
                               </time>
@@ -333,31 +352,31 @@ export default function Dashboard(props) {
                             scope="col"
                             className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                           >
-                            Name
+                            Tên thẻ điểm
                           </th>
                           <th
                             scope="col"
                             className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                           >
-                            Type
+                            Loại thẻ điểm
                           </th>
                           <th
                             scope="col"
                             className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                           >
-                            Overall
+                            Tổng quan
                           </th>
                           <th
                             scope="col"
                             className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                           >
-                            Security
+                            Mục tiêu
                           </th>
                           <th
                             scope="col"
                             className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                           >
-                            Created
+                            Ngày tạo
                           </th>
                           <th scope="col" className="relative px-6 py-3">
                             <span className="sr-only">Open</span>
@@ -365,35 +384,35 @@ export default function Dashboard(props) {
                         </tr>
                       </thead>
                       <tbody className="bg-white divide-y divide-gray-200">
-                        {workspaces.workspace ? (
-                          workspaces.workspace?.response.data.map(
-                            (workspace) => (
-                              <tr key={workspace._id}>
+                        {scorecards.scorecard ? (
+                          scorecards.scorecard?.response.data.map(
+                            (scorecard) => (
+                              <tr key={scorecard._id}>
                                 <td className="px-6 py-4 whitespace-nowrap">
                                   <div className="flex items-center">
                                     <div className="flex-shrink-0 h-10 w-10">
                                       <img
                                         className="h-10 w-10 rounded"
-                                        src={logo}
+                                        src={logo4}
                                         alt="worrkspace_avatar"
                                       />
                                     </div>
                                     <div className="ml-4">
                                       <div className="text-sm font-medium text-gray-500">
-                                        {workspace.name}
+                                        {scorecard.name}
                                       </div>
                                       <div className="text-sm text-gray-500">
-                                        N/A employees
+                                        4 khía cạnh
                                       </div>
                                     </div>
                                   </div>
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
                                   <div className="text-sm text-gray-900">
-                                    {workspace.department}
+                                    {scorecard.type}
                                   </div>
                                   <div className="text-sm text-gray-500">
-                                    {workspace.team}
+                                    {scorecard.team}
                                   </div>
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
@@ -404,19 +423,20 @@ export default function Dashboard(props) {
                                   </span>
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                  Private
+                                  N/A
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                  {moment(workspace.createDate).format(
+                                  {moment(scorecard.createDate).format(
                                     "DD/MM/YYYY"
                                   )}
                                 </td>
+
                                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                   <a
                                     href="#"
                                     className="text-blue-600 hover:text-blue-900"
                                   >
-                                    Settings
+                                    Cài đặt
                                   </a>
                                 </td>
                               </tr>
@@ -496,15 +516,15 @@ export default function Dashboard(props) {
                         <p className="text-sm text-gray-700">
                           Showing{" "}
                           <span className="font-medium">
-                            {workspaces.workspace?.response.data.length}
+                            {scorecards.scorecard?.response.data.length}
                           </span>{" "}
                           to{" "}
                           <span className="font-medium">
-                            {workspaces.workspace?.response.data.length}
+                            {scorecards.scorecard?.response.data.length}
                           </span>{" "}
                           of{" "}
                           <span className="font-medium">
-                            {workspaces.workspace?.response.data.length}
+                            {scorecards.scorecard?.response.data.length}
                           </span>{" "}
                           results
                         </p>

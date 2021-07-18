@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Sidebar from "../../components/Dashboard/Sidebar";
-import Topbar from "../../components/Dashboard/Topbar";
+import Sidebar from "../../components/Scorecard/Sidebar";
+import Topbar from "../../components/Scorecard/Topbar";
 
 export default function Billing() {
   

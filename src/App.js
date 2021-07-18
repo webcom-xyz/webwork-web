@@ -4,17 +4,20 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import SignIn from "./pages/Public/SignIn";
 import SignUp from "./pages/Public/SignUp";
-import Landing from "./pages/Public/Landing";
-import Dashboard from "./pages/Dashboard/Dashboard";
-import Employees from "./pages/Dashboard/Employees";
-import Activities from "./pages/Dashboard/Activities";
-import Projects from "./pages/Dashboard/Projects";
-import Reports from "./pages/Dashboard/Reports";
-import Billing from "./pages/Dashboard/Billing";
-import Account from "./pages/Account/Account";
 
-import PrivateRoute from "./components/Dashboard/PrivateRoute";
-import Test from "./pages/Public/Test";
+import Landing from "./pages/Public/Landing";
+
+import Dashboard from "./pages/Scorecard/Dashboard";
+import Employees from "./pages/Scorecard/Employees";
+import Reports from "./pages/Scorecard/Reports";
+import Billing from "./pages/Scorecard/Billing";
+import Account from "./pages/Account/Account";
+import Employee from "./pages/Employee/Home";
+import Scorecard from "./pages/Scorecard/Scorecard";
+import Perspective from "./pages/Scorecard/Perspective";
+
+import PrivateRoute from "./components/Scorecard/PrivateRoute";
+import Home from "./pages/Manager/Home";
 
 function App() {
   return (
@@ -25,18 +28,20 @@ function App() {
           <Route exact path="/" component={Landing} />
           <Route path="/sign-in" component={SignIn} />
           <Route path="/sign-up" component={SignUp} />
-          <Route path="/test" component={Test} />
 
           {/* Dashboard routes */}
-          <PrivateRoute path="/dashboard/home" component={Dashboard} />
-          <PrivateRoute path="/dashboard/employees" component={Employees} />
-          <PrivateRoute path="/dashboard/activities" component={Activities} />
-          <PrivateRoute path="/dashboard/projects" component={Projects} />
-          <PrivateRoute path="/dashboard/reports" component={Reports} />
+          <PrivateRoute path="/scorecard/dashboard" component={Dashboard} />
+          <PrivateRoute path="/scorecard/employees" component={Employees} />
+          <PrivateRoute path="/scorecard/reports" component={Reports} />
+          <PrivateRoute exact path="/scorecard/:scorecardId" component={Scorecard} />
+          <PrivateRoute exact path="/scorecard/:scorecardId/perspective/:perspectiveId" component={Perspective} />
 
           {/* Account routes */}
           <PrivateRoute exact path="/account" component={Account} />
           <PrivateRoute path="/account/plan-billing" component={Billing} />
+
+          <PrivateRoute path="/manager" component={Home} />
+          <PrivateRoute path="/employee/home" component={Employee} />
         </Switch>
       </div>
     </Router>

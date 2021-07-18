@@ -10,6 +10,7 @@ import {
 } from "@heroicons/react/outline";
 import logo from "../../assets/logo_4.svg";
 import handleLink from "../../utils/handleLink";
+import Banner from "../../parts/shared/Banner";
 
 const navigation = [
   { name: "Product", href: "#" },
@@ -50,6 +51,12 @@ export default function Landing() {
 
   return (
     <>
+      <Banner
+        message={
+          "We're revamping our website! Some pages may not be accessible at this time."
+        }
+      />
+
       <div className="relative bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto">
           <div className="relative z-10 pb-8 bg-white sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32">
@@ -75,10 +82,7 @@ export default function Landing() {
                         <div className="flex items-center justify-between w-full md:w-auto">
                           <a href="#">
                             <span className="sr-only">Webwork</span>
-                            <img
-                              className="h-8 w-auto sm:h-10"
-                              src={logo}
-                            />
+                            <img className="h-8 w-auto sm:h-10" src={logo} />
                           </a>
                           <div className="-mr-2 flex items-center md:hidden">
                             <Popover.Button className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500">
@@ -130,11 +134,7 @@ export default function Landing() {
                       <div className="rounded-lg shadow-md bg-white ring-1 ring-black ring-opacity-5 overflow-hidden">
                         <div className="px-5 pt-4 flex items-center justify-between">
                           <div>
-                            <img
-                              className="h-8 w-auto"
-                              src={logo}
-                              alt=""
-                            />
+                            <img className="h-8 w-auto" src={logo} alt="" />
                           </div>
                           <div className="-mr-2">
                             <Popover.Button className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500">

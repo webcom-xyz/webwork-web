@@ -6,7 +6,10 @@ import {
   PlusIcon,
   QuestionMarkCircleIcon,
 } from "@heroicons/react/solid";
-import { createNewWorkspace } from "../../actions/workspace";
+import {
+  createNewScorecard,
+  createNewScorecardFromTemplate,
+} from "../../actions/scorecard";
 import { useDispatch } from "react-redux";
 
 const team = [
@@ -47,7 +50,7 @@ const team = [
   },
 ];
 
-export default function Drawer(props) {
+export default function CreateNewScorecardDrawer(props) {
   const workspaceName = useRef("");
   const workspaceTeam = useRef("");
   const workspaceDepartment = useRef("");
@@ -56,8 +59,7 @@ export default function Drawer(props) {
 
   const [workspaceData, setWorkspaceData] = useState({
     name: "",
-    team: "Remote",
-    department: "Design",
+    type: "",
   });
 
   const handleChange = (e) => {
@@ -68,8 +70,11 @@ export default function Drawer(props) {
     e.preventDefault();
 
     try {
-      dispatch(createNewWorkspace(workspaceData));
-      console.log(workspaceData);
+      if (props.createFromTemplate) {
+        dispatch(createNewScorecardFromTemplate(workspaceData));
+      } else {
+        dispatch(createNewScorecard(workspaceData));
+      }
     } catch (error) {
       console.log(error);
     }
@@ -106,7 +111,7 @@ export default function Drawer(props) {
                     <div className="py-6 px-4 bg-blue-700 sm:px-6">
                       <div className="flex items-center justify-between">
                         <Dialog.Title className="text-lg font-medium text-white">
-                          New workspace
+                          {props.title}
                         </Dialog.Title>
                         <div className="ml-3 h-7 flex items-center">
                           <button
@@ -121,8 +126,8 @@ export default function Drawer(props) {
                       </div>
                       <div className="mt-1">
                         <p className="text-sm text-blue-300">
-                          Get started by filling in the information below to
-                          create your new workspace.
+                          Bắt đầu bằng cách điền những thông tin phù hợp vào để
+                          tạo mục tiêu mới.
                         </p>
                       </div>
                     </div>
@@ -134,25 +139,26 @@ export default function Drawer(props) {
                               htmlFor="project_name"
                               className="block text-sm font-medium text-gray-900"
                             >
-                              Workspace name
+                              Tên thẻ điểm
                             </label>
                             <div className="mt-1">
                               <input
                                 type="text"
                                 name="name"
-                                id="project_name"
+                                id="name"
+                                placeholder="..."
                                 className="block w-full shadow-sm sm:text-sm focus:ring-blue-500 focus:border-blue-500 border-gray-300 rounded-md"
                                 ref={workspaceName}
                                 onChange={handleChange}
                               />
                             </div>
                           </div>
-                          {/* <div>
+                          <div>
                             <label
                               htmlFor="description"
                               className="block text-sm font-medium text-gray-900"
                             >
-                              Description
+                              Mô tả
                             </label>
                             <div className="mt-1">
                               <textarea
@@ -160,13 +166,13 @@ export default function Drawer(props) {
                                 name="description"
                                 rows={4}
                                 className="block w-full shadow-sm sm:text-sm focus:ring-blue-500 focus:border-blue-500 border border-gray-300 rounded-md"
-                                defaultValue={""}
+                                placeholder="..."
                               />
                             </div>
-                          </div> */}
+                          </div>
                           <div>
                             <h3 className="text-sm font-medium text-gray-900">
-                              Employees
+                              Nhân viên
                             </h3>
                             <div className="mt-2">
                               <div className="flex space-x-2">
@@ -198,12 +204,12 @@ export default function Drawer(props) {
                               </div>
                             </div>
                           </div>
-                          <fieldset>
+                          {/* <fieldset>
                             <legend className="text-sm font-medium text-gray-900">
                               Security
                             </legend>
-                            <div className="mt-2 space-y-5">
-                              <div className="relative flex items-start">
+                            <div className="mt-2 space-y-5"> */}
+                          {/* <div className="relative flex items-start">
                                 <div className="absolute flex items-center h-5">
                                   <input
                                     id="privacy_public"
@@ -229,8 +235,8 @@ export default function Drawer(props) {
                                     workspace.
                                   </p>
                                 </div>
-                              </div>
-                              <div>
+                              </div> */}
+                          {/* <div>
                                 <div className="relative flex items-start">
                                   <div className="absolute flex items-center h-5">
                                     <input
@@ -239,6 +245,7 @@ export default function Drawer(props) {
                                       aria-describedby="privacy_private-to-project_description"
                                       type="radio"
                                       className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300"
+                                      defaultChecked
                                     />
                                   </div>
                                   <div className="pl-7 text-sm">
@@ -252,16 +259,16 @@ export default function Drawer(props) {
                                       id="privacy_private-to-project_description"
                                       className="text-gray-500"
                                     >
-                                      Only employees in this workspace would be
-                                      able to access.
+                                      Only employees in this scorecard would be
+                                      able to view and update.
                                     </p>
                                   </div>
                                 </div>
                               </div>
                             </div>
-                          </fieldset>
+                          </fieldset> */}
 
-                          <fieldset>
+                          {/* <fieldset>
                             <legend className="text-sm font-medium text-gray-900">
                               Team
                             </legend>
@@ -337,22 +344,22 @@ export default function Drawer(props) {
                                 </div>
                               </div>
                             </div>
-                          </fieldset>
+                          </fieldset> */}
 
                           <fieldset>
                             <legend className="text-sm font-medium text-gray-900">
-                              Department
+                              Loại
                             </legend>
                             <div className="mt-2 space-y-5">
                               <div className="relative flex items-start">
                                 <div className="absolute flex items-center h-5">
                                   <input
-                                    id=""
-                                    name="department"
+                                    id="type"
+                                    name="type"
                                     aria-describedby="privacy_public_description"
                                     type="radio"
                                     className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300"
-                                    value="Design"
+                                    value="Company"
                                     ref={workspaceDepartment}
                                     onChange={handleChange}
                                     defaultChecked
@@ -363,7 +370,29 @@ export default function Drawer(props) {
                                     htmlFor="privacy_public"
                                     className="text-gray-900"
                                   >
-                                    Design
+                                    Công ty
+                                  </label>
+                                </div>
+                              </div>
+                              <div className="relative flex items-start">
+                                <div className="absolute flex items-center h-5">
+                                  <input
+                                    id="type"
+                                    name="type"
+                                    aria-describedby="privacy_public_description"
+                                    type="radio"
+                                    className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300"
+                                    value="Produce"
+                                    ref={workspaceDepartment}
+                                    onChange={handleChange}
+                                  />
+                                </div>
+                                <div className="pl-7 text-sm">
+                                  <label
+                                    htmlFor="privacy_public"
+                                    className="text-gray-900"
+                                  >
+                                    Sản xuất
                                   </label>
                                 </div>
                               </div>
@@ -371,12 +400,12 @@ export default function Drawer(props) {
                                 <div className="relative flex items-start">
                                   <div className="absolute flex items-center h-5">
                                     <input
-                                      id=""
-                                      name="department"
+                                      id="type"
+                                      name="type"
                                       aria-describedby="privacy_private-to-project_description"
                                       type="radio"
                                       className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300"
-                                      value="Engineering"
+                                      value="R&D"
                                       ref={workspaceDepartment}
                                       onChange={handleChange}
                                     />
@@ -386,7 +415,7 @@ export default function Drawer(props) {
                                       htmlFor="privacy_private-to-project"
                                       className="text-gray-900"
                                     >
-                                      Engineering
+                                      Nghiên cứu & Phát triển
                                     </label>
                                   </div>
                                 </div>
@@ -395,12 +424,12 @@ export default function Drawer(props) {
                                 <div className="relative flex items-start">
                                   <div className="absolute flex items-center h-5">
                                     <input
-                                      id=""
-                                      name="department"
+                                      id="type"
+                                      name="type"
                                       aria-describedby="privacy_private-to-project_description"
                                       type="radio"
                                       className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300"
-                                      value="Human resources"
+                                      value="Mua hàng"
                                       ref={workspaceDepartment}
                                       onChange={handleChange}
                                     />
@@ -410,7 +439,7 @@ export default function Drawer(props) {
                                       htmlFor="privacy_private-to-project"
                                       className="text-gray-900"
                                     >
-                                      Human resources
+                                      Mua hàng
                                     </label>
                                   </div>
                                 </div>
@@ -419,12 +448,12 @@ export default function Drawer(props) {
                                 <div className="relative flex items-start">
                                   <div className="absolute flex items-center h-5">
                                     <input
-                                      id=""
-                                      name="department"
+                                      id="type"
+                                      name="type"
                                       aria-describedby="privacy_private-to-project_description"
                                       type="radio"
                                       className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300"
-                                      value="Marketing"
+                                      value="Kỹ thuật"
                                       ref={workspaceDepartment}
                                       onChange={handleChange}
                                     />
@@ -434,7 +463,7 @@ export default function Drawer(props) {
                                       htmlFor="privacy_private-to-project"
                                       className="text-gray-900"
                                     >
-                                      Marketing
+                                      Kỹ thuật
                                     </label>
                                   </div>
                                 </div>
@@ -443,12 +472,12 @@ export default function Drawer(props) {
                                 <div className="relative flex items-start">
                                   <div className="absolute flex items-center h-5">
                                     <input
-                                      id=""
-                                      name="department"
+                                      id="type"
+                                      name="type"
                                       aria-describedby="privacy_private-to-project_description"
                                       type="radio"
                                       className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300"
-                                      value="Product management"
+                                      value="Kinh doanh"
                                       ref={workspaceDepartment}
                                       onChange={handleChange}
                                     />
@@ -458,7 +487,7 @@ export default function Drawer(props) {
                                       htmlFor="privacy_private-to-project"
                                       className="text-gray-900"
                                     >
-                                      Product management
+                                      Kinh doanh
                                     </label>
                                   </div>
                                 </div>
@@ -467,12 +496,12 @@ export default function Drawer(props) {
                                 <div className="relative flex items-start">
                                   <div className="absolute flex items-center h-5">
                                     <input
-                                      id=""
-                                      name="department"
+                                      id="type"
+                                      name="type"
                                       aria-describedby="privacy_private-to-project_description"
                                       type="radio"
                                       className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300"
-                                      value="Sales"
+                                      value="Kho vận"
                                       ref={workspaceDepartment}
                                       onChange={handleChange}
                                     />
@@ -482,7 +511,7 @@ export default function Drawer(props) {
                                       htmlFor="privacy_private-to-project"
                                       className="text-gray-900"
                                     >
-                                      Sales
+                                      Kho vận
                                     </label>
                                   </div>
                                 </div>
@@ -491,12 +520,12 @@ export default function Drawer(props) {
                                 <div className="relative flex items-start">
                                   <div className="absolute flex items-center h-5">
                                     <input
-                                      id=""
-                                      name="department"
+                                      id="type"
+                                      name="type"
                                       aria-describedby="privacy_private-to-project_description"
                                       type="radio"
                                       className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300"
-                                      value="Support"
+                                      value="Kế toán"
                                       ref={workspaceDepartment}
                                       onChange={handleChange}
                                     />
@@ -506,7 +535,31 @@ export default function Drawer(props) {
                                       htmlFor="privacy_private-to-project"
                                       className="text-gray-900"
                                     >
-                                      Support
+                                      Kế toán
+                                    </label>
+                                  </div>
+                                </div>
+                              </div>
+                              <div>
+                                <div className="relative flex items-start">
+                                  <div className="absolute flex items-center h-5">
+                                    <input
+                                      id="type"
+                                      name="type"
+                                      aria-describedby="privacy_private-to-project_description"
+                                      type="radio"
+                                      className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300"
+                                      value="Kinh doanh"
+                                      ref={workspaceDepartment}
+                                      onChange={handleChange}
+                                    />
+                                  </div>
+                                  <div className="pl-7 text-sm">
+                                    <label
+                                      htmlFor="privacy_private-to-project"
+                                      className="text-gray-900"
+                                    >
+                                      Kinh doanh
                                     </label>
                                   </div>
                                 </div>
@@ -524,7 +577,7 @@ export default function Drawer(props) {
                                 className="h-5 w-5 text-blue-500 group-hover:text-blue-900"
                                 aria-hidden="true"
                               />
-                              <span className="ml-2">Copy ID</span>
+                              <span className="ml-2">Sao chép ID</span>
                             </a>
                           </div>
                           <div className="mt-4 flex text-sm">
@@ -537,7 +590,7 @@ export default function Drawer(props) {
                                 aria-hidden="true"
                               />
                               <span className="ml-2">
-                                Learn more about workspaces
+                                Tìm hiểu thêm về thẻ điểm
                               </span>
                             </a>
                           </div>
@@ -549,15 +602,15 @@ export default function Drawer(props) {
                     <button
                       type="button"
                       className="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                      onClick={() => props.setSlideoverOpenpen(false)}
+                      onClick={() => props.setSlideoverOpen(false)}
                     >
-                      Cancel
+                      Hủy
                     </button>
                     <button
                       type="submit"
                       className="ml-4 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                     >
-                      Create
+                      Tạo thẻ điểm
                     </button>
                   </div>
                 </form>
