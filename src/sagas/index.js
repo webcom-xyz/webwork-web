@@ -14,6 +14,7 @@ import {
   GET_ALL_OBJECTIVES,
   CREATE_NEW_SCORECARD,
   CREATE_NEW_PERSPECTIVE,
+  DELETE_SCORECARD,
 } from "../constants/types";
 import {
   handleSignUp,
@@ -30,6 +31,7 @@ import {
 import {
   handleCreateNewScorecard,
   handleCreateNewScorecardFromTemplate,
+  handleDeleteScorecard,
   handleGetAllScorecards,
 } from "../handlers/scorecard";
 import { handleCreateNewPerspective } from "../handlers/perspective";
@@ -57,6 +59,7 @@ export function* watcherSaga() {
     CREATE_NEW_SCORECARD_FROM_TEMPLATE,
     handleCreateNewScorecardFromTemplate
   );
+  yield takeLatest(DELETE_SCORECARD, handleDeleteScorecard);
   yield takeLatest(GET_ALL_SCORECARDS, handleGetAllScorecards);
 
   // Perspective

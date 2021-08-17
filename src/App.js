@@ -18,6 +18,8 @@ import Perspective from "./pages/Scorecard/Perspective";
 
 import PrivateRoute from "./components/Scorecard/PrivateRoute";
 import Home from "./pages/Manager/Home";
+import ScorecardSettings from "./pages/Scorecard/ScorecardSettings";
+import Objective from "./pages/Scorecard/Objective";
 
 function App() {
   return (
@@ -33,8 +35,27 @@ function App() {
           <PrivateRoute path="/scorecard/dashboard" component={Dashboard} />
           <PrivateRoute path="/scorecard/employees" component={Employees} />
           <PrivateRoute path="/scorecard/reports" component={Reports} />
-          <PrivateRoute exact path="/scorecard/:scorecardId" component={Scorecard} />
-          <PrivateRoute exact path="/scorecard/:scorecardId/perspective/:perspectiveId" component={Perspective} />
+
+          <PrivateRoute
+            exact
+            path="/scorecard/:scorecardId"
+            component={Scorecard}
+          />
+          <PrivateRoute
+            exact
+            path="/scorecard/:scorecardId/settings"
+            component={ScorecardSettings}
+          />
+          <PrivateRoute
+            exact
+            path="/scorecard/:scorecardId/perspective/:perspectiveId"
+            component={Perspective}
+          />
+          <PrivateRoute
+            exact
+            path="/scorecard/:scorecardId/perspective/:perspectiveId/objective/:objectiveId"
+            component={Objective}
+          />
 
           {/* Account routes */}
           <PrivateRoute exact path="/account" component={Account} />

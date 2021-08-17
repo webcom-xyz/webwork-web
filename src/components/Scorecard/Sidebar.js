@@ -14,6 +14,8 @@ import {
   ChartPieIcon,
   UserCircleIcon,
   CollectionIcon,
+  DocumentReportIcon,
+  TicketIcon,
 } from "@heroicons/react/outline";
 import { useHistory, useParams } from "react-router-dom";
 import classNames from "../../utils/classNames";
@@ -31,38 +33,43 @@ export default function Sidebar(props) {
 
   const navigation = [
     {
-      name: "Dashboard",
+      name: "Bảng điều khiển",
       href: "#",
       icon: HomeIcon,
       current: props.homeActive,
       page: "/scorecard/dashboard",
     },
     {
-      name: "Employees",
+      name: "Nhân viên",
       href: "#",
       icon: UserGroupIcon,
       current: props.employeesActive,
       page: "/scorecard/employees",
     },
     {
-      name: "Reports",
+      name: "Báo cáo",
       href: "#",
-      icon: ChartPieIcon,
+      icon: DocumentReportIcon,
       current: props.reportsActive,
       page: "/scorecard/reports",
+    },
+    {
+      name: "Quy trình",
+      href: "#",
+      icon: CollectionIcon,
     },
   ];
 
   const secondaryNavigation = [
     {
-      name: "Plan & Billing",
+      name: "Thanh toán",
       href: "#",
       icon: CreditCardIcon,
       current: props.billingActive,
       page: "/account/plan-billing",
     },
-    { name: "Support", href: "#", icon: SupportIcon },
-    { name: "Privacy", href: "#", icon: ShieldCheckIcon },
+    { name: "Hỗ trợ", href: "#", icon: SupportIcon },
+    { name: "Bảo mật", href: "#", icon: ShieldCheckIcon },
   ];
 
   useEffect(() => {
@@ -176,7 +183,7 @@ export default function Sidebar(props) {
                                   "group w-full flex items-center px-2 py-2 text-left text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 )}
                               >
-                                <CollectionIcon
+                                <ChartPieIcon
                                   className="mr-3 flex-shrink-0 h-6 w-6 text-blue-200"
                                   aria-hidden="true"
                                 />
@@ -467,7 +474,7 @@ export default function Sidebar(props) {
                                 "group w-full flex items-center pl-2 pr-1 py-2 text-left text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                               )}
                             >
-                              <CollectionIcon
+                              <ChartPieIcon
                                 className="mr-3 flex-shrink-0 h-6 w-6 text-blue-200"
                                 aria-hidden="true"
                               />

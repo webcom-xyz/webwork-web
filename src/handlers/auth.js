@@ -1,6 +1,6 @@
 import { call, put } from "redux-saga/effects";
 import { setToken } from "../actions/auth";
-import { requestSignUp, requestSignIn, requestSignInWithGoogle  } from "../requests/auth";
+import { requestSignUp, requestSignIn, requestSignInWithGoogle } from "../requests/auth";
 
 export function* handleSignUp(action) {
     try {

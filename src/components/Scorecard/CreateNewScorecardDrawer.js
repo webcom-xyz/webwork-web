@@ -346,9 +346,10 @@ export default function CreateNewScorecardDrawer(props) {
                             </div>
                           </fieldset> */}
 
-                          <fieldset>
+{props.createFromTemplate && (
+  <fieldset>
                             <legend className="text-sm font-medium text-gray-900">
-                              Loại
+                              Bộ phận
                             </legend>
                             <div className="mt-2 space-y-5">
                               <div className="relative flex items-start">
@@ -566,6 +567,8 @@ export default function CreateNewScorecardDrawer(props) {
                               </div>
                             </div>
                           </fieldset>
+)}
+                          
                         </div>
                         <div className="pt-4 pb-6">
                           <div className="flex text-sm">

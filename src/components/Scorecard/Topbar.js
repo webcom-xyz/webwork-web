@@ -35,7 +35,7 @@ export default function Topbar(props) {
 
   return (
     <div
-      className={`relative z-10 flex-shrink-0 flex h-16 bg-white border-b border-gray-200 ${props.shadow}`}
+      className={`relative z-10 flex-shrink-0 flex h-16 bg-white border-b border-gray-100 ${props.shadow}`}
     >
       <button
         className="px-4 border-r border-gray-200 text-gray-400 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-cyan-500 lg:hidden"
@@ -49,7 +49,7 @@ export default function Topbar(props) {
         <div className="flex-1 flex">
           <form className="w-full flex md:ml-0" action="#" method="GET">
             <label htmlFor="search_field" className="sr-only">
-              Search
+              Tìm kiếm
             </label>
             <div className="relative w-full text-gray-400 focus-within:text-gray-600">
               <div
@@ -62,7 +62,7 @@ export default function Topbar(props) {
                 id="search_field"
                 name="search_field"
                 className="block w-full h-full pl-8 pr-3 py-2 border-transparent text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-0 focus:border-transparent sm:text-sm"
-                placeholder="Search"
+                placeholder="Tìm kiếm"
                 type="search"
               />
             </div>
@@ -125,7 +125,7 @@ export default function Topbar(props) {
                 >
                   <Menu.Items
                     static
-                    className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+                    className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
                   >
                     <Menu.Item>
                       {({ active }) => (
@@ -136,7 +136,7 @@ export default function Topbar(props) {
                             "block px-4 py-2 text-sm text-gray-700 cursor-pointer"
                           )}
                         >
-                          Profile & Account
+                          Hồ sơ & Tài khoản
                         </a>
                       )}
                     </Menu.Item>
@@ -149,7 +149,7 @@ export default function Topbar(props) {
                             "block px-4 py-2 text-sm text-gray-700"
                           )}
                         >
-                          Settings
+                          Cài đặt
                         </a>
                       )}
                     </Menu.Item>
@@ -163,7 +163,7 @@ export default function Topbar(props) {
                             "block px-4 py-2 text-sm text-gray-700"
                           )}
                         >
-                          Logout
+                          Đăng xuất
                         </a>
                       )}
                     </Menu.Item>

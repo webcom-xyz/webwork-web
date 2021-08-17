@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { Fragment, useState, useEffect, useRef } from "react";
 import Sidebar from "../../components/Scorecard/Sidebar";
 import Topbar from "../../components/Scorecard/Topbar";
 import { useSelector, useDispatch } from "react-redux";
@@ -10,6 +10,17 @@ import {
 import FormData from "form-data";
 import { useHistory, useLocation } from "react-router-dom";
 import Alert from "../../parts/shared/Alert";
+import { Listbox, Transition } from "@headlessui/react";
+import { CheckIcon, SelectorIcon } from "@heroicons/react/solid";
+import classNames from "../../utils/classNames";
+
+const people = [
+  { id: 1, name: "Giám đốc vận hành" },
+  { id: 2, name: "Giám đốc tài chính" },
+  { id: 3, name: "Giám đốc công nghệ" },
+  { id: 4, name: "Giám đốc marketing" },
+  { id: 5, name: "Giám đốc nhân sự" },
+];
 
 export default function Account() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -21,6 +32,8 @@ export default function Account() {
   const [error, setError] = useState("");
   const firstName = useRef("");
   const lastName = useRef("");
+
+  const [selected, setSelected] = useState(people[0]);
 
   const [userData, setUserData] = useState({ firstName: "", lastName: "" });
   const [selectedFile, setSelectedFile] = useState(null);
@@ -82,7 +95,7 @@ export default function Account() {
       />
 
       <div className="flex-1 overflow-auto focus:outline-none">
-        <Topbar setSidebarOpen={setSidebarOpen} shadow={"shadow"} />
+        <Topbar setSidebarOpen={setSidebarOpen} />
 
         <main className="flex-1 relative pb-8 z-0 overflow-y-auto">
           {error && <Alert message={error} />}
@@ -94,7 +107,7 @@ export default function Account() {
                     <div className="bg-white py-6 px-4 space-y-6 sm:p-6">
                       <div>
                         <h3 className="text-lg leading-6 font-medium text-gray-900">
-                          Profile
+                          Hồ sơ
                         </h3>
                         <p className="mt-1 text-sm text-gray-500">
                           This information will be displayed publicly so be
@@ -104,14 +117,14 @@ export default function Account() {
 
                       <div className="grid grid-cols-3 gap-6">
                         <div className="col-span-3 sm:col-span-2">
-                          <label
+                          {/* <label
                             htmlFor="company_website"
                             className="block text-sm font-medium text-gray-700"
                           >
                             Name
-                          </label>
-                          <div className="mt-1 rounded-md shadow-sm flex">
-                            <span className="bg-gray-50 border border-r-0 border-gray-300 rounded-l-md px-3 inline-flex items-center text-gray-500 sm:text-sm">
+                          </label> */}
+                          <div className="">
+                            {/* <span className="bg-gray-50 border border-r-0 border-gray-300 rounded-l-md px-3 inline-flex items-center text-gray-500 sm:text-sm">
                               webwork.ai/
                             </span>
                             <input
@@ -120,6 +133,89 @@ export default function Account() {
                               id="username"
                               className="focus:ring-indigo-500 focus:border-indigo-500 flex-grow block w-full min-w-0 rounded-none rounded-r-md sm:text-sm border-gray-300"
                             />
+                          </div> */}
+
+                            <Listbox value={selected} onChange={setSelected}>
+                              {({ open }) => (
+                                <>
+                                  <Listbox.Label className="block text-sm font-medium text-gray-700">
+                                    Chức danh
+                                  </Listbox.Label>
+                                  <div className="mt-1 relative">
+                                    <Listbox.Button className="bg-white relative w-full border border-gray-300 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                      <span className="block truncate">
+                                        {selected.name}
+                                      </span>
+                                      <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                                        <SelectorIcon
+                                          className="h-5 w-5 text-gray-400"
+                                          aria-hidden="true"
+                                        />
+                                      </span>
+                                    </Listbox.Button>
+
+                                    <Transition
+                                      show={open}
+                                      as={Fragment}
+                                      leave="transition ease-in duration-100"
+                                      leaveFrom="opacity-100"
+                                      leaveTo="opacity-0"
+                                    >
+                                      <Listbox.Options
+                                        static
+                                        className="absolute z-10 mt-1 w-full bg-white shadow max-h-60 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm"
+                                      >
+                                        {people.map((person) => (
+                                          <Listbox.Option
+                                            key={person.id}
+                                            className={({ active }) =>
+                                              classNames(
+                                                active
+                                                  ? "text-white bg-indigo-600"
+                                                  : "text-gray-900",
+                                                "cursor-default select-none relative py-2 pl-3 pr-9"
+                                              )
+                                            }
+                                            value={person}
+                                          >
+                                            {({ selected, active }) => (
+                                              <>
+                                                <span
+                                                  className={classNames(
+                                                    selected
+                                                      ? "font-semibold"
+                                                      : "font-normal",
+                                                    "block truncate"
+                                                  )}
+                                                >
+                                                  {person.name}
+                                                </span>
+
+                                                {selected ? (
+                                                  <span
+                                                    className={classNames(
+                                                      active
+                                                        ? "text-white"
+                                                        : "text-indigo-600",
+                                                      "absolute inset-y-0 right-0 flex items-center pr-4"
+                                                    )}
+                                                  >
+                                                    <CheckIcon
+                                                      className="h-5 w-5"
+                                                      aria-hidden="true"
+                                                    />
+                                                  </span>
+                                                ) : null}
+                                              </>
+                                            )}
+                                          </Listbox.Option>
+                                        ))}
+                                      </Listbox.Options>
+                                    </Transition>
+                                  </div>
+                                </>
+                              )}
+                            </Listbox>
                           </div>
                         </div>
 
@@ -128,7 +224,7 @@ export default function Account() {
                             htmlFor="about"
                             className="block text-sm font-medium text-gray-700"
                           >
-                            About
+                            Giới thiệu
                           </label>
                           <div className="mt-1">
                             <textarea
@@ -152,13 +248,11 @@ export default function Account() {
                           </label>
                           <div className="mt-1 flex items-center">
                             <span className="inline-block bg-gray-100 rounded-full overflow-hidden h-12 w-12">
-                              <svg
-                                className="h-full w-full text-gray-300"
-                                fill="currentColor"
-                                viewBox="0 0 24 24"
-                              >
-                                <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
-                              </svg>
+                              <img
+                                className="h-12 w-12 rounded"
+                                src={`http://localhost:3000/${currentUser?.data.avatarUrl}`}
+                                alt="worrkspace_avatar"
+                              />
                             </span>
                             <input
                               type="file"
@@ -240,7 +334,7 @@ export default function Account() {
                     <div className="bg-white py-6 px-4 space-y-6 sm:p-6">
                       <div>
                         <h3 className="text-lg leading-6 font-medium text-gray-900">
-                          Personal Information
+                          Thông tin cá nhân
                         </h3>
                         <p className="mt-1 text-sm text-gray-500">
                           Use a permanent address where you can recieve mail.

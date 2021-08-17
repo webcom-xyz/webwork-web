@@ -4,6 +4,6 @@ export const requestCreateNewObjective = ({ objectiveData }) => {
   API.post("/objective", objectiveData);
 };
 
-export const requestGetAllObjectives = (perspectiveId) => {
-  return API.get("/objective", {data: {perspectiveId}});
+export const requestGetAllObjectives = ({ perspectiveId }) => {
+  return API.get(`/objective/${perspectiveId.perspectiveId}`);
 };

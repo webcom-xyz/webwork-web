@@ -12,13 +12,11 @@ import {
 } from "@heroicons/react/solid";
 import classNames from "../../utils/classNames";
 import Tabs from "../../components/Scorecard/Tabs";
-import { useLocation, useParams } from "react-router-dom";
+import { useHistory, useLocation, useParams } from "react-router-dom";
 import { Switch, Listbox, Transition } from "@headlessui/react";
 import { getAllObjectives } from "../../actions/objective";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Drawer from "../../components/Perspective/Drawer";
-import API from "../../api";
-import { getCurrentUser } from "../../actions/user";
 
 const cards = [
   {
@@ -150,14 +148,18 @@ export default function Perspective(props) {
   const [yearSelected, setYearSelected] = useState(years[0]);
   const [timePeriodSelected, setTimePeriodSelected] = useState("Monthly");
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const history = useHistory();
+  const objectives = useSelector((state) => state.objective);
 
   useEffect(() => {
     try {
-      // dispatch(getAllObjectives({ perspectiveId: perspectiveId }));
+      dispatch(getAllObjectives({ perspectiveId: perspectiveId }));
     } catch (error) {
       console.log(error);
     }
-  }, []);
+  }, [location]);
+
+  console.log(objectives?.objective);
 
   return (
     <div className="h-screen flex overflow-hidden bg-gray-100">
@@ -172,6 +174,24 @@ export default function Perspective(props) {
 
         <main className="flex-1 relative pb-8 z-0">
           <button onClick={() => setDrawerOpen(true)}>New Objective</button>
+
+          {objectives.objective ? (
+            objectives.objective.response.data.map((objective) => (
+              <li>
+                <button
+                  onClick={() =>
+                    history.push(
+                      `/scorecard/${scorecardId}/perspective/${perspectiveId}/objective/${objective._id}`
+                    )
+                  }
+                >
+                  {objective.name}
+                </button>
+              </li>
+            ))
+          ) : (
+            <></>
+          )}
         </main>
       </div>
     </div>

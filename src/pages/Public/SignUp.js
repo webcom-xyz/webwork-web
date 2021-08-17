@@ -5,6 +5,7 @@ import handleLink from "../../utils/handleLink";
 import { useDispatch } from "react-redux";
 import { signUp } from "../../actions/auth";
 import Alert from "../../parts/shared/Alert";
+import axios from "axios";
 
 // const authInitial = { firstName: "", lastName: "", email: "", password: "", confirmPassword: "" };
 
@@ -27,6 +28,17 @@ export default function SignUp() {
     password: "",
     confirmPassword: "",
   });
+
+  const handleSignUpWithGoogle = () => {
+    try {
+      axios
+        .get("http://localhost:3000/api/authentication/google/authorize")
+        .then((res) => console.log(res))
+        .catch((error) => console.log(error));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleChange = (e) => {
     setError("");
@@ -241,8 +253,8 @@ export default function SignUp() {
               <div className="mt-6 grid grid-cols-3 gap-3">
                 <div>
                   <a
-                    href="#"
-                    className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
+                    onClick={handleSignUpWithGoogle}
+                    className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 cursor-pointer"
                   >
                     <span className="sr-only">Sign in with Google</span>
                     <svg

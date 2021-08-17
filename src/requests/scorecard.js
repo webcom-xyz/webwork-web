@@ -11,3 +11,7 @@ export const requestCreateNewScorecardFromTemplate = (workspaceData) => {
 export const requestGetAllScorecards = () => {
   return API.get("/scorecard");
 };
+
+export const requestDeleteScorecard = ({ scorecardId }) => {
+  API.delete(`/scorecard/${scorecardId}`);
+};

@@ -29,13 +29,13 @@ import classNames from "../../utils/classNames";
 const navigation = [
   { name: "KPIs", href: "#", icon: HashtagIcon, current: true },
   { name: "OKRs", href: "#", icon: CheckCircleIcon, current: false },
-  { name: "Tasks", href: "#", icon: InboxIcon, current: false },
+  { name: "Nhiệm vụ", href: "#", icon: InboxIcon, current: false },
 ];
 const teams = [
-  { name: "New", href: "#", bgColorClass: "bg-blue-600" },
-  { name: "Updated", href: "#", bgColorClass: "bg-green-500" },
-  { name: "Almost due", href: "#", bgColorClass: "bg-yellow-500" },
-  { name: "Dued", href: "#", bgColorClass: "bg-red-500" },
+  { name: "Chưa cập nhật", href: "#", bgColorClass: "bg-blue-600" },
+  // { name: "Đạt mục tiêu", href: "#", bgColorClass: "bg-green-500" },
+  // { name: "", href: "#", bgColorClass: "bg-yellow-500" },
+  // { name: "Đã quá hạn", href: "#", bgColorClass: "bg-red-500" },
 ];
 
 export default function Sidebar(props) {
@@ -373,7 +373,7 @@ export default function Sidebar(props) {
                   className="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider"
                   id="teams-headline"
                 >
-                  Flags
+                  Nhóm
                 </h3>
                 <div
                   className="mt-1 space-y-1"

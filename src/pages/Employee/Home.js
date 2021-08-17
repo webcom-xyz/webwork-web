@@ -33,54 +33,186 @@ const people = [
 ];
 
 const projects = [
-  {
-    id: 1,
-    title: "Tỉ lệ người truy cập mới",
-    initials: "GA",
-    team: "Engineering",
-    objective: "Tăng doanh thu",
-    totalMembers: 12,
-    lastUpdated: "Not updated",
-    dueDate: "30/06/2021",
-    pinned: false,
-    bgColorClass: "bg-blue-600",
-  },
+  // {
+  //   id: 1,
+  //   title: "Tổng doanh thu",
+  //   initials: "GA",
+  //   team: "Engineering",
+  //   objective: "Tăng doanh thu",
+  //   totalMembers: 12,
+  //   lastUpdated: "Đã cập nhật",
+  //   dueDate: "30/06/2021",
+  //   pinned: false,
+  //   bgColorClass: "bg-blue-600",
+  // },
   {
     id: 2,
-    title: "Objectives",
+    title: "Doanh thu từ máy công nghiệp",
     initials: "N/A",
     team: "Engineering",
-    objective: "Tăng doanh thu",
+    objective: "Tăng tỉ suất lợi nhuận",
     totalMembers: 12,
-    lastUpdated: "Not updated",
+    lastUpdated: "Đã cập nhật",
     dueDate: "30/06/2021",
     pinned: true,
     bgColorClass: "bg-red-600",
   },
   {
     id: 3,
-    title: "Objectives",
+    title: "Doanh thu từ xuất khẩu",
     initials: "N/A",
     team: "Engineering",
     objective: "Tăng doanh thu",
     totalMembers: 12,
-    lastUpdated: "Not updated",
+    lastUpdated: "Đã cập nhật",
     dueDate: "30/06/2021",
     pinned: true,
     bgColorClass: "bg-green-600",
   },
   {
     id: 4,
-    title: "Objectives",
+    title: "Giá trị tồn kho bình quân trên doanh thu/tháng",
     initials: "N/A",
     team: "Engineering",
-    objective: "Tăng doanh thu",
+    objective: "Giảm chi phí mua hàng",
     totalMembers: 12,
-    lastUpdated: "Not updated",
+    lastUpdated: "Chưa cập nhật",
     dueDate: "30/06/2021",
     pinned: true,
     bgColorClass: "bg-blue-600",
   },
+  // {
+  //   id: 1,
+  //   title: "Tỷ lệ vị trí cán bộ quản lý đạt chuẩn tăng thêm",
+  //   initials: "GA",
+  //   team: "Engineering",
+  //   objective: "Tăng doanh thu",
+  //   totalMembers: 12,
+  //   lastUpdated: "Chưa cập nhật",
+  //   dueDate: "30/06/2021",
+  //   pinned: false,
+  //   bgColorClass: "bg-blue-600",
+  // },
+  // {
+  //   id: 1,
+  //   title: "Tỷ lệ nhân sự kế thừa đạt chuẩn",
+  //   initials: "GA",
+  //   team: "Engineering",
+  //   objective: "Tăng doanh thu",
+  //   totalMembers: 12,
+  //   lastUpdated: "Chưa cập nhật",
+  //   dueDate: "30/06/2021",
+  //   pinned: false,
+  //   bgColorClass: "bg-blue-600",
+  // },
+  // {
+  //   id: 1,
+  //   title: "Tỷ lệ công nhân được đào tạo nâng bậc",
+  //   initials: "GA",
+  //   team: "Engineering",
+  //   objective: "Tăng doanh thu",
+  //   totalMembers: 12,
+  //   lastUpdated: "Chưa cập nhật",
+  //   dueDate: "30/06/2021",
+  //   pinned: false,
+  //   bgColorClass: "bg-blue-600",
+  // },
+  // {
+  //   id: 1,
+  //   title: "Tỷ lệ công nhân được nâng bậc sau đào tạo",
+  //   initials: "GA",
+  //   team: "Engineering",
+  //   objective: "Tăng doanh thu",
+  //   totalMembers: 12,
+  //   lastUpdated: "Chưa cập nhật",
+  //   dueDate: "30/06/2021",
+  //   pinned: false,
+  //   bgColorClass: "bg-blue-600",
+  // },
+  // {
+  //   id: 1,
+  //   title: "Tỷ lệ kỹ sư R&D đáp ứng chuẩn năng lực",
+  //   initials: "GA",
+  //   team: "Engineering",
+  //   objective: "Tăng doanh thu",
+  //   totalMembers: 12,
+  //   lastUpdated: "Chưa cập nhật",
+  //   dueDate: "30/06/2021",
+  //   pinned: false,
+  //   bgColorClass: "bg-blue-600",
+  // },
+  // {
+  //   id: 1,
+  //   title: "Tỷ lệ nhân viên bán hàng đươc đào tạo về kỹ năng bán hàng",
+  //   initials: "GA",
+  //   team: "Engineering",
+  //   objective: "Tăng doanh thu",
+  //   totalMembers: 12,
+  //   lastUpdated: "Chưa cập nhật",
+  //   dueDate: "30/06/2021",
+  //   pinned: false,
+  //   bgColorClass: "bg-blue-600",
+  // },
+  // {
+  //   id: 1,
+  //   title: "Tỷ lệ các vị trí có chuẩn năng lực",
+  //   initials: "GA",
+  //   team: "Engineering",
+  //   objective: "Tăng doanh thu",
+  //   totalMembers: 12,
+  //   lastUpdated: "Chưa cập nhật",
+  //   dueDate: "30/06/2021",
+  //   pinned: false,
+  //   bgColorClass: "bg-blue-600",
+  // },
+  // {
+  //   id: 1,
+  //   title: "Năng suất lao động ",
+  //   initials: "GA",
+  //   team: "Engineering",
+  //   objective: "Tăng doanh thu",
+  //   totalMembers: 12,
+  //   lastUpdated: "Chưa cập nhật",
+  //   dueDate: "30/06/2021",
+  //   pinned: false,
+  //   bgColorClass: "bg-blue-600",
+  // },
+  // {
+  //   id: 1,
+  //   title: "Tỷ lệ đại lý treo biển",
+  //   initials: "GA",
+  //   team: "Engineering",
+  //   objective: "Tăng doanh thu",
+  //   totalMembers: 12,
+  //   lastUpdated: "Chưa cập nhật",
+  //   dueDate: "30/06/2021",
+  //   pinned: false,
+  //   bgColorClass: "bg-blue-600",
+  // },
+  // {
+  //   id: 1,
+  //   title: "Số lượng sự kiện quảng bá sản phẩm",
+  //   initials: "GA",
+  //   team: "Engineering",
+  //   objective: "Tăng doanh thu",
+  //   totalMembers: 12,
+  //   lastUpdated: "Chưa cập nhật",
+  //   dueDate: "30/06/2021",
+  //   pinned: false,
+  //   bgColorClass: "bg-blue-600",
+  // },
+  // {
+  //   id: 1,
+  //   title: "Số lượt truy cập website giới thiệu sản phẩm của công ty",
+  //   initials: "GA",
+  //   team: "Engineering",
+  //   objective: "Tăng doanh thu",
+  //   totalMembers: 12,
+  //   lastUpdated: "Chưa cập nhật",
+  //   dueDate: "30/06/2021",
+  //   pinned: false,
+  //   bgColorClass: "bg-blue-600",
+  // },
 ];
 const pinnedProjects = projects.filter((project) => project.pinned);
 
@@ -111,7 +243,7 @@ export default function Employee() {
           <div className="border-b border-gray-200 px-4 py-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8">
             <div className="flex-1 min-w-0">
               <h1 className="text-lg font-normal leading-6 text-gray-900 sm:truncate">
-                Assigned KPIs
+                Chỉ số KPI
               </h1>
             </div>
             <div className="mt-4 flex sm:mt-0 sm:ml-4">
@@ -119,7 +251,7 @@ export default function Employee() {
                 type="button"
                 className="order-1 ml-3 inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:order-0 sm:ml-0"
               >
-                Export
+                Tải xuống
               </button>
 
               {/* <Listbox value={selected} onChange={setSelected}>
@@ -197,7 +329,7 @@ export default function Employee() {
                 type="button"
                 className="order-0 inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:order-1 sm:ml-3"
               >
-                Export all
+                Tải xuống tất cả
               </button>
             </div>
           </div>
@@ -205,7 +337,7 @@ export default function Employee() {
           {/* Pinned projects */}
           <div className="px-4 mt-6 sm:px-6 lg:px-8">
             <h2 className="text-gray-500 text-xs font-medium uppercase tracking-wide">
-              Overview
+              Tổng quan
             </h2>
             <ul className="grid grid-cols-1 gap-4 sm:gap-6 sm:grid-cols-2 xl:grid-cols-4 mt-3">
               {pinnedProjects.map((project) => (
@@ -227,10 +359,10 @@ export default function Employee() {
                         href="#"
                         className="text-gray-900 font-medium hover:text-gray-600"
                       >
-                        {project.title}
+                        {project.objective}
                       </a>
                       <p className="text-gray-500">
-                        {project.totalMembers} Members
+                        {project.totalMembers} người
                       </p>
                     </div>
                     <Menu as="div" className="flex-shrink-0 pr-2">
@@ -360,28 +492,28 @@ export default function Employee() {
                 <thead>
                   <tr className="border-t border-gray-200">
                     <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      <span className="lg:pl-2">All</span>
+                      <span className="lg:pl-2">Tất cả</span>
                     </th>
                     {/* <th className="hidden md:table-cell px-6 py-3 border-b border-gray-200 bg-gray-50 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Score
                     </th> */}
                     <th className="hidden md:table-cell px-6 py-3 border-b border-gray-200 bg-gray-50 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Actual
+                      Giá trị
                     </th>
                     <th className="hidden md:table-cell px-6 py-3 border-b border-gray-200 bg-gray-50 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Red
+                      Đơn vị
                     </th>
+                    {/* <th className="hidden md:table-cell px-6 py-3 border-b border-gray-200 bg-gray-50 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      GOAL
+                    </th> */}
                     <th className="hidden md:table-cell px-6 py-3 border-b border-gray-200 bg-gray-50 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Goal
-                    </th>
-                    <th className="hidden md:table-cell px-6 py-3 border-b border-gray-200 bg-gray-50 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Objective
+                      Mục tiêu
                     </th>
                     <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Due
+                      Hạn
                     </th>
                     <th className="hidden md:table-cell px-6 py-3 border-b border-gray-200 bg-gray-50 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Updated
+                      Trạng thái
                     </th>
                     <th className="pr-6 py-3 border-b border-gray-200 bg-gray-50 text-right text-xs font-medium text-gray-500 uppercase tracking-wider" />
                   </tr>
@@ -413,15 +545,15 @@ export default function Employee() {
                       </td> */}
                       <td className="hidden md:table-cell px-6 py-3 whitespace-nowrap text-sm text-gray-500 text-right">
                         <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                          3118
+                          _
                         </span>
                       </td>
                       <td className="hidden md:table-cell px-6 py-3 whitespace-nowrap text-sm text-gray-500 text-right">
-                        1500
+                        _
                       </td>
-                      <td className="hidden md:table-cell px-6 py-3 whitespace-nowrap text-sm text-gray-500 text-right">
-                        3000
-                      </td>
+                      {/* <td className="hidden md:table-cell px-6 py-3 whitespace-nowrap text-sm text-gray-500 text-right">
+                        ...
+                      </td> */}
                       <td className="hidden md:table-cell px-6 py-3 whitespace-nowrap text-sm text-gray-500 text-right">
                         {project.objective}
                       </td>
