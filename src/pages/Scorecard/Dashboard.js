@@ -171,14 +171,14 @@ export default function Dashboard(props) {
     setSlideoverOpen(true);
   };
 
-  // useEffect(() => {
-  //   try {
-  //     dispatch(getCurrentUser());
-  //     dispatch(getAllScorecards());
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }, []);
+  useEffect(() => {
+    try {
+      dispatch(getCurrentUser());
+      dispatch(getAllScorecards());
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
 
   return (
     <div className="h-screen flex overflow-hidden bg-gray-100">
@@ -194,7 +194,7 @@ export default function Dashboard(props) {
         createFromTemplate={createFromTemplate}
       />
       <div className="flex-1 overflow-auto focus:outline-none">
-        <Topbar setSidebarOpen={setSidebarOpen} />
+        {/* <Topbar setSidebarOpen={setSidebarOpen} /> */}
         {/* Page */}
         <main className="flex-1 relative pb-8 z-0 overflow-y-auto">
           {/* Page header */}
@@ -303,9 +303,9 @@ export default function Dashboard(props) {
 
           <div className="mt-8">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-              <h2 className="text-lg leading-6 font-medium text-gray-900">
+              {/* <h2 className="text-lg leading-6 font-medium text-gray-900">
                 Tổng quan
-              </h2>
+              </h2> */}
               <div className="mt-2 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
                 {/* Card */}
                 {cards.map((card) => (
@@ -477,12 +477,11 @@ export default function Dashboard(props) {
                         data={data}
                         margin={{
                           top: 20,
-                          right: 30,
-                          bottom: 0,
-                          left: 5,
+                          right: 20,
+                          left: -20,
                         }}
                       >
-                        <CartesianGrid stroke="#f5f5f5" />
+                        <CartesianGrid strokeDasharray="3 3" />
                         <XAxis dataKey="name" scale="band" />
                         <YAxis />
                         <Bar dataKey="uv" barSize={35} fill="#10B981" />

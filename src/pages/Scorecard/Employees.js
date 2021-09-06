@@ -93,7 +93,7 @@ export default function Employees() {
       />
       <Drawer drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} />
       <div className="flex-1 overflow-auto focus:outline-none">
-        <Topbar setSidebarOpen={setSidebarOpen} />
+        {/* <Topbar setSidebarOpen={setSidebarOpen} /> */}
         <main className="flex-1 relative pb-8 z-0 overflow-y-auto">
           <div className="bg-white shadow-sm">
             <div className="px-4 sm:px-6 lg:max-w-6xl lg:mx-auto lg:px-8">

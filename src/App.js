@@ -60,7 +60,6 @@ function App() {
           {/* Account routes */}
           <PrivateRoute exact path="/account" component={Account} />
           <PrivateRoute path="/account/plan-billing" component={Billing} />
-
           <PrivateRoute path="/manager" component={Home} />
           <PrivateRoute path="/employee/home" component={Employee} />
         </Switch>

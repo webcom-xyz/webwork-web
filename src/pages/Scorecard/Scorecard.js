@@ -60,73 +60,73 @@ import CustomEdge from "../../parts/Scorecard/CustomEdge";
 import logo from "../../assets/logo_blue_bg.svg";
 const data = [
   {
-    name: "01/2021",
+    name: "01",
     uv: 93,
     // pv: 2400,
     // amt: 2400,
   },
   {
-    name: "02/2021",
+    name: "02",
     uv: 55,
     // pv: 1398,
     amt: 2210,
   },
   {
-    name: "03/2021",
+    name: "03",
     uv: 67,
     // pv: 9800,
     amt: 2290,
   },
   {
-    name: "04/2021",
+    name: "04",
     uv: 80,
     // pv: 3908,
     amt: 2000,
   },
   {
-    name: "05/2021",
+    name: "05",
     uv: 85,
     // pv: 4800,
     amt: 2181,
   },
   {
-    name: "06/2021",
+    name: "06",
     uv: 97,
     // pv: 3800,
     amt: 2500,
   },
   {
-    name: "07/2021",
+    name: "07",
     uv: 95,
     // pv: 4300,
     amt: 2100,
   },
   {
-    name: "08/2021",
+    name: "08",
     uv: 90,
     // pv: 4300,
     amt: 2100,
   },
   {
-    name: "09/2021",
+    name: "09",
     uv: 92,
     // pv: 4300,
     amt: 2100,
   },
   {
-    name: "10/2021",
+    name: "10",
     uv: 94,
     // pv: 4300,
     amt: 2100,
   },
   {
-    name: "11/2021",
+    name: "11",
     uv: 93,
     // pv: 4300,
     amt: 2100,
   },
   {
-    name: "12/2021",
+    name: "12",
     uv: 95,
     // pv: 4300,
     amt: 2100,
@@ -135,31 +135,31 @@ const data = [
 
 const data1 = [
   {
-    name: "01/2021",
+    name: "01",
     uv: 40,
   },
   {
-    name: "02/2021",
+    name: "02",
     uv: 50,
   },
   {
-    name: "03/2021",
+    name: "03",
     uv: 60,
   },
   {
-    name: "04/2021",
+    name: "04",
     uv: 70,
   },
   {
-    name: "05/2021",
+    name: "05",
     uv: 80,
   },
   {
-    name: "06/2021",
+    name: "06",
     uv: 90,
   },
   {
-    name: "07/2021",
+    name: "07",
     uv: 100,
   },
 ];
@@ -271,7 +271,7 @@ export default function Scorecard(props) {
         setConfirmDeleteDialogOpen={setConfirmDeleteDialogOpen}
       />
       <div className="flex-1 overflow-auto focus:outline-none">
-        <Topbar setSidebarOpen={setSidebarOpen} />
+        {/* <Topbar setSidebarOpen={setSidebarOpen} /> */}
 
         <main className="flex-1 relative pb-8 z-0">
           <div className="bg-white shadow-sm">
@@ -293,64 +293,17 @@ export default function Scorecard(props) {
 
                   {/* Profile */}
                   <div className="flex items-center">
-                    <div className="">
-                      <div class="hidden sm:block rounded-full h-16 w-16 bg-blue-500"></div>
-                    </div>
-
                     <div>
-                      {/* Sm */}
                       <div className="flex items-center">
-                        <div className="">
-                          <div class="h-16 w-16 rounded-full sm:hidden bg-blue-500"></div>
-                        </div>
-
-                        {currentUser ? (
-                          <h1 className="ml-3 text-2xl font-bold leading-7 text-gray-900 sm:leading-9 sm:truncate">
-                            Thẻ điểm: _
-                          </h1>
-                        ) : (
-                          <div className="animate-pulse flex-1">
-                            <h1 className="ml-3 text-2xl font-bold leading-7 text-gray-900 sm:leading-9 sm:truncate bg-gray-200 rounded">
-                              ⠀
-                            </h1>
-                          </div>
-                        )}
+                        <h1 className="ml-3 text-2xl font-bold leading-7 text-gray-900 sm:leading-9 sm:truncate">
+                          Thẻ điểm: _
+                        </h1>
                       </div>
                       <dl className="mt-6 flex flex-col sm:ml-3 sm:mt-1 sm:flex-row sm:flex-wrap">
                         <dt className="sr-only">Account status</dt>
-                        {currentUser ? (
-                          <>
-                            <dd className="mt-3 flex items-center text-sm text-gray-500 font-medium sm:mr-6 sm:mt-0">
-                              <BadgeCheckIcon
-                                className="flex-shrink-0 mr-1.5 h-5 w-5 text-green-400"
-                                aria-hidden="true"
-                              />
-                              {scorecardId}
-                            </dd>
-                            {/* <dd className="mt-3 flex items-center text-sm text-gray-500 font-medium sm:mr-6 sm:mt-0">
-                              <XCircleIcon
-                                className="flex-shrink-0 mr-1.5 h-5 w-5 text-red-400"
-                                aria-hidden="true"
-                              />
-                              Chưa xác thực
-                            </dd> */}
-                          </>
-                        ) : (
-                          <>
-                            <dd className="mt-3 flex items-center text-sm text-gray-500 font-medium sm:mr-6 sm:mt-0 capitalize animate-pulse">
-                              <div class="flex-shrink-0 mr-1.5 rounded-full bg-gray-200 h-5 w-5"></div>
-                              <div className="bg-gray-200 rounded">
-                                {"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"}
-                              </div>
-                            </dd>
-                            <dd className="mt-3 flex items-center text-sm text-gray-500 font-medium sm:mr-6 sm:mt-0 capitalize animate-pulse">
-                              <div class="flex-shrink-0 mr-1.5 rounded-full bg-gray-200 h-5 w-5"></div>
-                              <div className="bg-gray-200 rounded">
-                                {"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"}
-                              </div>
-                            </dd>
-                          </>
-                        )}
+                        <dd className="mt-3 flex items-center text-sm text-gray-500 font-medium sm:mr-6 sm:mt-0">
+                          {scorecardId}
+                        </dd>
                       </dl>
                     </div>
                   </div>
@@ -399,10 +352,6 @@ export default function Scorecard(props) {
 
           <div className="mt-8">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 ">
-              {/* <h2 className="text-lg leading-6 font-medium text-gray-900">
-                Tổng quan
-              </h2> */}
-              {/* <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3"> */}
               <div>
                 <Tabs
                   overviewSelected={overviewSelected}
@@ -424,21 +373,21 @@ export default function Scorecard(props) {
                     <button
                       type="button"
                       onClick={() => setTimePeriodSelected("Monthly")}
-                      className="relative inline-flex items-center px-4 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+                      className="w-full relative inline-flex items-center px-4 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
                     >
                       Theo tháng
                     </button>
                     <button
                       type="button"
                       onClick={() => setTimePeriodSelected("Quarterly")}
-                      className="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+                      className="w-full -ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
                     >
                       Theo quý
                     </button>
                     <button
                       type="button"
                       onClick={() => setTimePeriodSelected("Yearly")}
-                      className="-ml-px relative inline-flex items-center px-4 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+                      className="w-full -ml-px relative inline-flex items-center px-4 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
                     >
                       Theo năm
                     </button>
@@ -861,76 +810,87 @@ export default function Scorecard(props) {
             <div className="mt-8">
               <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="mt-2 grid grid-cols-1 gap-5 sm:grid-cols-1 lg:grid-cols-2">
-                  <div className="">
-                    <h2 className="text-lg leading-6 font-medium text-gray-900 inline-block mb-2">
-                      Lịch sử hiệu suất
-                    </h2>
+                  <div>
+                    <div className="bg-white shadow rounded-lg">
+                      <h3 className="text-lg leading-6 font-medium text-gray-900 inline-block ml-4 mt-4">
+                        Xu hướng hiệu suất
+                      </h3>
+                      <p className="mt-1 text-sm text-gray-500 ml-4 mb-4">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit
+                        quam corrupti consectetur.
+                      </p>
+                      <ResponsiveContainer width="100%" height={250}>
+                        <LineChart
+                          width={500}
+                          height={250}
+                          className="border-t border-gray-200 overflow-hidden"
+                          data={data1}
+                          margin={{
+                            top: 20,
+                            right: 20,
+                            left: -20,
+                            // bottom: 20,
+                          }}
+                        >
+                          <CartesianGrid strokeDasharray="3 3" />
+                          <XAxis dataKey="name" />
+                          <YAxis />
+                          <Line
+                            type="monotone"
+                            dataKey="uv"
+                            stroke="#FBBF24"
+                            strokeWidth={3}
+                            dot={false}
+                          />
+                        </LineChart>
+                      </ResponsiveContainer>
+                    </div>
+                    <div className="bg-white shadow rounded-lg mt-8">
+                      <h3 className="text-lg leading-6 font-medium text-gray-900 inline-block ml-4 mt-4">
+                        Lịch sử hiệu suất
+                      </h3>
+                      <p className="mt-1 text-sm text-gray-500 ml-4 mb-4">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit
+                        quam corrupti consectetur.
+                      </p>
 
-                    <ResponsiveContainer width="100%" height={250}>
-                      <LineChart
-                        width={500}
-                        height={250}
-                        className="bg-white overflow-hidden shadow rounded-lg"
-                        data={data1}
-                        margin={{
-                          top: 20,
-                          right: 30,
-                          left: 0,
-                          bottom: 5,
-                        }}
-                      >
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="name" />
-                        <YAxis />
-                        <Line
-                          type="monotone"
-                          dataKey="uv"
-                          stroke="#FBBF24"
-                          strokeWidth={3}
-                          dot={false}
-                        />
-                      </LineChart>
-                    </ResponsiveContainer>
-
-                    <ResponsiveContainer width="100%" height={300}>
-                      <LineChart
-                        width={500}
-                        height={300}
-                        className="bg-white overflow-hidden shadow rounded-lg mt-2"
-                        data={data}
-                        margin={{
-                          top: 20,
-                          right: 30,
-                          left: 0,
-                          bottom: 5,
-                        }}
-                      >
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="name" />
-                        <YAxis />
-                        <Tooltip />
-                        {/* <Legend verticalAlign="top" /> */}
-                        {/* <Line
-                  type="monotone"
-                  dataKey="pv"
-                  stroke="#8884d8"
-                  activeDot={{ r: 8 }}
-                /> */}
-                        <Line
-                          type="monotone"
-                          dataKey="uv"
-                          stroke="#E5E7EB"
-                          strokeWidth={3}
-                          dot={{ stroke: "#FBBF24", strokeWidth: 7 }}
-                        />
-                      </LineChart>
-                    </ResponsiveContainer>
+                      <ResponsiveContainer width="100%" height={300}>
+                        <LineChart
+                          width={500}
+                          height={300}
+                          className="border-t border-gray-200 overflow-hidden"
+                          data={data}
+                          margin={{
+                            top: 20,
+                            right: 20,
+                            left: -20,
+                            // bottom: 20,
+                          }}
+                        >
+                          <CartesianGrid strokeDasharray="3 3" />
+                          <XAxis dataKey="name" />
+                          <YAxis />
+                          <Tooltip />
+                          <Line
+                            type="monotone"
+                            dataKey="uv"
+                            stroke="#E5E7EB"
+                            strokeWidth={3}
+                            dot={{ stroke: "#FBBF24", strokeWidth: 7 }}
+                          />
+                        </LineChart>
+                      </ResponsiveContainer>
+                    </div>
                   </div>
-                  <div className="">
-                    <h2 className="text-lg leading-6 font-medium text-gray-900 inline-block mb-2">
+                  <div className="bg-white shadow rounded-lg">
+                    <h3 className="text-lg leading-6 font-medium text-gray-900 mt-4 ml-4">
                       Khái quát chỉ số
-                    </h2>
-                    <div className="bg-white overflow-hidden shadow rounded-lg pb-6 sm:pb-7">
+                    </h3>
+                    <p className="mt-1 text-sm text-gray-500 ml-4 mb-4">
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit
+                      quam corrupti consectetur.
+                    </p>
+                    <div className="overflow-hidden pb-6 sm:pb-7 border-t border-gray-200">
                       <div className="relative bg-white pt-5 px-4 sm:pt-6 sm:px-6 overflow-hidden">
                         <dt>
                           <div className="absolute bg-green-500 rounded-md p-3">
@@ -1231,7 +1191,7 @@ export default function Scorecard(props) {
             <div className="mt-8">
               <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="mt-2 grid grid-cols-1 gap-5 sm:grid-cols-1 lg:grid-cols-1">
-                  <div>
+                  {/* <div>
                     <h2 className="text-lg leading-6 font-medium text-gray-900 inline-block mb-2">
                       Bản đồ
                     </h2>
@@ -1251,7 +1211,7 @@ export default function Scorecard(props) {
                         <Background />
                       </ReactFlow>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
@@ -1261,16 +1221,23 @@ export default function Scorecard(props) {
             <div className="mt-8">
               <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="mt-2 grid grid-cols-1 gap-5 sm:grid-cols-1 lg:grid-cols-1">
-                  <div>
-                    <h2 className="text-lg leading-6 font-medium text-gray-900 inline-block mb-2">
-                      Chỉ số KPIs
-                    </h2>
-                    <div className="flex flex-col bg-white rounded-lg overflow-x-auto overflow-y-hidden shadow scrollbar-hidden">
+                  <div className="rounded-lg bg-white shadow">
+                    {/* <h2 className="text-lg leading-6 font-medium text-gray-900 inline-block mb-2">
+                      KPIs
+                    </h2> */}
+                    <h3 className="text-lg leading-6 font-medium text-gray-900 ml-4 mt-4">
+                      Chỉ số
+                    </h3>
+                    <p className="mt-1 text-sm text-gray-500 ml-4">
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit
+                      quam corrupti consectetur.
+                    </p>
+                    <div className="flex flex-col overflow-x-auto overflow-y-hidden scrollbar-hidden border-t border-gray-200 mt-4">
                       <div className="-my-2 sm:-mx-6 lg:-mx-8">
                         <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                           <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
                             <table className="min-w-full divide-y divide-gray-200">
-                              <thead className="bg-white">
+                              {/* <thead className="bg-white">
                                 <tr>
                                   <th
                                     scope="col"
@@ -1349,7 +1316,7 @@ export default function Scorecard(props) {
                                     12
                                   </th>
                                 </tr>
-                              </thead>
+                              </thead> */}
                               <tbody>
                                 <tr className="bg-white">
                                   <td className="px-6 py-4 text-sm text-gray-900">

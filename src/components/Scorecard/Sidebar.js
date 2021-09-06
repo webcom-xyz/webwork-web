@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Fragment } from "react";
-import { Dialog, Transition, Disclosure } from "@headlessui/react";
+import { Dialog, Transition, Disclosure, Menu } from "@headlessui/react";
 import {
   CogIcon,
   CreditCardIcon,
@@ -17,16 +17,18 @@ import {
   DocumentReportIcon,
   TicketIcon,
 } from "@heroicons/react/outline";
+
 import { useHistory, useParams } from "react-router-dom";
 import classNames from "../../utils/classNames";
 import logo from "../../assets/logo_4_white.svg";
 import handleLink from "../../utils/handleLink";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllScorecards } from "../../actions/scorecard";
+import AccountMenu from "../../parts/Scorecard/AccountMenu";
 
 export default function Sidebar(props) {
   const history = useHistory();
-
+  const currentUser = useSelector((state) => state.user.currentUser);
   const scorecards = useSelector((state) => state.scorecard);
 
   const dispatch = useDispatch();
@@ -53,11 +55,11 @@ export default function Sidebar(props) {
       current: props.reportsActive,
       page: "/scorecard/reports",
     },
-    {
-      name: "Quy trình",
-      href: "#",
-      icon: CollectionIcon,
-    },
+    // {
+    //   name: "Quy trình",
+    //   href: "#",
+    //   icon: CollectionIcon,
+    // },
   ];
 
   const secondaryNavigation = [
@@ -164,7 +166,7 @@ export default function Sidebar(props) {
                     </a>
                   ))}
 
-                  {/* MOBILE */}
+                  {/* Scorecard section for mobile */}
                   {scorecards.scorecard ? (
                     scorecards.scorecard.response.data.map((scorecard) => (
                       <>
@@ -217,104 +219,27 @@ export default function Sidebar(props) {
                               </Disclosure.Button>
 
                               <Disclosure.Panel className="space-y-1">
-                              {scorecard.perspective.map((perspective) => (
-                                <>
-                                  <a
-                                    onClick={(e) =>
-                                      handleLink(
-                                        e,
-                                        `/scorecard/${scorecard._id}/perspective/${perspective._id}`,
-                                        history
-                                      )
-                                    }
-                                    className={classNames(
-                                      perspective._id === props.perspectiveId
-                                        ? "bg-blue-800 text-white"
-                                        : "text-blue-100 hover:text-white hover:bg-blue-600",
-                                      "group w-full flex items-center pl-11 pr-2 py-2 text-sm font-medium rounded-md hover:text-white hover:bg-blue-600 cursor-pointer"
-                                    )}
-                                    // className="group w-full flex items-center pl-11 pr-2 py-2 text-sm font-medium text-white rounded-md hover:text-white hover:bg-blue-600 cursor-pointer"
-                                  >
-                                    {perspective.name}
-                                  </a>
-                                </>
-                              ))}
-                                {/* <a
-                                  onClick={(e) =>
-                                    handleLink(
-                                      e,
-                                      `/scorecard/${scorecard._id}/perspective/${scorecard.perspective[0]._id}`,
-                                      history
-                                    )
-                                  }
-                                  className={classNames(
-                                    scorecard.perspective[0]._id ===
-                                      props.perspectiveId
-                                      ? "bg-blue-800 text-white"
-                                      : "text-blue-100 hover:text-white hover:bg-blue-600",
-                                    "group w-full flex items-center pl-11 pr-2 py-2 text-sm font-medium rounded-md hover:text-white hover:bg-blue-600 cursor-pointer"
-                                  )}
-                                  // className="group w-full flex items-center pl-11 pr-2 py-2 text-sm font-medium text-white rounded-md hover:text-white hover:bg-blue-600 cursor-pointer"
-                                >
-                                  {scorecard.perspective[0].name}
-                                </a>
-                                <a
-                                  onClick={(e) =>
-                                    handleLink(
-                                      e,
-                                      `/scorecard/${scorecard._id}/perspective/${scorecard.perspective[1]._id}`,
-                                      history
-                                    )
-                                  }
-                                  className={classNames(
-                                    scorecard.perspective[1]._id ===
-                                      props.perspectiveId
-                                      ? "bg-blue-800 text-white"
-                                      : "text-blue-100 hover:text-white hover:bg-blue-600",
-                                    "group w-full flex items-center pl-11 pr-2 py-2 text-sm font-medium rounded-md hover:text-white hover:bg-blue-600 cursor-pointer"
-                                  )}
-                                  // className="group w-full flex items-center pl-11 pr-2 py-2 text-sm font-medium text-white rounded-md hover:text-white hover:bg-blue-600 cursor-pointer"
-                                >
-                                  {scorecard.perspective[1].name}
-                                </a>
-                                <a
-                                  onClick={(e) =>
-                                    handleLink(
-                                      e,
-                                      `/scorecard/${scorecard._id}/perspective/${scorecard.perspective[2]._id}`,
-                                      history
-                                    )
-                                  }
-                                  className={classNames(
-                                    scorecard.perspective[2]._id ===
-                                      props.perspectiveId
-                                      ? "bg-blue-800 text-white"
-                                      : "text-blue-100 hover:text-white hover:bg-blue-600",
-                                    "group w-full flex items-center pl-11 pr-2 py-2 text-sm font-medium rounded-md hover:text-white hover:bg-blue-600 cursor-pointer"
-                                  )}
-                                  // className="group w-full flex items-center pl-11 pr-2 py-2 text-sm font-medium text-white rounded-md hover:text-white hover:bg-blue-600 cursor-pointer"
-                                >
-                                  {scorecard.perspective[2].name}
-                                </a>
-                                <a
-                                  onClick={(e) =>
-                                    handleLink(
-                                      e,
-                                      `/scorecard/${scorecard._id}/perspective/${scorecard.perspective[3]._id}`,
-                                      history
-                                    )
-                                  }
-                                  className={classNames(
-                                    scorecard.perspective[3]._id ===
-                                      props.perspectiveId
-                                      ? "bg-blue-800 text-white"
-                                      : "text-blue-100 hover:text-white hover:bg-blue-600",
-                                    "group w-full flex items-center pl-11 pr-2 py-2 text-sm font-medium rounded-md hover:text-white hover:bg-blue-600 cursor-pointer"
-                                  )}
-                                  //  className="group w-full flex items-center pl-11 pr-2 py-2 text-sm font-medium text-white rounded-md hover:text-white hover:bg-blue-600 cursor-pointer"
-                                >
-                                  {scorecard.perspective[3].name}
-                                </a> */}
+                                {scorecard.perspective.map((perspective) => (
+                                  <>
+                                    <a
+                                      onClick={(e) =>
+                                        handleLink(
+                                          e,
+                                          `/scorecard/${scorecard._id}/perspective/${perspective._id}`,
+                                          history
+                                        )
+                                      }
+                                      className={classNames(
+                                        perspective._id === props.perspectiveId
+                                          ? "bg-blue-800 text-white"
+                                          : "text-blue-100 hover:text-white hover:bg-blue-600",
+                                        "group w-full flex items-center pl-11 pr-2 py-2 text-sm font-medium rounded-md hover:text-white hover:bg-blue-600 cursor-pointer"
+                                      )}
+                                    >
+                                      {perspective.name}
+                                    </a>
+                                  </>
+                                ))}
                               </Disclosure.Panel>
                             </>
                           )}
@@ -367,128 +292,72 @@ export default function Sidebar(props) {
                 alt="Webwork logo"
               />
             </div>
+
+
+
+
+            <AccountMenu avatar={currentUser?.data.avatarUrl} userName={currentUser?.data.fullName} email={currentUser?.data.email} />
+
+
+
+
             <nav
               className="mt-5 flex-1 flex flex-col divide-y divide-blue-800 overflow-y-auto scrollbar-hidden"
               aria-label="Sidebar"
             >
-              <div className="px-2 space-y-1">
-                {navigation.map((item) =>
-                  !item.children ? (
-                    <div key={item.name}>
-                      <a
-                        href="#"
-                        onClick={(e) => handleLink(e, item.page, history)}
-                        className={classNames(
-                          item.current
-                            ? "bg-blue-800 text-white"
-                            : "text-blue-100 hover:text-white hover:bg-blue-600",
-                          "group w-full flex items-center pl-2 py-2 text-sm font-medium rounded-md"
-                        )}
-                      >
-                        <item.icon
+              <div className="space-y-1 divide-y divide-blue-800">
+                <div className="px-2 mb-6">
+                  {navigation.map((item) =>
+                    !item.children ? (
+                      <div key={item.name}>
+                        <a
+                          href="#"
+                          onClick={(e) => handleLink(e, item.page, history)}
                           className={classNames(
-                            item.current ? "text-blue-200" : "text-blue-200",
-                            "mr-3 flex-shrink-0 h-6 w-6"
+                            item.current
+                              ? "bg-blue-800 text-white"
+                              : "text-blue-100 hover:text-white hover:bg-blue-600",
+                            "group w-full flex items-center pl-2 py-2 text-sm font-medium rounded-md"
                           )}
-                          aria-hidden="true"
-                        />
-                        {item.name}
-                      </a>
-                    </div>
-                  ) : (
-                    <Disclosure as="div" key={item.name} className="space-y-1">
-                      {({ open }) => (
-                        <>
-                          <Disclosure.Button
-                            onClick={(e) => handleLink(e, item.page, history)}
+                        >
+                          <item.icon
                             className={classNames(
-                              item.current
-                                ? "bg-blue-800 text-white"
-                                : "text-blue-100 hover:text-white hover:bg-blue-600",
-                              "group w-full flex items-center pl-2 pr-1 py-2 text-left text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                              item.current ? "text-blue-200" : "text-blue-200",
+                              "mr-3 flex-shrink-0 h-6 w-6"
                             )}
-                          >
-                            <item.icon
-                              className="mr-3 flex-shrink-0 h-6 w-6 text-blue-200"
-                              aria-hidden="true"
-                            />
-                            <span
-                              className="flex-1"
-                              onClick={(e) => handleLink(e, item.page, history)}
-                            >
-                              {item.name}
-                            </span>
-                            <svg
-                              className={classNames(
-                                open
-                                  ? "text-gray-400 rotate-90"
-                                  : "text-gray-300",
-                                "ml-3 flex-shrink-0 h-5 w-5 transform group-hover:text-gray-400 transition-colors ease-in-out duration-150"
-                              )}
-                              viewBox="0 0 20 20"
-                              aria-hidden="true"
-                            >
-                              <path
-                                d="M6 6L14 10L6 14V6Z"
-                                fill="currentColor"
-                              />
-                            </svg>
-                          </Disclosure.Button>
-
-                          <Disclosure.Panel className="space-y-1">
-                            {item.children.map((subItem) => (
-                              <a
-                                key={subItem.name}
-                                href={subItem.href}
-                                onClick={(e) =>
-                                  handleLink(e, subItem.page, history)
-                                }
-                                className="group w-full flex items-center pl-11 pr-2 py-2 text-sm font-medium text-white rounded-md hover:text-white hover:bg-blue-600"
-                              >
-                                {subItem.name}
-                              </a>
-                            ))}
-                          </Disclosure.Panel>
-                        </>
-                      )}
-                    </Disclosure>
-                  )
-                )}
-
-                {/* DESKTOP */}
-                {scorecards.scorecard ? (
-                  scorecards.scorecard.response.data.map((scorecard) => (
-                    <>
+                            aria-hidden="true"
+                          />
+                          {item.name}
+                        </a>
+                      </div>
+                    ) : (
                       <Disclosure
                         as="div"
-                        key={scorecard._id}
+                        key={item.name}
                         className="space-y-1"
                       >
                         {({ open }) => (
                           <>
                             <Disclosure.Button
+                              onClick={(e) => handleLink(e, item.page, history)}
                               className={classNames(
-                                scorecard._id === props.scorecardId
+                                item.current
                                   ? "bg-blue-800 text-white"
                                   : "text-blue-100 hover:text-white hover:bg-blue-600",
                                 "group w-full flex items-center pl-2 pr-1 py-2 text-left text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                               )}
                             >
-                              <ChartPieIcon
+                              <item.icon
                                 className="mr-3 flex-shrink-0 h-6 w-6 text-blue-200"
                                 aria-hidden="true"
                               />
                               <span
-                                onClick={(e) =>
-                                  handleLink(
-                                    e,
-                                    `/scorecard/${scorecard._id}`,
-                                    history
-                                  )
-                                }
                                 className="flex-1"
+                                onClick={(e) =>
+                                  handleLink(e, item.page, history)
+                                }
                               >
-                                {scorecard.name}
+                                {item.name}
                               </span>
                               <svg
                                 className={classNames(
@@ -508,40 +377,113 @@ export default function Sidebar(props) {
                             </Disclosure.Button>
 
                             <Disclosure.Panel className="space-y-1">
-                              {scorecard.perspective.map((perspective) => (
-                                <>
-                                  <a
-                                    onClick={(e) =>
-                                      handleLink(
-                                        e,
-                                        `/scorecard/${scorecard._id}/perspective/${perspective._id}`,
-                                        history
-                                      )
-                                    }
-                                    className={classNames(
-                                      perspective._id === props.perspectiveId
-                                        ? "bg-blue-800 text-white"
-                                        : "text-blue-100 hover:text-white hover:bg-blue-600",
-                                      "group w-full flex items-center pl-11 pr-2 py-2 text-sm font-medium rounded-md hover:text-white hover:bg-blue-600 cursor-pointer"
-                                    )}
-                                    // className="group w-full flex items-center pl-11 pr-2 py-2 text-sm font-medium text-white rounded-md hover:text-white hover:bg-blue-600 cursor-pointer"
-                                  >
-                                    {perspective.name}
-                                  </a>
-                                </>
+                              {item.children.map((subItem) => (
+                                <a
+                                  key={subItem.name}
+                                  href={subItem.href}
+                                  onClick={(e) =>
+                                    handleLink(e, subItem.page, history)
+                                  }
+                                  className="group w-full flex items-center pl-11 pr-2 py-2 text-sm font-medium text-white rounded-md hover:text-white hover:bg-blue-600"
+                                >
+                                  {subItem.name}
+                                </a>
                               ))}
                             </Disclosure.Panel>
                           </>
                         )}
                       </Disclosure>
-                    </>
-                  ))
-                ) : (
-                  <></>
-                )}
+                    )
+                  )}
+                </div>
+                <div className="px-2 mt-6 pt-6">
+                  {/* Scorecards section for desktop */}
+                  {scorecards.scorecard ? (
+                    scorecards.scorecard.response.data.map((scorecard) => (
+                      <>
+                        <Disclosure
+                          as="div"
+                          key={scorecard._id}
+                          className="space-y-1"
+                        >
+                          {({ open }) => (
+                            <>
+                              <Disclosure.Button
+                                className={classNames(
+                                  scorecard._id === props.scorecardId
+                                    ? "bg-blue-800 text-white"
+                                    : "text-blue-100 hover:text-white hover:bg-blue-600",
+                                  "group w-full flex items-center pl-2 pr-1 py-2 text-left text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                )}
+                              >
+                                <ChartPieIcon
+                                  className="mr-3 flex-shrink-0 h-6 w-6 text-blue-200"
+                                  aria-hidden="true"
+                                />
+                                <span
+                                  onClick={(e) =>
+                                    handleLink(
+                                      e,
+                                      `/scorecard/${scorecard._id}`,
+                                      history
+                                    )
+                                  }
+                                  className="flex-1"
+                                >
+                                  {scorecard.name}
+                                </span>
+                                <svg
+                                  className={classNames(
+                                    open
+                                      ? "text-gray-400 rotate-90"
+                                      : "text-gray-300",
+                                    "ml-3 flex-shrink-0 h-5 w-5 transform group-hover:text-gray-400 transition-colors ease-in-out duration-150"
+                                  )}
+                                  viewBox="0 0 20 20"
+                                  aria-hidden="true"
+                                >
+                                  <path
+                                    d="M6 6L14 10L6 14V6Z"
+                                    fill="currentColor"
+                                  />
+                                </svg>
+                              </Disclosure.Button>
+
+                              <Disclosure.Panel className="space-y-1">
+                                {scorecard.perspective.map((perspective) => (
+                                  <>
+                                    <a
+                                      onClick={(e) =>
+                                        handleLink(
+                                          e,
+                                          `/scorecard/${scorecard._id}/perspective/${perspective._id}`,
+                                          history
+                                        )
+                                      }
+                                      className={classNames(
+                                        perspective._id === props.perspectiveId
+                                          ? "bg-blue-800 text-white"
+                                          : "text-blue-100 hover:text-white hover:bg-blue-600",
+                                        "group w-full flex items-center pl-11 pr-2 py-2 text-sm font-medium rounded-md hover:text-white hover:bg-blue-600 cursor-pointer"
+                                      )}
+                                    >
+                                      {perspective.name}
+                                    </a>
+                                  </>
+                                ))}
+                              </Disclosure.Panel>
+                            </>
+                          )}
+                        </Disclosure>
+                      </>
+                    ))
+                  ) : (
+                    <></>
+                  )}
+                </div>
               </div>
 
-              {/* Secondary navigation */}
+              {/* Secondary navigation for desktop */}
               <div className="mt-6 pt-6">
                 <div className="px-2 space-y-1">
                   {secondaryNavigation.map((item) => (
@@ -549,7 +491,6 @@ export default function Sidebar(props) {
                       key={item.name}
                       href={item.href}
                       onClick={(e) => handleLink(e, item.page, history)}
-                      // className="group flex items-center px-2 py-2 text-sm leading-6 font-medium rounded-md text-blue-100 hover:text-white hover:bg-blue-600"
                       className={classNames(
                         item.current
                           ? "bg-blue-800 text-white"
