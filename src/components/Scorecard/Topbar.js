@@ -83,7 +83,7 @@ export default function Topbar(props) {
                     {currentUser ? (
                       <img
                         className="h-8 w-8 rounded-full"
-                        src={`http://localhost:3000/${currentUser?.data.avatarUrl}`}
+                        src={`http://localhost:5000/${currentUser?.data.avatarUrl}`}
                         alt="avatar"
                       />
                     ) : (

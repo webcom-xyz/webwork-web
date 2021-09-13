@@ -178,7 +178,7 @@ export default function Dashboard(props) {
     } catch (error) {
       console.log(error);
     }
-  }, []);
+  }, [location]);
 
   return (
     <div className="h-screen flex overflow-hidden bg-gray-100">
@@ -207,7 +207,7 @@ export default function Dashboard(props) {
                     {currentUser ? (
                       <img
                         className="hidden h-16 w-16 rounded-full sm:block"
-                        src={`http://localhost:3000/${currentUser?.data.avatarUrl}`}
+                        src={`http://localhost:5000/${currentUser?.data.avatarUrl}`}
                         alt="avatar"
                       />
                     ) : (
@@ -222,7 +222,7 @@ export default function Dashboard(props) {
                         {currentUser ? (
                           <img
                             className="h-16 w-16 rounded-full sm:hidden"
-                            src={`http://localhost:3000/${currentUser?.data.avatarUrl}`}
+                            src={`http://localhost:5000/${currentUser?.data.avatarUrl}`}
                             alt="avatar"
                           />
                         ) : (

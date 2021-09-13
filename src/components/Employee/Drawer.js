@@ -64,14 +64,14 @@ export default function Drawer(props) {
   const [selected, setSelected] = useState(people[0]);
   const [objective, setObjective] = useState({});
 
-  const handleChange = (e) => {
-    setObjective({
-      ...objective,
-      name: objectiveNameRef.current.value,
-      weight: weightRef.current.value,
-      perspectiveId: perspectiveId,
-    });
-  };
+  // const handleChange = (e) => {
+  //   setObjective({
+  //     ...objective,
+  //     name: objectiveNameRef.current.value,
+  //     weight: weightRef.current.value,
+  //     perspectiveId: perspectiveId,
+  //   });
+  // };
 
 //   const handleCreateNewObjective = (e) => {
 //     e.preventDefault();
@@ -108,7 +108,7 @@ export default function Drawer(props) {
               <div className="w-screen max-w-md">
                 <form
                   className="h-full divide-y divide-gray-200 flex flex-col bg-white shadow-xl"
-                //   onSubmit={handleCreateNewObjective}
+                  onSubmit={(e) => props.handleAddMembers(e)}
                 >
                   <div className="flex-1 h-0 overflow-y-auto">
                     <div className="py-6 px-4 bg-blue-700 sm:px-6">
@@ -147,12 +147,12 @@ export default function Drawer(props) {
                             <div className="mt-1">
                               <input
                                 type="text"
-                                name="objectiveName"
-                                id="objectiveName"
+                                name="email"
+                                id="email"
                                 placeholder="..."
                                 className="block w-full shadow-sm sm:text-sm focus:ring-blue-500 focus:border-blue-500 border-gray-300 rounded-md"
-                                ref={objectiveNameRef}
-                                onChange={handleChange}
+                                ref={props.email}
+                                onChange={props.handleChange}
                               />
                             </div>
                           </div>

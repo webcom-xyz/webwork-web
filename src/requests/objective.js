@@ -5,5 +5,5 @@ export const requestCreateNewObjective = ({ objectiveData }) => {
 };
 
 export const requestGetAllObjectives = ({ perspectiveId }) => {
-  return API.get(`/objective/${perspectiveId.perspectiveId}`);
+  return API.get(`perspective/${perspectiveId.perspectiveId}/objectives`);
 };

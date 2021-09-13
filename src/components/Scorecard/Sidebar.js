@@ -1,30 +1,25 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Fragment } from "react";
-import { Dialog, Transition, Disclosure, Menu } from "@headlessui/react";
+import { Dialog, Transition, Disclosure } from "@headlessui/react";
 import {
-  CogIcon,
   CreditCardIcon,
   HomeIcon,
   ShieldCheckIcon,
   UserGroupIcon,
   XIcon,
-  CursorClickIcon,
   SupportIcon,
-  FolderIcon,
   ChartPieIcon,
-  UserCircleIcon,
-  CollectionIcon,
   DocumentReportIcon,
-  TicketIcon,
 } from "@heroicons/react/outline";
 
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import classNames from "../../utils/classNames";
 import logo from "../../assets/logo_4_white.svg";
 import handleLink from "../../utils/handleLink";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllScorecards } from "../../actions/scorecard";
 import AccountMenu from "../../parts/Scorecard/AccountMenu";
+import { getCurrentUser } from "../../actions/user";
 
 export default function Sidebar(props) {
   const history = useHistory();
@@ -32,6 +27,7 @@ export default function Sidebar(props) {
   const scorecards = useSelector((state) => state.scorecard);
 
   const dispatch = useDispatch();
+  const location = useLocation();
 
   const navigation = [
     {
@@ -76,11 +72,12 @@ export default function Sidebar(props) {
 
   useEffect(() => {
     try {
+      dispatch(getCurrentUser());
       dispatch(getAllScorecards());
     } catch (error) {
       console.log(error);
     }
-  }, []);
+  }, [location]);
 
   return (
     <>
@@ -167,19 +164,19 @@ export default function Sidebar(props) {
                   ))}
 
                   {/* Scorecard section for mobile */}
-                  {scorecards.scorecard ? (
-                    scorecards.scorecard.response.data.map((scorecard) => (
+                  {scorecards.scorecards ? (
+                    scorecards.scorecards.response.data.map((scorecard) => (
                       <>
                         <Disclosure
                           as="div"
-                          key={scorecard._id}
+                          key={scorecard.id}
                           className="space-y-1"
                         >
                           {({ open }) => (
                             <>
                               <Disclosure.Button
                                 className={classNames(
-                                  scorecard._id === props.scorecardId
+                                  scorecard.id === props.scorecardId
                                     ? "bg-blue-800 text-white"
                                     : "text-blue-100 hover:text-white hover:bg-blue-600",
                                   "group w-full flex items-center px-2 py-2 text-left text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -193,7 +190,7 @@ export default function Sidebar(props) {
                                   onClick={(e) =>
                                     handleLink(
                                       e,
-                                      `/scorecard/${scorecard._id}`,
+                                      `/scorecard/${scorecard.id}`,
                                       history
                                     )
                                   }
@@ -219,18 +216,18 @@ export default function Sidebar(props) {
                               </Disclosure.Button>
 
                               <Disclosure.Panel className="space-y-1">
-                                {scorecard.perspective.map((perspective) => (
+                                {scorecard.perspectives.map((perspective) => (
                                   <>
                                     <a
                                       onClick={(e) =>
                                         handleLink(
                                           e,
-                                          `/scorecard/${scorecard._id}/perspective/${perspective._id}`,
+                                          `/scorecard/${scorecard.id}/perspective/${perspective.id}`,
                                           history
                                         )
                                       }
                                       className={classNames(
-                                        perspective._id === props.perspectiveId
+                                        perspective.id === props.perspectiveId
                                           ? "bg-blue-800 text-white"
                                           : "text-blue-100 hover:text-white hover:bg-blue-600",
                                         "group w-full flex items-center pl-11 pr-2 py-2 text-sm font-medium rounded-md hover:text-white hover:bg-blue-600 cursor-pointer"
@@ -293,13 +290,11 @@ export default function Sidebar(props) {
               />
             </div>
 
-
-
-
-            <AccountMenu avatar={currentUser?.data.avatarUrl} userName={currentUser?.data.fullName} email={currentUser?.data.email} />
-
-
-
+            <AccountMenu
+              avatar={currentUser?.data.avatarUrl}
+              userName={currentUser?.data.fullName}
+              email={currentUser?.data.email}
+            />
 
             <nav
               className="mt-5 flex-1 flex flex-col divide-y divide-blue-800 overflow-y-auto scrollbar-hidden"
@@ -398,19 +393,19 @@ export default function Sidebar(props) {
                 </div>
                 <div className="px-2 mt-6 pt-6">
                   {/* Scorecards section for desktop */}
-                  {scorecards.scorecard ? (
-                    scorecards.scorecard.response.data.map((scorecard) => (
+                  {scorecards.scorecards ? (
+                    scorecards.scorecards.response.data.map((scorecard) => (
                       <>
                         <Disclosure
                           as="div"
-                          key={scorecard._id}
+                          key={scorecard.id}
                           className="space-y-1"
                         >
                           {({ open }) => (
                             <>
                               <Disclosure.Button
                                 className={classNames(
-                                  scorecard._id === props.scorecardId
+                                  scorecard.id === props.scorecardId
                                     ? "bg-blue-800 text-white"
                                     : "text-blue-100 hover:text-white hover:bg-blue-600",
                                   "group w-full flex items-center pl-2 pr-1 py-2 text-left text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -424,7 +419,7 @@ export default function Sidebar(props) {
                                   onClick={(e) =>
                                     handleLink(
                                       e,
-                                      `/scorecard/${scorecard._id}`,
+                                      `/scorecard/${scorecard.id}`,
                                       history
                                     )
                                   }
@@ -450,18 +445,18 @@ export default function Sidebar(props) {
                               </Disclosure.Button>
 
                               <Disclosure.Panel className="space-y-1">
-                                {scorecard.perspective.map((perspective) => (
+                                {scorecard.perspectives.map((perspective) => (
                                   <>
                                     <a
                                       onClick={(e) =>
                                         handleLink(
                                           e,
-                                          `/scorecard/${scorecard._id}/perspective/${perspective._id}`,
+                                          `/scorecard/${scorecard.id}/perspective/${perspective.id}`,
                                           history
                                         )
                                       }
                                       className={classNames(
-                                        perspective._id === props.perspectiveId
+                                        perspective.id === props.perspectiveId
                                           ? "bg-blue-800 text-white"
                                           : "text-blue-100 hover:text-white hover:bg-blue-600",
                                         "group w-full flex items-center pl-11 pr-2 py-2 text-sm font-medium rounded-md hover:text-white hover:bg-blue-600 cursor-pointer"

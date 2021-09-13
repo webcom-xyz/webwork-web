@@ -1,30 +1,14 @@
-import React, { Fragment, useState, useEffect } from "react";
-import { Dialog, Menu, Transition } from "@headlessui/react";
+import React, { Fragment } from "react";
+import { Dialog, Transition } from "@headlessui/react";
 import {
-  ClockIcon,
   HomeIcon,
-  MenuAlt1Icon,
-  ViewListIcon,
   XIcon,
-  CheckCircleIcon,
   InboxIcon,
   HashtagIcon,
   KeyIcon,
   FlagIcon,
 } from "@heroicons/react/outline";
-import {
-  ChevronRightIcon,
-  DotsVerticalIcon,
-  DuplicateIcon,
-  PencilAltIcon,
-  SearchIcon,
-  SelectorIcon,
-  TrashIcon,
-  UserAddIcon,
-} from "@heroicons/react/solid";
 import logo from "../../assets/logo_4.svg";
-import { useSelector, useDispatch } from "react-redux";
-import { getCurrentUser, getCurrentUserAvatar } from "../../actions/user";
 import classNames from "../../utils/classNames";
 
 const navigation = [

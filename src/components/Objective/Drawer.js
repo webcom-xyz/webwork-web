@@ -1,14 +1,10 @@
-import { Fragment, useState, useRef } from "react";
+import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { XIcon } from "@heroicons/react/outline";
 import {
   LinkIcon,
-  PlusIcon,
   QuestionMarkCircleIcon,
 } from "@heroicons/react/solid";
-import { useDispatch } from "react-redux";
-import { createNewKPI } from "../../actions/objective";
-import { useParams } from "react-router-dom";
 
 const team = [
   {
@@ -49,31 +45,6 @@ const team = [
 ];
 
 export default function Drawer(props) {
-  const objectiveNameRef = useRef("");
-  const weightRef = useRef("");
-  const { perspectiveId } = useParams();
-  const dispatch = useDispatch();
-
-  const [objective, setObjective] = useState({});
-
-  const handleChange = (e) => {
-    setObjective({
-      ...objective,
-      name: objectiveNameRef.current.value,
-      weight: weightRef.current.value,
-      perspectiveId: perspectiveId,
-    });
-  };
-
-//   const handleCreateNewObjective = (e) => {
-//     e.preventDefault();
-
-//     try {
-//       dispatch(createNewObjective(objective));
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   };
 
   return (
     <Transition.Root show={props.drawerOpen} as={Fragment}>
@@ -100,7 +71,7 @@ export default function Drawer(props) {
               <div className="w-screen max-w-md">
                 <form
                   className="h-full divide-y divide-gray-200 flex flex-col bg-white shadow-xl"
-                //   onSubmit={handleCreateNewObjective}
+                  onSubmit={(e) => props.handleCreateNewKPI(e)}
                 >
                   <div className="flex-1 h-0 overflow-y-auto">
                     <div className="py-6 px-4 bg-blue-700 sm:px-6">
@@ -143,8 +114,8 @@ export default function Drawer(props) {
                                 id="objectiveName"
                                 placeholder="..."
                                 className="block w-full shadow-sm sm:text-sm focus:ring-blue-500 focus:border-blue-500 border-gray-300 rounded-md"
-                                ref={objectiveNameRef}
-                                onChange={handleChange}
+                                ref={props.name}
+                                onChange={props.handleChange}
                               />
                             </div>
                           </div>
@@ -162,6 +133,8 @@ export default function Drawer(props) {
                                 rows={4}
                                 className="block w-full shadow-sm sm:text-sm focus:ring-blue-500 focus:border-blue-500 border border-gray-300 rounded-md"
                                 placeholder="..."
+                                ref={props.description}
+                                onChange={props.handleChange}
                               />
                             </div>
                           </div>
@@ -184,12 +157,132 @@ export default function Drawer(props) {
                                 id="weight"
                                 className="block w-full shadow-sm sm:text-sm focus:ring-blue-500 focus:border-blue-500 border-gray-300 rounded-md pl-7"
                                 placeholder="0.00"
-                                ref={weightRef}
-                                onChange={handleChange}
+                                ref={props.weight}
+                                onChange={props.handleChange}
                               />
                             </div>
                           </div>
                           <div>
+                            <label
+                              htmlFor="project_name"
+                              className="block text-sm font-medium text-gray-900"
+                            >
+                              Gia tri
+                            </label>
+                            <div className="mt-1 relative">
+                              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <span className="text-gray-500 sm:text-sm">
+                                  %
+                                </span>
+                              </div>
+                              <input
+                                type="text"
+                                name="weight"
+                                id="weight"
+                                className="block w-full shadow-sm sm:text-sm focus:ring-blue-500 focus:border-blue-500 border-gray-300 rounded-md pl-7"
+                                placeholder="0.00"
+                                ref={props.actualValue}
+                                onChange={props.handleChange}
+                              />
+                            </div>
+                          </div>
+                          <div>
+                            <label
+                              htmlFor="project_name"
+                              className="block text-sm font-medium text-gray-900"
+                            >
+                              Red
+                            </label>
+                            <div className="mt-1 relative">
+                              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <span className="text-gray-500 sm:text-sm">
+                                  %
+                                </span>
+                              </div>
+                              <input
+                                type="text"
+                                name="weight"
+                                id="weight"
+                                className="block w-full shadow-sm sm:text-sm focus:ring-blue-500 focus:border-blue-500 border-gray-300 rounded-md pl-7"
+                                placeholder="0.00"
+                                ref={props.red}
+                                onChange={props.handleChange}
+                              />
+                            </div>
+                          </div>
+                          <div>
+                            <label
+                              htmlFor="project_name"
+                              className="block text-sm font-medium text-gray-900"
+                            >
+                              Trọng số
+                            </label>
+                            <div className="mt-1 relative">
+                              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <span className="text-gray-500 sm:text-sm">
+                                  %
+                                </span>
+                              </div>
+                              <input
+                                type="text"
+                                name="weight"
+                                id="weight"
+                                className="block w-full shadow-sm sm:text-sm focus:ring-blue-500 focus:border-blue-500 border-gray-300 rounded-md pl-7"
+                                placeholder="0.00"
+                                ref={props.goal}
+                                onChange={props.handleChange}
+                              />
+                            </div>
+                          </div>
+                          <div>
+                            <label
+                              htmlFor="project_name"
+                              className="block text-sm font-medium text-gray-900"
+                            >
+                              Data type
+                            </label>
+                            <div className="mt-1 relative">
+                              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <span className="text-gray-500 sm:text-sm">
+                                  %
+                                </span>
+                              </div>
+                              <input
+                                type="text"
+                                name="weight"
+                                id="weight"
+                                className="block w-full shadow-sm sm:text-sm focus:ring-blue-500 focus:border-blue-500 border-gray-300 rounded-md pl-7"
+                                placeholder="0.00"
+                                ref={props.dataType}
+                                onChange={props.handleChange}
+                              />
+                            </div>
+                          </div>
+                          <div>
+                            <label
+                              htmlFor="project_name"
+                              className="block text-sm font-medium text-gray-900"
+                            >
+                              Calendar
+                            </label>
+                            <div className="mt-1 relative">
+                              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <span className="text-gray-500 sm:text-sm">
+                                  %
+                                </span>
+                              </div>
+                              <input
+                                type="text"
+                                name="weight"
+                                id="weight"
+                                className="block w-full shadow-sm sm:text-sm focus:ring-blue-500 focus:border-blue-500 border-gray-300 rounded-md pl-7"
+                                placeholder="0.00"
+                                ref={props.calendar}
+                                onChange={props.handleChange}
+                              />
+                            </div>
+                          </div>
+                          {/* <div>
                             <h3 className="text-sm font-medium text-gray-900">
                               Nhân viên
                             </h3>
@@ -222,7 +315,7 @@ export default function Drawer(props) {
                                 </button>
                               </div>
                             </div>
-                          </div>
+                          </div> */}
                         </div>
                         <div className="pt-4 pb-6">
                           <div className="flex text-sm">

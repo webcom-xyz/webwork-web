@@ -15,6 +15,14 @@ import {
   CREATE_NEW_SCORECARD,
   CREATE_NEW_PERSPECTIVE,
   DELETE_SCORECARD,
+  CREATE_NEW_KPI,
+  GET_ALL_KPIS,
+  ADD_MEMBER,
+  REMOVE_MEMBER,
+  GET_MEMBERS,
+  GET_KPI,
+  SET_KPI,
+  GET_SCORECARD,
 } from "../constants/types";
 import {
   handleSignUp,
@@ -33,12 +41,23 @@ import {
   handleCreateNewScorecardFromTemplate,
   handleDeleteScorecard,
   handleGetAllScorecards,
+  handleGetScorecard,
 } from "../handlers/scorecard";
 import { handleCreateNewPerspective } from "../handlers/perspective";
 import {
   handleCreateNewObjective,
   handleGetAllObjectves,
 } from "../handlers/objective";
+import {
+  handleCreateNewKPI,
+  handleGetAllKPIs,
+  handleGetKPI,
+} from "../handlers/kpi";
+import {
+  handleAddMembers,
+  handleRemoveMember,
+  handleGetMembers,
+} from "../handlers/workspace";
 
 export function* watcherSaga() {
   // Authentication
@@ -61,6 +80,7 @@ export function* watcherSaga() {
   );
   yield takeLatest(DELETE_SCORECARD, handleDeleteScorecard);
   yield takeLatest(GET_ALL_SCORECARDS, handleGetAllScorecards);
+  yield takeLatest(GET_SCORECARD, handleGetScorecard);
 
   // Perspective
   yield takeLatest(CREATE_NEW_PERSPECTIVE, handleCreateNewPerspective);
@@ -68,4 +88,15 @@ export function* watcherSaga() {
   // Objective
   yield takeLatest(CREATE_NEW_OBJECTIVE, handleCreateNewObjective);
   yield takeLatest(GET_ALL_OBJECTIVES, handleGetAllObjectves);
+
+  // KPI
+  yield takeLatest(CREATE_NEW_KPI, handleCreateNewKPI);
+  yield takeLatest(GET_KPI, handleGetKPI);
+  yield takeLatest(GET_ALL_KPIS, handleGetAllKPIs);
+
+
+  // Workspace
+  yield takeLatest(ADD_MEMBER, handleAddMembers);
+  yield takeLatest(GET_MEMBERS, handleGetMembers);
+  yield takeLatest(REMOVE_MEMBER, handleRemoveMember);
 }

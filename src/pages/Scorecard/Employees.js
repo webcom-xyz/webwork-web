@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Sidebar from "../../components/Scorecard/Sidebar";
 import Topbar from "../../components/Scorecard/Topbar";
 import {
@@ -12,10 +12,10 @@ import {
   BadgeCheckIcon,
 } from "@heroicons/react/solid";
 import classNames from "../../utils/classNames";
-import Tabs from "../../components/Scorecard/Tabs";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Drawer from "../../components/Employee/Drawer";
-
+import { addMembers, getMembers } from "../../actions/workspace";
+import { useLocation } from "react-router";
 const stats = [
   {
     name: "Task Completions",
@@ -84,6 +84,37 @@ export default function Employees() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const currentUser = useSelector((state) => state.user.currentUser);
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const dispatch = useDispatch();
+  const workspace = useSelector((state) => state.workspace);
+  const location = useLocation();
+
+  const [members, setMembers] = useState({});
+  const email = useRef("");
+
+  const handleChange = () => {
+    setMembers({
+      ...members,
+      email: email.current.value,
+    });
+  };
+
+  const handleAddMembers = (e) => {
+    e.preventDefault();
+    try {
+      dispatch(addMembers(members));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    try {
+      dispatch(getMembers());
+    } catch (error) {
+      console.log(error);
+    }
+  }, [location]);
+
   return (
     <div className="h-screen flex overflow-hidden bg-gray-100">
       <Sidebar
@@ -91,7 +122,13 @@ export default function Employees() {
         setSidebarOpen={setSidebarOpen}
         employeesActive={true}
       />
-      <Drawer drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} />
+      <Drawer
+        drawerOpen={drawerOpen}
+        setDrawerOpen={setDrawerOpen}
+        email={email}
+        handleChange={handleChange}
+        handleAddMembers={handleAddMembers}
+      />
       <div className="flex-1 overflow-auto focus:outline-none">
         {/* <Topbar setSidebarOpen={setSidebarOpen} /> */}
         <main className="flex-1 relative pb-8 z-0 overflow-y-auto">
@@ -104,7 +141,7 @@ export default function Employees() {
                     {currentUser ? (
                       <img
                         className="hidden h-16 w-16 rounded-full sm:block"
-                        src={`http://localhost:3000/${currentUser?.data.avatarUrl}`}
+                        src={`http://localhost:5000/${currentUser?.data.avatarUrl}`}
                         alt="avatar"
                       />
                     ) : (
@@ -119,7 +156,7 @@ export default function Employees() {
                         {currentUser ? (
                           <img
                             className="h-16 w-16 rounded-full sm:hidden"
-                            src={`http://localhost:3000/${currentUser?.data.avatarUrl}`}
+                            src={`http://localhost:5000/${currentUser?.data.avatarUrl}`}
                             alt="avatar"
                           />
                         ) : (
@@ -200,7 +237,7 @@ export default function Employees() {
           <div className="mt-8">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
               <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {people.map((person) => (
+                {/* {people.map((person) => (
                   <li
                     key={person.email}
                     className="col-span-1 bg-white rounded-lg shadow divide-y divide-gray-200"
@@ -254,7 +291,66 @@ export default function Employees() {
                       </div>
                     </div>
                   </li>
-                ))}
+                ))} */}
+                {workspace?.workspace ? (
+                  workspace.workspace.membersData.data.map((member) => (
+                    <li
+                      key={member.id}
+                      className="col-span-1 bg-white rounded-lg shadow divide-y divide-gray-200"
+                    >
+                      <div className="w-full flex items-center justify-between p-6 space-x-6">
+                        <div className="flex-1 truncate">
+                          <div className="flex items-center space-x-3">
+                            <h3 className="text-gray-900 text-sm font-medium truncate">
+                              {member.fullName}
+                            </h3>
+                            <span className="flex-shrink-0 inline-block px-2 py-0.5 text-green-800 text-xs font-medium bg-green-100 rounded-full">
+                              {member.office || "Unassigned"}
+                            </span>
+                          </div>
+                          <p className="mt-1 text-gray-500 text-sm truncate">
+                            {member.office || "Unassigned"}
+                          </p>
+                        </div>
+                        <img
+                          className="w-10 h-10 bg-gray-300 rounded-full flex-shrink-0"
+                          src={`http://localhost:5000/${member.avatarUrl}`}
+                          alt=""
+                        />
+                      </div>
+                      <div>
+                        <div className="-mt-px flex divide-x divide-gray-200">
+                          <div className="w-0 flex-1 flex">
+                            <a
+                              // href={`mailto:${person.email}`}
+                              className="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500"
+                            >
+                              <MailIcon
+                                className="w-5 h-5 text-gray-400"
+                                aria-hidden="true"
+                              />
+                              <span className="ml-3">Email</span>
+                            </a>
+                          </div>
+                          <div className="-ml-px w-0 flex-1 flex">
+                            <a
+                              // href={`tel:${person.telephone}`}
+                              className="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500"
+                            >
+                              <PhoneIcon
+                                className="w-5 h-5 text-gray-400"
+                                aria-hidden="true"
+                              />
+                              <span className="ml-3">Call</span>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                  ))
+                ) : (
+                  <></>
+                )}
               </ul>
             </div>
           </div>

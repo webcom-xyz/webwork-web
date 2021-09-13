@@ -4,8 +4,9 @@ import {
   requestCreateNewScorecardFromTemplate,
   requestDeleteScorecard,
   requestGetAllScorecards,
+  requestGetScorecard,
 } from "../requests/scorecard";
-import { setScorecard } from "../actions/scorecard";
+import { setScorecard, setScorecards } from "../actions/scorecard";
 
 export function* handleCreateNewScorecard(action) {
   try {
@@ -23,10 +24,19 @@ export function* handleCreateNewScorecardFromTemplate(action) {
   }
 }
 
+export function* handleGetScorecard(action) {
+  try {
+    const { data } = yield call(requestGetScorecard, action.payload);
+    yield put(setScorecard(data));
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export function* handleGetAllScorecards(action) {
   try {
     const { data } = yield call(requestGetAllScorecards);
-    yield put(setScorecard(data));
+    yield put(setScorecards(data));
   } catch (error) {
     console.log(error);
   }

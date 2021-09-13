@@ -170,7 +170,7 @@ export default function Perspective(props) {
       />
       <Drawer drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} />
       <div className="flex-1 overflow-auto focus:outline-none">
-        <Topbar setSidebarOpen={setSidebarOpen} />
+        {/* <Topbar setSidebarOpen={setSidebarOpen} /> */}
 
         <main className="flex-1 relative pb-8 z-0">
           <button onClick={() => setDrawerOpen(true)}>New Objective</button>
@@ -181,7 +181,7 @@ export default function Perspective(props) {
                 <button
                   onClick={() =>
                     history.push(
-                      `/scorecard/${scorecardId}/perspective/${perspectiveId}/objective/${objective._id}`
+                      `/scorecard/${scorecardId}/perspective/${perspectiveId}/objective/${objective.id}`
                     )
                   }
                 >

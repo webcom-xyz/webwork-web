@@ -52,6 +52,7 @@ const team = [
 
 export default function CreateNewScorecardDrawer(props) {
   const workspaceName = useRef("");
+  const workspaceDescription = useRef("");
   const workspaceTeam = useRef("");
   const workspaceDepartment = useRef("");
 
@@ -60,6 +61,7 @@ export default function CreateNewScorecardDrawer(props) {
   const [workspaceData, setWorkspaceData] = useState({
     name: "",
     type: "",
+    description: ""
   });
 
   const handleChange = (e) => {
@@ -166,6 +168,8 @@ export default function CreateNewScorecardDrawer(props) {
                                 name="description"
                                 rows={4}
                                 className="block w-full shadow-sm sm:text-sm focus:ring-blue-500 focus:border-blue-500 border border-gray-300 rounded-md"
+                                ref={workspaceDescription}
+                                onChange={handleChange}
                                 placeholder="..."
                               />
                             </div>
