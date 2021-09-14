@@ -1,13 +1,16 @@
-import { SET_OBJECTIVES } from "../constants/types";
+import { SET_KPIS_OF_OBJECTIVE, SET_OBJECTIVES } from "../constants/types";
 
-const objective = (state = { objective: null }, action) => {
-    switch (action.type) {
-        case SET_OBJECTIVES: 
-            return { ...state, objective: action.payload }
-        
-        default:
-            return state;
-    }
-}
+const objective = (state = { objective: null, kpis: null }, action) => {
+  switch (action.type) {
+    case SET_OBJECTIVES:
+      return { ...state, objective: action.payload };
+
+    case SET_KPIS_OF_OBJECTIVE:
+      return { ...state, kpis: action.payload };
+
+    default:
+      return state;
+  }
+};
 
 export default objective;

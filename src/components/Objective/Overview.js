@@ -9,16 +9,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import classNames from "../../utils/classNames";
-import {
-  UsersIcon,
-  PresentationChartLineIcon,
-  CashIcon,
-  OfficeBuildingIcon,
-  AcademicCapIcon,
-  ChipIcon,
-  UserIcon,
-  UserGroupIcon,
-} from "@heroicons/react/outline";
+import { PresentationChartLineIcon, StopIcon } from "@heroicons/react/outline";
 import { ArrowSmDownIcon, ArrowSmUpIcon } from "@heroicons/react/solid";
 
 export default function Overview(props) {
@@ -149,97 +140,31 @@ export default function Overview(props) {
                 </dd>
               </div>
 
-              <div className="relative bg-white pt-5 px-4 sm:pt-6 sm:px-6 overflow-hidden">
-                <dt>
-                  <div className="absolute bg-blue-500 rounded-md p-3">
-                    <ChipIcon
-                      className="h-6 w-6 text-white"
-                      aria-hidden="true"
-                    />
-                  </div>
-                  <p className="ml-16 text-sm font-medium text-gray-500 truncate">
-                    Bất thường
-                  </p>
-                </dt>
-                <dd className="ml-16 flex items-baseline">
-                  <p
-                    className={classNames(
-                      props.changeType === "increase"
-                        ? "text-gray-700"
-                        : "text-gray-700",
-                      "flex items-baseline text-sm font-semibold"
-                    )}
-                  >
-                    Giá trị của chỉ số đo lường phù hợp với thuộc tính của điểm
-                    bất thường theo sự đánh giá của chúng tôi
-                  </p>
-                </dd>
-              </div>
-
-              <div className="relative bg-white pt-5 px-4 sm:pt-6 sm:px-6 overflow-hidden">
-                <dt>
-                  <div className="absolute bg-blue-500 rounded-md p-3">
-                    <ChipIcon
-                      className="h-6 w-6 text-white"
-                      aria-hidden="true"
-                    />
-                  </div>
-                  <p className="ml-16 text-sm font-medium text-gray-500 truncate">
-                    Thay đổi
-                  </p>
-                </dt>
-                <dd className="ml-16 flex items-baseline">
-                  <p
-                    className={classNames(
-                      props.changeType === "increase"
-                        ? "text-gray-700"
-                        : "text-gray-700",
-                      "flex items-baseline text-sm font-semibold"
-                    )}
-                  >
-                    Giá trị của chỉ số đo lường phù hợp với thuộc tính của điểm
-                    thay đổi theo sự đánh giá của chúng tôi
-                  </p>
-                </dd>
-              </div>
-
-              {props.perspectives ? (
-                props.perspectives.map((perspective) => (
+              {props.kpis ? (
+                props.kpis.map((kpi) => (
                   <div className="relative bg-white pt-5 px-4 sm:pt-6 sm:px-6 overflow-hidden">
                     <dt>
                       <div className="absolute bg-green-500 rounded-md p-3">
-                        {perspective.name === "Khách hàng" ? (
-                          <UserGroupIcon
-                            className="h-6 w-6 text-white"
-                            aria-hidden="true"
-                          />
-                        ) : perspective.name === "Tài chính" ? (
-                          <CashIcon
-                            className="h-6 w-6 text-white"
-                            aria-hidden="true"
-                          />
-                        ) : perspective.name === "Quá trình nội bộ" ? (
-                          <OfficeBuildingIcon
-                            className="h-6 w-6 text-white"
-                            aria-hidden="true"
-                          />
-                        ) : perspective.name === "Học hỏi và phát triển" ? (
-                          <AcademicCapIcon
-                            className="h-6 w-6 text-white"
-                            aria-hidden="true"
-                          />
-                        ) : (
-                          <></>
-                        )}
+                        <StopIcon
+                          className="h-6 w-6 text-white"
+                          aria-hidden="true"
+                        />
                       </div>
-                      <p className="ml-16 text-sm font-medium text-gray-500 truncate">
-                        {perspective.name}
+                      <p
+                        className="ml-16 text-sm font-medium text-gray-500 truncate cursor-pointer hover:text-gray-900"
+                        onClick={() =>
+                          props.history.push(
+                            `/${props.scorecardId}/${props.perspectiveId}/${props.objectiveId}/${kpi.id}`
+                          )
+                        }
+                      >
+                        {kpi.name}
                       </p>
                     </dt>
                     <dd className="ml-16 flex items-baseline">
                       <p className="text-xl font-semibold text-gray-900">%</p>
                       <p className="ml-2 flex items-baseline text-sm font-semibold text-gray-500">
-                        {perspective.weight}%
+                        {kpi.weight}%
                       </p>
                       {/* <p
                         className={classNames(

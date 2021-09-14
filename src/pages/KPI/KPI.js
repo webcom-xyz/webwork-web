@@ -1,10 +1,9 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Sidebar from "../../components/Scorecard/Sidebar";
 import Topbar from "../../components/Scorecard/Topbar";
 import { getKPI } from "../../actions/kpi";
 import Tabs from "../../components/Scorecard/Tabs";
 import { useHistory, useLocation, useParams } from "react-router-dom";
-import { Switch, Listbox, Transition } from "@headlessui/react";
 import { useDispatch, useSelector } from "react-redux";
 import Drawer from "../../components/Perspective/Drawer";
 import PageHeading from "../../components/Scorecard/PageHeading";
@@ -14,10 +13,10 @@ import quarters from "../../utils/quarters";
 import { data, data1 } from "../../utils/data";
 
 import TimePeriodSelector from "../../components/Scorecard/TimePeriodSelector";
-import Overview from "../../components/Scorecard/Overview";
+import Overview from "../../components/KPI/Overview";
 import StrategyView from "../../components/Scorecard/StrategyView";
 import MeasuresView from "../../components/Scorecard/MeasuresView";
-import axios from "axios";
+
 export default function KPI() {
   const dispatch = useDispatch();
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -36,7 +35,7 @@ export default function KPI() {
   const [strategyviewSelected, setStrategyviewSelected] = useState(false);
   const [measureviewSelected, setMeasureviewSelected] = useState(false);
 
-  const kpis = useSelector((state) => state.kpi);
+  const kpi = useSelector((state) => state.kpi.kpi);
 
   useEffect(() => {
     try {
@@ -55,12 +54,10 @@ export default function KPI() {
       />
       <Drawer drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} />
       <div className="flex-1 overflow-auto focus:outline-none">
-        {/* <Topbar setSidebarOpen={setSidebarOpen} /> */}
 
-        {kpis.kpi ? (
           <main className="flex-1 relative pb-8 z-0">
             <PageHeading
-              pageTitle={`KPI: ${kpis.kpi.response.data.name}`}
+              pageTitle={`KPI: ${kpi?.data.name}`}
               pageSubtitle={kpiId}
               setDrawerOpen={setDrawerOpen}
               settingsId={kpiId}
@@ -99,14 +96,13 @@ export default function KPI() {
             )}
 
             {overviewSelected && (
-              <Overview data={data} data1={data1} changeType={changeType} />
+              <Overview data={data} data1={data1} changeType={changeType} kpis={kpi?.data} />
             )}
 
             {strategyviewSelected && <StrategyView />}
 
             {measureviewSelected && <MeasuresView />}
           </main>
-        ) : (<p>Loading...</p>)}
       </div>
     </div>
   );

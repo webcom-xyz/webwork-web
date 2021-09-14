@@ -33,33 +33,33 @@ function App() {
           <Route path="/sign-up" component={SignUp} />
 
           {/* Dashboard routes */}
-          <PrivateRoute path="/scorecard/dashboard" component={Dashboard} />
-          <PrivateRoute path="/scorecard/employees" component={Employees} />
-          <PrivateRoute path="/scorecard/reports" component={Reports} />
+          <PrivateRoute path="/dashboard" component={Dashboard} />
+          <PrivateRoute path="/employees" component={Employees} />
+          <PrivateRoute path="/reports" component={Reports} />
 
           <PrivateRoute
             exact
-            path="/scorecard/:scorecardId"
+            path="/:scorecardId"
             component={Scorecard}
           />
           <PrivateRoute
             exact
-            path="/scorecard/:scorecardId/settings"
+            path="/:scorecardId/settings"
             component={ScorecardSettings}
           />
           <PrivateRoute
             exact
-            path="/scorecard/:scorecardId/perspective/:perspectiveId"
+            path="/:scorecardId/:perspectiveId"
             component={Perspective}
           />
           <PrivateRoute
             exact
-            path="/scorecard/:scorecardId/perspective/:perspectiveId/objective/:objectiveId"
+            path="/:scorecardId/:perspectiveId/:objectiveId"
             component={Objective}
           />
           <PrivateRoute
             exact
-            path="/scorecard/:scorecardId/perspective/:perspectiveId/objective/:objectiveId/kpi/:kpiId"
+            path="/:scorecardId/:perspectiveId/:objectiveId/:kpiId"
             component={KPI}
           />
 

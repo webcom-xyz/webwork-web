@@ -35,21 +35,21 @@ export default function Sidebar(props) {
       href: "#",
       icon: HomeIcon,
       current: props.homeActive,
-      page: "/scorecard/dashboard",
+      page: "/dashboard",
     },
     {
       name: "Nhân viên",
       href: "#",
       icon: UserGroupIcon,
       current: props.employeesActive,
-      page: "/scorecard/employees",
+      page: "/employees",
     },
     {
       name: "Báo cáo",
       href: "#",
       icon: DocumentReportIcon,
       current: props.reportsActive,
-      page: "/scorecard/reports",
+      page: "/reports",
     },
     // {
     //   name: "Quy trình",
@@ -190,7 +190,7 @@ export default function Sidebar(props) {
                                   onClick={(e) =>
                                     handleLink(
                                       e,
-                                      `/scorecard/${scorecard.id}`,
+                                      `/${scorecard.id}`,
                                       history
                                     )
                                   }
@@ -222,7 +222,7 @@ export default function Sidebar(props) {
                                       onClick={(e) =>
                                         handleLink(
                                           e,
-                                          `/scorecard/${scorecard.id}/perspective/${perspective.id}`,
+                                          `/${scorecard.id}/${perspective.id}`,
                                           history
                                         )
                                       }
@@ -419,7 +419,7 @@ export default function Sidebar(props) {
                                   onClick={(e) =>
                                     handleLink(
                                       e,
-                                      `/scorecard/${scorecard.id}`,
+                                      `/${scorecard.id}`,
                                       history
                                     )
                                   }
@@ -451,7 +451,7 @@ export default function Sidebar(props) {
                                       onClick={(e) =>
                                         handleLink(
                                           e,
-                                          `/scorecard/${scorecard.id}/perspective/${perspective.id}`,
+                                          `/${scorecard.id}/${perspective.id}`,
                                           history
                                         )
                                       }

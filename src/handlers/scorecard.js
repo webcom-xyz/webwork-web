@@ -4,9 +4,10 @@ import {
   requestCreateNewScorecardFromTemplate,
   requestDeleteScorecard,
   requestGetAllScorecards,
+  requestGetPerspectivesOfScorecard,
   requestGetScorecard,
 } from "../requests/scorecard";
-import { setScorecard, setScorecards } from "../actions/scorecard";
+import { setPerspectivesOfScorecard, setScorecard, setScorecards } from "../actions/scorecard";
 
 export function* handleCreateNewScorecard(action) {
   try {
@@ -45,6 +46,18 @@ export function* handleGetAllScorecards(action) {
 export function* handleDeleteScorecard(action) {
   try {
     const { data } = yield call(requestDeleteScorecard, action.payload);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export function* handleGetPerspectivesOfScorecard(action) {
+  try {
+    const { data } = yield call(
+      requestGetPerspectivesOfScorecard,
+      action.payload
+    );
+    yield put(setPerspectivesOfScorecard(data));
   } catch (error) {
     console.log(error);
   }

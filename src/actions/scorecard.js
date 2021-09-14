@@ -1,35 +1,55 @@
-import { CREATE_NEW_SCORECARD, CREATE_NEW_SCORECARD_FROM_TEMPLATE, GET_ALL_SCORECARDS, SET_SCORECARD, DELETE_SCORECARD, GET_SCORECARD, SET_SCORECARDS } from "../constants/types";
+import {
+  CREATE_NEW_SCORECARD,
+  CREATE_NEW_SCORECARD_FROM_TEMPLATE,
+  GET_ALL_SCORECARDS,
+  SET_SCORECARD,
+  DELETE_SCORECARD,
+  GET_SCORECARD,
+  SET_SCORECARDS,
+  GET_PERSPECTIVES_OF_SCORECARD,
+  SET_PERSPECTIVES_OF_SCORECARD,
+} from "../constants/types";
 
 export const createNewScorecard = (workspaceData) => ({
-    type: CREATE_NEW_SCORECARD,
-    payload: { workspaceData },
-})
+  type: CREATE_NEW_SCORECARD,
+  payload: { workspaceData },
+});
 
 export const createNewScorecardFromTemplate = (workspaceData) => ({
-    type: CREATE_NEW_SCORECARD_FROM_TEMPLATE,
-    payload: { workspaceData },
-})
+  type: CREATE_NEW_SCORECARD_FROM_TEMPLATE,
+  payload: { workspaceData },
+});
 
 export const getScorecard = (scorecardId) => ({
-    type: GET_SCORECARD,
-    payload: scorecardId
-})
+  type: GET_SCORECARD,
+  payload: scorecardId,
+});
 
 export const getAllScorecards = () => ({
-    type: GET_ALL_SCORECARDS
-})
+  type: GET_ALL_SCORECARDS,
+});
 
-export const setScorecard = (response) => ({
-    type: SET_SCORECARD,
-    payload: { response },
-})
+export const setScorecard = ( response ) => ({
+  type: SET_SCORECARD,
+  payload: { response },
+});
 
-export const setScorecards = (response) => ({
-    type: SET_SCORECARDS,
-    payload: { response },
-})
+export const setScorecards = ( response) => ({
+  type: SET_SCORECARDS,
+  payload: { response },
+});
 
 export const deleteScorecard = (scorecardId) => ({
-    type: DELETE_SCORECARD,
-    payload: { scorecardId }
-})
+  type: DELETE_SCORECARD,
+  payload: { scorecardId },
+});
+
+export const getPerspectivesOfScorecard = (scorecardId) => ({
+    type: GET_PERSPECTIVES_OF_SCORECARD,
+    payload: scorecardId
+});
+
+export const setPerspectivesOfScorecard = (perspectiveData) => ({
+  type: SET_PERSPECTIVES_OF_SCORECARD,
+  payload: perspectiveData
+});

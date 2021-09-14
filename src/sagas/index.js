@@ -11,7 +11,6 @@ import {
   CREATE_NEW_SCORECARD_FROM_TEMPLATE,
   GET_ALL_SCORECARDS,
   CREATE_NEW_OBJECTIVE,
-  GET_ALL_OBJECTIVES,
   CREATE_NEW_SCORECARD,
   CREATE_NEW_PERSPECTIVE,
   DELETE_SCORECARD,
@@ -23,6 +22,9 @@ import {
   GET_KPI,
   SET_KPI,
   GET_SCORECARD,
+  GET_PERSPECTIVES_OF_SCORECARD,
+  GET_OBJECTIVES_OF_PERSPECTIVE,
+  GET_KPIS_OF_OBJECTIVE,
 } from "../constants/types";
 import {
   handleSignUp,
@@ -41,12 +43,16 @@ import {
   handleCreateNewScorecardFromTemplate,
   handleDeleteScorecard,
   handleGetAllScorecards,
+  handleGetPerspectivesOfScorecard,
   handleGetScorecard,
 } from "../handlers/scorecard";
-import { handleCreateNewPerspective } from "../handlers/perspective";
+import {
+  handleCreateNewPerspective,
+  handleGetObjectivesOfPerspective,
+} from "../handlers/perspective";
 import {
   handleCreateNewObjective,
-  handleGetAllObjectves,
+  handleGetKPIsOfObjective,
 } from "../handlers/objective";
 import {
   handleCreateNewKPI,
@@ -81,19 +87,26 @@ export function* watcherSaga() {
   yield takeLatest(DELETE_SCORECARD, handleDeleteScorecard);
   yield takeLatest(GET_ALL_SCORECARDS, handleGetAllScorecards);
   yield takeLatest(GET_SCORECARD, handleGetScorecard);
+  yield takeLatest(
+    GET_PERSPECTIVES_OF_SCORECARD,
+    handleGetPerspectivesOfScorecard
+  );
 
   // Perspective
   yield takeLatest(CREATE_NEW_PERSPECTIVE, handleCreateNewPerspective);
+  yield takeLatest(
+    GET_OBJECTIVES_OF_PERSPECTIVE,
+    handleGetObjectivesOfPerspective
+  );
 
   // Objective
   yield takeLatest(CREATE_NEW_OBJECTIVE, handleCreateNewObjective);
-  yield takeLatest(GET_ALL_OBJECTIVES, handleGetAllObjectves);
+  yield takeLatest(GET_KPIS_OF_OBJECTIVE, handleGetKPIsOfObjective);
 
   // KPI
   yield takeLatest(CREATE_NEW_KPI, handleCreateNewKPI);
   yield takeLatest(GET_KPI, handleGetKPI);
-  yield takeLatest(GET_ALL_KPIS, handleGetAllKPIs);
-
+  // yield takeLatest(GET_ALL_KPIS, handleGetAllKPIs);
 
   // Workspace
   yield takeLatest(ADD_MEMBER, handleAddMembers);

@@ -4,7 +4,18 @@ import Topbar from "../../components/Scorecard/Topbar";
 import { useParams, useLocation, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Drawer from "../../components/Objective/Drawer";
-import { createNewKPI, getAllKPIs } from "../../actions/kpi";
+import { createNewKPI } from "../../actions/kpi";
+import { getKPIsOfObjective } from "../../actions/objective";
+import PageHeading from "../../components/Scorecard/PageHeading";
+import TimePeriodSelector from "../../components/Scorecard/TimePeriodSelector";
+import { data, data1 } from "../../utils/data";
+import months from "../../utils/months";
+import years from "../../utils/years";
+import quarters from "../../utils/quarters";
+import Tabs from "../../components/Scorecard/Tabs";
+import Overview from "../../components/Objective/Overview";
+import StrategyView from "../../components/Scorecard/StrategyView";
+import MeasuresView from "../../components/Scorecard/MeasuresView";
 
 export default function Objective(props) {
   const dispatch = useDispatch();
@@ -24,7 +35,18 @@ export default function Objective(props) {
   const dataType = useRef("");
   const calendar = useRef("");
 
-  const kpis = useSelector((state) => state.kpi);
+  const [monthSelected, setMonthSelected] = useState(months[0]);
+  const [quarterSelected, setQuarterSelected] = useState(quarters[0]);
+  const [yearSelected, setYearSelected] = useState(years[0]);
+  const [timePeriodSelected, setTimePeriodSelected] = useState("Monthly");
+
+  const [changeType, setChangeType] = useState("");
+  const [overviewSelected, setOverviewSelected] = useState(true);
+  const [strategyviewSelected, setStrategyviewSelected] = useState(false);
+  const [measureviewSelected, setMeasureviewSelected] = useState(false);
+
+  const kpis = useSelector((state) => state.objective.kpis);
+
   const handleChange = () => {
     setKPI({
       ...kpi,
@@ -53,12 +75,12 @@ export default function Objective(props) {
 
   useEffect(() => {
     try {
-      dispatch(getAllKPIs({ objectiveId: objectiveId }));
+      dispatch(getKPIsOfObjective(objectiveId));
     } catch (error) {
       console.log(error);
     }
   }, [location]);
-  
+
   return (
     <div className="h-screen flex overflow-hidden bg-gray-100">
       <Sidebar
@@ -84,25 +106,60 @@ export default function Objective(props) {
         {/* <Topbar setSidebarOpen={setSidebarOpen} /> */}
 
         <main className="flex-1 relative pb-8 z-0">
-          <button onClick={() => setDrawerOpen(true)}>New KPI</button>
+          <PageHeading
+            pageTitle={`Mục tiêu: `}
+            pageSubtitle={perspectiveId}
+            setDrawerOpen={setDrawerOpen}
+            settingsId={perspectiveId}
+            history={history}
+          />
+          <div className="mt-8">
+            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 ">
+              <div>
+                <Tabs
+                  overviewSelected={overviewSelected}
+                  setOverviewSelected={setOverviewSelected}
+                  strategyviewSelected={strategyviewSelected}
+                  setStrategyviewSelected={setStrategyviewSelected}
+                  measureviewSelected={measureviewSelected}
+                  setMeasureviewSelected={setMeasureviewSelected}
+                />
+              </div>
+            </div>
+          </div>
 
-          {kpis.kpi ? (
-            kpis.kpi.response.data.map((kpi) => (
-              <li>
-                <button
-                  onClick={() =>
-                    history.push(
-                      `/scorecard/${scorecardId}/perspective/${perspectiveId}/objective/${objectiveId}/kpi/${kpi.id}`
-                    )
-                  }
-                >
-                  {kpi.name}
-                </button>
-              </li>
-            ))
-          ) : (
-            <></>
+          {!strategyviewSelected && (
+            <TimePeriodSelector
+              timePeriodSelected={timePeriodSelected}
+              setTimePeriodSelected={setTimePeriodSelected}
+              months={months}
+              monthSelected={monthSelected}
+              setMonthSelected={setMonthSelected}
+              quarters={quarters}
+              quarterSelected={quarterSelected}
+              setQuarterSelected={setQuarterSelected}
+              years={years}
+              yearSelected={yearSelected}
+              setYearSelected={setYearSelected}
+            />
           )}
+
+          {overviewSelected && (
+            <Overview
+              data={data}
+              data1={data1}
+              scorecardId={scorecardId}
+              perspectiveId={perspectiveId}
+              objectiveId={objectiveId}
+              changeType={changeType}
+              kpis={kpis?.data}
+              history={history}
+            />
+          )}
+
+          {strategyviewSelected && <StrategyView />}
+
+          {measureviewSelected && <MeasuresView />}
         </main>
       </div>
     </div>

@@ -4,6 +4,7 @@ import user from "./user";
 import scorecard from "./scorecard";
 import objective from "./objective";
 import kpi from "./kpi";
+import perspective from "./perspective";
 import workspace from "./workspace";
 
 export default combineReducers({
@@ -12,5 +13,6 @@ export default combineReducers({
   scorecard,
   objective,
   kpi,
-  workspace
+  workspace,
+  perspective
 });

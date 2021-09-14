@@ -1,7 +1,6 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Sidebar from "../../components/Scorecard/Sidebar";
 import Topbar from "../../components/Scorecard/Topbar";
-import classNames from "../../utils/classNames";
 import Tabs from "../../components/Scorecard/Tabs";
 import { useHistory, useLocation, useParams } from "react-router-dom";
 import CreateNewPerspectiveDrawer from "../../components/Scorecard/CreateNewPerspectiveDrawer";
@@ -24,7 +23,10 @@ import TimePeriodSelector from "../../components/Scorecard/TimePeriodSelector";
 import Overview from "../../components/Scorecard/Overview";
 import StrategyView from "../../components/Scorecard/StrategyView";
 import MeasuresView from "../../components/Scorecard/MeasuresView";
-import { getScorecard } from "../../actions/scorecard";
+import {
+  getPerspectivesOfScorecard,
+  getScorecard,
+} from "../../actions/scorecard";
 
 // const initialElements = [
 //   { id: "edges-2", data: { label: "Node 2" }, position: { x: 150, y: 100 } },
@@ -73,7 +75,8 @@ export default function Scorecard(props) {
 
   const dispatch = useDispatch();
   const location = useLocation();
-  const scorecards = useSelector((state) => state.scorecard);
+  const scorecard = useSelector((state) => state.scorecard.scorecard);
+  const perspectives = useSelector((state) => state.scorecard.perspectives);
 
   // const [elements, setElements] = useState(initialElements);
   // const onElementsRemove = (elementsToRemove) =>
@@ -83,10 +86,13 @@ export default function Scorecard(props) {
   useEffect(() => {
     try {
       dispatch(getScorecard(scorecardId));
+      dispatch(getPerspectivesOfScorecard(scorecardId));
     } catch (error) {
       console.log(error);
     }
   }, [location]);
+
+  console.log(scorecard);
 
   return (
     <div className="h-screen flex overflow-hidden bg-gray-100">
@@ -106,58 +112,59 @@ export default function Scorecard(props) {
       <div className="flex-1 overflow-auto focus:outline-none">
         {/* <Topbar setSidebarOpen={setSidebarOpen} /> */}
 
-        {scorecards.scorecard ? (
-          <main className="flex-1 relative pb-8 z-0">
-            <PageHeading
-              pageTitle={`Thẻ điểm: ${scorecards.scorecard.response.data.name}`}
-              pageSubtitle={scorecardId}
-              setDrawerOpen={setDrawerOpen}
-              settingsId={scorecardId}
-              history={history}
-            />
+        <main className="flex-1 relative pb-8 z-0">
+          <PageHeading
+            pageTitle={`Thẻ điểm: ${scorecard?.response.data.name}`}
+            pageSubtitle={scorecardId}
+            setDrawerOpen={setDrawerOpen}
+            settingsId={scorecardId}
+            history={history}
+          />
 
-            <div className="mt-8">
-              <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 ">
-                <div>
-                  <Tabs
-                    overviewSelected={overviewSelected}
-                    setOverviewSelected={setOverviewSelected}
-                    strategyviewSelected={strategyviewSelected}
-                    setStrategyviewSelected={setStrategyviewSelected}
-                    measureviewSelected={measureviewSelected}
-                    setMeasureviewSelected={setMeasureviewSelected}
-                  />
-                </div>
+          <div className="mt-8">
+            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 ">
+              <div>
+                <Tabs
+                  overviewSelected={overviewSelected}
+                  setOverviewSelected={setOverviewSelected}
+                  strategyviewSelected={strategyviewSelected}
+                  setStrategyviewSelected={setStrategyviewSelected}
+                  measureviewSelected={measureviewSelected}
+                  setMeasureviewSelected={setMeasureviewSelected}
+                />
               </div>
             </div>
+          </div>
 
-            {!strategyviewSelected && (
-              <TimePeriodSelector
-                timePeriodSelected={timePeriodSelected}
-                setTimePeriodSelected={setTimePeriodSelected}
-                months={months}
-                monthSelected={monthSelected}
-                setMonthSelected={setMonthSelected}
-                quarters={quarters}
-                quarterSelected={quarterSelected}
-                setQuarterSelected={setQuarterSelected}
-                years={years}
-                yearSelected={yearSelected}
-                setYearSelected={setYearSelected}
-              />
-            )}
+          {!strategyviewSelected && (
+            <TimePeriodSelector
+              timePeriodSelected={timePeriodSelected}
+              setTimePeriodSelected={setTimePeriodSelected}
+              months={months}
+              monthSelected={monthSelected}
+              setMonthSelected={setMonthSelected}
+              quarters={quarters}
+              quarterSelected={quarterSelected}
+              setQuarterSelected={setQuarterSelected}
+              years={years}
+              yearSelected={yearSelected}
+              setYearSelected={setYearSelected}
+            />
+          )}
 
-            {overviewSelected && (
-              <Overview data={data} data1={data1} changeType={changeType} />
-            )}
+          {overviewSelected && (
+            <Overview
+              data={data}
+              data1={data1}
+              changeType={changeType}
+              perspectives={perspectives?.data}
+            />
+          )}
 
-            {strategyviewSelected && <StrategyView />}
+          {strategyviewSelected && <StrategyView />}
 
-            {measureviewSelected && <MeasuresView />}
-          </main>
-        ) : (
-          <p>Loading...</p>
-        )}
+          {measureviewSelected && <MeasuresView />}
+        </main>
       </div>
     </div>
   );

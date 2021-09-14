@@ -67,7 +67,7 @@ export default function PageHeading(props) {
             </button>
             <button
               onClick={() =>
-                props.history.push(`/scorecard/${props.settingsId}/settings`)
+                props.history.push(`/${props.settingsId}/settings`)
               }
               className="bg-white p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500"
             >

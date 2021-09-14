@@ -177,7 +177,7 @@ export default function ScorecardSettings(props) {
                   </dl>
                 </div>
                 <div className="mt-6 flex space-x-3 md:mt-0 md:ml-4">
-                  <button onClick={() => history.push(`/scorecard/${scorecardId}`)} className="bg-white p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500">
+                  <button onClick={() => history.push(`/${scorecardId}`)} className="bg-white p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500">
                     <span className="sr-only">View notifications</span>
                     <ArrowCircleLeftIcon className="h-6 w-6" aria-hidden="true" />
                   </button>
