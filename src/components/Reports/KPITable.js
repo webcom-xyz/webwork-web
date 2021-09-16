@@ -84,10 +84,10 @@ export default function KPITable() {
                 </td>
                 <td className="px-6 py-3 text-sm text-gray-500 text-left">
                   <div className="flex items-center space-x-2">
-                    <div className="flex flex-shrink-0 -space-x-1">
+                    <div className="flex flex-shrink-0 -space-x-1 text-red-500">
                       {project.red}
                     </div>
-                    <div className="flex flex-shrink-0 -space-x-1">
+                    <div className="flex flex-shrink-0 -space-x-1 text-green-500">
                       {project.goal}
                     </div>
                   </div>

@@ -16,6 +16,7 @@ import Tabs from "../../components/Scorecard/Tabs";
 import Overview from "../../components/Objective/Overview";
 import StrategyView from "../../components/Scorecard/StrategyView";
 import MeasuresView from "../../components/Scorecard/MeasuresView";
+import Breadcrumbs from "../../components/shared/Breadcrumbs";
 
 export default function Objective(props) {
   const dispatch = useDispatch();
@@ -46,7 +47,6 @@ export default function Objective(props) {
   const [measureviewSelected, setMeasureviewSelected] = useState(false);
 
   const kpis = useSelector((state) => state.objective.kpis);
-
   const handleChange = () => {
     setKPI({
       ...kpi,

@@ -16,69 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Drawer from "../../components/Employee/Drawer";
 import { addMembers, getMembers } from "../../actions/workspace";
 import { useLocation } from "react-router";
-const stats = [
-  {
-    name: "Task Completions",
-    stat: "23",
-    previousStat: "12",
-    change: "12%",
-    changeType: "increase",
-  },
-  {
-    name: "Avg. Quality",
-    stat: "58.16%",
-    previousStat: "56.14%",
-    change: "2.02%",
-    changeType: "increase",
-  },
-  {
-    name: "Avg. Time",
-    stat: "4h",
-    previousStat: "7h",
-    change: "4.05%",
-    changeType: "decrease",
-  },
-];
-
-const people = [
-  {
-    name: "Jane Cooper",
-    title: "Regional Paradigm Technician",
-    role: "Admin",
-    email: "janecooper@example.com",
-    telephone: "+1-202-555-0170",
-    imageUrl:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60",
-  },
-  {
-    name: "Jane Cooper",
-    title: "Regional Paradigm Technician",
-    role: "Admin",
-    email: "janecooper@example.com",
-    telephone: "+1-202-555-0170",
-    imageUrl:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60",
-  },
-  {
-    name: "Jane Cooper",
-    title: "Regional Paradigm Technician",
-    role: "Admin",
-    email: "janecooper@example.com",
-    telephone: "+1-202-555-0170",
-    imageUrl:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60",
-  },
-  {
-    name: "Jane Cooper",
-    title: "Regional Paradigm Technician",
-    role: "Admin",
-    email: "janecooper@example.com",
-    telephone: "+1-202-555-0170",
-    imageUrl:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60",
-  },
-  // More people...
-];
+import PageHeading from "../../components/shared/PageHeading";
 
 export default function Employees() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -132,11 +70,10 @@ export default function Employees() {
       <div className="flex-1 overflow-auto focus:outline-none">
         {/* <Topbar setSidebarOpen={setSidebarOpen} /> */}
         <main className="flex-1 relative pb-8 z-0 overflow-y-auto">
-          <div className="bg-white shadow-sm">
+          {/* <div className="bg-white shadow-sm">
             <div className="px-4 sm:px-6 lg:max-w-6xl lg:mx-auto lg:px-8">
               <div className="py-6 md:flex md:items-center md:justify-between">
-                <div className="flex-1 min-w-0">
-                  {/* Profile */}
+                <div className="flex-1 min-w-0">\
                   <div className="flex items-center">
                     {currentUser ? (
                       <img
@@ -150,8 +87,7 @@ export default function Employees() {
                       </div>
                     )}
 
-                    <div>
-                      {/* Sm */}
+                    <div>\
                       <div className="flex items-center">
                         {currentUser ? (
                           <img
@@ -216,12 +152,6 @@ export default function Employees() {
                   </div>
                 </div>
                 <div className="mt-6 flex space-x-3 md:mt-0 md:ml-4">
-                  {/* <button
-                    type="button"
-                    className="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                  >
-                    
-                  </button> */}
                   <button
                     type="button"
                     className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
@@ -232,7 +162,13 @@ export default function Employees() {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
+          <PageHeading
+            currentUser={currentUser}
+            handlePrimaryButton={() => setDrawerOpen(true)}
+            // secondaryButtonText={"Thẻ điểm mới"}
+            primaryButtonText={"Nhân viên mới"}
+          />
 
           <div className="mt-8">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -305,7 +241,7 @@ export default function Employees() {
                               {member.fullName}
                             </h3>
                             <span className="flex-shrink-0 inline-block px-2 py-0.5 text-green-800 text-xs font-medium bg-green-100 rounded-full">
-                              {member.office || "Unassigned"}
+                              C-Level
                             </span>
                           </div>
                           <p className="mt-1 text-gray-500 text-sm truncate">

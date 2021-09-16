@@ -11,3 +11,4 @@ export const requestGetMembers = () => {
 export const requestRemoveMember = ({ memberData }) => {
   API.delete(`/workspace/members`, memberData);
 }
+

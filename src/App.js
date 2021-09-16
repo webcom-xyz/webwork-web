@@ -37,6 +37,12 @@ function App() {
           <PrivateRoute path="/employees" component={Employees} />
           <PrivateRoute path="/reports" component={Reports} />
 
+          {/* Account routes */}
+          <PrivateRoute exact path="/user/account" component={Account} />
+          {/* <PrivateRoute path="/account/plan-billing" component={Billing} />
+          <PrivateRoute path="/manager" component={Home} />
+          <PrivateRoute path="/employee/home" component={Employee} /> */}
+
           <PrivateRoute
             exact
             path="/:scorecardId"
@@ -63,11 +69,7 @@ function App() {
             component={KPI}
           />
 
-          {/* Account routes */}
-          <PrivateRoute exact path="/account" component={Account} />
-          <PrivateRoute path="/account/plan-billing" component={Billing} />
-          <PrivateRoute path="/manager" component={Home} />
-          <PrivateRoute path="/employee/home" component={Employee} />
+          
         </Switch>
       </div>
     </Router>

@@ -20,11 +20,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllScorecards } from "../../actions/scorecard";
 import AccountMenu from "../../parts/Scorecard/AccountMenu";
 import { getCurrentUser } from "../../actions/user";
+import { signOut } from "../../actions/auth";
 
 export default function Sidebar(props) {
   const history = useHistory();
   const currentUser = useSelector((state) => state.user.currentUser);
-  const scorecards = useSelector((state) => state.scorecard);
+  const scorecards = useSelector((state) => state.scorecard.scorecards);
 
   const dispatch = useDispatch();
   const location = useLocation();
@@ -69,6 +70,14 @@ export default function Sidebar(props) {
     { name: "Hỗ trợ", href: "#", icon: SupportIcon },
     { name: "Bảo mật", href: "#", icon: ShieldCheckIcon },
   ];
+
+  const handleSignOut = () => {
+    try {
+      dispatch(signOut(history));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     try {
@@ -164,8 +173,8 @@ export default function Sidebar(props) {
                   ))}
 
                   {/* Scorecard section for mobile */}
-                  {scorecards.scorecards ? (
-                    scorecards.scorecards.response.data.map((scorecard) => (
+                  {scorecards ? (
+                    scorecards.data.map((scorecard) => (
                       <>
                         <Disclosure
                           as="div"
@@ -188,11 +197,7 @@ export default function Sidebar(props) {
                                 />
                                 <span
                                   onClick={(e) =>
-                                    handleLink(
-                                      e,
-                                      `/${scorecard.id}`,
-                                      history
-                                    )
+                                    handleLink(e, `/${scorecard.id}`, history)
                                   }
                                   className="flex-1"
                                 >
@@ -294,6 +299,8 @@ export default function Sidebar(props) {
               avatar={currentUser?.data.avatarUrl}
               userName={currentUser?.data.fullName}
               email={currentUser?.data.email}
+              history={history}
+              handleSignOut={handleSignOut}
             />
 
             <nav
@@ -393,8 +400,8 @@ export default function Sidebar(props) {
                 </div>
                 <div className="px-2 mt-6 pt-6">
                   {/* Scorecards section for desktop */}
-                  {scorecards.scorecards ? (
-                    scorecards.scorecards.response.data.map((scorecard) => (
+                  {scorecards ? (
+                    scorecards.data.map((scorecard) => (
                       <>
                         <Disclosure
                           as="div"
@@ -417,11 +424,7 @@ export default function Sidebar(props) {
                                 />
                                 <span
                                   onClick={(e) =>
-                                    handleLink(
-                                      e,
-                                      `/${scorecard.id}`,
-                                      history
-                                    )
+                                    handleLink(e, `/${scorecard.id}`, history)
                                   }
                                   className="flex-1"
                                 >

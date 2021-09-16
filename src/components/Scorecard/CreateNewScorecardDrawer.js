@@ -1,4 +1,4 @@
-import { Fragment, useState, useRef } from "react";
+import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { XIcon } from "@heroicons/react/outline";
 import {
@@ -6,11 +6,6 @@ import {
   PlusIcon,
   QuestionMarkCircleIcon,
 } from "@heroicons/react/solid";
-import {
-  createNewScorecard,
-  createNewScorecardFromTemplate,
-} from "../../actions/scorecard";
-import { useDispatch } from "react-redux";
 
 const team = [
   {
@@ -51,37 +46,6 @@ const team = [
 ];
 
 export default function CreateNewScorecardDrawer(props) {
-  const workspaceName = useRef("");
-  const workspaceDescription = useRef("");
-  const workspaceTeam = useRef("");
-  const workspaceDepartment = useRef("");
-
-  const dispatch = useDispatch();
-
-  const [workspaceData, setWorkspaceData] = useState({
-    name: "",
-    type: "",
-    description: ""
-  });
-
-  const handleChange = (e) => {
-    setWorkspaceData({ ...workspaceData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    try {
-      if (props.createFromTemplate) {
-        dispatch(createNewScorecardFromTemplate(workspaceData));
-      } else {
-        dispatch(createNewScorecard(workspaceData));
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   return (
     <Transition.Root show={props.slideoverOpen} as={Fragment}>
       <Dialog
@@ -107,7 +71,7 @@ export default function CreateNewScorecardDrawer(props) {
               <div className="w-screen max-w-md">
                 <form
                   className="h-full divide-y divide-gray-200 flex flex-col bg-white shadow-xl"
-                  onSubmit={handleSubmit}
+                  onSubmit={props.handleSubmit}
                 >
                   <div className="flex-1 h-0 overflow-y-auto">
                     <div className="py-6 px-4 bg-blue-700 sm:px-6">
@@ -150,8 +114,8 @@ export default function CreateNewScorecardDrawer(props) {
                                 id="name"
                                 placeholder="..."
                                 className="block w-full shadow-sm sm:text-sm focus:ring-blue-500 focus:border-blue-500 border-gray-300 rounded-md"
-                                ref={workspaceName}
-                                onChange={handleChange}
+                                ref={props.scorecardName}
+                                onChange={props.handleChange}
                               />
                             </div>
                           </div>
@@ -168,8 +132,8 @@ export default function CreateNewScorecardDrawer(props) {
                                 name="description"
                                 rows={4}
                                 className="block w-full shadow-sm sm:text-sm focus:ring-blue-500 focus:border-blue-500 border border-gray-300 rounded-md"
-                                ref={workspaceDescription}
-                                onChange={handleChange}
+                                ref={props.scorecardDescription}
+                                onChange={props.handleChange}
                                 placeholder="..."
                               />
                             </div>
@@ -208,371 +172,230 @@ export default function CreateNewScorecardDrawer(props) {
                               </div>
                             </div>
                           </div>
-                          {/* <fieldset>
-                            <legend className="text-sm font-medium text-gray-900">
-                              Security
-                            </legend>
-                            <div className="mt-2 space-y-5"> */}
-                          {/* <div className="relative flex items-start">
-                                <div className="absolute flex items-center h-5">
-                                  <input
-                                    id="privacy_public"
-                                    name="privacy"
-                                    aria-describedby="privacy_public_description"
-                                    type="radio"
-                                    className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300"
-                                    defaultChecked
-                                  />
-                                </div>
-                                <div className="pl-7 text-sm">
-                                  <label
-                                    htmlFor="privacy_public"
-                                    className="font-medium text-gray-900"
-                                  >
-                                    Public access
-                                  </label>
-                                  <p
-                                    id="privacy_public_description"
-                                    className="text-gray-500"
-                                  >
-                                    Everyone with the ID can join this
-                                    workspace.
-                                  </p>
-                                </div>
-                              </div> */}
-                          {/* <div>
+
+                          {props.createFromTemplate && (
+                            <fieldset>
+                              <legend className="text-sm font-medium text-gray-900">
+                                Bộ phận
+                              </legend>
+                              <div className="mt-2 space-y-5">
                                 <div className="relative flex items-start">
                                   <div className="absolute flex items-center h-5">
                                     <input
-                                      id="privacy_private-to-project"
-                                      name="privacy"
-                                      aria-describedby="privacy_private-to-project_description"
+                                      id="type"
+                                      name="type"
+                                      aria-describedby="privacy_public_description"
                                       type="radio"
                                       className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300"
+                                      value="Company"
+                                      ref={props.scorecardType}
+                                      onChange={props.handleChange}
                                       defaultChecked
                                     />
                                   </div>
                                   <div className="pl-7 text-sm">
                                     <label
-                                      htmlFor="privacy_private-to-project"
-                                      className="font-medium text-gray-900"
-                                    >
-                                      Private to employees
-                                    </label>
-                                    <p
-                                      id="privacy_private-to-project_description"
-                                      className="text-gray-500"
-                                    >
-                                      Only employees in this scorecard would be
-                                      able to view and update.
-                                    </p>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </fieldset> */}
-
-                          {/* <fieldset>
-                            <legend className="text-sm font-medium text-gray-900">
-                              Team
-                            </legend>
-                            <div className="mt-2 space-y-5">
-                              <div className="relative flex items-start">
-                                <div className="absolute flex items-center h-5">
-                                  <input
-                                    id=""
-                                    name="team"
-                                    aria-describedby="privacy_public_description"
-                                    type="radio"
-                                    className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300"
-                                    value="Remote"
-                                    ref={workspaceTeam}
-                                    onChange={handleChange}
-                                    defaultChecked
-                                  />
-                                </div>
-                                <div className="pl-7 text-sm">
-                                  <label
-                                    htmlFor="privacy_public"
-                                    className="text-gray-900"
-                                  >
-                                    Remote
-                                  </label>
-                                </div>
-                              </div>
-                              <div>
-                                <div className="relative flex items-start">
-                                  <div className="absolute flex items-center h-5">
-                                    <input
-                                      id=""
-                                      name="team"
-                                      aria-describedby="privacy_private-to-project_description"
-                                      type="radio"
-                                      className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300"
-                                      value="Work-from-home"
-                                      ref={workspaceTeam}
-                                      onChange={handleChange}
-                                    />
-                                  </div>
-                                  <div className="pl-7 text-sm">
-                                    <label
-                                      htmlFor="privacy_private-to-project"
+                                      htmlFor="privacy_public"
                                       className="text-gray-900"
                                     >
-                                      Work-from-home
+                                      Công ty
                                     </label>
                                   </div>
                                 </div>
-                              </div>
-                              <div>
-                                <div className="relative flex items-start">
-                                  <div className="absolute flex items-center h-5">
-                                    <input
-                                      id=""
-                                      name="team"
-                                      aria-describedby="privacy_private-to-project_description"
-                                      type="radio"
-                                      className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300"
-                                      value="In-office"
-                                      onChange={handleChange}
-                                    />
-                                  </div>
-                                  <div className="pl-7 text-sm">
-                                    <label
-                                      htmlFor="privacy_private-to-project"
-                                      className="text-gray-900"
-                                    >
-                                      In-office
-                                    </label>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </fieldset> */}
-
-{props.createFromTemplate && (
-  <fieldset>
-                            <legend className="text-sm font-medium text-gray-900">
-                              Bộ phận
-                            </legend>
-                            <div className="mt-2 space-y-5">
-                              <div className="relative flex items-start">
-                                <div className="absolute flex items-center h-5">
-                                  <input
-                                    id="type"
-                                    name="type"
-                                    aria-describedby="privacy_public_description"
-                                    type="radio"
-                                    className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300"
-                                    value="Company"
-                                    ref={workspaceDepartment}
-                                    onChange={handleChange}
-                                    defaultChecked
-                                  />
-                                </div>
-                                <div className="pl-7 text-sm">
-                                  <label
-                                    htmlFor="privacy_public"
-                                    className="text-gray-900"
-                                  >
-                                    Công ty
-                                  </label>
-                                </div>
-                              </div>
-                              <div className="relative flex items-start">
-                                <div className="absolute flex items-center h-5">
-                                  <input
-                                    id="type"
-                                    name="type"
-                                    aria-describedby="privacy_public_description"
-                                    type="radio"
-                                    className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300"
-                                    value="Produce"
-                                    ref={workspaceDepartment}
-                                    onChange={handleChange}
-                                  />
-                                </div>
-                                <div className="pl-7 text-sm">
-                                  <label
-                                    htmlFor="privacy_public"
-                                    className="text-gray-900"
-                                  >
-                                    Sản xuất
-                                  </label>
-                                </div>
-                              </div>
-                              <div>
                                 <div className="relative flex items-start">
                                   <div className="absolute flex items-center h-5">
                                     <input
                                       id="type"
                                       name="type"
-                                      aria-describedby="privacy_private-to-project_description"
+                                      aria-describedby="privacy_public_description"
                                       type="radio"
                                       className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300"
-                                      value="R&D"
-                                      ref={workspaceDepartment}
-                                      onChange={handleChange}
+                                      value="Produce"
+                                      ref={props.scorecardType}
+                                      
+                                      onChange={props.handleChange}
                                     />
                                   </div>
                                   <div className="pl-7 text-sm">
                                     <label
-                                      htmlFor="privacy_private-to-project"
+                                      htmlFor="privacy_public"
                                       className="text-gray-900"
                                     >
-                                      Nghiên cứu & Phát triển
+                                      Sản xuất
                                     </label>
                                   </div>
                                 </div>
-                              </div>
-                              <div>
-                                <div className="relative flex items-start">
-                                  <div className="absolute flex items-center h-5">
-                                    <input
-                                      id="type"
-                                      name="type"
-                                      aria-describedby="privacy_private-to-project_description"
-                                      type="radio"
-                                      className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300"
-                                      value="Mua hàng"
-                                      ref={workspaceDepartment}
-                                      onChange={handleChange}
-                                    />
-                                  </div>
-                                  <div className="pl-7 text-sm">
-                                    <label
-                                      htmlFor="privacy_private-to-project"
-                                      className="text-gray-900"
-                                    >
-                                      Mua hàng
-                                    </label>
-                                  </div>
-                                </div>
-                              </div>
-                              <div>
-                                <div className="relative flex items-start">
-                                  <div className="absolute flex items-center h-5">
-                                    <input
-                                      id="type"
-                                      name="type"
-                                      aria-describedby="privacy_private-to-project_description"
-                                      type="radio"
-                                      className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300"
-                                      value="Kỹ thuật"
-                                      ref={workspaceDepartment}
-                                      onChange={handleChange}
-                                    />
-                                  </div>
-                                  <div className="pl-7 text-sm">
-                                    <label
-                                      htmlFor="privacy_private-to-project"
-                                      className="text-gray-900"
-                                    >
-                                      Kỹ thuật
-                                    </label>
+                                <div>
+                                  <div className="relative flex items-start">
+                                    <div className="absolute flex items-center h-5">
+                                      <input
+                                        id="type"
+                                        name="type"
+                                        aria-describedby="privacy_private-to-project_description"
+                                        type="radio"
+                                        className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300"
+                                        value="R&D"
+                                        ref={props.scorecardType}
+                                        onChange={props.handleChange}
+                                      />
+                                    </div>
+                                    <div className="pl-7 text-sm">
+                                      <label
+                                        htmlFor="privacy_private-to-project"
+                                        className="text-gray-900"
+                                      >
+                                        Nghiên cứu & Phát triển
+                                      </label>
+                                    </div>
                                   </div>
                                 </div>
-                              </div>
-                              <div>
-                                <div className="relative flex items-start">
-                                  <div className="absolute flex items-center h-5">
-                                    <input
-                                      id="type"
-                                      name="type"
-                                      aria-describedby="privacy_private-to-project_description"
-                                      type="radio"
-                                      className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300"
-                                      value="Kinh doanh"
-                                      ref={workspaceDepartment}
-                                      onChange={handleChange}
-                                    />
-                                  </div>
-                                  <div className="pl-7 text-sm">
-                                    <label
-                                      htmlFor="privacy_private-to-project"
-                                      className="text-gray-900"
-                                    >
-                                      Kinh doanh
-                                    </label>
-                                  </div>
-                                </div>
-                              </div>
-                              <div>
-                                <div className="relative flex items-start">
-                                  <div className="absolute flex items-center h-5">
-                                    <input
-                                      id="type"
-                                      name="type"
-                                      aria-describedby="privacy_private-to-project_description"
-                                      type="radio"
-                                      className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300"
-                                      value="Kho vận"
-                                      ref={workspaceDepartment}
-                                      onChange={handleChange}
-                                    />
-                                  </div>
-                                  <div className="pl-7 text-sm">
-                                    <label
-                                      htmlFor="privacy_private-to-project"
-                                      className="text-gray-900"
-                                    >
-                                      Kho vận
-                                    </label>
+                                <div>
+                                  <div className="relative flex items-start">
+                                    <div className="absolute flex items-center h-5">
+                                      <input
+                                        id="type"
+                                        name="type"
+                                        aria-describedby="privacy_private-to-project_description"
+                                        type="radio"
+                                        className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300"
+                                        value="Mua hàng"
+                                        ref={props.scorecardType}
+                                        onChange={props.handleChange}
+                                      />
+                                    </div>
+                                    <div className="pl-7 text-sm">
+                                      <label
+                                        htmlFor="privacy_private-to-project"
+                                        className="text-gray-900"
+                                      >
+                                        Mua hàng
+                                      </label>
+                                    </div>
                                   </div>
                                 </div>
-                              </div>
-                              <div>
-                                <div className="relative flex items-start">
-                                  <div className="absolute flex items-center h-5">
-                                    <input
-                                      id="type"
-                                      name="type"
-                                      aria-describedby="privacy_private-to-project_description"
-                                      type="radio"
-                                      className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300"
-                                      value="Kế toán"
-                                      ref={workspaceDepartment}
-                                      onChange={handleChange}
-                                    />
-                                  </div>
-                                  <div className="pl-7 text-sm">
-                                    <label
-                                      htmlFor="privacy_private-to-project"
-                                      className="text-gray-900"
-                                    >
-                                      Kế toán
-                                    </label>
-                                  </div>
-                                </div>
-                              </div>
-                              <div>
-                                <div className="relative flex items-start">
-                                  <div className="absolute flex items-center h-5">
-                                    <input
-                                      id="type"
-                                      name="type"
-                                      aria-describedby="privacy_private-to-project_description"
-                                      type="radio"
-                                      className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300"
-                                      value="Kinh doanh"
-                                      ref={workspaceDepartment}
-                                      onChange={handleChange}
-                                    />
-                                  </div>
-                                  <div className="pl-7 text-sm">
-                                    <label
-                                      htmlFor="privacy_private-to-project"
-                                      className="text-gray-900"
-                                    >
-                                      Kinh doanh
-                                    </label>
+                                <div>
+                                  <div className="relative flex items-start">
+                                    <div className="absolute flex items-center h-5">
+                                      <input
+                                        id="type"
+                                        name="type"
+                                        aria-describedby="privacy_private-to-project_description"
+                                        type="radio"
+                                        className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300"
+                                        value="Kỹ thuật"
+                                        ref={props.scorecardType}
+                                        onChange={props.handleChange}
+                                      />
+                                    </div>
+                                    <div className="pl-7 text-sm">
+                                      <label
+                                        htmlFor="privacy_private-to-project"
+                                        className="text-gray-900"
+                                      >
+                                        Kỹ thuật
+                                      </label>
+                                    </div>
                                   </div>
                                 </div>
+                                <div>
+                                  <div className="relative flex items-start">
+                                    <div className="absolute flex items-center h-5">
+                                      <input
+                                        id="type"
+                                        name="type"
+                                        aria-describedby="privacy_private-to-project_description"
+                                        type="radio"
+                                        className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300"
+                                        value="Kinh doanh"
+                                        ref={props.scorecardType}
+                                        onChange={props.handleChange}
+                                      />
+                                    </div>
+                                    <div className="pl-7 text-sm">
+                                      <label
+                                        htmlFor="privacy_private-to-project"
+                                        className="text-gray-900"
+                                      >
+                                        Kinh doanh
+                                      </label>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div>
+                                  <div className="relative flex items-start">
+                                    <div className="absolute flex items-center h-5">
+                                      <input
+                                        id="type"
+                                        name="type"
+                                        aria-describedby="privacy_private-to-project_description"
+                                        type="radio"
+                                        className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300"
+                                        value="Kho vận"
+                                        ref={props.scorecardType}
+                                        onChange={props.handleChange}
+                                      />
+                                    </div>
+                                    <div className="pl-7 text-sm">
+                                      <label
+                                        htmlFor="privacy_private-to-project"
+                                        className="text-gray-900"
+                                      >
+                                        Kho vận
+                                      </label>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div>
+                                  <div className="relative flex items-start">
+                                    <div className="absolute flex items-center h-5">
+                                      <input
+                                        id="type"
+                                        name="type"
+                                        aria-describedby="privacy_private-to-project_description"
+                                        type="radio"
+                                        className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300"
+                                        value="Kế toán"
+                                        ref={props.scorecardType}
+                                        onChange={props.handleChange}
+                                      />
+                                    </div>
+                                    <div className="pl-7 text-sm">
+                                      <label
+                                        htmlFor="privacy_private-to-project"
+                                        className="text-gray-900"
+                                      >
+                                        Kế toán
+                                      </label>
+                                    </div>
+                                  </div>
+                                </div>
+                                {/* <div>
+                                  <div className="relative flex items-start">
+                                    <div className="absolute flex items-center h-5">
+                                      <input
+                                        id="type"
+                                        name="type"
+                                        aria-describedby="privacy_private-to-project_description"
+                                        type="radio"
+                                        className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300"
+                                        value="Kinh doanh"
+                                        ref={props.scorecardType}
+                                        onChange={props.handleChange}
+                                      />
+                                    </div>
+                                    <div className="pl-7 text-sm">
+                                      <label
+                                        htmlFor="privacy_private-to-project"
+                                        className="text-gray-900"
+                                      >
+                                        Kinh doanh
+                                      </label>
+                                    </div>
+                                  </div>
+                                </div> */}
                               </div>
-                            </div>
-                          </fieldset>
-)}
-                          
+                            </fieldset>
+                          )}
                         </div>
                         <div className="pt-4 pb-6">
                           <div className="flex text-sm">

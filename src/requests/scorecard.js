@@ -33,3 +33,7 @@ export const requestGetPerspectivesOfScorecard = (scorecardId) => {
   //   return response;
   // });
 };
+
+export const requestAssignEmployeeToScorecard = ({ scorecardId, employeeData }) => {
+  return API.post(`/scorecard/${scorecardId}/employee`, employeeData);
+}

@@ -29,7 +29,7 @@ export function* handleUpdateCurrentUserAvatar(action) {
 
 export function* handleUpdateCurrentUser(action) {
     try {
-        yield call(requestUpdateCurrentUser, action.payload.userData);
+        yield call(requestUpdateCurrentUser, action.payload);
     } catch (error) {
         console.log(error);
     }

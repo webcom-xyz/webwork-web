@@ -15,6 +15,7 @@ import months from "../../utils/months";
 import years from "../../utils/years";
 import quarters from "../../utils/quarters";
 import { getObjectivesOfPerspective } from "../../actions/perspective";
+import Breadcrumbs from "../../components/shared/Breadcrumbs";
 
 export default function Perspective(props) {
   const dispatch = useDispatch();
@@ -34,6 +35,7 @@ export default function Perspective(props) {
   const [overviewSelected, setOverviewSelected] = useState(true);
   const [strategyviewSelected, setStrategyviewSelected] = useState(false);
   const [measureviewSelected, setMeasureviewSelected] = useState(false);
+
 
   useEffect(() => {
     try {

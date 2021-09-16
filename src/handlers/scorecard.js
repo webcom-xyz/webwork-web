@@ -1,5 +1,6 @@
 import { call, put } from "redux-saga/effects";
 import {
+  requestAssignEmployeeToScorecard,
   requestCreateNewScorecard,
   requestCreateNewScorecardFromTemplate,
   requestDeleteScorecard,
@@ -7,7 +8,11 @@ import {
   requestGetPerspectivesOfScorecard,
   requestGetScorecard,
 } from "../requests/scorecard";
-import { setPerspectivesOfScorecard, setScorecard, setScorecards } from "../actions/scorecard";
+import {
+  setPerspectivesOfScorecard,
+  setScorecard,
+  setScorecards,
+} from "../actions/scorecard";
 
 export function* handleCreateNewScorecard(action) {
   try {
@@ -58,6 +63,17 @@ export function* handleGetPerspectivesOfScorecard(action) {
       action.payload
     );
     yield put(setPerspectivesOfScorecard(data));
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export function* handleAssignEmployeeToScorecard(action) {
+  try {
+    const { data } = yield call(
+      requestAssignEmployeeToScorecard,
+      action.payload
+    );
   } catch (error) {
     console.log(error);
   }

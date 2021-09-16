@@ -16,6 +16,7 @@ import TimePeriodSelector from "../../components/Scorecard/TimePeriodSelector";
 import Overview from "../../components/KPI/Overview";
 import StrategyView from "../../components/Scorecard/StrategyView";
 import MeasuresView from "../../components/Scorecard/MeasuresView";
+import Breadcrumbs from "../../components/shared/Breadcrumbs";
 
 export default function KPI() {
   const dispatch = useDispatch();
@@ -36,7 +37,6 @@ export default function KPI() {
   const [measureviewSelected, setMeasureviewSelected] = useState(false);
 
   const kpi = useSelector((state) => state.kpi.kpi);
-
   useEffect(() => {
     try {
       dispatch(getKPI(kpiId));
@@ -63,7 +63,6 @@ export default function KPI() {
               settingsId={kpiId}
               history={history}
             />
-
             <div className="mt-8">
               <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 ">
                 <div>

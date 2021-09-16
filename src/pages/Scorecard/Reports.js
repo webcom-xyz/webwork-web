@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Sidebar from "../../components/Scorecard/Sidebar";
 import Topbar from "../../components/Scorecard/Topbar";
 import KPITable from "../../components/Reports/KPITable";
-import PageHeading from "../../components/Dashboard/PageHeading";
+import PageHeading from "../../components/shared/PageHeading";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { getCurrentUser } from "../../actions/user";
@@ -49,6 +49,16 @@ export default function Reports() {
               </div>
             </div>
           </div>
+
+          {/* <div className="mt-8">
+          <div className="h-3 relative max-w-xl rounded overflow-hidden">
+              <div className="w-full h-full bg-gray-200 absolute"></div>
+              <div
+                className="transition-all ease-out duration-1000 h-full bg-green-500 relative w-0"
+                style={{ width: "10%" }}
+              ></div>
+            </div>
+          </div> */}
         </main>
       </div>
     </div>

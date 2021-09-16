@@ -8,6 +8,7 @@ import {
   SET_SCORECARDS,
   GET_PERSPECTIVES_OF_SCORECARD,
   SET_PERSPECTIVES_OF_SCORECARD,
+  ASSIGN_EMPLOYEE_TO_SCORECARD,
 } from "../constants/types";
 
 export const createNewScorecard = (workspaceData) => ({
@@ -29,14 +30,14 @@ export const getAllScorecards = () => ({
   type: GET_ALL_SCORECARDS,
 });
 
-export const setScorecard = ( response ) => ({
+export const setScorecard = (scorecardData) => ({
   type: SET_SCORECARD,
-  payload: { response },
+  payload: scorecardData,
 });
 
-export const setScorecards = ( response) => ({
+export const setScorecards = (scorecardData) => ({
   type: SET_SCORECARDS,
-  payload: { response },
+  payload: scorecardData,
 });
 
 export const deleteScorecard = (scorecardId) => ({
@@ -45,11 +46,16 @@ export const deleteScorecard = (scorecardId) => ({
 });
 
 export const getPerspectivesOfScorecard = (scorecardId) => ({
-    type: GET_PERSPECTIVES_OF_SCORECARD,
-    payload: scorecardId
+  type: GET_PERSPECTIVES_OF_SCORECARD,
+  payload: scorecardId,
 });
 
 export const setPerspectivesOfScorecard = (perspectiveData) => ({
   type: SET_PERSPECTIVES_OF_SCORECARD,
-  payload: perspectiveData
+  payload: perspectiveData,
 });
+
+export const assignEmployeeToScorecard = (scorecardId, employeeData) => ({
+  type: ASSIGN_EMPLOYEE_TO_SCORECARD,
+  payload: { scorecardId, employeeData }
+})

@@ -9,18 +9,11 @@ import {
 } from "../../actions/user";
 import FormData from "form-data";
 import { useHistory, useLocation } from "react-router-dom";
-import Alert from "../../parts/shared/Alert";
+// import Alert from "../../parts/shared/Alert";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, SelectorIcon } from "@heroicons/react/solid";
 import classNames from "../../utils/classNames";
-
-const people = [
-  { id: 1, name: "Giám đốc vận hành" },
-  { id: 2, name: "Giám đốc tài chính" },
-  { id: 3, name: "Giám đốc công nghệ" },
-  { id: 4, name: "Giám đốc marketing" },
-  { id: 5, name: "Giám đốc nhân sự" },
-];
+import Notification from "../../parts/shared/Notification";
 
 export default function Account() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -29,50 +22,45 @@ export default function Account() {
   const history = useHistory();
   const location = useLocation();
 
-  const [error, setError] = useState("");
+  // const [error, setError] = useState("");
   const firstName = useRef("");
   const lastName = useRef("");
+  const office = useRef("");
 
-  const [selected, setSelected] = useState(people[0]);
+  const [showNotification, setShowNotification] = useState(false);
 
-  const [userData, setUserData] = useState({ firstName: "", lastName: "" });
-  const [selectedFile, setSelectedFile] = useState(null);
+  const [userData, setUserData] = useState({});
+  // const [selectedFile, setSelectedFile] = useState(null);
 
-  const handleSubmitProfile = (e) => {
-    e.preventDefault();
+  // const handleSubmitProfile = (e) => {
+  //   e.preventDefault();
 
-    try {
-      var formData = new FormData();
-      formData.append("avatar", selectedFile);
-      dispatch(updateCurrentUserAvatar(formData));
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //   try {
+  //     var formData = new FormData();
+  //     formData.append("avatar", selectedFile);
+  //     dispatch(updateCurrentUserAvatar(formData));
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
-  const handleChange = (e) => {
-    if (firstName.current.value == "")
-      setUserData({
-        firstName: currentUser?.data.fullName.split(" ")[0],
-        lastName: lastName.current.value,
-      });
-    if (lastName.current.value == "")
-      setUserData({
-        firstName: firstName.current.value,
-        lastName: currentUser?.data.fullName.split(" ")[1],
-      });
+  const handleChange = () => {
+    setUserData({
+      ...userData,
+      firstName:
+        firstName.current.value || currentUser?.data.fullName.split(" ")[0],
+      lastName:
+        lastName.current.value || currentUser?.data.fullName.split(" ")[1],
+      office: office.current.value || currentUser?.data.office,
+    });
   };
 
   const handleUpdateCurrentUser = (e) => {
     e.preventDefault();
 
-    if (userData.firstName == "" && userData.lastName == "") {
-      setError("First name and last name cannot be empty.");
-      return;
-    }
-
     try {
       dispatch(updateCurrentUser(userData));
+      setShowNotification(true);
     } catch (error) {
       console.log(error);
     }
@@ -84,7 +72,7 @@ export default function Account() {
     } catch (error) {
       console.log(error);
     }
-  }, []);
+  }, [location]);
 
   return (
     <div className="h-screen flex overflow-hidden bg-gray-100">
@@ -95,14 +83,15 @@ export default function Account() {
       />
 
       <div className="flex-1 overflow-auto focus:outline-none">
-        <Topbar setSidebarOpen={setSidebarOpen} />
+        {/* <Topbar setSidebarOpen={setSidebarOpen} /> */}
 
         <main className="flex-1 relative pb-8 z-0 overflow-y-auto">
-          {error && <Alert message={error} />}
+          {/* {error && <Alert message={error} />} */}
+
           <div className="mt-8">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="space-y-6 sm:px-6 lg:px-0 lg:col-span-9">
-                <form onSubmit={handleSubmitProfile}>
+                {/* <form onSubmit={handleSubmitProfile}>
                   <div className="shadow sm:rounded-md sm:overflow-hidden">
                     <div className="bg-white py-6 px-4 space-y-6 sm:p-6">
                       <div>
@@ -117,24 +106,7 @@ export default function Account() {
 
                       <div className="grid grid-cols-3 gap-6">
                         <div className="col-span-3 sm:col-span-2">
-                          {/* <label
-                            htmlFor="company_website"
-                            className="block text-sm font-medium text-gray-700"
-                          >
-                            Name
-                          </label> */}
                           <div className="">
-                            {/* <span className="bg-gray-50 border border-r-0 border-gray-300 rounded-l-md px-3 inline-flex items-center text-gray-500 sm:text-sm">
-                              webwork.ai/
-                            </span>
-                            <input
-                              type="text"
-                              name="username"
-                              id="username"
-                              className="focus:ring-indigo-500 focus:border-indigo-500 flex-grow block w-full min-w-0 rounded-none rounded-r-md sm:text-sm border-gray-300"
-                            />
-                          </div> */}
-
                             <Listbox value={selected} onChange={setSelected}>
                               {({ open }) => (
                                 <>
@@ -142,7 +114,7 @@ export default function Account() {
                                     Chức danh
                                   </Listbox.Label>
                                   <div className="mt-1 relative">
-                                    <Listbox.Button className="bg-white relative w-full border border-gray-300 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                    <Listbox.Button className="bg-white relative w-full border border-gray-300 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                                       <span className="block truncate">
                                         {selected.name}
                                       </span>
@@ -171,7 +143,7 @@ export default function Account() {
                                             className={({ active }) =>
                                               classNames(
                                                 active
-                                                  ? "text-white bg-indigo-600"
+                                                  ? "text-white bg-blue-600"
                                                   : "text-gray-900",
                                                 "cursor-default select-none relative py-2 pl-3 pr-9"
                                               )
@@ -196,7 +168,7 @@ export default function Account() {
                                                     className={classNames(
                                                       active
                                                         ? "text-white"
-                                                        : "text-indigo-600",
+                                                        : "text-blue-600",
                                                       "absolute inset-y-0 right-0 flex items-center pr-4"
                                                     )}
                                                   >
@@ -231,7 +203,7 @@ export default function Account() {
                               id="about"
                               name="about"
                               rows={3}
-                              className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"
+                              className="shadow-sm focus:ring-blue-500 focus:border-blue-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"
                               placeholder=""
                               defaultValue={""}
                             />
@@ -268,7 +240,7 @@ export default function Account() {
                               onClick={() =>
                                 document.getElementById("avatarUpload").click()
                               }
-                              className="ml-5 bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                              className="ml-5 bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                             >
                               Change
                             </button>
@@ -298,7 +270,7 @@ export default function Account() {
                               <div className="flex text-sm text-gray-600">
                                 <label
                                   htmlFor="file-upload"
-                                  className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
+                                  className="relative cursor-pointer bg-white rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500"
                                 >
                                   <span>Upload a file</span>
                                   <input
@@ -321,15 +293,15 @@ export default function Account() {
                     <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
                       <button
                         type="submit"
-                        className="bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        className="bg-blue-600 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                       >
                         Save
                       </button>
                     </div>
                   </div>
-                </form>
+                </form> */}
 
-                <form onSubmit={handleUpdateCurrentUser} method="POST">
+                <form onSubmit={handleUpdateCurrentUser}>
                   <div className="shadow sm:rounded-md sm:overflow-hidden">
                     <div className="bg-white py-6 px-4 space-y-6 sm:p-6">
                       <div>
@@ -347,7 +319,7 @@ export default function Account() {
                             htmlFor="first_name"
                             className="block text-sm font-medium text-gray-700"
                           >
-                            First name
+                            Tên
                           </label>
                           <input
                             type="text"
@@ -356,9 +328,9 @@ export default function Account() {
                             ref={firstName}
                             onChange={handleChange}
                             placeholder={
-                              currentUser?.data.fullName.split(" ")[0]
+                              currentUser?.data.fullName.split(" ")[0] || "..."
                             }
-                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                           />
                         </div>
 
@@ -367,7 +339,7 @@ export default function Account() {
                             htmlFor="last_name"
                             className="block text-sm font-medium text-gray-700"
                           >
-                            Last name
+                            Họ
                           </label>
                           <input
                             type="text"
@@ -376,9 +348,9 @@ export default function Account() {
                             ref={lastName}
                             onChange={handleChange}
                             placeholder={
-                              currentUser?.data.fullName.split(" ")[1]
+                              currentUser?.data.fullName.split(" ")[1] || "..."
                             }
-                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                           />
                         </div>
 
@@ -387,34 +359,52 @@ export default function Account() {
                             htmlFor="email_address"
                             className="block text-sm font-medium text-gray-700"
                           >
-                            Email address
+                            Địa chỉ email
                           </label>
                           <input
                             type="text"
                             name="email_address"
                             id="email_address"
                             autoComplete="email"
-                            placeholder={currentUser?.data.email}
-                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            placeholder={currentUser?.data.email || "..."}
+                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                           />
                         </div>
-
                         <div className="col-span-6 sm:col-span-3">
-                          <label
-                            htmlFor="country"
-                            className="block text-sm font-medium text-gray-700"
-                          >
-                            Country / Region
-                          </label>
-                          <select
-                            id="country"
-                            name="country"
-                            autoComplete="country"
-                            className="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                          >
-                            <option>Vietnam</option>
-                            <option>United States</option>
-                          </select>
+                          <div>
+                            <label
+                              htmlFor="location"
+                              className="block text-sm font-medium text-gray-700"
+                            >
+                              Chức danh
+                            </label>
+                            <select
+                              id="office"
+                              name="office"
+                              ref={office}
+                              onChange={handleChange}
+                              className="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                            >
+                              <option value="" selected disabled hidden>
+                                {currentUser?.data.office || "..."}
+                              </option>
+                              <option value="Giám đốc vận hành">
+                                Giám đốc vận hành
+                              </option>
+                              <option value="Giám đốc tài chính">
+                                Giám đốc tài chính
+                              </option>
+                              <option value="Giám đốc marketing">
+                                Giám đốc marketing
+                              </option>
+                              <option value="Giám đốc công nghệ">
+                                Giám đốc công nghệ
+                              </option>
+                              <option value="Giám đốc nhân sự">
+                                Giám đốc nhân sự
+                              </option>
+                            </select>
+                          </div>
                         </div>
 
                         <div className="col-span-6">
@@ -422,14 +412,15 @@ export default function Account() {
                             htmlFor="street_address"
                             className="block text-sm font-medium text-gray-700"
                           >
-                            Street address
+                            Địa chỉ
                           </label>
                           <input
                             type="text"
                             name="street_address"
                             id="street_address"
                             autoComplete="street-address"
-                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            placeholder="..."
+                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                           />
                         </div>
 
@@ -438,13 +429,14 @@ export default function Account() {
                             htmlFor="city"
                             className="block text-sm font-medium text-gray-700"
                           >
-                            City
+                            Thành phố
                           </label>
                           <input
                             type="text"
                             name="city"
                             id="city"
-                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            placeholder="..."
+                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                           />
                         </div>
 
@@ -453,13 +445,14 @@ export default function Account() {
                             htmlFor="state"
                             className="block text-sm font-medium text-gray-700"
                           >
-                            State / Province
+                            Tỉnh
                           </label>
                           <input
                             type="text"
                             name="state"
                             id="state"
-                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            placeholder="..."
+                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                           />
                         </div>
 
@@ -468,14 +461,15 @@ export default function Account() {
                             htmlFor="postal_code"
                             className="block text-sm font-medium text-gray-700"
                           >
-                            ZIP / Postal
+                            Mã bưu điện
                           </label>
                           <input
                             type="text"
                             name="postal_code"
                             id="postal_code"
                             autoComplete="postal-code"
-                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            placeholder="..."
+                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                           />
                         </div>
                       </div>
@@ -483,9 +477,9 @@ export default function Account() {
                     <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
                       <button
                         type="submit"
-                        className="bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        className="bg-blue-600 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                       >
-                        Save
+                        Cập nhật
                       </button>
                     </div>
                   </div>
@@ -515,7 +509,7 @@ export default function Account() {
                                 id="comments"
                                 name="comments"
                                 type="checkbox"
-                                className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                                className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded"
                               />
                             </div>
                             <div className="ml-3 text-sm">
@@ -538,7 +532,7 @@ export default function Account() {
                                   id="candidates"
                                   name="candidates"
                                   type="checkbox"
-                                  className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                                  className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded"
                                 />
                               </div>
                               <div className="ml-3 text-sm">
@@ -562,7 +556,7 @@ export default function Account() {
                                   id="offers"
                                   name="offers"
                                   type="checkbox"
-                                  className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                                  className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded"
                                 />
                               </div>
                               <div className="ml-3 text-sm">
@@ -594,7 +588,7 @@ export default function Account() {
                               id="push_everything"
                               name="push_notifications"
                               type="radio"
-                              className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
+                              className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300"
                             />
                             <label htmlFor="push_everything" className="ml-3">
                               <span className="block text-sm font-medium text-gray-700">
@@ -607,7 +601,7 @@ export default function Account() {
                               id="push_email"
                               name="push_notifications"
                               type="radio"
-                              className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
+                              className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300"
                             />
                             <label htmlFor="push_email" className="ml-3">
                               <span className="block text-sm font-medium text-gray-700">
@@ -620,7 +614,7 @@ export default function Account() {
                               id="push_nothing"
                               name="push_notifications"
                               type="radio"
-                              className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
+                              className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300"
                             />
                             <label htmlFor="push_nothing" className="ml-3">
                               <span className="block text-sm font-medium text-gray-700">
@@ -634,7 +628,7 @@ export default function Account() {
                     <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
                       <button
                         type="submit"
-                        className="bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600"
+                        className="bg-blue-600 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-600"
                       >
                         Save
                       </button>
@@ -646,6 +640,12 @@ export default function Account() {
           </div>
         </main>
       </div>
+      <Notification
+        title="Thành công!"
+        subtitle="Đã cập nhật thông tin cá nhân."
+        showNotification={showNotification}
+        setShowNotification={setShowNotification}
+      />
     </div>
   );
 }

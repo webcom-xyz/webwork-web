@@ -19,9 +19,7 @@ export default function AccountMenu(props) {
                 <span className="text-blue-50 text-sm font-medium truncate">
                   {props.userName}
                 </span>
-                <span className="text-blue-100 text-sm truncate">
-                  @mention
-                </span>
+                <span className="text-blue-100 text-sm truncate">@mention</span>
               </span>
             </span>
             <SelectorIcon
@@ -45,10 +43,10 @@ export default function AccountMenu(props) {
             <Menu.Item>
               {({ active }) => (
                 <a
-                  href="#"
+                  onClick={() => props.history.push(`/user/account`)}
                   className={classNames(
                     active ? "bg-blue-100 text-gray-900" : "text-gray-700",
-                    "block px-4 py-2 text-sm"
+                    "block px-4 py-2 text-sm cursor-pointer"
                   )}
                 >
                   Hồ sơ & Tài khoản
@@ -58,10 +56,9 @@ export default function AccountMenu(props) {
             <Menu.Item>
               {({ active }) => (
                 <a
-                  href="#"
                   className={classNames(
                     active ? "bg-blue-100 text-gray-900" : "text-gray-700",
-                    "block px-4 py-2 text-sm"
+                    "block px-4 py-2 text-sm cursor-pointer"
                   )}
                 >
                   Cài đặt
@@ -71,10 +68,9 @@ export default function AccountMenu(props) {
             <Menu.Item>
               {({ active }) => (
                 <a
-                  href="#"
                   className={classNames(
                     active ? "bg-blue-100 text-gray-900" : "text-gray-700",
-                    "block px-4 py-2 text-sm"
+                    "block px-4 py-2 text-sm cursor-pointer"
                   )}
                 >
                   Thông báo
@@ -86,10 +82,10 @@ export default function AccountMenu(props) {
             <Menu.Item>
               {({ active }) => (
                 <a
-                  href="#"
+                  onClick={() => props.handleSignOut()}
                   className={classNames(
                     active ? "bg-blue-100 text-gray-900" : "text-gray-700",
-                    "block px-4 py-2 text-sm"
+                    "block px-4 py-2 text-sm cursor-pointer"
                   )}
                 >
                   Đăng xuất

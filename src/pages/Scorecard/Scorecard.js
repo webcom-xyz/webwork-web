@@ -27,7 +27,7 @@ import {
   getPerspectivesOfScorecard,
   getScorecard,
 } from "../../actions/scorecard";
-
+import Breadcrumbs from "../../components/shared/Breadcrumbs";
 // const initialElements = [
 //   { id: "edges-2", data: { label: "Node 2" }, position: { x: 150, y: 100 } },
 //   { id: "edges-2a", data: { label: "Node 2a" }, position: { x: 0, y: 180 } },
@@ -92,8 +92,6 @@ export default function Scorecard(props) {
     }
   }, [location]);
 
-  console.log(scorecard);
-
   return (
     <div className="h-screen flex overflow-hidden bg-gray-100">
       <Sidebar
@@ -114,7 +112,7 @@ export default function Scorecard(props) {
 
         <main className="flex-1 relative pb-8 z-0">
           <PageHeading
-            pageTitle={`Thẻ điểm: ${scorecard?.response.data.name}`}
+            pageTitle={`Thẻ điểm: ${scorecard?.data.name}`}
             pageSubtitle={scorecardId}
             setDrawerOpen={setDrawerOpen}
             settingsId={scorecardId}

@@ -1,4 +1,10 @@
-import { SIGN_UP, SET_TOKEN, SIGN_IN, SIGN_OUT, SIGN_IN_WITH_GOOGLE } from "../constants/types";
+import {
+  SIGN_UP,
+  SET_TOKEN,
+  SIGN_IN,
+  SIGN_OUT,
+  SIGN_IN_WITH_GOOGLE,
+} from "../constants/types";
 
 export const signUp = (authData, history) => ({
   type: SIGN_UP,

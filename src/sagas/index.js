@@ -25,6 +25,7 @@ import {
   GET_PERSPECTIVES_OF_SCORECARD,
   GET_OBJECTIVES_OF_PERSPECTIVE,
   GET_KPIS_OF_OBJECTIVE,
+  ASSIGN_EMPLOYEE_TO_SCORECARD,
 } from "../constants/types";
 import {
   handleSignUp,
@@ -45,6 +46,7 @@ import {
   handleGetAllScorecards,
   handleGetPerspectivesOfScorecard,
   handleGetScorecard,
+  handleAssignEmployeeToScorecard
 } from "../handlers/scorecard";
 import {
   handleCreateNewPerspective,
@@ -91,6 +93,7 @@ export function* watcherSaga() {
     GET_PERSPECTIVES_OF_SCORECARD,
     handleGetPerspectivesOfScorecard
   );
+  yield takeLatest(ASSIGN_EMPLOYEE_TO_SCORECARD, handleAssignEmployeeToScorecard);
 
   // Perspective
   yield takeLatest(CREATE_NEW_PERSPECTIVE, handleCreateNewPerspective);

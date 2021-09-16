@@ -21,5 +21,5 @@ export const updateCurrentUserAvatar = (formData) => ({
 
 export const updateCurrentUser = (userData) => ({
   type: UPDATE_CURRENT_USER,
-  payload: { userData },
+  payload: userData,
 });
