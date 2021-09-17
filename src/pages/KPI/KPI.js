@@ -37,6 +37,7 @@ export default function KPI() {
   const [measureviewSelected, setMeasureviewSelected] = useState(false);
 
   const kpi = useSelector((state) => state.kpi.kpi);
+  
   useEffect(() => {
     try {
       dispatch(getKPI(kpiId));
@@ -56,7 +57,7 @@ export default function KPI() {
       <div className="flex-1 overflow-auto focus:outline-none">
         <main className="flex-1 relative pb-8 z-0">
           <PageHeading
-            pageTitle={`KPI: ${kpi?.data.name}`}
+            pageTitle={`${kpi?.data.name}`}
             pageSubtitle={kpiId}
             setDrawerOpen={setDrawerOpen}
             settingsId={kpiId}

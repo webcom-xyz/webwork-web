@@ -1,4 +1,4 @@
-import { Fragment, useState, useRef } from "react";
+import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { XIcon } from "@heroicons/react/outline";
 import {
@@ -6,9 +6,6 @@ import {
   PlusIcon,
   QuestionMarkCircleIcon,
 } from "@heroicons/react/solid";
-import { useDispatch } from "react-redux";
-import { createNewPerspective } from "../../actions/perspective";
-import { useParams } from "react-router-dom";
 
 const team = [
   {
@@ -49,31 +46,6 @@ const team = [
 ];
 
 export default function CreateNewPerspectiveDrawer(props) {
-  const perspectiveNameRef = useRef("");
-  const weightRef = useRef("");
-  const { scorecardId } = useParams();
-  const dispatch = useDispatch();
-
-  const [perspective, setPerspective] = useState({});
-
-  const handleChange = (e) => {
-    setPerspective({
-      ...perspective,
-      name: perspectiveNameRef.current.value,
-      weight: weightRef.current.value,
-      scorecardId: scorecardId,
-    });
-  };
-
-  const handleCreateNewPerspective = (e) => {
-    e.preventDefault();
-    try {
-      dispatch(createNewPerspective(perspective));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   return (
     <Transition.Root show={props.drawerOpen} as={Fragment}>
       <Dialog
@@ -99,7 +71,7 @@ export default function CreateNewPerspectiveDrawer(props) {
               <div className="w-screen max-w-md">
                 <form
                   className="h-full divide-y divide-gray-200 flex flex-col bg-white shadow-xl"
-                  onSubmit={handleCreateNewPerspective}
+                  onSubmit={props.handleCreateNewPerspective}
                 >
                   <div className="flex-1 h-0 overflow-y-auto">
                     <div className="py-6 px-4 bg-blue-700 sm:px-6">
@@ -130,22 +102,23 @@ export default function CreateNewPerspectiveDrawer(props) {
                         <div className="space-y-6 pt-6 pb-5">
                           <div>
                             <label
-                              htmlFor="project_name"
+                              htmlFor="name"
                               className="block text-sm font-medium text-gray-900"
                             >
                               Tên khía cạnh
                             </label>
-                            <div className="mt-1">
-                              <input
-                                type="text"
-                                name="objectiveName"
-                                id="objectiveName"
-                                placeholder="..."
-                                className="block w-full shadow-sm sm:text-sm focus:ring-blue-500 focus:border-blue-500 border-gray-300 rounded-md"
-                                ref={perspectiveNameRef}
-                                onChange={handleChange}
-                              />
-                            </div>
+                            <select
+                              id="name"
+                              name="name"
+                              className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+                              ref={props.name}
+                              onChange={props.handleChange}
+                            >
+                              <option>Khách hàng</option>
+                              <option>Quá trình nội bộ</option>
+                              <option>Tài chính</option>
+                              <option>Học hỏi và phát triển</option>
+                            </select>
                           </div>
                           <div>
                             <label
@@ -161,6 +134,8 @@ export default function CreateNewPerspectiveDrawer(props) {
                                 rows={4}
                                 className="block w-full shadow-sm sm:text-sm focus:ring-blue-500 focus:border-blue-500 border border-gray-300 rounded-md"
                                 placeholder="..."
+                                ref={props.description}
+                                onChange={props.handleChange}
                               />
                             </div>
                           </div>
@@ -183,8 +158,8 @@ export default function CreateNewPerspectiveDrawer(props) {
                                 id="weight"
                                 className="block w-full shadow-sm sm:text-sm focus:ring-blue-500 focus:border-blue-500 border-gray-300 rounded-md pl-7"
                                 placeholder="0.00"
-                                ref={weightRef}
-                                onChange={handleChange}
+                                ref={props.weight}
+                                onChange={props.handleChange}
                               />
                             </div>
                           </div>

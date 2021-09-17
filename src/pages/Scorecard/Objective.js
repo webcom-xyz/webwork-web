@@ -27,7 +27,7 @@ export default function Objective(props) {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const history = useHistory();
 
-  const [kpi, setKPI] = useState({});
+  const [kpiData, setKPIData] = useState({});
   const name = useRef("");
   const weight = useRef(0);
   const description = useRef("");
@@ -54,8 +54,8 @@ export default function Objective(props) {
   const [detailsOpen, setDetailsOpen] = useState(false);
 
   const handleChange = () => {
-    setKPI({
-      ...kpi,
+    setKPIData({
+      ...kpiData,
       name: name.current.value,
       weight: weight.current.value,
       description: description.current.value,
@@ -71,7 +71,9 @@ export default function Objective(props) {
   const handleCreateNewKPI = (e) => {
     e.preventDefault();
     try {
-      dispatch(createNewKPI(kpi));
+      console.log(kpiData)
+      dispatch(createNewKPI(kpiData));
+      setDrawerOpen(false);
     } catch (error) {
       console.log(error);
     }
@@ -112,7 +114,7 @@ export default function Objective(props) {
 
         <main className="flex-1 relative pb-8 z-0">
           <PageHeading
-            pageTitle={`Mục tiêu: ${objective?.data.name}`}
+            pageTitle={`${objective?.data.name}`}
             pageSubtitle={perspectiveId}
             setDrawerOpen={setDrawerOpen}
             settingsId={perspectiveId}

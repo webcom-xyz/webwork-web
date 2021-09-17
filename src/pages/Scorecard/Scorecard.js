@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Sidebar from "../../components/Scorecard/Sidebar";
 import Topbar from "../../components/Scorecard/Topbar";
 import Tabs from "../../components/Scorecard/Tabs";
@@ -29,6 +29,7 @@ import {
 } from "../../actions/scorecard";
 import Breadcrumbs from "../../components/shared/Breadcrumbs";
 import DetailsModal from "../../components/shared/DetailsDrawer";
+import { createNewPerspective } from "../../actions/perspective";
 // const initialElements = [
 //   { id: "edges-2", data: { label: "Node 2" }, position: { x: 150, y: 100 } },
 //   { id: "edges-2a", data: { label: "Node 2a" }, position: { x: 0, y: 180 } },
@@ -87,6 +88,32 @@ export default function Scorecard(props) {
   //   setElements((els) => removeElements(elementsToRemove, els));
   // const onConnect = (params) => setElements((els) => addEdge(params, els));
 
+  // Perspective data to create perspective
+  const [perspectiveData, setPerspectiveData] = useState({});
+  const name = useRef("");
+  const weight = useRef(0);
+  const description = useRef("");
+
+  const handleChange = () => {
+    setPerspectiveData({
+      ...perspectiveData,
+      name: name.current.value,
+      weight: parseInt(weight.current.value),
+      description: description.current.value,
+      scorecardId: scorecardId,
+    });
+  };
+
+  const handleCreateNewPerspective = (e) => {
+    e.preventDefault();
+    try {
+      dispatch(createNewPerspective(perspectiveData));
+      setDrawerOpen(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     try {
       dispatch(getScorecard(scorecardId));
@@ -106,6 +133,11 @@ export default function Scorecard(props) {
       <CreateNewPerspectiveDrawer
         drawerOpen={drawerOpen}
         setDrawerOpen={setDrawerOpen}
+        name={name}
+        weight={weight}
+        description={description}
+        handleChange={handleChange}
+        handleCreateNewPerspective={handleCreateNewPerspective}
       />
       <ConfirmDeleteDialog
         confirmDeleteDialogOpen={confirmDeleteDialogOpen}
@@ -116,7 +148,7 @@ export default function Scorecard(props) {
 
         <main className="flex-1 relative pb-8 z-0">
           <PageHeading
-            pageTitle={`Thẻ điểm: ${scorecard?.data.name}`}
+            pageTitle={`${scorecard?.data.name}`}
             pageSubtitle={scorecardId}
             setDrawerOpen={setDrawerOpen}
             settingsId={scorecardId}

@@ -1,4 +1,4 @@
-import { Fragment, useState, useRef } from "react";
+import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { XIcon } from "@heroicons/react/outline";
 import {
@@ -6,10 +6,6 @@ import {
   PlusIcon,
   QuestionMarkCircleIcon,
 } from "@heroicons/react/solid";
-import { createNewScorecard } from "../../actions/scorecard";
-import { useDispatch } from "react-redux";
-import { createNewObjective } from "../../actions/objective";
-import { useParams } from "react-router-dom";
 
 const team = [
   {
@@ -50,32 +46,6 @@ const team = [
 ];
 
 export default function Drawer(props) {
-  const objectiveNameRef = useRef("");
-  const weightRef = useRef("");
-  const { perspectiveId } = useParams();
-  const dispatch = useDispatch();
-
-  const [objective, setObjective] = useState({});
-
-  const handleChange = (e) => {
-    setObjective({
-      ...objective,
-      name: objectiveNameRef.current.value,
-      weight: weightRef.current.value,
-      perspectiveId: perspectiveId,
-    });
-  };
-
-  const handleCreateNewObjective = (e) => {
-    e.preventDefault();
-
-    try {
-      dispatch(createNewObjective(objective));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   return (
     <Transition.Root show={props.drawerOpen} as={Fragment}>
       <Dialog
@@ -101,7 +71,7 @@ export default function Drawer(props) {
               <div className="w-screen max-w-md">
                 <form
                   className="h-full divide-y divide-gray-200 flex flex-col bg-white shadow-xl"
-                  onSubmit={handleCreateNewObjective}
+                  onSubmit={props.handleCreateNewObjective}
                 >
                   <div className="flex-1 h-0 overflow-y-auto">
                     <div className="py-6 px-4 bg-blue-700 sm:px-6">
@@ -144,8 +114,8 @@ export default function Drawer(props) {
                                 id="objectiveName"
                                 placeholder="..."
                                 className="block w-full shadow-sm sm:text-sm focus:ring-blue-500 focus:border-blue-500 border-gray-300 rounded-md"
-                                ref={objectiveNameRef}
-                                onChange={handleChange}
+                                ref={props.name}
+                                onChange={props.handleChange}
                               />
                             </div>
                           </div>
@@ -163,6 +133,8 @@ export default function Drawer(props) {
                                 rows={4}
                                 className="block w-full shadow-sm sm:text-sm focus:ring-blue-500 focus:border-blue-500 border border-gray-300 rounded-md"
                                 placeholder="..."
+                                ref={props.description}
+                                onChange={props.handleChange}
                               />
                             </div>
                           </div>
@@ -185,8 +157,8 @@ export default function Drawer(props) {
                                 id="weight"
                                 className="block w-full shadow-sm sm:text-sm focus:ring-blue-500 focus:border-blue-500 border-gray-300 rounded-md pl-7"
                                 placeholder="0.00"
-                                ref={weightRef}
-                                onChange={handleChange}
+                                ref={props.weight}
+                                onChange={props.handleChange}
                               />
                             </div>
                           </div>

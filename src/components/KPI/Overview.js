@@ -154,7 +154,7 @@ export default function Overview(props) {
                 </dt>
                 <dd className="ml-16 flex items-baseline">
                   <p className="text-xl font-semibold text-gray-900">
-                    {props.kpis?.actual || "N/a"}
+                    {props.kpis?.actualValue || "N/a"}
                   </p>
                   <p className="ml-2 flex items-baseline text-sm font-semibold text-gray-500">
                     {props.kpis?.weight}%

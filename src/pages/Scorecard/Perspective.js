@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Sidebar from "../../components/Scorecard/Sidebar";
 import Topbar from "../../components/Scorecard/Topbar";
 import Tabs from "../../components/Scorecard/Tabs";
@@ -14,9 +14,13 @@ import { data, data1 } from "../../utils/data";
 import months from "../../utils/months";
 import years from "../../utils/years";
 import quarters from "../../utils/quarters";
-import { getPerspective, getObjectivesOfPerspective } from "../../actions/perspective";
+import {
+  getPerspective,
+  getObjectivesOfPerspective,
+} from "../../actions/perspective";
 import Breadcrumbs from "../../components/shared/Breadcrumbs";
 import DetailsModal from "../../components/shared/DetailsDrawer";
+import { createNewObjective } from "../../actions/objective";
 
 export default function Perspective(props) {
   const dispatch = useDispatch();
@@ -41,6 +45,33 @@ export default function Perspective(props) {
   const [strategyviewSelected, setStrategyviewSelected] = useState(false);
   const [measureviewSelected, setMeasureviewSelected] = useState(false);
 
+  // For creating objectives
+  const name = useRef("");
+  const weight = useRef(0);
+  const description = useRef("");
+  const [objectiveData, setObjectiveData] = useState({});
+
+  const handleChange = () => {
+    setObjectiveData({
+      ...objectiveData,
+      name: name.current.value,
+      weight: weight.current.value,
+      description: description.current.value,
+      perspectiveId: perspectiveId,
+    });
+  };
+
+  const handleCreateNewObjective = (e) => {
+    e.preventDefault();
+
+    try {
+      dispatch(createNewObjective(objectiveData));
+      setDrawerOpen(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     try {
       dispatch(getPerspective(perspectiveId));
@@ -49,7 +80,7 @@ export default function Perspective(props) {
       console.log(error);
     }
   }, [location]);
-console.log(perspective?.data)
+
   return (
     <div className="h-screen flex overflow-hidden bg-gray-100">
       <Sidebar
@@ -57,11 +88,19 @@ console.log(perspective?.data)
         setSidebarOpen={setSidebarOpen}
         perspectiveId={perspectiveId}
       />
-      <Drawer drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} />
+      <Drawer
+        drawerOpen={drawerOpen}
+        setDrawerOpen={setDrawerOpen}
+        name={name}
+        weight={weight}
+        description={description}
+        handleChange={handleChange}
+        handleCreateNewObjective={handleCreateNewObjective}
+      />
       <div className="flex-1 overflow-auto focus:outline-none">
         <main className="flex-1 relative pb-8 z-0">
           <PageHeading
-            pageTitle={`Khía cạnh: ${perspective?.data.name}`}
+            pageTitle={`${perspective?.data.name}`}
             pageSubtitle={perspectiveId}
             setDrawerOpen={setDrawerOpen}
             settingsId={perspectiveId}
@@ -125,7 +164,12 @@ console.log(perspective?.data)
           {measureviewSelected && <MeasuresView />}
         </main>
       </div>
-      <DetailsModal subheader={"Khía cạnh"} target={perspective?.data} detailsOpen={detailsOpen} setDetailsOpen={setDetailsOpen} />
+      <DetailsModal
+        subheader={"Khía cạnh"}
+        target={perspective?.data}
+        detailsOpen={detailsOpen}
+        setDetailsOpen={setDetailsOpen}
+      />
     </div>
   );
 }

@@ -103,7 +103,7 @@ const data = [
 
 export default function Dashboard(props) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [slideoverOpen, setSlideoverOpen] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   const currentUser = useSelector((state) => state.user.currentUser);
 
@@ -138,11 +138,11 @@ export default function Dashboard(props) {
 
     try {
       if (createFromTemplate) {
-        console.log(scorecardData);
-        // dispatch(createNewScorecardFromTemplate(scorecardData));
+        dispatch(createNewScorecardFromTemplate(scorecardData));
+        setDrawerOpen(false);
       } else {
-        console.log(scorecardData);
-        // dispatch(createNewScorecard(scorecardData));
+        dispatch(createNewScorecard(scorecardData));
+        setDrawerOpen(false);
       }
     } catch (error) {
       console.log(error);
@@ -152,13 +152,13 @@ export default function Dashboard(props) {
   const handleCreateNewScorecard = () => {
     setDrawerTitle("Thẻ điểm mới");
     setCreateFromTemplate(false);
-    setSlideoverOpen(true);
+    setDrawerOpen(true);
   };
 
   const handleCreateNewScorecardFromTemplate = () => {
     setDrawerTitle("Thẻ điểm mới theo mẫu");
     setCreateFromTemplate(true);
-    setSlideoverOpen(true);
+    setDrawerOpen(true);
   };
 
   useEffect(() => {
@@ -177,8 +177,8 @@ export default function Dashboard(props) {
         homeActive={true}
       />
       <Drawer
-        slideoverOpen={slideoverOpen}
-        setSlideoverOpen={setSlideoverOpen}
+        drawerOpen={drawerOpen}
+        setDrawerOpen={setDrawerOpen}
         title={drawerTitle}
         createFromTemplate={createFromTemplate}
         scorecardName={scorecardName}
