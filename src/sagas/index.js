@@ -26,6 +26,8 @@ import {
   GET_OBJECTIVES_OF_PERSPECTIVE,
   GET_KPIS_OF_OBJECTIVE,
   ASSIGN_EMPLOYEE_TO_SCORECARD,
+  GET_PERSPECTIVE,
+  GET_OBJECTIVE,
 } from "../constants/types";
 import {
   handleSignUp,
@@ -51,10 +53,12 @@ import {
 import {
   handleCreateNewPerspective,
   handleGetObjectivesOfPerspective,
+  handleGetPerspective,
 } from "../handlers/perspective";
 import {
   handleCreateNewObjective,
   handleGetKPIsOfObjective,
+  handleGetObjective,
 } from "../handlers/objective";
 import {
   handleCreateNewKPI,
@@ -101,10 +105,12 @@ export function* watcherSaga() {
     GET_OBJECTIVES_OF_PERSPECTIVE,
     handleGetObjectivesOfPerspective
   );
+  yield takeLatest(GET_PERSPECTIVE, handleGetPerspective);
 
   // Objective
   yield takeLatest(CREATE_NEW_OBJECTIVE, handleCreateNewObjective);
   yield takeLatest(GET_KPIS_OF_OBJECTIVE, handleGetKPIsOfObjective);
+  yield takeLatest(GET_OBJECTIVE, handleGetObjective);
 
   // KPI
   yield takeLatest(CREATE_NEW_KPI, handleCreateNewKPI);

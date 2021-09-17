@@ -11,3 +11,7 @@ export const requestGetAllObjectives = ({ perspectiveId }) => {
 export const requestGetKPIsOfObjective = (objectiveId) => {
   return API.get(`/objective/${objectiveId}/kpis`);
 };
+
+export const requestGetObjective = (objectiveId) => {
+  return API.get(`/objective/${objectiveId}`);
+};

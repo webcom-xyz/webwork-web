@@ -1,8 +1,9 @@
 import { call, put } from "redux-saga/effects";
-import { setKPIsOfObjective } from "../actions/objective";
+import { setKPIsOfObjective, setObjective } from "../actions/objective";
 import {
   requestCreateNewObjective,
   requestGetKPIsOfObjective,
+  requestGetObjective
 } from "../requests/objective";
 
 export function* handleCreateNewObjective(action) {
@@ -17,6 +18,15 @@ export function* handleGetKPIsOfObjective(action) {
   try {
     const { data } = yield call(requestGetKPIsOfObjective, action.payload);
     yield put(setKPIsOfObjective(data));
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export function* handleGetObjective(action) {
+  try {
+    const { data } = yield call(requestGetObjective, action.payload);
+    yield put(setObjective(data));
   } catch (error) {
     console.log(error);
   }

@@ -6,6 +6,7 @@ import PageHeading from "../../components/shared/PageHeading";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { getCurrentUser } from "../../actions/user";
+import Stats from "../../components/Reports/Stats";
 export default function Reports() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const currentUser = useSelector((state) => state.user.currentUser);
@@ -35,6 +36,12 @@ export default function Reports() {
 
           <div className="hidden mt-8 sm:block">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+              <Stats />
+            </div>
+          </div>
+
+          <div className="hidden mt-8 sm:block">
+            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="flex flex-col mt-2">
                 <div className="bg-white shadow rounded-lg">
                   <h3 className="text-lg leading-6 font-medium text-gray-900 inline-block ml-4 mt-4">
@@ -50,15 +57,6 @@ export default function Reports() {
             </div>
           </div>
 
-          {/* <div className="mt-8">
-          <div className="h-3 relative max-w-xl rounded overflow-hidden">
-              <div className="w-full h-full bg-gray-200 absolute"></div>
-              <div
-                className="transition-all ease-out duration-1000 h-full bg-green-500 relative w-0"
-                style={{ width: "10%" }}
-              ></div>
-            </div>
-          </div> */}
         </main>
       </div>
     </div>

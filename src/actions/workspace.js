@@ -16,5 +16,5 @@ export const removeMember = (memberData) => ({
 
 export const setMembers = (membersData) => ({
     type: SET_MEMBERS,
-    payload: { membersData }
+    payload: membersData
 });

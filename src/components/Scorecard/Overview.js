@@ -118,7 +118,7 @@ export default function Overview(props) {
                   </p>
                 </dt>
                 <dd className="ml-16 flex items-baseline">
-                  <p className="text-xl font-semibold text-gray-900">93%</p>
+                  <p className="text-xl font-semibold text-gray-900">N/a%</p>
                   <p
                     className={classNames(
                       props.changeType === "increase"
@@ -144,14 +144,14 @@ export default function Overview(props) {
                         : "Decreased"}{" "}
                       by
                     </span>
-                    2%
+                    N/a%
                   </p>
                 </dd>
               </div>
 
               <div className="relative bg-white pt-5 px-4 sm:pt-6 sm:px-6 overflow-hidden">
                 <dt>
-                  <div className="absolute bg-blue-500 rounded-md p-3">
+                  <div className="absolute bg-yellow-500 rounded-md p-3">
                     <ChipIcon
                       className="h-6 w-6 text-white"
                       aria-hidden="true"
@@ -178,7 +178,7 @@ export default function Overview(props) {
 
               <div className="relative bg-white pt-5 px-4 sm:pt-6 sm:px-6 overflow-hidden">
                 <dt>
-                  <div className="absolute bg-blue-500 rounded-md p-3">
+                  <div className="absolute bg-yellow-500 rounded-md p-3">
                     <ChipIcon
                       className="h-6 w-6 text-white"
                       aria-hidden="true"
@@ -232,16 +232,25 @@ export default function Overview(props) {
                           <></>
                         )}
                       </div>
-                      <p className="ml-16 text-sm font-medium text-gray-500 truncate">
+                      <p
+                        className="ml-16 text-sm font-medium text-gray-500 truncate hover:text-gray-900 cursor-pointer"
+                        onClick={() =>
+                          props.history.push(
+                            `/${props.scorecardId}/${perspective.id}`
+                          )
+                        }
+                      >
                         {perspective.name}
                       </p>
                     </dt>
                     <dd className="ml-16 flex items-baseline">
-                      <p className="text-xl font-semibold text-gray-900">%</p>
+                      <p className="text-xl font-semibold text-gray-900">
+                        N/a%
+                      </p>
                       <p className="ml-2 flex items-baseline text-sm font-semibold text-gray-500">
                         {perspective.weight}%
                       </p>
-                      {/* <p
+                      <p
                         className={classNames(
                           props.changeType === "increase"
                             ? "text-green-600"
@@ -266,8 +275,8 @@ export default function Overview(props) {
                             : "Decreased"}{" "}
                           by
                         </span>
-                        25%
-                      </p> */}
+                        N/a%
+                      </p>
                     </dd>
                   </div>
                 ))

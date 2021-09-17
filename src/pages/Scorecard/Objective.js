@@ -5,7 +5,7 @@ import { useParams, useLocation, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Drawer from "../../components/Objective/Drawer";
 import { createNewKPI } from "../../actions/kpi";
-import { getKPIsOfObjective } from "../../actions/objective";
+import { getKPIsOfObjective, getObjective } from "../../actions/objective";
 import PageHeading from "../../components/Scorecard/PageHeading";
 import TimePeriodSelector from "../../components/Scorecard/TimePeriodSelector";
 import { data, data1 } from "../../utils/data";
@@ -17,6 +17,7 @@ import Overview from "../../components/Objective/Overview";
 import StrategyView from "../../components/Scorecard/StrategyView";
 import MeasuresView from "../../components/Scorecard/MeasuresView";
 import Breadcrumbs from "../../components/shared/Breadcrumbs";
+import DetailsModal from "../../components/shared/DetailsDrawer";
 
 export default function Objective(props) {
   const dispatch = useDispatch();
@@ -47,6 +48,11 @@ export default function Objective(props) {
   const [measureviewSelected, setMeasureviewSelected] = useState(false);
 
   const kpis = useSelector((state) => state.objective.kpis);
+  const objective = useSelector((state) => state.objective.objective);
+
+  // Details modal
+  const [detailsOpen, setDetailsOpen] = useState(false);
+
   const handleChange = () => {
     setKPI({
       ...kpi,
@@ -64,8 +70,6 @@ export default function Objective(props) {
 
   const handleCreateNewKPI = (e) => {
     e.preventDefault();
-    console.log(kpi);
-
     try {
       dispatch(createNewKPI(kpi));
     } catch (error) {
@@ -75,6 +79,7 @@ export default function Objective(props) {
 
   useEffect(() => {
     try {
+      dispatch(getObjective(objectiveId));
       dispatch(getKPIsOfObjective(objectiveId));
     } catch (error) {
       console.log(error);
@@ -107,12 +112,23 @@ export default function Objective(props) {
 
         <main className="flex-1 relative pb-8 z-0">
           <PageHeading
-            pageTitle={`Mục tiêu: `}
+            pageTitle={`Mục tiêu: ${objective?.data.name}`}
             pageSubtitle={perspectiveId}
             setDrawerOpen={setDrawerOpen}
             settingsId={perspectiveId}
             history={history}
+            setDetailsOpen={setDetailsOpen}
           />
+          <div className="bg-white">
+            <div className="max-w-6xl mx-auto">
+              <Breadcrumbs
+                history={history}
+                scorecardId={scorecardId}
+                perspectiveId={perspectiveId}
+                objectiveId={objectiveId}
+              />
+            </div>
+          </div>
           <div className="mt-8">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 ">
               <div>
@@ -162,6 +178,12 @@ export default function Objective(props) {
           {measureviewSelected && <MeasuresView />}
         </main>
       </div>
+      <DetailsModal
+        subheader={"Mục tiêu"}
+        target={objective?.data}
+        detailsOpen={detailsOpen}
+        setDetailsOpen={setDetailsOpen}
+      />
     </div>
   );
 }

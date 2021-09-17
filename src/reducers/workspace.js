@@ -1,10 +1,10 @@
 import { SET_MEMBERS } from "../constants/types";
 
-const workspace = (state = { workspace: null }, action) => {
+const workspace = (state = { members: null }, action) => {
     switch (action.type) {
 
         case SET_MEMBERS: 
-            return { ...state, workspace: action.payload }
+            return { ...state, members: action.payload }
         
         default:
             return state;

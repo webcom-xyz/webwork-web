@@ -24,28 +24,7 @@ import {
   createNewScorecard,
   createNewScorecardFromTemplate,
 } from "../../actions/scorecard";
-
-const cards = [
-  {
-    name: "Hiệu suất",
-    href: "#",
-    icon: PresentationChartLineIcon,
-    amount: "98%",
-  },
-  {
-    name: "Bất thường",
-    href: "#",
-    icon: PresentationChartLineIcon,
-    amount: "_",
-  },
-  { name: "Thay đổi", href: "#", icon: PresentationChartLineIcon, amount: "_" },
-];
-
-const statusStyles = {
-  success: "bg-green-100 text-green-800",
-  processing: "bg-yellow-100 text-yellow-800",
-  failed: "bg-gray-100 text-gray-800",
-};
+import Stats from "../../components/Dashboard/Stats";
 
 const data = [
   {
@@ -221,48 +200,7 @@ export default function Dashboard(props) {
 
           <div className="mt-8">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="mt-2 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-                {/* Card */}
-                {cards.map((card) => (
-                  <div
-                    key={card.name}
-                    className="bg-white overflow-hidden shadow rounded-lg"
-                  >
-                    <div className="p-5">
-                      <div className="flex items-center">
-                        <div className="flex-shrink-0 bg-green-500 rounded-md p-3">
-                          <card.icon
-                            className="h-6 w-6 text-white"
-                            aria-hidden="true"
-                          />
-                        </div>
-                        <div className="ml-5 w-0 flex-1">
-                          <dl>
-                            <dt className="text-sm font-medium text-gray-500 truncate">
-                              {card.name}
-                            </dt>
-                            <dd>
-                              <div className="text-lg font-medium text-gray-900">
-                                {card.amount}
-                              </div>
-                            </dd>
-                          </dl>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="bg-gray-50 px-5 py-3">
-                      <div className="text-sm">
-                        <a
-                          href={card.href}
-                          className="font-medium text-blue-700 hover:text-blue-900"
-                        >
-                          Xem tất cả
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
+              <Stats />
             </div>
 
             <h2 className="max-w-6xl mx-auto mt-8 px-4 text-lg leading-6 font-medium text-gray-900 sm:px-6 lg:px-8"></h2>

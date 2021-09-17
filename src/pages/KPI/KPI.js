@@ -21,7 +21,7 @@ import Breadcrumbs from "../../components/shared/Breadcrumbs";
 export default function KPI() {
   const dispatch = useDispatch();
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const { perspectiveId, kpiId } = useParams();
+  const { scorecardId, perspectiveId, objectiveId, kpiId } = useParams();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const history = useHistory();
   const location = useLocation();
@@ -44,7 +44,7 @@ export default function KPI() {
       console.log(error);
     }
   }, [location]);
-  
+
   return (
     <div className="h-screen flex overflow-hidden bg-gray-100">
       <Sidebar
@@ -54,54 +54,69 @@ export default function KPI() {
       />
       <Drawer drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} />
       <div className="flex-1 overflow-auto focus:outline-none">
-
-          <main className="flex-1 relative pb-8 z-0">
-            <PageHeading
-              pageTitle={`KPI: ${kpi?.data.name}`}
-              pageSubtitle={kpiId}
-              setDrawerOpen={setDrawerOpen}
-              settingsId={kpiId}
+        <main className="flex-1 relative pb-8 z-0">
+          <PageHeading
+            pageTitle={`KPI: ${kpi?.data.name}`}
+            pageSubtitle={kpiId}
+            setDrawerOpen={setDrawerOpen}
+            settingsId={kpiId}
+            history={history}
+          />
+          <div className="bg-white">
+            <div className="max-w-6xl mx-auto">
+              <Breadcrumbs
               history={history}
-            />
-            <div className="mt-8">
-              <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 ">
-                <div>
-                  <Tabs
-                    overviewSelected={overviewSelected}
-                    setOverviewSelected={setOverviewSelected}
-                    strategyviewSelected={strategyviewSelected}
-                    setStrategyviewSelected={setStrategyviewSelected}
-                    measureviewSelected={measureviewSelected}
-                    setMeasureviewSelected={setMeasureviewSelected}
-                  />
-                </div>
+                scorecardId={scorecardId}
+                perspectiveId={perspectiveId}
+                objectiveId={objectiveId}
+                kpiId={kpiId}
+              />
+            </div>
+          </div>
+          <div className="mt-8">
+            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 ">
+              <div>
+                <Tabs
+                  overviewSelected={overviewSelected}
+                  setOverviewSelected={setOverviewSelected}
+                  strategyviewSelected={strategyviewSelected}
+                  setStrategyviewSelected={setStrategyviewSelected}
+                  measureviewSelected={measureviewSelected}
+                  setMeasureviewSelected={setMeasureviewSelected}
+                />
               </div>
             </div>
+          </div>
 
-            {!strategyviewSelected && (
-              <TimePeriodSelector
-                timePeriodSelected={timePeriodSelected}
-                setTimePeriodSelected={setTimePeriodSelected}
-                months={months}
-                monthSelected={monthSelected}
-                setMonthSelected={setMonthSelected}
-                quarters={quarters}
-                quarterSelected={quarterSelected}
-                setQuarterSelected={setQuarterSelected}
-                years={years}
-                yearSelected={yearSelected}
-                setYearSelected={setYearSelected}
-              />
-            )}
+          {!strategyviewSelected && (
+            <TimePeriodSelector
+              timePeriodSelected={timePeriodSelected}
+              setTimePeriodSelected={setTimePeriodSelected}
+              months={months}
+              monthSelected={monthSelected}
+              setMonthSelected={setMonthSelected}
+              quarters={quarters}
+              quarterSelected={quarterSelected}
+              setQuarterSelected={setQuarterSelected}
+              years={years}
+              yearSelected={yearSelected}
+              setYearSelected={setYearSelected}
+            />
+          )}
 
-            {overviewSelected && (
-              <Overview data={data} data1={data1} changeType={changeType} kpis={kpi?.data} />
-            )}
+          {overviewSelected && (
+            <Overview
+              data={data}
+              data1={data1}
+              changeType={changeType}
+              kpis={kpi?.data}
+            />
+          )}
 
-            {strategyviewSelected && <StrategyView />}
+          {strategyviewSelected && <StrategyView />}
 
-            {measureviewSelected && <MeasuresView />}
-          </main>
+          {measureviewSelected && <MeasuresView />}
+        </main>
       </div>
     </div>
   );

@@ -20,7 +20,7 @@ export const requestGetAllScorecards = () => {
   return API.get("/scorecard");
 };
 
-export const requestDeleteScorecard = ({ scorecardId }) => {
+export const requestDeleteScorecard = (scorecardId) => {
   API.delete(`/scorecard/${scorecardId}`);
 };
 

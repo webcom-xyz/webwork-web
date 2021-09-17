@@ -28,6 +28,7 @@ import {
   getScorecard,
 } from "../../actions/scorecard";
 import Breadcrumbs from "../../components/shared/Breadcrumbs";
+import DetailsModal from "../../components/shared/DetailsDrawer";
 // const initialElements = [
 //   { id: "edges-2", data: { label: "Node 2" }, position: { x: 150, y: 100 } },
 //   { id: "edges-2a", data: { label: "Node 2a" }, position: { x: 0, y: 180 } },
@@ -78,6 +79,9 @@ export default function Scorecard(props) {
   const scorecard = useSelector((state) => state.scorecard.scorecard);
   const perspectives = useSelector((state) => state.scorecard.perspectives);
 
+  // Details modal
+  const [detailsOpen, setDetailsOpen] = useState(false);
+
   // const [elements, setElements] = useState(initialElements);
   // const onElementsRemove = (elementsToRemove) =>
   //   setElements((els) => removeElements(elementsToRemove, els));
@@ -117,8 +121,13 @@ export default function Scorecard(props) {
             setDrawerOpen={setDrawerOpen}
             settingsId={scorecardId}
             history={history}
+            setDetailsOpen={setDetailsOpen}
           />
-
+          <div className="bg-white">
+            <div className="max-w-6xl mx-auto">
+              <Breadcrumbs history={history} scorecardId={scorecardId} />
+            </div>
+          </div>
           <div className="mt-8">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 ">
               <div>
@@ -156,6 +165,8 @@ export default function Scorecard(props) {
               data1={data1}
               changeType={changeType}
               perspectives={perspectives?.data}
+              scorecardId={scorecardId}
+              history={history}
             />
           )}
 
@@ -164,6 +175,12 @@ export default function Scorecard(props) {
           {measureviewSelected && <MeasuresView />}
         </main>
       </div>
+      <DetailsModal
+        subheader={"Thẻ điểm"}
+        target={scorecard?.data}
+        detailsOpen={detailsOpen}
+        setDetailsOpen={setDetailsOpen}
+      />
     </div>
   );
 }

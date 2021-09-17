@@ -42,7 +42,7 @@ export const setScorecards = (scorecardData) => ({
 
 export const deleteScorecard = (scorecardId) => ({
   type: DELETE_SCORECARD,
-  payload: { scorecardId },
+  payload: scorecardId,
 });
 
 export const getPerspectivesOfScorecard = (scorecardId) => ({

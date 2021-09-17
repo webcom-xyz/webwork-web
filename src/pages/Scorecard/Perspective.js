@@ -14,8 +14,9 @@ import { data, data1 } from "../../utils/data";
 import months from "../../utils/months";
 import years from "../../utils/years";
 import quarters from "../../utils/quarters";
-import { getObjectivesOfPerspective } from "../../actions/perspective";
+import { getPerspective, getObjectivesOfPerspective } from "../../actions/perspective";
 import Breadcrumbs from "../../components/shared/Breadcrumbs";
+import DetailsModal from "../../components/shared/DetailsDrawer";
 
 export default function Perspective(props) {
   const dispatch = useDispatch();
@@ -30,21 +31,25 @@ export default function Perspective(props) {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const history = useHistory();
   const objectives = useSelector((state) => state.perspective.objectives);
+  const perspective = useSelector((state) => state.perspective.perspective);
+
+  // Details modal
+  const [detailsOpen, setDetailsOpen] = useState(false);
 
   const [changeType, setChangeType] = useState("");
   const [overviewSelected, setOverviewSelected] = useState(true);
   const [strategyviewSelected, setStrategyviewSelected] = useState(false);
   const [measureviewSelected, setMeasureviewSelected] = useState(false);
 
-
   useEffect(() => {
     try {
+      dispatch(getPerspective(perspectiveId));
       dispatch(getObjectivesOfPerspective(perspectiveId));
     } catch (error) {
       console.log(error);
     }
   }, [location]);
-
+console.log(perspective?.data)
   return (
     <div className="h-screen flex overflow-hidden bg-gray-100">
       <Sidebar
@@ -56,12 +61,22 @@ export default function Perspective(props) {
       <div className="flex-1 overflow-auto focus:outline-none">
         <main className="flex-1 relative pb-8 z-0">
           <PageHeading
-            pageTitle={`Khía cạnh: `}
+            pageTitle={`Khía cạnh: ${perspective?.data.name}`}
             pageSubtitle={perspectiveId}
             setDrawerOpen={setDrawerOpen}
             settingsId={perspectiveId}
             history={history}
+            setDetailsOpen={setDetailsOpen}
           />
+          <div className="bg-white">
+            <div className="max-w-6xl mx-auto">
+              <Breadcrumbs
+                history={history}
+                scorecardId={scorecardId}
+                perspectiveId={perspectiveId}
+              />
+            </div>
+          </div>
           <div className="mt-8">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 ">
               <div>
@@ -110,6 +125,7 @@ export default function Perspective(props) {
           {measureviewSelected && <MeasuresView />}
         </main>
       </div>
+      <DetailsModal subheader={"Khía cạnh"} target={perspective?.data} detailsOpen={detailsOpen} setDetailsOpen={setDetailsOpen} />
     </div>
   );
 }

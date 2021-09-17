@@ -109,7 +109,7 @@ export default function Overview(props) {
                   </p>
                 </dt>
                 <dd className="ml-16 flex items-baseline">
-                  <p className="text-xl font-semibold text-gray-900">93%</p>
+                  <p className="text-xl font-semibold text-gray-900">N/a%</p>
                   <p
                     className={classNames(
                       props.changeType === "increase"
@@ -135,58 +135,32 @@ export default function Overview(props) {
                         : "Decreased"}{" "}
                       by
                     </span>
-                    2%
+                    N/a%
                   </p>
                 </dd>
               </div>
 
-                  <div className="relative bg-white pt-5 px-4 sm:pt-6 sm:px-6 overflow-hidden">
-                    <dt>
-                      <div className="absolute bg-green-500 rounded-md p-3">
-                        <StopIcon
-                          className="h-6 w-6 text-white"
-                          aria-hidden="true"
-                        />
-                      </div>
-                      <p className="ml-16 text-sm font-medium text-gray-500 truncate cursor-pointer hover:text-gray-900">
-                        {props.kpi?.name}
-                      </p>
-                    </dt>
-                    <dd className="ml-16 flex items-baseline">
-                      <p className="text-xl font-semibold text-gray-900">%</p>
-                      <p className="ml-2 flex items-baseline text-sm font-semibold text-gray-500">
-                        {props.kpi?.weight}%
-                      </p>
-                      {/* <p
-                        className={classNames(
-                          props.changeType === "increase"
-                            ? "text-green-600"
-                            : "text-red-600",
-                          "ml-2 flex items-baseline text-sm font-semibold"
-                        )}
-                      >
-                        {props.changeType === "increase" ? (
-                          <ArrowSmUpIcon
-                            className="self-center flex-shrink-0 h-5 w-5 text-green-500"
-                            aria-hidden="true"
-                          />
-                        ) : (
-                          <ArrowSmDownIcon
-                            className="self-center flex-shrink-0 h-5 w-5 text-red-500"
-                            aria-hidden="true"
-                          />
-                        )}
-                        <span className="sr-only">
-                          {props.changeType === "increase"
-                            ? "Increased"
-                            : "Decreased"}{" "}
-                          by
-                        </span>
-                        25%
-                      </p> */}
-                    </dd>
+              <div className="relative bg-white pt-5 px-4 sm:pt-6 sm:px-6 overflow-hidden">
+                <dt>
+                  <div className="absolute bg-yellow-500 rounded-md p-3">
+                    <StopIcon
+                      className="h-6 w-6 text-white"
+                      aria-hidden="true"
+                    />
                   </div>
-
+                  <p className="ml-16 text-sm font-medium text-gray-500 truncate cursor-pointer hover:text-gray-900">
+                    Giá trị thực
+                  </p>
+                </dt>
+                <dd className="ml-16 flex items-baseline">
+                  <p className="text-xl font-semibold text-gray-900">
+                    {props.kpis?.actual || "N/a"}
+                  </p>
+                  <p className="ml-2 flex items-baseline text-sm font-semibold text-gray-500">
+                    {props.kpis?.weight}%
+                  </p>
+                </dd>
+              </div>
             </div>
           </div>
         </div>
