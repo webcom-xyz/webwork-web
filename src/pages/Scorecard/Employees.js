@@ -1,15 +1,18 @@
 import React, { useEffect, useRef, useState } from "react";
 import Sidebar from "../../components/Scorecard/Sidebar";
 import Topbar from "../../components/Scorecard/Topbar";
-import classNames from "../../utils/classNames";
 import { useDispatch, useSelector } from "react-redux";
 import Drawer from "../../components/Employee/Drawer";
-import { addMembers, getMembers } from "../../actions/workspace";
+import {
+  addMembers,
+  getMembers,
+  removeEmployee,
+} from "../../actions/workspace";
 import { useLocation } from "react-router";
 import PageHeading from "../../components/shared/PageHeading";
-import moment from "moment";
 import Stats from "../../components/Employee/Stats";
 import EmployeesList from "../../components/Employee/EmployeesList";
+import EmployeeDetails from "../../components/Employee/EmployeeDetails";
 
 export default function Employees() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -22,6 +25,10 @@ export default function Employees() {
   const [employeeData, setEmployeeData] = useState({});
   const email = useRef("");
 
+  // Employee details drawer
+  const [employeeDetailsOpen, setEmployeeDetailsOpen] = useState(false);
+  const [currentEmployeeId, setCurrentEmployeeId] = useState("");
+
   const handleChange = () => {
     setEmployeeData({
       ...employeeData,
@@ -33,6 +40,16 @@ export default function Employees() {
     e.preventDefault();
     try {
       dispatch(addMembers(employeeData));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleRemoveEmployee = (e) => {
+    e.preventDefault();
+    try {
+      console.log("Remove employee");
+      // dispatch(removeEmployee());
     } catch (error) {
       console.log(error);
     }
@@ -60,6 +77,13 @@ export default function Employees() {
         handleChange={handleChange}
         handleAddMembers={handleAddMembers}
       />
+      <EmployeeDetails
+        employeeDetailsOpen={employeeDetailsOpen}
+        setEmployeeDetailsOpen={setEmployeeDetailsOpen}
+        employee={members?.data}
+        currentEmployeeId={currentEmployeeId}
+        handleRemoveEmployee={handleRemoveEmployee}
+      />
       <div className="flex-1 overflow-auto focus:outline-none">
         {/* <Topbar setSidebarOpen={setSidebarOpen} /> */}
         <main className="flex-1 relative pb-8 z-0 overflow-y-auto">
@@ -77,7 +101,11 @@ export default function Employees() {
           </div>
           <div className="mt-8">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-              <EmployeesList members={members?.data} />
+              <EmployeesList
+                members={members?.data}
+                setCurrentEmployeeId={setCurrentEmployeeId}
+                setEmployeeDetailsOpen={setEmployeeDetailsOpen}
+              />
             </div>
           </div>
         </main>

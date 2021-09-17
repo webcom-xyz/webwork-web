@@ -48,4 +48,5 @@ export const GET_KPI = "GET_KPI";
 export const ADD_MEMBER = "ADD_MEMBER";
 export const GET_MEMBERS = "GET_MEMBERS";
 export const REMOVE_MEMBER = "REMOVE_MEMBER";
+export const REMOVE_EMPLOYEE = "REMOVE_EMPLOYEE";
 export const SET_MEMBERS = "SET_MEMBERS";

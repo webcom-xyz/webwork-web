@@ -83,7 +83,15 @@ export default function DetailsDrawer(props) {
                           )}
                         </dd>
                       </div>
-                      {props.subheader === "Thẻ điểm" && (
+                      {props.target?.weight && (
+                        <div className="py-3 flex justify-between text-sm font-medium">
+                          <dt className="text-gray-500">Trọng số</dt>
+                          <dd className="text-gray-900">
+                            {props.target?.weight}
+                          </dd>
+                        </div>
+                      )}
+                      {props.target?.type && (
                         <div className="py-3 flex justify-between text-sm font-medium">
                           <dt className="text-gray-500">Loại</dt>
                           <dd className="text-gray-900">
@@ -91,7 +99,7 @@ export default function DetailsDrawer(props) {
                           </dd>
                         </div>
                       )}
-                      {props.subheader === "Khía cạnh" && (
+                      {props.target?.objectives && (
                         <div className="py-3 flex justify-between text-sm font-medium">
                           <dt className="text-gray-500">Mục tiêu</dt>
                           <dd className="text-gray-900">

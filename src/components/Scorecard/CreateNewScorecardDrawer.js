@@ -47,13 +47,13 @@ const team = [
 
 export default function CreateNewScorecardDrawer(props) {
   return (
-    <Transition.Root show={props.slideoverOpen} as={Fragment}>
+    <Transition.Root show={props.drawerOpen} as={Fragment}>
       <Dialog
         as="div"
         static
         className="fixed inset-0 overflow-hidden z-50"
-        open={props.slideoverOpen}
-        onClose={props.setSlideoverOpen}
+        open={props.drawerOpen}
+        onClose={props.setDrawerOpen}
       >
         <div className="absolute inset-0 overflow-hidden">
           <Dialog.Overlay className="absolute inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
@@ -83,7 +83,7 @@ export default function CreateNewScorecardDrawer(props) {
                           <button
                             type="button"
                             className="bg-blue-700 rounded-md text-blue-200 hover:text-white focus:outline-none"
-                            onClick={() => props.setSlideoverOpen(false)}
+                            onClick={() => props.setDrawerOpen(false)}
                           >
                             <span className="sr-only">Close panel</span>
                             <XIcon className="h-6 w-6" aria-hidden="true" />
@@ -212,7 +212,6 @@ export default function CreateNewScorecardDrawer(props) {
                                       className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300"
                                       value="Produce"
                                       ref={props.scorecardType}
-                                      
                                       onChange={props.handleChange}
                                     />
                                   </div>
@@ -369,30 +368,6 @@ export default function CreateNewScorecardDrawer(props) {
                                     </div>
                                   </div>
                                 </div>
-                                {/* <div>
-                                  <div className="relative flex items-start">
-                                    <div className="absolute flex items-center h-5">
-                                      <input
-                                        id="type"
-                                        name="type"
-                                        aria-describedby="privacy_private-to-project_description"
-                                        type="radio"
-                                        className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300"
-                                        value="Kinh doanh"
-                                        ref={props.scorecardType}
-                                        onChange={props.handleChange}
-                                      />
-                                    </div>
-                                    <div className="pl-7 text-sm">
-                                      <label
-                                        htmlFor="privacy_private-to-project"
-                                        className="text-gray-900"
-                                      >
-                                        Kinh doanh
-                                      </label>
-                                    </div>
-                                  </div>
-                                </div> */}
                               </div>
                             </fieldset>
                           )}
@@ -432,7 +407,7 @@ export default function CreateNewScorecardDrawer(props) {
                     <button
                       type="button"
                       className="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                      onClick={() => props.setSlideoverOpen(false)}
+                      onClick={() => props.setDrawerOpen(false)}
                     >
                       Hủy
                     </button>

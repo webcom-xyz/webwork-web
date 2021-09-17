@@ -28,6 +28,7 @@ import {
   ASSIGN_EMPLOYEE_TO_SCORECARD,
   GET_PERSPECTIVE,
   GET_OBJECTIVE,
+  REMOVE_EMPLOYEE,
 } from "../constants/types";
 import {
   handleSignUp,
@@ -69,6 +70,7 @@ import {
   handleAddMembers,
   handleRemoveMember,
   handleGetMembers,
+  handleRemoveEmployee,
 } from "../handlers/workspace";
 
 export function* watcherSaga() {
@@ -121,4 +123,5 @@ export function* watcherSaga() {
   yield takeLatest(ADD_MEMBER, handleAddMembers);
   yield takeLatest(GET_MEMBERS, handleGetMembers);
   yield takeLatest(REMOVE_MEMBER, handleRemoveMember);
+  yield takeLatest(REMOVE_EMPLOYEE, handleRemoveEmployee);
 }

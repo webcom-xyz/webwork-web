@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import { PresentationChartLineIcon } from "@heroicons/react/outline";
 import Sidebar from "../../components/Scorecard/Sidebar";
 import Topbar from "../../components/Scorecard/Topbar";
 import Drawer from "../../components/Scorecard/CreateNewScorecardDrawer";
