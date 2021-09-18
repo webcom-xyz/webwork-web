@@ -1,10 +1,13 @@
 import {
+  ASSIGN_EMPLOYEE_TO_PERSPECTIVE,
   CREATE_NEW_PERSPECTIVE,
+  DELETE_PERSPECTIVE,
   GET_ALL_PERSPECTIVES,
   GET_OBJECTIVES_OF_PERSPECTIVE,
   GET_PERSPECTIVE,
   SET_OBJECTIVES_OF_PERSPECTIVE,
   SET_PERSPECTIVE,
+  UPDATE_PERSPECTIVE,
 } from "../constants/types";
 
 export const createNewPerspective = (perspectiveData) => ({
@@ -34,4 +37,19 @@ export const getPerspective = (perspectiveId) => ({
 export const setPerspective = (perspectiveData) => ({
   type: SET_PERSPECTIVE,
   payload: perspectiveData,
+});
+
+export const deletePerspective = (perspectiveId) => ({
+  type: DELETE_PERSPECTIVE,
+  payload: perspectiveId,
+});
+
+export const updatePerspective = (perspectiveId, perspectiveData) => ({
+  type: UPDATE_PERSPECTIVE,
+  payload: { perspectiveId, perspectiveData },
+});
+
+export const assignEmployeeToPerspective = (perspectiveId, employeeData) => ({
+  type: ASSIGN_EMPLOYEE_TO_PERSPECTIVE,
+  payload: { perspectiveId, employeeData },
 });

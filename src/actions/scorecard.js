@@ -9,6 +9,7 @@ import {
   GET_PERSPECTIVES_OF_SCORECARD,
   SET_PERSPECTIVES_OF_SCORECARD,
   ASSIGN_EMPLOYEE_TO_SCORECARD,
+  UPDATE_SCORECARD,
 } from "../constants/types";
 
 export const createNewScorecard = (workspaceData) => ({
@@ -26,6 +27,7 @@ export const getScorecard = (scorecardId) => ({
   payload: scorecardId,
 });
 
+// Sidebar
 export const getAllScorecards = () => ({
   type: GET_ALL_SCORECARDS,
 });
@@ -57,5 +59,10 @@ export const setPerspectivesOfScorecard = (perspectiveData) => ({
 
 export const assignEmployeeToScorecard = (scorecardId, employeeData) => ({
   type: ASSIGN_EMPLOYEE_TO_SCORECARD,
-  payload: { scorecardId, employeeData }
-})
+  payload: { scorecardId, employeeData },
+});
+
+export const updateScorecard = (scorecardId, scorecardData) => ({
+  type: UPDATE_SCORECARD,
+  payload: { scorecardId, scorecardData },
+});

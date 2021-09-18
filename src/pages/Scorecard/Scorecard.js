@@ -151,7 +151,7 @@ export default function Scorecard(props) {
             pageTitle={`${scorecard?.data.name}`}
             pageSubtitle={scorecardId}
             setDrawerOpen={setDrawerOpen}
-            settingsId={scorecardId}
+            scorecardId={scorecardId}
             history={history}
             setDetailsOpen={setDetailsOpen}
           />

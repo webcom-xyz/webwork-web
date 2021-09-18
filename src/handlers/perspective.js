@@ -1,6 +1,16 @@
 import { call, put } from "redux-saga/effects";
-import { setObjectivesOfPerspective, setPerspective } from "../actions/perspective";
-import { requestCreateNewPerspective, requestGetObjectivesOfPerspective, requestGetPerspective } from "../requests/perspective";
+import {
+  setObjectivesOfPerspective,
+  setPerspective,
+} from "../actions/perspective";
+import {
+  requestAssignEmployeeToPerspective,
+  requestCreateNewPerspective,
+  requestDeletePerspective,
+  requestGetObjectivesOfPerspective,
+  requestGetPerspective,
+  requestUpdatePerspective,
+} from "../requests/perspective";
 
 export function* handleCreateNewPerspective(action) {
   try {
@@ -12,7 +22,10 @@ export function* handleCreateNewPerspective(action) {
 
 export function* handleGetObjectivesOfPerspective(action) {
   try {
-    const { data } = yield call(requestGetObjectivesOfPerspective, action.payload);
+    const { data } = yield call(
+      requestGetObjectivesOfPerspective,
+      action.payload
+    );
     yield put(setObjectivesOfPerspective(data));
   } catch (error) {
     console.log(error);
@@ -28,10 +41,29 @@ export function* handleGetPerspective(action) {
   }
 }
 
-// export function* handleGetAllPerspectives(action) {
-//   try {
-//     yield call(requestGetAllPerspectives, action.payload);
-//   } catch (error) {
-//     console.log(error);
-//   }
-// }
+export function* handleDeletePerspective(action) {
+  try {
+    const { data } = yield call(requestDeletePerspective, action.payload);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export function* handleUpdatePerspective(action) {
+  try {
+    const { data } = yield call(requestUpdatePerspective, action.payload);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export function* handleAssignEmployeeToPerspective(action) {
+  try {
+    const { data } = yield call(
+      requestAssignEmployeeToPerspective,
+      action.payload
+    );
+  } catch (error) {
+    console.log(error);
+  }
+}

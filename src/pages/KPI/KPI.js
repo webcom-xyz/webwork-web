@@ -37,7 +37,7 @@ export default function KPI() {
   const [measureviewSelected, setMeasureviewSelected] = useState(false);
 
   const kpi = useSelector((state) => state.kpi.kpi);
-  
+
   useEffect(() => {
     try {
       dispatch(getKPI(kpiId));
@@ -60,13 +60,16 @@ export default function KPI() {
             pageTitle={`${kpi?.data.name}`}
             pageSubtitle={kpiId}
             setDrawerOpen={setDrawerOpen}
-            settingsId={kpiId}
+            scorecardId={scorecardId}
+            perspectiveId={perspectiveId}
+            objectiveId={objectiveId}
+            kpiId={kpiId}
             history={history}
           />
           <div className="bg-white">
             <div className="max-w-6xl mx-auto">
               <Breadcrumbs
-              history={history}
+                history={history}
                 scorecardId={scorecardId}
                 perspectiveId={perspectiveId}
                 objectiveId={objectiveId}

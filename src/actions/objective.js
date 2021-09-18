@@ -5,6 +5,9 @@ import {
   SET_KPIS_OF_OBJECTIVE,
   SET_OBJECTIVES,
   SET_OBJECTIVE,
+  UPDATE_OBJECTIVE,
+  DELETE_OBJECTIVE,
+  ASSIGN_EMPLOYEE_TO_OBJECTIVE,
 } from "../constants/types";
 
 export const createNewObjective = (objectiveData) => ({
@@ -35,4 +38,19 @@ export const setKPIsOfObjective = (kpisData) => ({
 export const getObjective = (objectiveId) => ({
   type: GET_OBJECTIVE,
   payload: objectiveId,
+});
+
+export const deleteObjective = (objectiveId) => ({
+  type: DELETE_OBJECTIVE,
+  payload: objectiveId,
+});
+
+export const updateObjective = (objectiveId, objectiveData) => ({
+  type: UPDATE_OBJECTIVE,
+  payload: { objectiveId, objectiveData },
+});
+
+export const assignEmployeeToObjective = (objectiveId, employeeData) => ({
+  type: ASSIGN_EMPLOYEE_TO_OBJECTIVE,
+  payload: { objectiveId, employeeData },
 });

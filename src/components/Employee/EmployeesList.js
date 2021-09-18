@@ -12,7 +12,14 @@ export default function EmployeesList(props) {
         {props.members ? (
           props.members.map((member) => (
             <li key={member.id}>
-              <a className="block cursor-pointer hover:bg-gray-50" onClick={() => {props.setEmployeeDetailsOpen(true); props.setCurrentEmployeeId(member.id)}}>
+              <a
+                className="block cursor-pointer hover:bg-gray-50"
+                onClick={() => {
+                  props.setEmployeeDetailsOpen(true);
+                  props.setCurrentEmployeeId(member.id);
+                  props.setSelectedEmployeeEmail(member.email);
+                }}
+              >
                 <div className="flex items-center px-4 py-4 sm:px-6">
                   <div className="min-w-0 flex-1 flex items-center">
                     <div className="flex-shrink-0">

@@ -18,6 +18,20 @@ export const requestGetPerspective = (perspectiveId) => {
   return API.get(`/perspective/${perspectiveId}`);
 };
 
-// export const requestGetAllObjectives = (perspectiveId) => {
-//   return API.get("/objective", {data: {perspectiveId}});
-// };
+export const requestDeletePerspective = (perspectiveId) => {
+  return API.delete(`/perspective/${perspectiveId}`);
+};
+
+export const requestUpdatePerspective = ({
+  perspectiveId,
+  perspectiveData,
+}) => {
+  return API.put(`/perspective/${perspectiveId}`, perspectiveData);
+};
+
+export const requestAssignEmployeeToPerspective = ({
+  perspectiveId,
+  employeeData,
+}) => {
+  return API.get(`/perspective/${perspectiveId}/employee`, employeeData);
+};

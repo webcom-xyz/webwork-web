@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Fragment } from "react";
 import { Dialog, Transition, Disclosure } from "@headlessui/react";
 import {
@@ -26,7 +26,7 @@ export default function Sidebar(props) {
   const history = useHistory();
   const currentUser = useSelector((state) => state.user.currentUser);
   const scorecards = useSelector((state) => state.scorecard.scorecards);
-
+  const [refreshInterval, setRefreshInterval] = useState(0);
   const dispatch = useDispatch();
   const location = useLocation();
 
@@ -83,6 +83,10 @@ export default function Sidebar(props) {
     try {
       dispatch(getCurrentUser());
       dispatch(getAllScorecards());
+      // setInterval(() => {
+
+      //   dispatch(getAllScorecards());
+      // }, 10000);
     } catch (error) {
       console.log(error);
     }

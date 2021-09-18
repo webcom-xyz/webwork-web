@@ -7,6 +7,7 @@ import {
   requestGetAllScorecards,
   requestGetPerspectivesOfScorecard,
   requestGetScorecard,
+  requestUpdateScorecard,
 } from "../requests/scorecard";
 import {
   setPerspectivesOfScorecard,
@@ -74,6 +75,14 @@ export function* handleAssignEmployeeToScorecard(action) {
       requestAssignEmployeeToScorecard,
       action.payload
     );
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export function* handleUpdateScorecard(action) {
+  try {
+    const { data } = yield call(requestUpdateScorecard, action.payload);
   } catch (error) {
     console.log(error);
   }

@@ -1,42 +1,42 @@
-import React, { Fragment, useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Sidebar from "../../components/Scorecard/Sidebar";
-import Topbar from "../../components/Scorecard/Topbar";
 import { useHistory, useLocation, useParams } from "react-router-dom";
 import { ArrowCircleLeftIcon } from "@heroicons/react/outline";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  assignEmployeeToScorecard,
-  deleteScorecard,
-  updateScorecard,
-} from "../../actions/scorecard";
 import ConfirmDeleteDialog from "../../components/shared/ConfirmDeleteDialog";
+import {
+  assignEmployeeToKPI,
+  deleteKPI,
+  getKPI,
+  updateKPI,
+} from "../../actions/kpi";
 
-export default function ScorecardSettings(props) {
+export default function Settings(props) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const location = useLocation();
-  const { scorecardId } = useParams();
-  const [enabled, setEnabled] = useState(false);
-  const [timePeriodSelected, setTimePeriodSelected] = useState("Monthly");
-  const [drawerOpen, setDrawerOpen] = useState(false);
+  const { scorecardId, perspectiveId, objectiveId, kpiId } = useParams();
   const [confirmDeleteDialogOpen, setConfirmDeleteDialogOpen] = useState(false);
-  const [changeType, setChangeType] = useState("");
   const dispatch = useDispatch();
-  const scorecards = useSelector((state) => state.scorecard);
-  const [selectedFile, setSelectedFile] = useState(null);
   const history = useHistory();
 
   const email = useRef("");
   const role = useRef("");
-  const name = useRef("");
-  const type = useRef("");
-  const description = useRef("");
   const [employeeData, setEmployeeData] = useState({});
-  const [scorecardData, setScorecardData] = useState({});
+  const [kpiData, setKPIData] = useState({});
 
-  const handleDeleteScorecard = (e) => {
+  const name = useRef("");
+  const weight = useRef(0);
+  const description = useRef("");
+  const red = useRef("");
+  const goal = useRef("");
+  const dataType = useRef("");
+  const calendar = useRef("");
+  const kpi = useSelector((state) => state.kpi.kpi);
+
+  const handleDeleteKPI = (e) => {
     e.preventDefault();
     try {
-      dispatch(deleteScorecard(scorecardId));
+      dispatch(deleteKPI(kpiId));
     } catch (error) {
       console.log(error);
     }
@@ -49,35 +49,48 @@ export default function ScorecardSettings(props) {
       role: role.current.value,
     });
 
-    setScorecardData({
-      ...scorecardData,
+    setKPIData({
+      ...kpiData,
       name: name.current.value,
-      type: type.current.value,
+      weight: weight.current.value,
       description: description.current.value,
+      actualValue: kpi?.data.actualValue,
+      red: red.current.value,
+      goal: goal.current.value,
+      dataType: dataType.current.value,
+      calendar: calendar.current.value,
     });
   };
 
-  const handleAssignEmployeeToScorecard = (e) => {
+  const handleAssignEmployeeToKPI = (e) => {
     e.preventDefault();
 
     try {
-      dispatch(assignEmployeeToScorecard(scorecardId, employeeData));
+      dispatch(assignEmployeeToKPI(kpiId, employeeData));
       console.log(employeeData);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const handleUpdateScorecard = (e) => {
+  const handleUpdateKPI = (e) => {
     e.preventDefault();
 
     try {
-      dispatch(updateScorecard(scorecardId, scorecardData));
-      console.log(scorecardData);
+      dispatch(updateKPI(kpiId, kpiData));
+      console.log(kpiData);
     } catch (error) {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    try {
+      dispatch(getKPI(kpiId));
+    } catch (error) {
+      console.log(error);
+    }
+  }, [location]);
 
   return (
     <div className="h-screen flex overflow-hidden bg-gray-100">
@@ -89,9 +102,9 @@ export default function ScorecardSettings(props) {
       <ConfirmDeleteDialog
         confirmDeleteDialogOpen={confirmDeleteDialogOpen}
         setConfirmDeleteDialogOpen={setConfirmDeleteDialogOpen}
-        title={"Xóa thẻ điểm cân bằng"}
-        buttonTitle={"Xóa thẻ điểm"}
-        handleDeleteScorecard={handleDeleteScorecard}
+        title={"Xóa KPI"}
+        buttonTitle={"Xóa KPI"}
+        handleDeleteScorecard={handleDeleteKPI}
       />
       <div className="flex-1 overflow-auto focus:outline-none">
         <main className="flex-1 relative pb-8 z-0">
@@ -102,19 +115,23 @@ export default function ScorecardSettings(props) {
                   {/* Profile */}
                   <div className="flex items-center"></div>
                   <h1 className="ml-3 text-2xl font-bold leading-7 text-gray-900 sm:leading-9 sm:truncate">
-                    Thẻ điểm: _
+                    {kpi?.data.name}
                   </h1>
 
                   <dl className="mt-6 flex flex-col sm:ml-3 sm:mt-1 sm:flex-row sm:flex-wrap">
                     <dt className="sr-only">Account status</dt>
                     <dd className="mt-3 flex items-center text-sm text-gray-500 font-medium sm:mr-6 sm:mt-0 capitalize">
-                      {scorecardId}
+                      {kpiId}
                     </dd>
                   </dl>
                 </div>
                 <div className="mt-6 flex space-x-3 md:mt-0 md:ml-4">
                   <button
-                    onClick={() => history.push(`/${scorecardId}`)}
+                    onClick={() =>
+                      history.push(
+                        `/${scorecardId}/${perspectiveId}/${objectiveId}/${kpiId}`
+                      )
+                    }
                     className="bg-white p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500"
                   >
                     <span className="sr-only">View notifications</span>
@@ -131,25 +148,25 @@ export default function ScorecardSettings(props) {
           <div className="mt-8">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="space-y-6 sm:px-6 lg:px-0 lg:col-span-9">
-                <form onSubmit={handleUpdateScorecard}>
+                <form onSubmit={handleUpdateKPI}>
                   <div className="shadow sm:rounded-md sm:overflow-hidden">
                     <div className="bg-white py-6 px-4 space-y-6 sm:p-6">
                       <div>
                         <h3 className="text-lg leading-6 font-medium text-gray-900">
-                          Thẻ điểm
+                          Chỉ số
                         </h3>
                         <p className="mt-1 text-sm text-gray-500">
-                          Cập nhật thông tin thẻ điểm
+                          Cập nhật thông tin chỉ số
                         </p>
                       </div>
 
                       <div className="grid grid-cols-6 gap-6">
-                        <div className="col-span-6 sm:col-span-3">
+                        <div className="col-span-4 sm:col-span-4">
                           <label
                             htmlFor="first_name"
                             className="block text-sm font-medium text-gray-700"
                           >
-                            Tên thẻ điểm
+                            Tên chỉ số
                           </label>
                           <input
                             type="text"
@@ -161,32 +178,52 @@ export default function ScorecardSettings(props) {
                             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                           />
                         </div>
-                        <div className="col-span-6 sm:col-span-3">
+                        <div className="col-span-2 sm:col-span-2">
                           <label
                             htmlFor="type"
                             className="block text-sm font-medium text-gray-700"
                           >
-                            Bộ phận
+                            Chu kỳ
                           </label>
                           <select
-                            id="type"
-                            name="type"
-                            ref={type}
+                            id="calendar"
+                            name="calendar"
+                            ref={calendar}
                             onChange={handleChange}
                             className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
                           >
-                            <option value="Company">Công ty</option>
-                            <option value="Produce">Sản xuất</option>
-                            <option value="R&D">Nghiên cứu & Phát triển</option>
-                            <option value="Sale">Bán hàng</option>
-                            <option value="Engineering">Kỹ thuật</option>
-                            <option value="Business">Kinh doanh</option>
-                            <option value="Storage">Kho vận</option>
-                            <option value="Accountant">Kế toán</option>
+                            <option value="Tháng">Theo tháng</option>
+                            <option value="Quý">Theo quý</option>
+                            <option value="Năm">Theo năm</option>
                           </select>
                         </div>
 
-                        <div className="col-span-6">
+                        <div className="col-span-2 sm:col-span-2">
+                          <label
+                            htmlFor="weight"
+                            className="block text-sm font-medium text-gray-900"
+                          >
+                            Trọng số
+                          </label>
+                          <div className="mt-1 relative">
+                            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                              <span className="text-gray-500 sm:text-sm">
+                                %
+                              </span>
+                            </div>
+                            <input
+                              type="text"
+                              name="weight"
+                              id="weight"
+                              className="block w-full shadow-sm sm:text-sm focus:ring-blue-500 focus:border-blue-500 border-gray-300 rounded-md pl-7"
+                              placeholder="0.00"
+                              ref={weight}
+                              onChange={props.handleChange}
+                            />
+                          </div>
+                        </div>
+
+                        <div className="col-span-4">
                           <label
                             htmlFor="about"
                             className="block text-sm font-medium text-gray-700"
@@ -205,6 +242,62 @@ export default function ScorecardSettings(props) {
                             />
                           </div>
                         </div>
+
+                        <div className="col-span-2 sm:col-span-2">
+                          <label
+                            htmlFor="first_name"
+                            className="block text-sm font-medium text-gray-700"
+                          >
+                            Ngưỡng dưới
+                          </label>
+                          <input
+                            type="text"
+                            name="red"
+                            id="red"
+                            placeholder="..."
+                            ref={red}
+                            onChange={handleChange}
+                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                          />
+                        </div>
+
+                        <div className="col-span-2 sm:col-span-2">
+                          <label
+                            htmlFor="first_name"
+                            className="block text-sm font-medium text-gray-700"
+                          >
+                            Ngưỡng trên
+                          </label>
+                          <input
+                            type="text"
+                            name="goal"
+                            id="goal"
+                            placeholder="..."
+                            ref={goal}
+                            onChange={handleChange}
+                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                          />
+                        </div>
+
+                        <div className="col-span-2 sm:col-span-2">
+                          <label
+                            htmlFor="type"
+                            className="block text-sm font-medium text-gray-700"
+                          >
+                            Kiểu dữ liệu
+                          </label>
+                          <select
+                            id="calendar"
+                            name="calendar"
+                            ref={dataType}
+                            onChange={handleChange}
+                            className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+                          >
+                            <option>Số liệu</option>
+                            <option>Tiền tệ</option>
+                            <option>Phần trăm</option>
+                          </select>
+                        </div>
                       </div>
                     </div>
                     <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
@@ -218,7 +311,7 @@ export default function ScorecardSettings(props) {
                   </div>
                 </form>
 
-                <form onSubmit={handleAssignEmployeeToScorecard}>
+                <form onSubmit={handleAssignEmployeeToKPI}>
                   <div className="shadow sm:rounded-md sm:overflow-hidden">
                     <div className="bg-white py-6 px-4 space-y-6 sm:p-6">
                       <div>
@@ -285,11 +378,11 @@ export default function ScorecardSettings(props) {
                   <div className="bg-white shadow sm:rounded-lg">
                     <div className="px-4 py-5 sm:p-6">
                       <h3 className="text-lg leading-6 font-medium text-gray-900">
-                        Xóa thẻ điểm cân bằng
+                        Xóa chỉ số
                       </h3>
                       <div className="mt-2 max-w-xl text-sm text-gray-500">
                         <p>
-                          Một khi đã xóa, mọi dữ liệu của thẻ điểm sẽ bị mất và
+                          Một khi đã xóa, mọi dữ liệu của chỉ số sẽ bị mất và
                           không thể khôi phục.
                         </p>
                       </div>
@@ -299,7 +392,7 @@ export default function ScorecardSettings(props) {
                           onClick={() => setConfirmDeleteDialogOpen(true)}
                           className="inline-flex items-center justify-center px-4 py-2 border border-transparent font-medium rounded-md text-red-700 bg-red-100 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:text-sm"
                         >
-                          Xóa thẻ điểm
+                          Xóa chỉ số
                         </button>
                       </div>
                     </div>

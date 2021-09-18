@@ -15,3 +15,18 @@ export const requestGetKPIsOfObjective = (objectiveId) => {
 export const requestGetObjective = (objectiveId) => {
   return API.get(`/objective/${objectiveId}`);
 };
+
+export const requestDeleteObjective = (objectiveId) => {
+  return API.delete(`/objective/${objectiveId}`);
+};
+
+export const requestUpdateObjective = ({ objectiveId, objectiveData }) => {
+  return API.put(`/objective/${objectiveId}`, objectiveData);
+};
+
+export const requestAssignEmployeeToObjective = ({
+  objectiveId,
+  employeeData,
+}) => {
+  return API.post(`/objective/${objectiveId}/employee`, employeeData);
+};

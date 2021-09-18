@@ -28,6 +28,7 @@ export default function Employees() {
   // Employee details drawer
   const [employeeDetailsOpen, setEmployeeDetailsOpen] = useState(false);
   const [currentEmployeeId, setCurrentEmployeeId] = useState("");
+  const [selectedEmployeeEmail, setSelectedEmployeeEmail] = useState("");
 
   const handleChange = () => {
     setEmployeeData({
@@ -48,8 +49,7 @@ export default function Employees() {
   const handleRemoveEmployee = (e) => {
     e.preventDefault();
     try {
-      console.log("Remove employee");
-      // dispatch(removeEmployee());
+      dispatch(removeEmployee({ email: selectedEmployeeEmail }));
     } catch (error) {
       console.log(error);
     }
@@ -104,6 +104,7 @@ export default function Employees() {
               <EmployeesList
                 members={members?.data}
                 setCurrentEmployeeId={setCurrentEmployeeId}
+                setSelectedEmployeeEmail={setSelectedEmployeeEmail}
                 setEmployeeDetailsOpen={setEmployeeDetailsOpen}
               />
             </div>
