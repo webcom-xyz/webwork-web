@@ -26,7 +26,6 @@ export default function Sidebar(props) {
   const history = useHistory();
   const currentUser = useSelector((state) => state.user.currentUser);
   const scorecards = useSelector((state) => state.scorecard.scorecards);
-  const [refreshInterval, setRefreshInterval] = useState(0);
   const dispatch = useDispatch();
   const location = useLocation();
 
@@ -52,11 +51,6 @@ export default function Sidebar(props) {
       current: props.reportsActive,
       page: "/reports",
     },
-    // {
-    //   name: "Quy trình",
-    //   href: "#",
-    //   icon: CollectionIcon,
-    // },
   ];
 
   const secondaryNavigation = [
@@ -79,13 +73,18 @@ export default function Sidebar(props) {
     }
   };
 
+  if (props.refetch) {
+    try {
+      dispatch(getAllScorecards());
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   useEffect(() => {
     try {
       dispatch(getCurrentUser());
       dispatch(getAllScorecards());
-      // setInterval(() => {
-      //   dispatch(getAllScorecards());
-      // }, 5000);
     } catch (error) {
       console.log(error);
     }

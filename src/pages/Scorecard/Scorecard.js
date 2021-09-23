@@ -90,6 +90,7 @@ export default function Scorecard(props) {
   // const onConnect = (params) => setElements((els) => addEdge(params, els));
 
   // Perspective data to create perspective
+  const [refetch, setRefetch] = useState(false);
   const [perspectiveData, setPerspectiveData] = useState({});
   const name = useRef("");
   const weight = useRef(0);
@@ -111,6 +112,7 @@ export default function Scorecard(props) {
       dispatch(createNewPerspective(perspectiveData));
       setShowNotification(true);
       setDrawerOpen(false);
+      setRefetch(true);
     } catch (error) {
       console.log(error);
     }
@@ -131,6 +133,7 @@ export default function Scorecard(props) {
         sidebarOpen={sidebarOpen}
         setSidebarOpen={setSidebarOpen}
         scorecardId={scorecardId}
+        refetch={refetch}
       />
       <CreateNewPerspectiveDrawer
         drawerOpen={drawerOpen}

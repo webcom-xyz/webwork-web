@@ -106,7 +106,7 @@ export default function Dashboard(props) {
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   const currentUser = useSelector((state) => state.user.currentUser);
-
+  const [refetch, setRefetch] = useState(false);
   const [createFromTemplate, setCreateFromTemplate] = useState(false);
   const [drawerTitle, setDrawerTitle] = useState("");
 
@@ -140,15 +140,15 @@ export default function Dashboard(props) {
 
     try {
       if (createFromTemplate) {
-        console.log(scorecardData);
         dispatch(createNewScorecardFromTemplate(scorecardData));
         setShowNotification(true);
         setDrawerOpen(false);
+        setRefetch(true);
       } else {
-        console.log(scorecardData);
         dispatch(createNewScorecard(scorecardData));
         setShowNotification(true);
         setDrawerOpen(false);
+        setRefetch(true);
       }
     } catch (error) {
       console.log(error);
@@ -181,6 +181,7 @@ export default function Dashboard(props) {
         sidebarOpen={sidebarOpen}
         setSidebarOpen={setSidebarOpen}
         homeActive={true}
+        refetch={refetch}
       />
       <Drawer
         drawerOpen={drawerOpen}

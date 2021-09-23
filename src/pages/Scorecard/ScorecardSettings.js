@@ -33,6 +33,9 @@ export default function Settings(props) {
   const description = useRef("");
   const [employeeData, setEmployeeData] = useState({});
   const [scorecardData, setScorecardData] = useState({});
+  const [refetch, setRefetch] = useState(false);
+  const [notificationTitle, setNotificationTitle] = useState("Thành công!");
+  const [notificationSubtitle, setNotificationSubtitle] = useState("");
 
   const handleDeleteScorecard = (e) => {
     e.preventDefault();
@@ -64,6 +67,9 @@ export default function Settings(props) {
 
     try {
       dispatch(assignEmployeeToScorecard(scorecardId, employeeData));
+      setNotificationSubtitle("Đã giao thẻ điểm cho nhân viên.");
+      setShowNotification(true);
+      setRefetch(true);
     } catch (error) {
       console.log(error);
     }
@@ -74,10 +80,22 @@ export default function Settings(props) {
 
     try {
       dispatch(updateScorecard(scorecardId, scorecardData));
+      setNotificationSubtitle("Đã cập nhật thẻ điểm thành công.");
+      setShowNotification(true);
+      setRefetch(true);
     } catch (error) {
       console.log(error);
     }
   };
+
+  if (refetch) {
+    try {
+      dispatch(getScorecard(scorecardId));
+      dispatch(getAssignedEmployeesOfScorecard(scorecardId));
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   useEffect(() => {
     try {
@@ -94,6 +112,7 @@ export default function Settings(props) {
         sidebarOpen={sidebarOpen}
         setSidebarOpen={setSidebarOpen}
         scorecardId={scorecardId}
+        refetch={refetch}
       />
       <ConfirmDeleteDialog
         confirmDeleteDialogOpen={confirmDeleteDialogOpen}
@@ -325,8 +344,8 @@ export default function Settings(props) {
       <Notification
         showNotification={showNotification}
         setShowNotification={setShowNotification}
-        title="Thành công!"
-        subtitle="Đã xóa thành công thẻ điểm cân bằng."
+        title={notificationTitle}
+        subtitle={notificationSubtitle}
       />
     </div>
   );

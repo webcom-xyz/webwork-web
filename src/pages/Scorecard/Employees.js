@@ -27,7 +27,9 @@ export default function Employees() {
   const email = useRef("");
 
   const [showNotification, setShowNotification] = useState(false);
-
+  const [refetch, setRefetch] = useState(false);
+  const [notificationTitle, setNotificationTitle] = useState("Thành công!");
+  const [notificationSubtitle, setNotificationSubtitle] = useState("");
   // Employee details drawer
   const [employeeDetailsOpen, setEmployeeDetailsOpen] = useState(false);
   const [currentEmployeeId, setCurrentEmployeeId] = useState("");
@@ -44,8 +46,10 @@ export default function Employees() {
     e.preventDefault();
     try {
       dispatch(addMembers(employeeData));
+      setNotificationSubtitle("Đã thêm nhân viên vào workspace thành công.");
       setShowNotification(true);
       setDrawerOpen(false);
+      setRefetch(true);
     } catch (error) {
       console.log(error);
     }
@@ -55,10 +59,22 @@ export default function Employees() {
     e.preventDefault();
     try {
       dispatch(removeEmployee({ email: selectedEmployeeEmail }));
+      setNotificationSubtitle("Đã xóa nhân viên khỏi workspace thành công.");
+      setShowNotification(true);
+      setEmployeeDetailsOpen(false);
+      setRefetch(true);
     } catch (error) {
       console.log(error);
     }
   };
+
+  if (refetch) {
+    try {
+      dispatch(getMembers());
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   useEffect(() => {
     try {
@@ -119,8 +135,8 @@ export default function Employees() {
       <Notification
         showNotification={showNotification}
         setShowNotification={setShowNotification}
-        title="Thành công!"
-        subtitle="Đã thêm nhân viên vào workspace thành công."
+        title={notificationTitle}
+        subtitle={notificationSubtitle}
       />
     </div>
   );
