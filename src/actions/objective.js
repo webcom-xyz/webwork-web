@@ -8,6 +8,8 @@ import {
   UPDATE_OBJECTIVE,
   DELETE_OBJECTIVE,
   ASSIGN_EMPLOYEE_TO_OBJECTIVE,
+  GET_ASSIGNED_EMPLOYEES_OF_OBJECTIVE,
+  SET_ASSIGNED_EMPLOYEES_OF_OBJECTIVE,
 } from "../constants/types";
 
 export const createNewObjective = (objectiveData) => ({
@@ -53,4 +55,14 @@ export const updateObjective = (objectiveId, objectiveData) => ({
 export const assignEmployeeToObjective = (objectiveId, employeeData) => ({
   type: ASSIGN_EMPLOYEE_TO_OBJECTIVE,
   payload: { objectiveId, employeeData },
+});
+
+export const getAssignedEmployeesOfObjective = (objectiveId) => ({
+  type: GET_ASSIGNED_EMPLOYEES_OF_OBJECTIVE,
+  payload: objectiveId,
+});
+
+export const setAssignedEmployeesOfObjective = (employeesData) => ({
+  type: SET_ASSIGNED_EMPLOYEES_OF_OBJECTIVE,
+  payload: employeesData,
 });

@@ -30,3 +30,7 @@ export const requestAssignEmployeeToObjective = ({
 }) => {
   return API.post(`/objective/${objectiveId}/employee`, employeeData);
 };
+
+export const requestGetAssignedEmployeesOfObjective = (objectiveId) => {
+  return API.get(`/objective/${objectiveId}/employee`);
+};

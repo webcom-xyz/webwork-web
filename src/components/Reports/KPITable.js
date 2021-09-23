@@ -18,12 +18,13 @@ import {
   UserAddIcon,
 } from "@heroicons/react/solid";
 import classNames from "../../utils/classNames";
+import moment from "moment";
 
 const projects = [
   {
     id: 1,
-    title: "GraphQL API",
-    period: "Tháng 9 2021",
+    title: "Doanh thu",
+    period: "09/2021",
     actual: "465000",
     red: "450000",
     goal: "465000",
@@ -33,62 +34,66 @@ const projects = [
   },
 ];
 
-export default function KPITable() {
+export default function KPITable(props) {
   return (
-      <div className="align-middle inline-block min-w-full border-b border-gray-200">
-        <table className="min-w-full">
-          <thead>
-            <tr className="border-t border-gray-200">
-              <th className="px-6 py-3 border-b border-gray-200 bg-white text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                <span className="lg:pl-2">Chỉ số</span>
-              </th>
-              <th className="hidden md:table-cell px-6 py-3 border-b border-gray-200 bg-white text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Giai đoạn
-              </th>
-              <th className="hidden md:table-cell px-6 py-3 border-b border-gray-200 bg-white text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Giá trị
-              </th>
-              <th className="hidden md:table-cell px-6 py-3 border-b border-gray-200 bg-white text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Ngưỡng
-              </th>
-              <th className="pr-6 py-3 border-b border-gray-200 bg-white text-left text-xs font-medium text-gray-500 uppercase tracking-wider" />
-            </tr>
-          </thead>
-          <tbody className="bg-white divide-y divide-gray-100">
-            {projects.map((project) => (
-              <tr key={project.id}>
+    <div className="align-middle inline-block min-w-full border-b border-gray-200">
+      <table className="min-w-full">
+        <thead>
+          <tr className="border-t border-gray-200">
+            <th className="px-6 py-3 whitespace-nowrap border-b border-gray-200 bg-white text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <span className="lg:pl-2">Chỉ số</span>
+            </th>
+            <th className="hidden md:table-cell whitespace-nowrap px-6 py-3 border-b border-gray-200 bg-white text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Giá trị
+            </th>
+            <th className="hidden md:table-cell whitespace-nowrap px-6 py-3 border-b border-gray-200 bg-white text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Giai đoạn
+            </th>
+            <th className="hidden md:table-cell whitespace-nowrap px-6 py-3 border-b border-gray-200 bg-white text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Ngưỡng
+            </th>
+            <th className="pr-6 py-3 border-b whitespace-nowrap border-gray-200 bg-white text-left text-xs font-medium text-gray-500 uppercase tracking-wider" />
+          </tr>
+        </thead>
+        <tbody className="bg-white divide-y divide-gray-100">
+          {props.assignedKPIs ? (
+            props.assignedKPIs.map((kpi) => (
+              <tr key={kpi?.id}>
                 <td className="px-6 py-3 max-w-0 w-full whitespace-nowrap text-sm font-medium text-gray-900">
                   <div className="flex items-center space-x-3 lg:pl-2">
+                    
                     <div
                       className={classNames(
-                        project.bgColorClass,
+                        kpi?.actualValue < kpi?.goal && kpi?.actualValue > kpi?.red ? "bg-yellow-400" : kpi?.actualValue < kpi?.red ? "bg-red-400" : "bg-green-400",
                         "flex-shrink-0 w-2.5 h-2.5 rounded-full"
                       )}
                       aria-hidden="true"
                     />
+                    
                     <a href="#" className="truncate hover:text-gray-600">
                       <span>
-                        {project.title}{" "}
-                        {/* <span className="text-gray-500 font-normal">
-                          in {project.team}
-                        </span> */}
+                        {kpi?.name}{" "}
+                        <span className="text-gray-500 font-normal">
+                          của N/a
+                        </span>
                       </span>
                     </a>
                   </div>
                 </td>
+
                 <td className="hidden md:table-cell px-6 py-3 whitespace-nowrap text-sm text-gray-500 text-left">
-                  {project.period}
+                  {kpi?.actualValue}
                 </td>
                 <td className="hidden md:table-cell px-6 py-3 whitespace-nowrap text-sm text-gray-500 text-left">
-                  {project.actual}
+                  {kpi?.calendar} {moment(moment().toDate()).format("MM, YYYY")}
                 </td>
                 <td className="px-6 py-3 text-sm text-gray-500 text-left">
                   <div className="flex items-center space-x-2">
-                    <div className="flex flex-shrink-0 -space-x-1 text-red-500">
-                      {project.red}
+                    <div className="flex flex-shrink-0 -space-x-1">
+                      {kpi?.red}
                     </div>
-                    <div className="flex flex-shrink-0 -space-x-1 text-green-500">
-                      {project.goal}
+                    <div className="flex flex-shrink-0 -space-x-1">
+                      {kpi?.goal}
                     </div>
                   </div>
                 </td>
@@ -130,45 +135,7 @@ export default function KPITable() {
                                   className="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500"
                                   aria-hidden="true"
                                 />
-                                Edit
-                              </a>
-                            )}
-                          </Menu.Item>
-                          <Menu.Item>
-                            {({ active }) => (
-                              <a
-                                href="#"
-                                className={classNames(
-                                  active
-                                    ? "bg-gray-100 text-gray-900"
-                                    : "text-gray-700",
-                                  "group flex items-center px-4 py-2 text-sm"
-                                )}
-                              >
-                                <DuplicateIcon
-                                  className="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500"
-                                  aria-hidden="true"
-                                />
-                                Duplicate
-                              </a>
-                            )}
-                          </Menu.Item>
-                          <Menu.Item>
-                            {({ active }) => (
-                              <a
-                                href="#"
-                                className={classNames(
-                                  active
-                                    ? "bg-gray-100 text-gray-900"
-                                    : "text-gray-700",
-                                  "group flex items-center px-4 py-2 text-sm"
-                                )}
-                              >
-                                <UserAddIcon
-                                  className="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500"
-                                  aria-hidden="true"
-                                />
-                                Share
+                                Cập nhật
                               </a>
                             )}
                           </Menu.Item>
@@ -189,7 +156,7 @@ export default function KPITable() {
                                   className="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500"
                                   aria-hidden="true"
                                 />
-                                Delete
+                                Xóa
                               </a>
                             )}
                           </Menu.Item>
@@ -199,9 +166,12 @@ export default function KPITable() {
                   </Menu>
                 </td>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            ))
+          ) : (
+            <></>
+          )}
+        </tbody>
+      </table>
+    </div>
   );
 }

@@ -24,6 +24,7 @@ import {
   createNewScorecardFromTemplate,
 } from "../../actions/scorecard";
 import Stats from "../../components/Dashboard/Stats";
+import Notification from "../../parts/shared/Notification";
 
 const data = [
   {
@@ -109,6 +110,8 @@ export default function Dashboard(props) {
   const [createFromTemplate, setCreateFromTemplate] = useState(false);
   const [drawerTitle, setDrawerTitle] = useState("");
 
+  const [showNotification, setShowNotification] = useState(false);
+
   const dispatch = useDispatch();
   const location = useLocation();
   const history = useHistory();
@@ -137,10 +140,14 @@ export default function Dashboard(props) {
 
     try {
       if (createFromTemplate) {
+        console.log(scorecardData);
         dispatch(createNewScorecardFromTemplate(scorecardData));
+        setShowNotification(true);
         setDrawerOpen(false);
       } else {
+        console.log(scorecardData);
         dispatch(createNewScorecard(scorecardData));
+        setShowNotification(true);
         setDrawerOpen(false);
       }
     } catch (error) {
@@ -240,6 +247,12 @@ export default function Dashboard(props) {
           </div>
         </main>
       </div>
+      <Notification
+        showNotification={showNotification}
+        setShowNotification={setShowNotification}
+        title="Thành công!"
+        subtitle="Đã tạo thành công thẻ điểm cân bằng."
+      />
     </div>
   );
 }

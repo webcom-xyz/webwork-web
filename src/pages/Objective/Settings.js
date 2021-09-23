@@ -3,41 +3,40 @@ import Sidebar from "../../components/Scorecard/Sidebar";
 import { useHistory, useLocation, useParams } from "react-router-dom";
 import { ArrowCircleLeftIcon } from "@heroicons/react/outline";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  assignEmployeeToScorecard,
-  deleteScorecard,
-  getAssignedEmployeesOfScorecard,
-  getScorecard,
-  updateScorecard,
-} from "../../actions/scorecard";
 import ConfirmDeleteDialog from "../../components/shared/ConfirmDeleteDialog";
 import Notification from "../../parts/shared/Notification";
+import {
+  assignEmployeeToObjective,
+  deleteObjective,
+  getAssignedEmployeesOfObjective,
+  getObjective,
+  updateObjective,
+} from "../../actions/objective";
 import AssignedEmployees from "../../components/shared/AssignedEmployees";
 
 export default function Settings(props) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const location = useLocation();
-  const { scorecardId } = useParams();
+  const { scorecardId, perspectiveId, objectiveId } = useParams();
   const [confirmDeleteDialogOpen, setConfirmDeleteDialogOpen] = useState(false);
   const dispatch = useDispatch();
-  const scorecard = useSelector((state) => state.scorecard.scorecard);
-  const assignedEmployees = useSelector(
-    (state) => state.scorecard.assignedEmployees
-  );
   const history = useHistory();
   const [showNotification, setShowNotification] = useState(false);
   const email = useRef("");
   const role = useRef("");
   const name = useRef("");
-  const type = useRef("");
+  const weight = useRef("");
   const description = useRef("");
   const [employeeData, setEmployeeData] = useState({});
-  const [scorecardData, setScorecardData] = useState({});
+  const [objectiveData, setObjectiveData] = useState({});
+  const objective = useSelector((state) => state.objective.objective);
+  const assignedEmployees = useSelector((state) => state.objective.assignedEmployees);
 
-  const handleDeleteScorecard = (e) => {
+
+  const handleDeleteObjective = (e) => {
     e.preventDefault();
     try {
-      dispatch(deleteScorecard(scorecardId));
+      dispatch(deleteObjective(objectiveId));
       setShowNotification(true);
     } catch (error) {
       console.log(error);
@@ -51,29 +50,29 @@ export default function Settings(props) {
       role: role.current.value,
     });
 
-    setScorecardData({
-      ...scorecardData,
-      name: name.current.value || scorecard?.data.name,
-      type: type.current.value || scorecard?.data.type,
-      description: description.current.value || scorecard?.data.description,
+    setObjectiveData({
+      ...objectiveData,
+      name: name.current.value || objective?.data.name,
+      weight: weight.current.value || objective?.data.weight,
+      description: description.current.value || objective?.data.description,
     });
   };
 
-  const handleAssignEmployeeToScorecard = (e) => {
+  const handleAssignEmployeeToObjective = (e) => {
     e.preventDefault();
 
     try {
-      dispatch(assignEmployeeToScorecard(scorecardId, employeeData));
+      dispatch(assignEmployeeToObjective(objectiveId, employeeData));
     } catch (error) {
       console.log(error);
     }
   };
 
-  const handleUpdateScorecard = (e) => {
+  const handleUpdateObjective = (e) => {
     e.preventDefault();
 
     try {
-      dispatch(updateScorecard(scorecardId, scorecardData));
+      dispatch(updateObjective(objectiveId, objectiveData));
     } catch (error) {
       console.log(error);
     }
@@ -81,8 +80,8 @@ export default function Settings(props) {
 
   useEffect(() => {
     try {
-      dispatch(getScorecard(scorecardId));
-      dispatch(getAssignedEmployeesOfScorecard(scorecardId));
+      dispatch(getObjective(objectiveId));
+      dispatch(getAssignedEmployeesOfObjective(objectiveId));
     } catch (error) {
       console.log(error);
     }
@@ -98,9 +97,9 @@ export default function Settings(props) {
       <ConfirmDeleteDialog
         confirmDeleteDialogOpen={confirmDeleteDialogOpen}
         setConfirmDeleteDialogOpen={setConfirmDeleteDialogOpen}
-        title={"Xóa thẻ điểm cân bằng"}
-        buttonTitle={"Xóa thẻ điểm"}
-        handleDelete={handleDeleteScorecard}
+        title={"Xóa mục tiêu"}
+        buttonTitle={"Xóa mục tiêu"}
+        handleDelete={handleDeleteObjective}
       />
       <div className="flex-1 overflow-auto focus:outline-none">
         <main className="flex-1 relative pb-8 z-0">
@@ -111,19 +110,23 @@ export default function Settings(props) {
                   {/* Profile */}
                   <div className="flex items-center"></div>
                   <h1 className="ml-3 text-2xl font-bold leading-7 text-gray-900 sm:leading-9 sm:truncate">
-                    {scorecard?.data.name}
+                    {objective?.data.name}
                   </h1>
 
                   <dl className="mt-6 flex flex-col sm:ml-3 sm:mt-1 sm:flex-row sm:flex-wrap">
                     <dt className="sr-only">Account status</dt>
-                    <dd className="mt-3 flex items-center text-sm text-gray-500 font-medium sm:mr-6 sm:mt-0">
-                      {scorecardId}
+                    <dd className="mt-3 flex items-center text-sm text-gray-500 font-medium sm:mr-6 sm:mt-0 capitalize">
+                      {objectiveId}
                     </dd>
                   </dl>
                 </div>
                 <div className="mt-6 flex space-x-3 md:mt-0 md:ml-4">
                   <button
-                    onClick={() => history.push(`/${scorecardId}`)}
+                    onClick={() =>
+                      history.push(
+                        `/${scorecardId}/${perspectiveId}/${objectiveId}`
+                      )
+                    }
                     className="bg-white p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500"
                   >
                     <span className="sr-only">View notifications</span>
@@ -140,15 +143,15 @@ export default function Settings(props) {
           <div className="mt-8">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="space-y-6 sm:px-6 lg:px-0 lg:col-span-9">
-                <form onSubmit={handleUpdateScorecard}>
+                <form onSubmit={handleUpdateObjective}>
                   <div className="shadow sm:rounded-md sm:overflow-hidden">
                     <div className="bg-white py-6 px-4 space-y-6 sm:p-6">
                       <div>
                         <h3 className="text-lg leading-6 font-medium text-gray-900">
-                          Thẻ điểm
+                          Mục tiêu
                         </h3>
                         <p className="mt-1 text-sm text-gray-500">
-                          Cập nhật thông tin thẻ điểm
+                          Cập nhật thông tin mục tiêu
                         </p>
                       </div>
 
@@ -158,7 +161,7 @@ export default function Settings(props) {
                             htmlFor="first_name"
                             className="block text-sm font-medium text-gray-700"
                           >
-                            Tên thẻ điểm
+                            Tên mục tiêu
                           </label>
                           <input
                             type="text"
@@ -172,27 +175,27 @@ export default function Settings(props) {
                         </div>
                         <div className="col-span-6 sm:col-span-3">
                           <label
-                            htmlFor="type"
+                            htmlFor="first_name"
                             className="block text-sm font-medium text-gray-700"
                           >
-                            Bộ phận
+                            Trọng số
                           </label>
-                          <select
-                            id="type"
-                            name="type"
-                            ref={type}
-                            onChange={handleChange}
-                            className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
-                          >
-                            <option value="Company">Công ty</option>
-                            <option value="Produce">Sản xuất</option>
-                            <option value="R&D">Nghiên cứu & Phát triển</option>
-                            <option value="Sale">Bán hàng</option>
-                            <option value="Engineering">Kỹ thuật</option>
-                            <option value="Business">Kinh doanh</option>
-                            <option value="Storage">Kho vận</option>
-                            <option value="Accountant">Kế toán</option>
-                          </select>
+                          <div className="mt-1 relative">
+                            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                              <span className="text-gray-500 sm:text-sm">
+                                %
+                              </span>
+                            </div>
+                            <input
+                              type="text"
+                              name="weight"
+                              id="weight"
+                              className="block w-full shadow-sm sm:text-sm focus:ring-blue-500 focus:border-blue-500 border-gray-300 rounded-md pl-7"
+                              placeholder="0.00"
+                              ref={weight}
+                              onChange={handleChange}
+                            />
+                          </div>
                         </div>
 
                         <div className="col-span-6">
@@ -227,7 +230,7 @@ export default function Settings(props) {
                   </div>
                 </form>
 
-                <form onSubmit={handleAssignEmployeeToScorecard}>
+                <form onSubmit={handleAssignEmployeeToObjective}>
                   <div className="shadow sm:rounded-md sm:overflow-hidden">
                     <div className="bg-white py-6 px-4 space-y-6 sm:p-6">
                       <div>
@@ -235,7 +238,7 @@ export default function Settings(props) {
                           Nhân viên
                         </h3>
                         <p className="mt-1 text-sm text-gray-500">
-                          Thêm nhân viên vào thẻ điểm
+                          Thêm nhân viên vào mục tiêu
                         </p>
                       </div>
 
@@ -273,8 +276,8 @@ export default function Settings(props) {
                             className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
                             defaultValue="Canada"
                           >
-                            <option value="Watcher">Người xem</option>
-                            <option value="Updater">Người cập nhật</option>
+                            <option value="WATCHER">Người theo dõi</option>
+                            <option value="UPDATER">Người cập nhật</option>
                           </select>
                         </div>
                       </div>

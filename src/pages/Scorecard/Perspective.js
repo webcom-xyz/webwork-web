@@ -21,6 +21,7 @@ import {
 import Breadcrumbs from "../../components/shared/Breadcrumbs";
 import DetailsModal from "../../components/shared/DetailsDrawer";
 import { createNewObjective } from "../../actions/objective";
+import Notification from "../../parts/shared/Notification";
 
 export default function Perspective(props) {
   const dispatch = useDispatch();
@@ -44,7 +45,7 @@ export default function Perspective(props) {
   const [overviewSelected, setOverviewSelected] = useState(true);
   const [strategyviewSelected, setStrategyviewSelected] = useState(false);
   const [measureviewSelected, setMeasureviewSelected] = useState(false);
-
+  const [showNotification, setShowNotification] = useState(false);
   // For creating objectives
   const name = useRef("");
   const weight = useRef(0);
@@ -66,6 +67,7 @@ export default function Perspective(props) {
 
     try {
       dispatch(createNewObjective(objectiveData));
+      setShowNotification(true);
       setDrawerOpen(false);
     } catch (error) {
       console.log(error);
@@ -76,6 +78,9 @@ export default function Perspective(props) {
     try {
       dispatch(getPerspective(perspectiveId));
       dispatch(getObjectivesOfPerspective(perspectiveId));
+      // setInterval(() => {
+      //   dispatch(getObjectivesOfPerspective(perspectiveId));
+      // }, 5000);
     } catch (error) {
       console.log(error);
     }
@@ -106,6 +111,8 @@ export default function Perspective(props) {
             settingsId={perspectiveId}
             history={history}
             setDetailsOpen={setDetailsOpen}
+            scorecardId={scorecardId}
+            perspectiveId={perspectiveId}
           />
           <div className="bg-white">
             <div className="max-w-6xl mx-auto">
@@ -169,6 +176,12 @@ export default function Perspective(props) {
         target={perspective?.data}
         detailsOpen={detailsOpen}
         setDetailsOpen={setDetailsOpen}
+      />
+       <Notification
+        showNotification={showNotification}
+        setShowNotification={setShowNotification}
+        title="Thành công!"
+        subtitle="Đã tạo thành công mục tiêu mới."
       />
     </div>
   );

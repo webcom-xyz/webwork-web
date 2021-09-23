@@ -15,12 +15,10 @@ import {
   CREATE_NEW_PERSPECTIVE,
   DELETE_SCORECARD,
   CREATE_NEW_KPI,
-  GET_ALL_KPIS,
   ADD_MEMBER,
   REMOVE_MEMBER,
   GET_MEMBERS,
   GET_KPI,
-  SET_KPI,
   GET_SCORECARD,
   GET_PERSPECTIVES_OF_SCORECARD,
   GET_OBJECTIVES_OF_PERSPECTIVE,
@@ -39,6 +37,11 @@ import {
   ASSIGN_EMPLOYEE_TO_OBJECTIVE,
   DELETE_PERSPECTIVE,
   ASSIGN_EMPLOYEE_TO_PERSPECTIVE,
+  GET_ASSIGNED_KPIS,
+  GET_ASSIGNED_EMPLOYEES_OF_KPI,
+  GET_ASSIGNED_EMPLOYEES_OF_OBJECTIVE,
+  GET_ASSIGNED_EMPLOYEES_OF_PERSPECTIVE,
+  GET_ASSIGNED_EMPLOYEES_OF_SCORECARD,
 } from "../constants/types";
 import {
   handleSignUp,
@@ -61,11 +64,13 @@ import {
   handleGetScorecard,
   handleAssignEmployeeToScorecard,
   handleUpdateScorecard,
+  handleGetAssignedEmployeesOfScorecard,
 } from "../handlers/scorecard";
 import {
   handleAssignEmployeeToPerspective,
   handleCreateNewPerspective,
   handleDeletePerspective,
+  handleGetAssignedEmployeesOfPerspective,
   handleGetObjectivesOfPerspective,
   handleGetPerspective,
   handleUpdatePerspective,
@@ -74,6 +79,7 @@ import {
   handleAssignEmployeeToObjective,
   handleCreateNewObjective,
   handleDeleteObjective,
+  handleGetAssignedEmployeesOfObjective,
   handleGetKPIsOfObjective,
   handleGetObjective,
   handleUpdateObjective,
@@ -82,7 +88,8 @@ import {
   handleAssignEmployeeToKPI,
   handleCreateNewKPI,
   handleDeleteKPI,
-  handleGetAllKPIs,
+  handleGetAssignedEmployeesOfKPI,
+  handleGetAssignKPIs,
   handleGetKPI,
   handleUpdateKPI,
 } from "../handlers/kpi";
@@ -124,6 +131,10 @@ export function* watcherSaga() {
     handleAssignEmployeeToScorecard
   );
   yield takeLatest(UPDATE_SCORECARD, handleUpdateScorecard);
+  yield takeLatest(
+    GET_ASSIGNED_EMPLOYEES_OF_SCORECARD,
+    handleGetAssignedEmployeesOfScorecard
+  );
 
   // Perspective
   yield takeLatest(CREATE_NEW_PERSPECTIVE, handleCreateNewPerspective);
@@ -138,6 +149,10 @@ export function* watcherSaga() {
     ASSIGN_EMPLOYEE_TO_PERSPECTIVE,
     handleAssignEmployeeToPerspective
   );
+  yield takeLatest(
+    GET_ASSIGNED_EMPLOYEES_OF_PERSPECTIVE,
+    handleGetAssignedEmployeesOfPerspective
+  );
 
   // Objective
   yield takeLatest(CREATE_NEW_OBJECTIVE, handleCreateNewObjective);
@@ -149,6 +164,10 @@ export function* watcherSaga() {
     ASSIGN_EMPLOYEE_TO_OBJECTIVE,
     handleAssignEmployeeToObjective
   );
+  yield takeLatest(
+    GET_ASSIGNED_EMPLOYEES_OF_OBJECTIVE,
+    handleGetAssignedEmployeesOfObjective
+  );
 
   // KPI
   yield takeLatest(CREATE_NEW_KPI, handleCreateNewKPI);
@@ -156,6 +175,11 @@ export function* watcherSaga() {
   yield takeLatest(DELETE_KPI, handleDeleteKPI);
   yield takeLatest(UPDATE_KPI, handleUpdateKPI);
   yield takeLatest(ASSIGN_EMPLOYEE_TO_KPI, handleAssignEmployeeToKPI);
+  yield takeLatest(GET_ASSIGNED_KPIS, handleGetAssignKPIs);
+  yield takeLatest(
+    GET_ASSIGNED_EMPLOYEES_OF_KPI,
+    handleGetAssignedEmployeesOfKPI
+  );
 
   // Workspace
   yield takeLatest(ADD_MEMBER, handleAddMembers);

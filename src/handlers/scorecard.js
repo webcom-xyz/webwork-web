@@ -5,11 +5,13 @@ import {
   requestCreateNewScorecardFromTemplate,
   requestDeleteScorecard,
   requestGetAllScorecards,
+  requestGetAssignedEmployeesOfScorecard,
   requestGetPerspectivesOfScorecard,
   requestGetScorecard,
   requestUpdateScorecard,
 } from "../requests/scorecard";
 import {
+  setAssignedEmployeesOfScorecard,
   setPerspectivesOfScorecard,
   setScorecard,
   setScorecards,
@@ -83,6 +85,15 @@ export function* handleAssignEmployeeToScorecard(action) {
 export function* handleUpdateScorecard(action) {
   try {
     const { data } = yield call(requestUpdateScorecard, action.payload);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export function* handleGetAssignedEmployeesOfScorecard(action) {
+  try {
+    const { data } = yield call(requestGetAssignedEmployeesOfScorecard, action.payload);
+    yield put(setAssignedEmployeesOfScorecard(data));
   } catch (error) {
     console.log(error);
   }

@@ -14,12 +14,6 @@ export const requestUpdateKPI = ({ kpiId, kpiData }) => {
 
 export const requestGetKPI = (kpiId) => {
   return API.get(`/kpi/${kpiId}`);
-  // API({
-  //   method: "GET",
-  //   url: `/kpi/${kpiId}`,
-  // }).then((response) => {
-  //   return response;
-  // });
 };
 
 export const requestGetAllKPIs = ({ objectiveId }) => {
@@ -28,4 +22,12 @@ export const requestGetAllKPIs = ({ objectiveId }) => {
 
 export const requestAssignEmployeeToKPI = ({ kpiId, employeeData }) => {
   return API.post(`/kpi/${kpiId}/employee`, employeeData);
+};
+
+export const requestGetAssignedKPIs = () => {
+  return API.get(`/kpi/assigned`);
+};
+
+export const requestGetAssignedEmployeesOfKPI = (kpiId) => {
+  return API.get(`/kpi/${kpiId}/employee`);
 };

@@ -5,6 +5,10 @@ import {
   DELETE_KPI,
   UPDATE_KPI,
   ASSIGN_EMPLOYEE_TO_KPI,
+  SET_ASSIGNED_KPIS,
+  GET_ASSIGNED_KPIS,
+  SET_ASSIGNED_EMPLOYEES_OF_KPI,
+  GET_ASSIGNED_EMPLOYEES_OF_KPI,
 } from "../constants/types";
 
 export const createNewKPI = (kpiData) => ({
@@ -35,4 +39,24 @@ export const updateKPI = (kpiId, kpiData) => ({
 export const assignEmployeeToKPI = (kpiId, employeeData) => ({
   type: ASSIGN_EMPLOYEE_TO_KPI,
   payload: { kpiId, employeeData },
+});
+
+export const getAssignedKPIs = (kpisData) => ({
+  type: GET_ASSIGNED_KPIS,
+  payload: kpisData,
+});
+
+export const setAssignedKPIs = (kpisData) => ({
+  type: SET_ASSIGNED_KPIS,
+  payload: kpisData,
+});
+
+export const getAssignedEmployeesOfKPI = (kpiId) => ({
+  type: GET_ASSIGNED_EMPLOYEES_OF_KPI,
+  payload: kpiId,
+});
+
+export const setAssignedEmployeesOfKPI = (employeesData) => ({
+  type: SET_ASSIGNED_EMPLOYEES_OF_KPI,
+  payload: employeesData,
 });

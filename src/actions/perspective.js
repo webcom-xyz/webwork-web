@@ -3,8 +3,10 @@ import {
   CREATE_NEW_PERSPECTIVE,
   DELETE_PERSPECTIVE,
   GET_ALL_PERSPECTIVES,
+  GET_ASSIGNED_EMPLOYEES_OF_PERSPECTIVE,
   GET_OBJECTIVES_OF_PERSPECTIVE,
   GET_PERSPECTIVE,
+  SET_ASSIGNED_EMPLOYEES_OF_PERSPECTIVE,
   SET_OBJECTIVES_OF_PERSPECTIVE,
   SET_PERSPECTIVE,
   UPDATE_PERSPECTIVE,
@@ -52,4 +54,14 @@ export const updatePerspective = (perspectiveId, perspectiveData) => ({
 export const assignEmployeeToPerspective = (perspectiveId, employeeData) => ({
   type: ASSIGN_EMPLOYEE_TO_PERSPECTIVE,
   payload: { perspectiveId, employeeData },
+});
+
+export const getAssignedEmployeesOfPerspective = (perspectiveId) => ({
+  type: GET_ASSIGNED_EMPLOYEES_OF_PERSPECTIVE,
+  payload: perspectiveId,
+});
+
+export const setAssignedEmployeesOfPerspective = (employeesData) => ({
+  type: SET_ASSIGNED_EMPLOYEES_OF_PERSPECTIVE,
+  payload: employeesData,
 });

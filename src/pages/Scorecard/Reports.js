@@ -7,19 +7,25 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { getCurrentUser } from "../../actions/user";
 import Stats from "../../components/Reports/Stats";
+import { getAssignedKPIs } from "../../actions/kpi";
 export default function Reports() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const currentUser = useSelector((state) => state.user.currentUser);
   const location = useLocation();
   const dispatch = useDispatch();
 
+  const assignedKPIs = useSelector((state) => state.kpi.assignedKPIs);
+
   useEffect(() => {
     try {
       dispatch(getCurrentUser());
+      dispatch(getAssignedKPIs());
     } catch (error) {
       console.log(error);
     }
   }, [location]);
+
+  console.log(assignedKPIs?.data);
 
   return (
     <div className="h-screen flex overflow-hidden bg-gray-100">
@@ -45,13 +51,13 @@ export default function Reports() {
               <div className="flex flex-col mt-2">
                 <div className="bg-white shadow rounded-lg">
                   <h3 className="text-lg leading-6 font-medium text-gray-900 inline-block ml-4 mt-4">
-                    Cập nhật KPI
+                    Cập nhật
                   </h3>
                   <p className="mt-1 text-sm text-gray-500 ml-4 mb-4">
                     Lorem ipsum dolor sit amet consectetur adipisicing elit quam
                     corrupti consectetur.
                   </p>
-                  <KPITable />
+                  <KPITable assignedKPIs={assignedKPIs?.data} />
                 </div>
               </div>
             </div>

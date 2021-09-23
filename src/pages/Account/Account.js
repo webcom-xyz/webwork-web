@@ -258,6 +258,22 @@ export default function Account() {
                                 <option value="Giám đốc nhân sự">
                                   Giám đốc nhân sự
                                 </option>
+                                <option value="Quản lý">Quản lý</option>
+                                <option value="Trưởng phòng nhân sự">
+                                  Trưởng phòng nhân sự
+                                </option>
+                                <option value="Trưởng phòng tài chính">
+                                  Trưởng phòng tài chính
+                                </option>
+                                <option value="Trưởng phòng kế toán">
+                                  Trưởng phòng kế toán
+                                </option>
+                                <option value="Trưởng phòng sản xuất">
+                                  Trưởng phòng sản xuất
+                                </option>
+                                <option value="Trưởng phòng marketing">
+                                  Trưởng phòng marketing
+                                </option>
                               </select>
                             </div>
                           </div>

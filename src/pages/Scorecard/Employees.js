@@ -13,6 +13,7 @@ import PageHeading from "../../components/shared/PageHeading";
 import Stats from "../../components/Employee/Stats";
 import EmployeesList from "../../components/Employee/EmployeesList";
 import EmployeeDetails from "../../components/Employee/EmployeeDetails";
+import Notification from "../../parts/shared/Notification";
 
 export default function Employees() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -24,6 +25,8 @@ export default function Employees() {
 
   const [employeeData, setEmployeeData] = useState({});
   const email = useRef("");
+
+  const [showNotification, setShowNotification] = useState(false);
 
   // Employee details drawer
   const [employeeDetailsOpen, setEmployeeDetailsOpen] = useState(false);
@@ -41,6 +44,8 @@ export default function Employees() {
     e.preventDefault();
     try {
       dispatch(addMembers(employeeData));
+      setShowNotification(true);
+      setDrawerOpen(false);
     } catch (error) {
       console.log(error);
     }
@@ -61,7 +66,7 @@ export default function Employees() {
     } catch (error) {
       console.log(error);
     }
-  }, [location]);
+  }, [location, dispatch]);
 
   return (
     <div className="h-screen flex overflow-hidden bg-gray-100">
@@ -111,6 +116,12 @@ export default function Employees() {
           </div>
         </main>
       </div>
+      <Notification
+        showNotification={showNotification}
+        setShowNotification={setShowNotification}
+        title="Thành công!"
+        subtitle="Đã thêm nhân viên vào workspace thành công."
+      />
     </div>
   );
 }

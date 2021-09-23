@@ -7,9 +7,11 @@ import ConfirmDeleteDialog from "../../components/shared/ConfirmDeleteDialog";
 import {
   assignEmployeeToKPI,
   deleteKPI,
+  getAssignedEmployeesOfKPI,
   getKPI,
   updateKPI,
 } from "../../actions/kpi";
+import AssignedEmployees from "../../components/shared/AssignedEmployees";
 
 export default function Settings(props) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -32,6 +34,7 @@ export default function Settings(props) {
   const dataType = useRef("");
   const calendar = useRef("");
   const kpi = useSelector((state) => state.kpi.kpi);
+  const assignedEmployees = useSelector((state) => state.kpi.assignedEmployees);
 
   const handleDeleteKPI = (e) => {
     e.preventDefault();
@@ -51,14 +54,14 @@ export default function Settings(props) {
 
     setKPIData({
       ...kpiData,
-      name: name.current.value,
-      weight: weight.current.value,
-      description: description.current.value,
-      actualValue: kpi?.data.actualValue,
-      red: red.current.value,
-      goal: goal.current.value,
-      dataType: dataType.current.value,
-      calendar: calendar.current.value,
+      name: name.current.value || kpi?.data.name,
+      weight: weight.current.value || kpi?.data.weight,
+      description: description.current.value || kpi?.data.description,
+      actualValue: kpi?.data.actualValue || kpi?.data.actualValue,
+      red: red.current.value || kpi?.data.red,
+      goal: goal.current.value || kpi?.data.goal,
+      dataType: dataType.current.value || kpi?.data.dataType,
+      calendar: calendar.current.value || kpi?.data.calendar,
     });
   };
 
@@ -87,10 +90,11 @@ export default function Settings(props) {
   useEffect(() => {
     try {
       dispatch(getKPI(kpiId));
+      dispatch(getAssignedEmployeesOfKPI(kpiId));
     } catch (error) {
       console.log(error);
     }
-  }, [location]);
+  }, [location, dispatch]);
 
   return (
     <div className="h-screen flex overflow-hidden bg-gray-100">
@@ -357,11 +361,14 @@ export default function Settings(props) {
                             className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
                             defaultValue="Canada"
                           >
-                            <option value="Watcher">Người xem</option>
-                            <option value="Updater">Người cập nhật</option>
+                            <option value="WATCHER">Người theo dõi</option>
+                            <option value="UPDATER">Người cập nhật</option>
                           </select>
                         </div>
                       </div>
+                      <AssignedEmployees
+                        assignedEmployees={assignedEmployees?.data}
+                      />
                     </div>
                     <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
                       <button

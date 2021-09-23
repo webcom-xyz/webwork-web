@@ -1,9 +1,10 @@
 import { call, put } from "redux-saga/effects";
-import { setKPIsOfObjective, setObjective } from "../actions/objective";
+import { setAssignedEmployeesOfObjective, setKPIsOfObjective, setObjective } from "../actions/objective";
 import {
   requestAssignEmployeeToObjective,
   requestCreateNewObjective,
   requestDeleteObjective,
+  requestGetAssignedEmployeesOfObjective,
   requestGetKPIsOfObjective,
   requestGetObjective,
   requestUpdateObjective,
@@ -57,6 +58,15 @@ export function* handleAssignEmployeeToObjective(action) {
       requestAssignEmployeeToObjective,
       action.payload
     );
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export function* handleGetAssignedEmployeesOfObjective(action) {
+  try {
+    const { data } = yield call(requestGetAssignedEmployeesOfObjective, action.payload);
+    yield put(setAssignedEmployeesOfObjective(data));
   } catch (error) {
     console.log(error);
   }

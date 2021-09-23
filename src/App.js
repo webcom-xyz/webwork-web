@@ -21,7 +21,9 @@ import Home from "./pages/Manager/Home";
 import ScorecardSettings from "./pages/Scorecard/ScorecardSettings";
 import Objective from "./pages/Scorecard/Objective";
 import KPI from "./pages/KPI/KPI";
-import Settings from "./pages/KPI/Settings";
+import KPISettings from "./pages/KPI/Settings";
+import ObjectiveSettings from "./pages/Objective/Settings";
+import PerspectiveSettings from "./pages/Perspective/Settings";
 
 function App() {
   return (
@@ -46,15 +48,29 @@ function App() {
 
           <PrivateRoute
             exact
-            path="/:scorecardId"
-            component={Scorecard}
+            path="/:scorecardId/:perspectiveId/settings"
+            component={PerspectiveSettings}
           />
+
+          <PrivateRoute
+            exact
+            path="/:scorecardId/:perspectiveId/:objectiveId/settings"
+            component={ObjectiveSettings}
+          />
+
+          <PrivateRoute
+            exact
+            path="/:scorecardId/:perspectiveId/:objectiveId/:kpiId/settings"
+            component={KPISettings}
+          />
+
+          <PrivateRoute exact path="/:scorecardId" component={Scorecard} />
           <PrivateRoute
             exact
             path="/:scorecardId/settings"
             component={ScorecardSettings}
           />
-          
+
           <PrivateRoute
             exact
             path="/:scorecardId/:perspectiveId"
@@ -65,18 +81,12 @@ function App() {
             path="/:scorecardId/:perspectiveId/:objectiveId"
             component={Objective}
           />
+
           <PrivateRoute
             exact
             path="/:scorecardId/:perspectiveId/:objectiveId/:kpiId"
             component={KPI}
           />
-          <PrivateRoute
-            exact
-            path="/:scorecardId/:perspectiveId/:objectiveId/:kpiId/settings"
-            component={Settings}
-          />
-
-          
         </Switch>
       </div>
     </Router>

@@ -42,3 +42,7 @@ export const requestAssignEmployeeToScorecard = ({
 export const requestUpdateScorecard = ({ scorecardId, scorecardData }) => {
   return API.put(`/scorecard/${scorecardId}`, scorecardData);
 };
+
+export const requestGetAssignedEmployeesOfScorecard = (scorecardId) => {
+  return API.get(`/scorecard/${scorecardId}/employee`);
+};

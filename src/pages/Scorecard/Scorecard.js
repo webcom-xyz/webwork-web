@@ -30,6 +30,7 @@ import {
 import Breadcrumbs from "../../components/shared/Breadcrumbs";
 import DetailsModal from "../../components/shared/DetailsDrawer";
 import { createNewPerspective } from "../../actions/perspective";
+import Notification from "../../parts/shared/Notification";
 // const initialElements = [
 //   { id: "edges-2", data: { label: "Node 2" }, position: { x: 150, y: 100 } },
 //   { id: "edges-2a", data: { label: "Node 2a" }, position: { x: 0, y: 180 } },
@@ -74,7 +75,7 @@ export default function Scorecard(props) {
   const [overviewSelected, setOverviewSelected] = useState(true);
   const [strategyviewSelected, setStrategyviewSelected] = useState(false);
   const [measureviewSelected, setMeasureviewSelected] = useState(false);
-
+  const [showNotification, setShowNotification] = useState(false);
   const dispatch = useDispatch();
   const location = useLocation();
   const scorecard = useSelector((state) => state.scorecard.scorecard);
@@ -108,6 +109,7 @@ export default function Scorecard(props) {
     e.preventDefault();
     try {
       dispatch(createNewPerspective(perspectiveData));
+      setShowNotification(true);
       setDrawerOpen(false);
     } catch (error) {
       console.log(error);
@@ -212,6 +214,12 @@ export default function Scorecard(props) {
         target={scorecard?.data}
         detailsOpen={detailsOpen}
         setDetailsOpen={setDetailsOpen}
+      />
+       <Notification
+        showNotification={showNotification}
+        setShowNotification={setShowNotification}
+        title="Thành công!"
+        subtitle="Đã tạo thành công khía cạnh mới."
       />
     </div>
   );

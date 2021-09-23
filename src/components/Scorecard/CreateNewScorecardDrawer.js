@@ -257,7 +257,7 @@ export default function CreateNewScorecardDrawer(props) {
                                         aria-describedby="privacy_private-to-project_description"
                                         type="radio"
                                         className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300"
-                                        value="Mua hàng"
+                                        value="Sale"
                                         ref={props.scorecardType}
                                         onChange={props.handleChange}
                                       />
@@ -281,7 +281,7 @@ export default function CreateNewScorecardDrawer(props) {
                                         aria-describedby="privacy_private-to-project_description"
                                         type="radio"
                                         className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300"
-                                        value="Kỹ thuật"
+                                        value="Engineering"
                                         ref={props.scorecardType}
                                         onChange={props.handleChange}
                                       />
@@ -305,7 +305,7 @@ export default function CreateNewScorecardDrawer(props) {
                                         aria-describedby="privacy_private-to-project_description"
                                         type="radio"
                                         className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300"
-                                        value="Kinh doanh"
+                                        value="Business"
                                         ref={props.scorecardType}
                                         onChange={props.handleChange}
                                       />
@@ -329,7 +329,7 @@ export default function CreateNewScorecardDrawer(props) {
                                         aria-describedby="privacy_private-to-project_description"
                                         type="radio"
                                         className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300"
-                                        value="Kho vận"
+                                        value="Storage"
                                         ref={props.scorecardType}
                                         onChange={props.handleChange}
                                       />
@@ -353,7 +353,7 @@ export default function CreateNewScorecardDrawer(props) {
                                         aria-describedby="privacy_private-to-project_description"
                                         type="radio"
                                         className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300"
-                                        value="Kế toán"
+                                        value="Accountant"
                                         ref={props.scorecardType}
                                         onChange={props.handleChange}
                                       />

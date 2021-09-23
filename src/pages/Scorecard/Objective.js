@@ -18,6 +18,7 @@ import StrategyView from "../../components/Scorecard/StrategyView";
 import MeasuresView from "../../components/Scorecard/MeasuresView";
 import Breadcrumbs from "../../components/shared/Breadcrumbs";
 import DetailsModal from "../../components/shared/DetailsDrawer";
+import Notification from "../../parts/shared/Notification";
 
 export default function Objective(props) {
   const dispatch = useDispatch();
@@ -26,7 +27,7 @@ export default function Objective(props) {
   const { scorecardId, perspectiveId, objectiveId } = useParams();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const history = useHistory();
-
+  const [showNotification, setShowNotification] = useState(false);
   const [kpiData, setKPIData] = useState({});
   const name = useRef("");
   const weight = useRef(0);
@@ -73,6 +74,7 @@ export default function Objective(props) {
     try {
       console.log(kpiData)
       dispatch(createNewKPI(kpiData));
+      setShowNotification(true);
       setDrawerOpen(false);
     } catch (error) {
       console.log(error);
@@ -83,10 +85,13 @@ export default function Objective(props) {
     try {
       dispatch(getObjective(objectiveId));
       dispatch(getKPIsOfObjective(objectiveId));
+      // setInterval(() => {
+      //   dispatch(getKPIsOfObjective(objectiveId));
+      // }, 5000);
     } catch (error) {
       console.log(error);
     }
-  }, [location]);
+  }, [location, dispatch]);
 
   return (
     <div className="h-screen flex overflow-hidden bg-gray-100">
@@ -94,6 +99,7 @@ export default function Objective(props) {
         sidebarOpen={sidebarOpen}
         setSidebarOpen={setSidebarOpen}
         perspectiveId={perspectiveId}
+        
       />
       <Drawer
         drawerOpen={drawerOpen}
@@ -115,11 +121,13 @@ export default function Objective(props) {
         <main className="flex-1 relative pb-8 z-0">
           <PageHeading
             pageTitle={`${objective?.data.name}`}
-            pageSubtitle={perspectiveId}
+            pageSubtitle={objectiveId}
             setDrawerOpen={setDrawerOpen}
-            settingsId={perspectiveId}
             history={history}
             setDetailsOpen={setDetailsOpen}
+            scorecardId={scorecardId}
+            perspectiveId={perspectiveId}
+            objectiveId={objectiveId}
           />
           <div className="bg-white">
             <div className="max-w-6xl mx-auto">
@@ -185,6 +193,12 @@ export default function Objective(props) {
         target={objective?.data}
         detailsOpen={detailsOpen}
         setDetailsOpen={setDetailsOpen}
+      />
+      <Notification
+        showNotification={showNotification}
+        setShowNotification={setShowNotification}
+        title="Thành công!"
+        subtitle="Đã tạo thành công chỉ số mới."
       />
     </div>
   );

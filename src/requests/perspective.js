@@ -35,3 +35,7 @@ export const requestAssignEmployeeToPerspective = ({
 }) => {
   return API.get(`/perspective/${perspectiveId}/employee`, employeeData);
 };
+
+export const requestGetAssignedEmployeesOfPerspective = (perspectiveId) => {
+  return API.get(`/perspective/${perspectiveId}/employee`);
+};

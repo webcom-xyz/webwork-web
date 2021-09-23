@@ -84,13 +84,12 @@ export default function Sidebar(props) {
       dispatch(getCurrentUser());
       dispatch(getAllScorecards());
       // setInterval(() => {
-
       //   dispatch(getAllScorecards());
-      // }, 10000);
+      // }, 5000);
     } catch (error) {
       console.log(error);
     }
-  }, [location]);
+  }, [location, dispatch]);
 
   return (
     <>
@@ -453,25 +452,24 @@ export default function Sidebar(props) {
 
                               <Disclosure.Panel className="space-y-1">
                                 {scorecard.perspectives.map((perspective) => (
-                                  <>
-                                    <a
-                                      onClick={(e) =>
-                                        handleLink(
-                                          e,
-                                          `/${scorecard.id}/${perspective.id}`,
-                                          history
-                                        )
-                                      }
-                                      className={classNames(
-                                        perspective.id === props.perspectiveId
-                                          ? "bg-blue-800 text-white"
-                                          : "text-blue-100 hover:text-white hover:bg-blue-600",
-                                        "group w-full flex items-center pl-11 pr-2 py-2 text-sm font-medium rounded-md hover:text-white hover:bg-blue-600 cursor-pointer"
-                                      )}
-                                    >
-                                      {perspective.name}
-                                    </a>
-                                  </>
+                                  <a
+                                    key={perspective.id}
+                                    onClick={(e) =>
+                                      handleLink(
+                                        e,
+                                        `/${scorecard.id}/${perspective.id}`,
+                                        history
+                                      )
+                                    }
+                                    className={classNames(
+                                      perspective.id === props.perspectiveId
+                                        ? "bg-blue-800 text-white"
+                                        : "text-blue-100 hover:text-white hover:bg-blue-600",
+                                      "group w-full flex items-center pl-11 pr-2 py-2 text-sm font-medium rounded-md hover:text-white hover:bg-blue-600 cursor-pointer"
+                                    )}
+                                  >
+                                    {perspective.name}
+                                  </a>
                                 ))}
                               </Disclosure.Panel>
                             </>
