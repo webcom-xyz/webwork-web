@@ -1,6 +1,7 @@
 import { call, put } from "redux-saga/effects";
 import {
   setAssignedEmployeesOfPerspective,
+  setAssignedPerspectives,
   setObjectivesOfPerspective,
   setPerspective,
 } from "../actions/perspective";
@@ -9,6 +10,7 @@ import {
   requestCreateNewPerspective,
   requestDeletePerspective,
   requestGetAssignedEmployeesOfPerspective,
+  requestGetAssignedPerspectives,
   requestGetObjectivesOfPerspective,
   requestGetPerspective,
   requestUpdatePerspective,
@@ -72,8 +74,20 @@ export function* handleAssignEmployeeToPerspective(action) {
 
 export function* handleGetAssignedEmployeesOfPerspective(action) {
   try {
-    const { data } = yield call(requestGetAssignedEmployeesOfPerspective, action.payload);
+    const { data } = yield call(
+      requestGetAssignedEmployeesOfPerspective,
+      action.payload
+    );
     yield put(setAssignedEmployeesOfPerspective(data));
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export function* handleGetAssignedPerspectives(action) {
+  try {
+    const { data } = yield call(requestGetAssignedPerspectives);
+    yield put(setAssignedPerspectives(data));
   } catch (error) {
     console.log(error);
   }

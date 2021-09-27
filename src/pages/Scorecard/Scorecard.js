@@ -118,6 +118,8 @@ export default function Scorecard(props) {
     }
   };
 
+  
+
   useEffect(() => {
     try {
       dispatch(getScorecard(scorecardId));
@@ -125,7 +127,16 @@ export default function Scorecard(props) {
     } catch (error) {
       console.log(error);
     }
-  }, [location]);
+
+    if (refetch) {
+      try {
+        dispatch(getScorecard(scorecardId));
+        dispatch(getPerspectivesOfScorecard(scorecardId));
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }, [location, dispatch, refetch]);
 
   return (
     <div className="h-screen flex overflow-hidden bg-gray-100">
@@ -218,7 +229,7 @@ export default function Scorecard(props) {
         detailsOpen={detailsOpen}
         setDetailsOpen={setDetailsOpen}
       />
-       <Notification
+      <Notification
         showNotification={showNotification}
         setShowNotification={setShowNotification}
         title="Thành công!"

@@ -30,47 +30,41 @@ function App() {
     <Router>
       <div className="app">
         <Switch>
-          {/* Public routes */}
           <Route exact path="/" component={Landing} />
           <Route path="/sign-in" component={SignIn} />
           <Route path="/sign-up" component={SignUp} />
-
-          {/* Dashboard routes */}
           <PrivateRoute path="/dashboard" component={Dashboard} />
           <PrivateRoute path="/employees" component={Employees} />
           <PrivateRoute path="/reports" component={Reports} />
-
-          {/* Account routes */}
           <PrivateRoute exact path="/user/account" component={Account} />
-          {/* <PrivateRoute path="/account/plan-billing" component={Billing} />
-          <PrivateRoute path="/manager" component={Home} />
-          <PrivateRoute path="/employee/home" component={Employee} /> */}
 
+
+          <PrivateRoute
+            exact
+            path="/:scorecardId/settings"
+            component={ScorecardSettings}
+          />
           <PrivateRoute
             exact
             path="/:scorecardId/:perspectiveId/settings"
             component={PerspectiveSettings}
           />
-
           <PrivateRoute
             exact
             path="/:scorecardId/:perspectiveId/:objectiveId/settings"
             component={ObjectiveSettings}
           />
-
           <PrivateRoute
             exact
             path="/:scorecardId/:perspectiveId/:objectiveId/:kpiId/settings"
             component={KPISettings}
           />
 
-          <PrivateRoute exact path="/:scorecardId" component={Scorecard} />
-          <PrivateRoute
-            exact
-            path="/:scorecardId/settings"
-            component={ScorecardSettings}
-          />
 
+          <PrivateRoute 
+            exact 
+            path="/:scorecardId" 
+            component={Scorecard} />
           <PrivateRoute
             exact
             path="/:scorecardId/:perspectiveId"
@@ -81,7 +75,6 @@ function App() {
             path="/:scorecardId/:perspectiveId/:objectiveId"
             component={Objective}
           />
-
           <PrivateRoute
             exact
             path="/:scorecardId/:perspectiveId/:objectiveId/:kpiId"

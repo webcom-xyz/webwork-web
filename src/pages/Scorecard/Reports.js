@@ -23,9 +23,7 @@ export default function Reports() {
     } catch (error) {
       console.log(error);
     }
-  }, [location]);
-
-  console.log(assignedKPIs?.data);
+  }, [location, dispatch]);
 
   return (
     <div className="h-screen flex overflow-hidden bg-gray-100">

@@ -35,6 +35,7 @@ export default function KPI() {
   const [overviewSelected, setOverviewSelected] = useState(true);
   const [strategyviewSelected, setStrategyviewSelected] = useState(false);
   const [measureviewSelected, setMeasureviewSelected] = useState(false);
+  const [refetch, setRefetch] = useState(false);
 
   const kpi = useSelector((state) => state.kpi.kpi);
 
@@ -44,7 +45,15 @@ export default function KPI() {
     } catch (error) {
       console.log(error);
     }
-  }, [location]);
+
+    if (refetch) {
+      try {
+        dispatch(getKPI(kpiId));
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }, [location, dispatch, refetch]);
 
   return (
     <div className="h-screen flex overflow-hidden bg-gray-100">
@@ -52,6 +61,7 @@ export default function KPI() {
         sidebarOpen={sidebarOpen}
         setSidebarOpen={setSidebarOpen}
         perspectiveId={perspectiveId}
+        refetch={refetch}
       />
       <Drawer drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} />
       <div className="flex-1 overflow-auto focus:outline-none">

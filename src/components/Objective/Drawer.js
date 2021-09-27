@@ -73,7 +73,7 @@ export default function Drawer(props) {
                     <div className="py-6 px-4 bg-blue-700 sm:px-6">
                       <div className="flex items-center justify-between">
                         <Dialog.Title className="text-lg font-medium text-white">
-                          KPI mới
+                          Chỉ số hiệu suất mới
                         </Dialog.Title>
                         <div className="ml-3 h-7 flex items-center">
                           <button
@@ -89,7 +89,7 @@ export default function Drawer(props) {
                       <div className="mt-1">
                         <p className="text-sm text-blue-300">
                           Bắt đầu bằng cách điền những thông tin phù hợp vào để
-                          tạo KPI mới.
+                          tạo chỉ số mới.
                         </p>
                       </div>
                     </div>
@@ -101,7 +101,7 @@ export default function Drawer(props) {
                               htmlFor="project_name"
                               className="block text-sm font-medium text-gray-900"
                             >
-                              Tên KPI
+                              Tên chỉ số
                             </label>
                             <div className="mt-1">
                               <input
@@ -230,7 +230,7 @@ export default function Drawer(props) {
                             <select
                               id="dataType"
                               name="dataType"
-                              className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+                              className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
                               ref={props.dataType}
                               onChange={props.handleChange}
                             >
@@ -249,7 +249,7 @@ export default function Drawer(props) {
                             <select
                               id="calendar"
                               name="calendar"
-                              className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+                              className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
                               ref={props.calendar}
                               onChange={props.handleChange}
                             >
@@ -281,7 +281,7 @@ export default function Drawer(props) {
                                 className="h-5 w-5 text-gray-400 group-hover:text-gray-500"
                                 aria-hidden="true"
                               />
-                              <span className="ml-2">Tìm hiểu thêm KPI</span>
+                              <span className="ml-2">Tìm hiểu thêm chỉ số hiệu suất</span>
                             </a>
                           </div>
                         </div>
@@ -300,7 +300,7 @@ export default function Drawer(props) {
                       type="submit"
                       className="ml-4 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                     >
-                      Tạo KPI
+                      Tạo chỉ số
                     </button>
                   </div>
                 </form>

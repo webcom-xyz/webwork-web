@@ -25,6 +25,7 @@ import {
 } from "../../actions/scorecard";
 import Stats from "../../components/Dashboard/Stats";
 import Notification from "../../parts/shared/Notification";
+import { getAssignedObjectives } from "../../actions/objective";
 
 const data = [
   {
@@ -120,6 +121,10 @@ export default function Dashboard(props) {
   const scorecardDescription = useRef("");
   const scorecardType = useRef("");
 
+  const assignedObjectives = useSelector(
+    (state) => state.objective.assignedObjectives
+  );
+
   const [scorecardData, setScorecardData] = useState({
     name: "",
     type: "",
@@ -167,13 +172,13 @@ export default function Dashboard(props) {
     setDrawerOpen(true);
   };
 
-  useEffect(() => {
-    try {
-      dispatch(getCurrentUser());
-    } catch (error) {
-      console.log(error);
-    }
-  }, [location]);
+  // useEffect(() => {
+  //   try {
+  //     dispatch(getCurrentUser());
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }, [location, dispatch]);
 
   return (
     <div className="h-screen flex overflow-hidden bg-gray-100">

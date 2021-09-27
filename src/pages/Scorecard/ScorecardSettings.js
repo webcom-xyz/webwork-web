@@ -13,6 +13,7 @@ import {
 import ConfirmDeleteDialog from "../../components/shared/ConfirmDeleteDialog";
 import Notification from "../../parts/shared/Notification";
 import AssignedEmployees from "../../components/shared/AssignedEmployees";
+import Breadcrumbs from "../../components/shared/Breadcrumbs";
 
 export default function Settings(props) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -41,7 +42,9 @@ export default function Settings(props) {
     e.preventDefault();
     try {
       dispatch(deleteScorecard(scorecardId));
+      setNotificationSubtitle("Đã xóa thẻ điểm thành công.");
       setShowNotification(true);
+      setRefetch(true);
     } catch (error) {
       console.log(error);
     }
@@ -153,6 +156,11 @@ export default function Settings(props) {
                   </button>
                 </div>
               </div>
+            </div>
+          </div>
+          <div className="bg-white">
+            <div className="max-w-6xl mx-auto">
+              <Breadcrumbs history={history} scorecardId={scorecardId} />
             </div>
           </div>
 

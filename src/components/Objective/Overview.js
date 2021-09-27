@@ -109,7 +109,7 @@ export default function Overview(props) {
                   </p>
                 </dt>
                 <dd className="ml-16 flex items-baseline">
-                  <p className="text-xl font-semibold text-gray-900">93%</p>
+                  <p className="text-xl font-semibold text-gray-900">N/a%</p>
                   <p
                     className={classNames(
                       props.changeType === "increase"
@@ -135,7 +135,7 @@ export default function Overview(props) {
                         : "Decreased"}{" "}
                       by
                     </span>
-                    2%
+                    N/a%
                   </p>
                 </dd>
               </div>

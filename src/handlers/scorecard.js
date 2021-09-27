@@ -6,12 +6,14 @@ import {
   requestDeleteScorecard,
   requestGetAllScorecards,
   requestGetAssignedEmployeesOfScorecard,
+  requestGetAssignedScorecards,
   requestGetPerspectivesOfScorecard,
   requestGetScorecard,
   requestUpdateScorecard,
 } from "../requests/scorecard";
 import {
   setAssignedEmployeesOfScorecard,
+  setAssignedScorecards,
   setPerspectivesOfScorecard,
   setScorecard,
   setScorecards,
@@ -92,8 +94,20 @@ export function* handleUpdateScorecard(action) {
 
 export function* handleGetAssignedEmployeesOfScorecard(action) {
   try {
-    const { data } = yield call(requestGetAssignedEmployeesOfScorecard, action.payload);
+    const { data } = yield call(
+      requestGetAssignedEmployeesOfScorecard,
+      action.payload
+    );
     yield put(setAssignedEmployeesOfScorecard(data));
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export function* handleGetAssignedScorecards(action) {
+  try {
+    const { data } = yield call(requestGetAssignedScorecards);
+    yield put(setAssignedScorecards(data));
   } catch (error) {
     console.log(error);
   }

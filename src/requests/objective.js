@@ -34,3 +34,7 @@ export const requestAssignEmployeeToObjective = ({
 export const requestGetAssignedEmployeesOfObjective = (objectiveId) => {
   return API.get(`/objective/${objectiveId}/employee`);
 };
+
+export const requestGetAssignedObjectives = () => {
+  return API.get(`/objective/assigned`);
+};

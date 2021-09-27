@@ -52,6 +52,8 @@ export default function Perspective(props) {
   const description = useRef("");
   const [objectiveData, setObjectiveData] = useState({});
 
+  const [refetch, setRefetch] = useState(false);
+
   const handleChange = () => {
     setObjectiveData({
       ...objectiveData,
@@ -69,6 +71,7 @@ export default function Perspective(props) {
       dispatch(createNewObjective(objectiveData));
       setShowNotification(true);
       setDrawerOpen(false);
+      setRefetch(true);
     } catch (error) {
       console.log(error);
     }
@@ -78,13 +81,19 @@ export default function Perspective(props) {
     try {
       dispatch(getPerspective(perspectiveId));
       dispatch(getObjectivesOfPerspective(perspectiveId));
-      // setInterval(() => {
-      //   dispatch(getObjectivesOfPerspective(perspectiveId));
-      // }, 5000);
     } catch (error) {
       console.log(error);
     }
-  }, [location]);
+
+    if (refetch) {
+      try {
+        dispatch(getPerspective(perspectiveId));
+        dispatch(getObjectivesOfPerspective(perspectiveId));
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }, [location, dispatch, refetch]);
 
   return (
     <div className="h-screen flex overflow-hidden bg-gray-100">
@@ -92,6 +101,7 @@ export default function Perspective(props) {
         sidebarOpen={sidebarOpen}
         setSidebarOpen={setSidebarOpen}
         perspectiveId={perspectiveId}
+        refetch={refetch}
       />
       <Drawer
         drawerOpen={drawerOpen}
@@ -177,7 +187,7 @@ export default function Perspective(props) {
         detailsOpen={detailsOpen}
         setDetailsOpen={setDetailsOpen}
       />
-       <Notification
+      <Notification
         showNotification={showNotification}
         setShowNotification={setShowNotification}
         title="Thành công!"

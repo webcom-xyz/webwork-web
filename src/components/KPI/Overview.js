@@ -89,7 +89,7 @@ export default function Overview(props) {
           </div>
           <div className="bg-white shadow rounded-lg">
             <h3 className="text-lg leading-6 font-medium text-gray-900 mt-4 ml-4">
-              Khái quát chỉ số
+              Thông tin
             </h3>
             <p className="mt-1 text-sm text-gray-500 ml-4 mb-4">
               Lorem ipsum dolor sit amet consectetur adipisicing elit quam

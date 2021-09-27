@@ -12,6 +12,8 @@ import {
   UPDATE_SCORECARD,
   GET_ASSIGNED_EMPLOYEES_OF_SCORECARD,
   SET_ASSIGNED_EMPLOYEES_OF_SCORECARD,
+  GET_ASSIGNED_SCORECARDS,
+  SET_ASSIGNED_SCORECARDS,
 } from "../constants/types";
 
 export const createNewScorecard = (workspaceData) => ({
@@ -77,4 +79,13 @@ export const getAssignedEmployeesOfScorecard = (scorecardId) => ({
 export const setAssignedEmployeesOfScorecard = (employeesData) => ({
   type: SET_ASSIGNED_EMPLOYEES_OF_SCORECARD,
   payload: employeesData,
+});
+
+export const getAssignedScorecards = () => ({
+  type: GET_ASSIGNED_SCORECARDS,
+});
+
+export const setAssignedScorecards = (scorecardsData) => ({
+  type: SET_ASSIGNED_SCORECARDS,
+  payload: scorecardsData,
 });

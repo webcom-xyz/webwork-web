@@ -68,21 +68,21 @@ export default function Employees() {
     }
   };
 
-  if (refetch) {
-    try {
-      dispatch(getMembers());
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
   useEffect(() => {
     try {
       dispatch(getMembers());
     } catch (error) {
       console.log(error);
     }
-  }, [location, dispatch]);
+
+    if (refetch) {
+      try {
+        dispatch(getMembers());
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }, [location, dispatch, refetch]);
 
   return (
     <div className="h-screen flex overflow-hidden bg-gray-100">

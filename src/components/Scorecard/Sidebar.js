@@ -10,6 +10,8 @@ import {
   SupportIcon,
   ChartPieIcon,
   DocumentReportIcon,
+  StopIcon,
+  OfficeBuildingIcon,
 } from "@heroicons/react/outline";
 
 import { useHistory, useLocation } from "react-router-dom";
@@ -17,15 +19,31 @@ import classNames from "../../utils/classNames";
 import logo from "../../assets/logo_4_white.svg";
 import handleLink from "../../utils/handleLink";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllScorecards } from "../../actions/scorecard";
+import {
+  getAllScorecards,
+  getAssignedScorecards,
+} from "../../actions/scorecard";
 import AccountMenu from "../../parts/Scorecard/AccountMenu";
 import { getCurrentUser } from "../../actions/user";
 import { signOut } from "../../actions/auth";
+import { getAssignedObjectives } from "../../actions/objective";
+import { getAssignedPerspectives } from "../../actions/perspective";
 
 export default function Sidebar(props) {
   const history = useHistory();
   const currentUser = useSelector((state) => state.user.currentUser);
   const scorecards = useSelector((state) => state.scorecard.scorecards);
+
+  const assignedScorecards = useSelector(
+    (state) => state.scorecard.assignedScorecards
+  );
+  const assignedPerspectives = useSelector(
+    (state) => state.perspective.assignedPerspectives
+  );
+  const assignedObjectives = useSelector(
+    (state) => state.objective.assignedObjectives
+  );
+
   const dispatch = useDispatch();
   const location = useLocation();
 
@@ -76,6 +94,7 @@ export default function Sidebar(props) {
   if (props.refetch) {
     try {
       dispatch(getAllScorecards());
+      // dispatch(getAssignedObjectives());
     } catch (error) {
       console.log(error);
     }
@@ -85,10 +104,13 @@ export default function Sidebar(props) {
     try {
       dispatch(getCurrentUser());
       dispatch(getAllScorecards());
+      dispatch(getAssignedScorecards());
+      dispatch(getAssignedPerspectives());
+      dispatch(getAssignedObjectives());
     } catch (error) {
       console.log(error);
     }
-  }, [location, dispatch]);
+  }, [dispatch, location]);
 
   return (
     <>
@@ -156,13 +178,12 @@ export default function Sidebar(props) {
                   {navigation.map((item) => (
                     <a
                       key={item.name}
-                      href={item.href}
                       onClick={(e) => handleLink(e, item.page, history)}
                       className={classNames(
                         item.current
                           ? "bg-blue-800 text-white"
                           : "text-blue-100 hover:text-white hover:bg-blue-600",
-                        "group flex items-center px-2 py-2 text-base font-medium rounded-md"
+                        "cursor-pointer group flex items-center px-2 py-2 text-base font-medium rounded-md"
                       )}
                       aria-current={item.current ? "page" : undefined}
                     >
@@ -315,13 +336,12 @@ export default function Sidebar(props) {
                     !item.children ? (
                       <div key={item.name}>
                         <a
-                          href="#"
                           onClick={(e) => handleLink(e, item.page, history)}
                           className={classNames(
                             item.current
                               ? "bg-blue-800 text-white"
                               : "text-blue-100 hover:text-white hover:bg-blue-600",
-                            "group w-full flex items-center pl-2 py-2 text-sm font-medium rounded-md"
+                            "cursor-pointer group w-full flex items-center pl-2 py-2 text-sm font-medium rounded-md"
                           )}
                         >
                           <item.icon
@@ -348,7 +368,7 @@ export default function Sidebar(props) {
                                 item.current
                                   ? "bg-blue-800 text-white"
                                   : "text-blue-100 hover:text-white hover:bg-blue-600",
-                                "group w-full flex items-center pl-2 pr-1 py-2 text-left text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                "cursor-pointer group w-full flex items-center pl-2 pr-1 py-2 text-left text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                               )}
                             >
                               <item.icon
@@ -400,90 +420,291 @@ export default function Sidebar(props) {
                     )
                   )}
                 </div>
-                <div className="px-2 mt-6 pt-6">
+
+                <div className="px-2 mt-6 py-6">
                   {/* Scorecards section for desktop */}
                   {scorecards ? (
                     scorecards.data.map((scorecard) => (
-                      <>
-                        <Disclosure
-                          as="div"
-                          key={scorecard.id}
-                          className="space-y-1"
-                        >
-                          {({ open }) => (
-                            <>
-                              <Disclosure.Button
-                                className={classNames(
-                                  scorecard.id === props.scorecardId
-                                    ? "bg-blue-800 text-white"
-                                    : "text-blue-100 hover:text-white hover:bg-blue-600",
-                                  "group w-full flex items-center pl-2 pr-1 py-2 text-left text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                )}
+                      <Disclosure
+                        as="div"
+                        key={scorecard.id}
+                        className="space-y-1"
+                      >
+                        {({ open }) => (
+                          <>
+                            <Disclosure.Button
+                              className={classNames(
+                                scorecard.id === props.scorecardId
+                                  ? "bg-blue-800 text-white"
+                                  : "text-blue-100 hover:text-white hover:bg-blue-600",
+                                "group w-full flex items-center pl-2 pr-1 py-2 text-left text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                              )}
+                            >
+                              <ChartPieIcon
+                                className="mr-3 flex-shrink-0 h-6 w-6 text-blue-200"
+                                aria-hidden="true"
+                              />
+                              <span
+                                onClick={() => history.push(`/${scorecard.id}`)}
+                                // onClick={(e) =>
+                                //   handleLink(e, `/${scorecard.id}`, history)
+                                // }
+                                className="flex-1"
                               >
-                                <ChartPieIcon
-                                  className="mr-3 flex-shrink-0 h-6 w-6 text-blue-200"
-                                  aria-hidden="true"
+                                {scorecard.name}
+                              </span>
+                              <svg
+                                className={classNames(
+                                  open
+                                    ? "text-gray-400 rotate-90"
+                                    : "text-gray-300",
+                                  "ml-3 flex-shrink-0 h-5 w-5 transform group-hover:text-gray-400 transition-colors ease-in-out duration-150"
+                                )}
+                                viewBox="0 0 20 20"
+                                aria-hidden="true"
+                              >
+                                <path
+                                  d="M6 6L14 10L6 14V6Z"
+                                  fill="currentColor"
                                 />
-                                <span
-                                  onClick={(e) =>
-                                    handleLink(e, `/${scorecard.id}`, history)
-                                  }
-                                  className="flex-1"
-                                >
-                                  {scorecard.name}
-                                </span>
-                                <svg
-                                  className={classNames(
-                                    open
-                                      ? "text-gray-400 rotate-90"
-                                      : "text-gray-300",
-                                    "ml-3 flex-shrink-0 h-5 w-5 transform group-hover:text-gray-400 transition-colors ease-in-out duration-150"
-                                  )}
-                                  viewBox="0 0 20 20"
-                                  aria-hidden="true"
-                                >
-                                  <path
-                                    d="M6 6L14 10L6 14V6Z"
-                                    fill="currentColor"
-                                  />
-                                </svg>
-                              </Disclosure.Button>
+                              </svg>
+                            </Disclosure.Button>
 
-                              <Disclosure.Panel className="space-y-1">
-                                {scorecard.perspectives.map((perspective) => (
-                                  <a
-                                    key={perspective.id}
-                                    onClick={(e) =>
-                                      handleLink(
-                                        e,
-                                        `/${scorecard.id}/${perspective.id}`,
-                                        history
-                                      )
-                                    }
-                                    className={classNames(
-                                      perspective.id === props.perspectiveId
-                                        ? "bg-blue-800 text-white"
-                                        : "text-blue-100 hover:text-white hover:bg-blue-600",
-                                      "group w-full flex items-center pl-11 pr-2 py-2 text-sm font-medium rounded-md hover:text-white hover:bg-blue-600 cursor-pointer"
-                                    )}
-                                  >
-                                    {perspective.name}
-                                  </a>
-                                ))}
-                              </Disclosure.Panel>
-                            </>
-                          )}
-                        </Disclosure>
-                      </>
+                            <Disclosure.Panel className="space-y-1">
+                              {scorecard.perspectives.map((perspective) => (
+                                <a
+                                  key={perspective.id}
+                                  onClick={() =>
+                                    history.push(
+                                      `/${scorecard.id}/${perspective.id}`
+                                    )
+                                  }
+                                  // onClick={(e) =>
+                                  //   handleLink(
+                                  //     e,
+                                  //     `/${scorecard.id}/${perspective.id}`,
+                                  //     history
+                                  //   )
+                                  // }
+                                  className={classNames(
+                                    perspective.id === props.perspectiveId
+                                      ? "bg-blue-800 text-white"
+                                      : "text-blue-100 hover:text-white hover:bg-blue-600",
+                                    "group w-full flex items-center pl-11 pr-2 py-2 text-sm font-medium rounded-md hover:text-white hover:bg-blue-600 cursor-pointer"
+                                  )}
+                                >
+                                  {perspective.name}
+                                </a>
+                              ))}
+                            </Disclosure.Panel>
+                          </>
+                        )}
+                      </Disclosure>
                     ))
                   ) : (
                     <></>
                   )}
                 </div>
+
+                <div className="px-2 mt-6 py-6">
+                  <div className="">
+                    {assignedScorecards ? (
+                      assignedScorecards.data.map((objective) => (
+                        <div key={objective.id}>
+                          <a
+                            onClick={(e) =>
+                              handleLink(e, `/${objective.id}`, history)
+                            }
+                            className={classNames(
+                              objective.id === props.scorecardId
+                                ? "bg-blue-800 text-white"
+                                : "text-blue-100 hover:text-white hover:bg-blue-600",
+                              "cursor-pointer group w-full flex items-center pl-2 py-2 text-sm font-medium rounded-md"
+                            )}
+                          >
+                            <ChartPieIcon
+                              className={classNames(
+                                objective.id === props.scorecardId
+                                  ? "text-blue-200"
+                                  : "text-blue-200",
+                                "mr-3 flex-shrink-0 h-6 w-6"
+                              )}
+                              aria-hidden="true"
+                            />
+                            {objective.name}
+                          </a>
+                        </div>
+                        // <Disclosure
+                        //   as="div"
+                        //   key={objective.id}
+                        //   className="space-y-1"
+                        // >
+                        //   <Disclosure.Button
+                        //     className={classNames(
+                        //       objective.id === props.objectiveId
+                        //         ? "bg-blue-800 text-white"
+                        //         : "text-blue-100 hover:text-white hover:bg-blue-600",
+                        //       "group w-full flex items-center pl-2 pr-1 py-2 text-left text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        //     )}
+                        //   >
+                        //     <StopIcon
+                        //       className="mr-3 flex-shrink-0 h-6 w-6 text-blue-200"
+                        //       aria-hidden="true"
+                        //     />
+                        //     <span
+                        //       onClick={() =>
+                        //         history.push(
+                        //           `/scorecard/perspective/${objective.id}`
+                        //         )
+                        //       }
+                        //       className="flex-1"
+                        //     >
+                        //       {objective.name}
+                        //     </span>
+                        //   </Disclosure.Button>
+                        // </Disclosure>
+                      ))
+                    ) : (
+                      <></>
+                    )}
+                  </div>
+
+                  <div className="">
+                    {assignedPerspectives ? (
+                      assignedPerspectives.data.map((objective) => (
+                        <div key={objective.id}>
+                          <a
+                            onClick={(e) =>
+                              handleLink(
+                                e,
+                                `/scorecard/${objective.id}`,
+                                history
+                              )
+                            }
+                            className={classNames(
+                              objective.id === props.perspectiveId
+                                ? "bg-blue-800 text-white"
+                                : "text-blue-100 hover:text-white hover:bg-blue-600",
+                              "cursor-pointer group w-full flex items-center pl-2 py-2 text-sm font-medium rounded-md"
+                            )}
+                          >
+                            <OfficeBuildingIcon
+                              className={classNames(
+                                objective.id === props.perspectiveId
+                                  ? "text-blue-200"
+                                  : "text-blue-200",
+                                "mr-3 flex-shrink-0 h-6 w-6"
+                              )}
+                              aria-hidden="true"
+                            />
+                            {objective.name}
+                          </a>
+                        </div>
+                        // <Disclosure
+                        //   as="div"
+                        //   key={objective.id}
+                        //   className="space-y-1"
+                        // >
+                        //   <Disclosure.Button
+                        //     className={classNames(
+                        //       objective.id === props.objectiveId
+                        //         ? "bg-blue-800 text-white"
+                        //         : "text-blue-100 hover:text-white hover:bg-blue-600",
+                        //       "group w-full flex items-center pl-2 pr-1 py-2 text-left text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        //     )}
+                        //   >
+                        //     <StopIcon
+                        //       className="mr-3 flex-shrink-0 h-6 w-6 text-blue-200"
+                        //       aria-hidden="true"
+                        //     />
+                        //     <span
+                        //       onClick={() =>
+                        //         history.push(
+                        //           `/scorecard/perspective/${objective.id}`
+                        //         )
+                        //       }
+                        //       className="flex-1"
+                        //     >
+                        //       {objective.name}
+                        //     </span>
+                        //   </Disclosure.Button>
+                        // </Disclosure>
+                      ))
+                    ) : (
+                      <></>
+                    )}
+                  </div>
+
+                  <div className="">
+                    {assignedObjectives ? (
+                      assignedObjectives.data.map((objective) => (
+                        <div key={objective.id}>
+                          <a
+                            onClick={(e) =>
+                              handleLink(
+                                e,
+                                `/scorecard/perspective/${objective.id}`,
+                                history
+                              )
+                            }
+                            className={classNames(
+                              objective.id === props.objectiveId
+                                ? "bg-blue-800 text-white"
+                                : "text-blue-100 hover:text-white hover:bg-blue-600",
+                              "cursor-pointer group w-full flex items-center pl-2 py-2 text-sm font-medium rounded-md"
+                            )}
+                          >
+                            <StopIcon
+                              className={classNames(
+                                objective.id === props.objectiveId
+                                  ? "text-blue-200"
+                                  : "text-blue-200",
+                                "mr-3 flex-shrink-0 h-6 w-6"
+                              )}
+                              aria-hidden="true"
+                            />
+                            {objective.name}
+                          </a>
+                        </div>
+                        // <Disclosure
+                        //   as="div"
+                        //   key={objective.id}
+                        //   className="space-y-1"
+                        // >
+                        //   <Disclosure.Button
+                        //     className={classNames(
+                        //       objective.id === props.objectiveId
+                        //         ? "bg-blue-800 text-white"
+                        //         : "text-blue-100 hover:text-white hover:bg-blue-600",
+                        //       "group w-full flex items-center pl-2 pr-1 py-2 text-left text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        //     )}
+                        //   >
+                        //     <StopIcon
+                        //       className="mr-3 flex-shrink-0 h-6 w-6 text-blue-200"
+                        //       aria-hidden="true"
+                        //     />
+                        //     <span
+                        //       onClick={() =>
+                        //         history.push(
+                        //           `/scorecard/perspective/${objective.id}`
+                        //         )
+                        //       }
+                        //       className="flex-1"
+                        //     >
+                        //       {objective.name}
+                        //     </span>
+                        //   </Disclosure.Button>
+                        // </Disclosure>
+                      ))
+                    ) : (
+                      <></>
+                    )}
+                  </div>
+                </div>
               </div>
 
               {/* Secondary navigation for desktop */}
-              <div className="mt-6 pt-6">
+              <div className="pt-6">
                 <div className="px-2 space-y-1">
                   {secondaryNavigation.map((item) => (
                     <a

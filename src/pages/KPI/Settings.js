@@ -12,6 +12,7 @@ import {
   updateKPI,
 } from "../../actions/kpi";
 import AssignedEmployees from "../../components/shared/AssignedEmployees";
+import Breadcrumbs from "../../components/shared/Breadcrumbs";
 
 export default function Settings(props) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -146,6 +147,17 @@ export default function Settings(props) {
                   </button>
                 </div>
               </div>
+            </div>
+          </div>
+          <div className="bg-white">
+            <div className="max-w-6xl mx-auto">
+              <Breadcrumbs
+                history={history}
+                scorecardId={scorecardId}
+                perspectiveId={perspectiveId}
+                objectiveId={objectiveId}
+                kpiId={kpiId}
+              />
             </div>
           </div>
 

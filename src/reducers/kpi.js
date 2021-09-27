@@ -9,6 +9,7 @@ const kpi = (
   action
 ) => {
   switch (action.type) {
+    
     case SET_ASSIGNED_KPIS:
       return { ...state, assignedKPIs: action.payload };
 

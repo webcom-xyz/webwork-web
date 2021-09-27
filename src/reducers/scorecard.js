@@ -1,5 +1,6 @@
 import {
   SET_ASSIGNED_EMPLOYEES_OF_SCORECARD,
+  SET_ASSIGNED_SCORECARDS,
   SET_PERSPECTIVES_OF_SCORECARD,
   SET_SCORECARD,
   SET_SCORECARDS,
@@ -11,6 +12,7 @@ const scorecard = (
     scorecards: null,
     perspectives: null,
     assignedEmployees: null,
+    assignedScorecards: null,
   },
   action
 ) => {
@@ -26,6 +28,9 @@ const scorecard = (
 
     case SET_ASSIGNED_EMPLOYEES_OF_SCORECARD:
       return { ...state, assignedEmployees: action.payload };
+
+    case SET_ASSIGNED_SCORECARDS:
+      return { ...state, assignedScorecards: action.payload };
 
     default:
       return state;

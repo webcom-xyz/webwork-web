@@ -50,7 +50,7 @@ export default function Objective(props) {
 
   const kpis = useSelector((state) => state.objective.kpis);
   const objective = useSelector((state) => state.objective.objective);
-
+  const [refetch, setRefetch] = useState(false);
   // Details modal
   const [detailsOpen, setDetailsOpen] = useState(false);
 
@@ -72,10 +72,10 @@ export default function Objective(props) {
   const handleCreateNewKPI = (e) => {
     e.preventDefault();
     try {
-      console.log(kpiData)
       dispatch(createNewKPI(kpiData));
       setShowNotification(true);
       setDrawerOpen(false);
+      setRefetch(true);
     } catch (error) {
       console.log(error);
     }
@@ -85,21 +85,28 @@ export default function Objective(props) {
     try {
       dispatch(getObjective(objectiveId));
       dispatch(getKPIsOfObjective(objectiveId));
-      // setInterval(() => {
-      //   dispatch(getKPIsOfObjective(objectiveId));
-      // }, 5000);
     } catch (error) {
       console.log(error);
     }
-  }, [location, dispatch]);
+
+    if (refetch) {
+      try {
+        dispatch(getObjective(objectiveId));
+        dispatch(getKPIsOfObjective(objectiveId));
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }, [location, dispatch, refetch]);
 
   return (
     <div className="h-screen flex overflow-hidden bg-gray-100">
       <Sidebar
         sidebarOpen={sidebarOpen}
         setSidebarOpen={setSidebarOpen}
-        perspectiveId={perspectiveId}
-        
+        // perspectiveId={perspectiveId}
+        objectiveId={objectiveId}
+        refetch={refetch}
       />
       <Drawer
         drawerOpen={drawerOpen}

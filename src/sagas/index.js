@@ -42,6 +42,9 @@ import {
   GET_ASSIGNED_EMPLOYEES_OF_OBJECTIVE,
   GET_ASSIGNED_EMPLOYEES_OF_PERSPECTIVE,
   GET_ASSIGNED_EMPLOYEES_OF_SCORECARD,
+  GET_ASSIGNED_OBJECTIVES,
+  GET_ASSIGNED_SCORECARDS,
+  GET_ASSIGNED_PERSPECTIVES,
 } from "../constants/types";
 import {
   handleSignUp,
@@ -65,12 +68,14 @@ import {
   handleAssignEmployeeToScorecard,
   handleUpdateScorecard,
   handleGetAssignedEmployeesOfScorecard,
+  handleGetAssignedScorecards,
 } from "../handlers/scorecard";
 import {
   handleAssignEmployeeToPerspective,
   handleCreateNewPerspective,
   handleDeletePerspective,
   handleGetAssignedEmployeesOfPerspective,
+  handleGetAssignedPerspectives,
   handleGetObjectivesOfPerspective,
   handleGetPerspective,
   handleUpdatePerspective,
@@ -80,6 +85,7 @@ import {
   handleCreateNewObjective,
   handleDeleteObjective,
   handleGetAssignedEmployeesOfObjective,
+  handleGetAssignedObjectives,
   handleGetKPIsOfObjective,
   handleGetObjective,
   handleUpdateObjective,
@@ -135,6 +141,7 @@ export function* watcherSaga() {
     GET_ASSIGNED_EMPLOYEES_OF_SCORECARD,
     handleGetAssignedEmployeesOfScorecard
   );
+  yield takeLeading(GET_ASSIGNED_SCORECARDS, handleGetAssignedScorecards);
 
   // Perspective
   yield takeLatest(CREATE_NEW_PERSPECTIVE, handleCreateNewPerspective);
@@ -153,6 +160,7 @@ export function* watcherSaga() {
     GET_ASSIGNED_EMPLOYEES_OF_PERSPECTIVE,
     handleGetAssignedEmployeesOfPerspective
   );
+  yield takeLeading(GET_ASSIGNED_PERSPECTIVES, handleGetAssignedPerspectives);
 
   // Objective
   yield takeLatest(CREATE_NEW_OBJECTIVE, handleCreateNewObjective);
@@ -168,6 +176,7 @@ export function* watcherSaga() {
     GET_ASSIGNED_EMPLOYEES_OF_OBJECTIVE,
     handleGetAssignedEmployeesOfObjective
   );
+  yield takeLeading(GET_ASSIGNED_OBJECTIVES, handleGetAssignedObjectives);
 
   // KPI
   yield takeLatest(CREATE_NEW_KPI, handleCreateNewKPI);
@@ -175,7 +184,7 @@ export function* watcherSaga() {
   yield takeLatest(DELETE_KPI, handleDeleteKPI);
   yield takeLatest(UPDATE_KPI, handleUpdateKPI);
   yield takeLatest(ASSIGN_EMPLOYEE_TO_KPI, handleAssignEmployeeToKPI);
-  yield takeLatest(GET_ASSIGNED_KPIS, handleGetAssignKPIs);
+  yield takeLeading(GET_ASSIGNED_KPIS, handleGetAssignKPIs);
   yield takeLatest(
     GET_ASSIGNED_EMPLOYEES_OF_KPI,
     handleGetAssignedEmployeesOfKPI

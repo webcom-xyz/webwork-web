@@ -1,88 +1,8 @@
-import { Fragment, useState, useRef } from "react";
-import { Dialog, Transition, Listbox } from "@headlessui/react";
+import { Fragment } from "react";
+import { Dialog, Transition } from "@headlessui/react";
 import { XIcon } from "@heroicons/react/outline";
-import {
-  LinkIcon,
-  PlusIcon,
-  QuestionMarkCircleIcon,
-} from "@heroicons/react/solid";
-import { useDispatch } from "react-redux";
-import { createNewKPI } from "../../actions/objective";
-import { useParams } from "react-router-dom";
-import classNames from "../../utils/classNames";
-import { CheckIcon, SelectorIcon } from "@heroicons/react/solid";
-
-const team = [
-  {
-    name: "Tom Cook",
-    email: "tomcook@example.com",
-    href: "#",
-    imageUrl:
-      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-  },
-  {
-    name: "Whitney Francis",
-    email: "whitneyfrancis@example.com",
-    href: "#",
-    imageUrl:
-      "https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-  },
-  {
-    name: "Leonard Krasner",
-    email: "leonardkrasner@example.com",
-    href: "#",
-    imageUrl:
-      "https://images.unsplash.com/photo-1519345182560-3f2917c472ef?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-  },
-  {
-    name: "Floyd Miles",
-    email: "floydmiles@example.com",
-    href: "#",
-    imageUrl:
-      "https://images.unsplash.com/photo-1463453091185-61582044d556?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-  },
-  {
-    name: "Emily Selman",
-    email: "emilyselman@example.com",
-    href: "#",
-    imageUrl:
-      "https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-  },
-];
-
-const people = [
-  { id: 1, name: "Cấp C" },
-  { id: 2, name: "Quản lý" },
-  { id: 3, name: "Nhân viên" }
-];
-
+import { LinkIcon, QuestionMarkCircleIcon } from "@heroicons/react/solid";
 export default function Drawer(props) {
-  const objectiveNameRef = useRef("");
-  const weightRef = useRef("");
-  const { perspectiveId } = useParams();
-  const dispatch = useDispatch();
-  const [selected, setSelected] = useState(people[0]);
-  const [objective, setObjective] = useState({});
-
-  // const handleChange = (e) => {
-  //   setObjective({
-  //     ...objective,
-  //     name: objectiveNameRef.current.value,
-  //     weight: weightRef.current.value,
-  //     perspectiveId: perspectiveId,
-  //   });
-  // };
-
-//   const handleCreateNewObjective = (e) => {
-//     e.preventDefault();
-
-//     try {
-//       dispatch(createNewObjective(objective));
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   };
-
   return (
     <Transition.Root show={props.drawerOpen} as={Fragment}>
       <Dialog
@@ -157,137 +77,22 @@ export default function Drawer(props) {
                             </div>
                           </div>
                           <div>
-                          <Listbox value={selected} onChange={setSelected}>
-                              {({ open }) => (
-                                <>
-                                  <Listbox.Label className="block text-sm font-medium text-gray-900">
-                                    Quyền hạn
-                                  </Listbox.Label>
-                                  <div className="mt-1 relative">
-                                    <Listbox.Button className="bg-white relative w-full border border-gray-300 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                      <span className="block truncate">
-                                        {selected.name}
-                                      </span>
-                                      <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
-                                        <SelectorIcon
-                                          className="h-5 w-5 text-gray-400"
-                                          aria-hidden="true"
-                                        />
-                                      </span>
-                                    </Listbox.Button>
-
-                                    <Transition
-                                      show={open}
-                                      as={Fragment}
-                                      leave="transition ease-in duration-100"
-                                      leaveFrom="opacity-100"
-                                      leaveTo="opacity-0"
-                                    >
-                                      <Listbox.Options
-                                        static
-                                        className="absolute z-10 mt-1 w-full bg-white shadow max-h-60 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm"
-                                      >
-                                        {people.map((person) => (
-                                          <Listbox.Option
-                                            key={person.id}
-                                            className={({ active }) =>
-                                              classNames(
-                                                active
-                                                  ? "text-white bg-indigo-600"
-                                                  : "text-gray-900",
-                                                "cursor-default select-none relative py-2 pl-3 pr-9"
-                                              )
-                                            }
-                                            value={person}
-                                          >
-                                            {({ selected, active }) => (
-                                              <>
-                                                <span
-                                                  className={classNames(
-                                                    selected
-                                                      ? "font-semibold"
-                                                      : "font-normal",
-                                                    "block truncate"
-                                                  )}
-                                                >
-                                                  {person.name}
-                                                </span>
-
-                                                {selected ? (
-                                                  <span
-                                                    className={classNames(
-                                                      active
-                                                        ? "text-white"
-                                                        : "text-indigo-600",
-                                                      "absolute inset-y-0 right-0 flex items-center pr-4"
-                                                    )}
-                                                  >
-                                                    <CheckIcon
-                                                      className="h-5 w-5"
-                                                      aria-hidden="true"
-                                                    />
-                                                  </span>
-                                                ) : null}
-                                              </>
-                                            )}
-                                          </Listbox.Option>
-                                        ))}
-                                      </Listbox.Options>
-                                    </Transition>
-                                  </div>
-                                </>
-                              )}
-                            </Listbox>
-                            {/* <label
-                              htmlFor="description"
+                            <label
+                              htmlFor="location"
                               className="block text-sm font-medium text-gray-900"
                             >
-                              Chức vụ
+                              Quyền hạn
                             </label>
-                            <div className="mt-1">
-                              <textarea
-                                id="description"
-                                name="description"
-                                rows={4}
-                                className="block w-full shadow-sm sm:text-sm focus:ring-blue-500 focus:border-blue-500 border border-gray-300 rounded-md"
-                                placeholder="..."
-                              />
-                            </div> */}
+                            <select
+                              id="location"
+                              name="location"
+                              className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
+                            >
+                              <option value="Cấp C">Cấp C</option>
+                              <option value="Quản lý">Quản lý</option>
+                              <option value="Nhân viên">Nhân viên</option>
+                            </select>
                           </div>
-                          {/* <div>
-                            <h3 className="text-sm font-medium text-gray-900">
-                              Nhân viên
-                            </h3>
-                            <div className="mt-2">
-                              <div className="flex space-x-2">
-                                {team.map((person) => (
-                                  <a
-                                    key={person.email}
-                                    href={person.href}
-                                    className="rounded-full hover:opacity-75"
-                                  >
-                                    <img
-                                      className="inline-block h-8 w-8 rounded-full"
-                                      src={person.imageUrl}
-                                      alt={person.name}
-                                    />
-                                  </a>
-                                ))}
-                                <button
-                                  type="button"
-                                  className="flex-shrink-0 bg-white inline-flex h-8 w-8 items-center justify-center rounded-full border-2 border-dashed border-gray-200 text-gray-400 hover:text-gray-500 hover:border-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                                >
-                                  <span className="sr-only">
-                                    Add team member
-                                  </span>
-                                  <PlusIcon
-                                    className="h-5 w-5"
-                                    aria-hidden="true"
-                                  />
-                                </button>
-                              </div>
-                            </div>
-                          </div> */}
                         </div>
                         <div className="pt-4 pb-6">
                           <div className="flex text-sm">

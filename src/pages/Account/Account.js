@@ -72,7 +72,7 @@ export default function Account() {
     } catch (error) {
       console.log(error);
     }
-  }, [location]);
+  }, [location, dispatch]);
 
   return (
     <div className="h-screen flex overflow-hidden bg-gray-100">

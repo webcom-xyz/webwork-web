@@ -13,6 +13,7 @@ import {
   updateObjective,
 } from "../../actions/objective";
 import AssignedEmployees from "../../components/shared/AssignedEmployees";
+import Breadcrumbs from "../../components/shared/Breadcrumbs";
 
 export default function Settings(props) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -30,8 +31,9 @@ export default function Settings(props) {
   const [employeeData, setEmployeeData] = useState({});
   const [objectiveData, setObjectiveData] = useState({});
   const objective = useSelector((state) => state.objective.objective);
-  const assignedEmployees = useSelector((state) => state.objective.assignedEmployees);
-
+  const assignedEmployees = useSelector(
+    (state) => state.objective.assignedEmployees
+  );
 
   const handleDeleteObjective = (e) => {
     e.preventDefault();
@@ -137,6 +139,16 @@ export default function Settings(props) {
                   </button>
                 </div>
               </div>
+            </div>
+          </div>
+          <div className="bg-white">
+            <div className="max-w-6xl mx-auto">
+              <Breadcrumbs
+                history={history}
+                scorecardId={scorecardId}
+                perspectiveId={perspectiveId}
+                objectiveId={objectiveId}
+              />
             </div>
           </div>
 
