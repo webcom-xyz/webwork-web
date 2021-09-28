@@ -165,7 +165,7 @@ export default function Scorecard(props) {
         <main className="flex-1 relative pb-8 z-0">
           <PageHeading
             pageTitle={`${scorecard?.data.name}`}
-            pageSubtitle={scorecardId}
+            pageSubtitle={`ID: ${scorecardId}`}
             setDrawerOpen={setDrawerOpen}
             scorecardId={scorecardId}
             history={history}

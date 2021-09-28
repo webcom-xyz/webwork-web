@@ -173,7 +173,7 @@ export default function CreateNewScorecardDrawer(props) {
                             </div>
                           </div>
 
-                          {props.createFromTemplate && (
+                          {/* {props.createFromTemplate && ( */}
                             <fieldset>
                               <legend className="text-sm font-medium text-gray-900">
                                 Bộ phận
@@ -183,14 +183,17 @@ export default function CreateNewScorecardDrawer(props) {
                                   <div className="absolute flex items-center h-5">
                                     <input
                                       id="type"
-                                      name="type"
+                                      name="scorecardType"
                                       aria-describedby="privacy_public_description"
                                       type="radio"
                                       className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300"
                                       value="Company"
                                       ref={props.scorecardType}
+                                      onClick={() =>
+                                        (props.scorecardType.current.value =
+                                          "Company")
+                                      }
                                       onChange={props.handleChange}
-                                      defaultChecked
                                     />
                                   </div>
                                   <div className="pl-7 text-sm">
@@ -206,12 +209,16 @@ export default function CreateNewScorecardDrawer(props) {
                                   <div className="absolute flex items-center h-5">
                                     <input
                                       id="type"
-                                      name="type"
+                                      name="scorecardType"
                                       aria-describedby="privacy_public_description"
                                       type="radio"
                                       className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300"
                                       value="Produce"
                                       ref={props.scorecardType}
+                                      onClick={() =>
+                                        (props.scorecardType.current.value =
+                                          "Produce")
+                                      }
                                       onChange={props.handleChange}
                                     />
                                   </div>
@@ -229,12 +236,16 @@ export default function CreateNewScorecardDrawer(props) {
                                     <div className="absolute flex items-center h-5">
                                       <input
                                         id="type"
-                                        name="type"
+                                        name="scorecardType"
                                         aria-describedby="privacy_private-to-project_description"
                                         type="radio"
                                         className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300"
                                         value="R&D"
                                         ref={props.scorecardType}
+                                        onClick={() =>
+                                          (props.scorecardType.current.value =
+                                            "R&D")
+                                        }
                                         onChange={props.handleChange}
                                       />
                                     </div>
@@ -253,12 +264,16 @@ export default function CreateNewScorecardDrawer(props) {
                                     <div className="absolute flex items-center h-5">
                                       <input
                                         id="type"
-                                        name="type"
+                                        name="scorecardType"
                                         aria-describedby="privacy_private-to-project_description"
                                         type="radio"
                                         className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300"
-                                        value="Sale"
+                                        value="Sales"
                                         ref={props.scorecardType}
+                                        onClick={() =>
+                                          (props.scorecardType.current.value =
+                                            "Sales")
+                                        }
                                         onChange={props.handleChange}
                                       />
                                     </div>
@@ -277,12 +292,16 @@ export default function CreateNewScorecardDrawer(props) {
                                     <div className="absolute flex items-center h-5">
                                       <input
                                         id="type"
-                                        name="type"
+                                        name="scorecardType"
                                         aria-describedby="privacy_private-to-project_description"
                                         type="radio"
                                         className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300"
                                         value="Engineering"
                                         ref={props.scorecardType}
+                                        onClick={() =>
+                                          (props.scorecardType.current.value =
+                                            "Engineering")
+                                        }
                                         onChange={props.handleChange}
                                       />
                                     </div>
@@ -301,12 +320,16 @@ export default function CreateNewScorecardDrawer(props) {
                                     <div className="absolute flex items-center h-5">
                                       <input
                                         id="type"
-                                        name="type"
+                                        name="scorecardType"
                                         aria-describedby="privacy_private-to-project_description"
                                         type="radio"
                                         className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300"
                                         value="Business"
                                         ref={props.scorecardType}
+                                        onClick={() =>
+                                          (props.scorecardType.current.value =
+                                            "Business")
+                                        }
                                         onChange={props.handleChange}
                                       />
                                     </div>
@@ -325,12 +348,16 @@ export default function CreateNewScorecardDrawer(props) {
                                     <div className="absolute flex items-center h-5">
                                       <input
                                         id="type"
-                                        name="type"
+                                        name="scorecardType"
                                         aria-describedby="privacy_private-to-project_description"
                                         type="radio"
                                         className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300"
                                         value="Storage"
                                         ref={props.scorecardType}
+                                        onClick={() =>
+                                          (props.scorecardType.current.value =
+                                            "Storage")
+                                        }
                                         onChange={props.handleChange}
                                       />
                                     </div>
@@ -349,12 +376,16 @@ export default function CreateNewScorecardDrawer(props) {
                                     <div className="absolute flex items-center h-5">
                                       <input
                                         id="type"
-                                        name="type"
+                                        name="scorecardType"
                                         aria-describedby="privacy_private-to-project_description"
                                         type="radio"
                                         className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300"
                                         value="Accountant"
                                         ref={props.scorecardType}
+                                        onClick={() =>
+                                          (props.scorecardType.current.value =
+                                            "Accountant")
+                                        }
                                         onChange={props.handleChange}
                                       />
                                     </div>
@@ -370,7 +401,7 @@ export default function CreateNewScorecardDrawer(props) {
                                 </div>
                               </div>
                             </fieldset>
-                          )}
+                           {/* )} */}
                         </div>
                         <div className="pt-4 pb-6">
                           <div className="flex text-sm">

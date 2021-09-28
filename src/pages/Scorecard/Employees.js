@@ -110,9 +110,9 @@ export default function Employees() {
         <main className="flex-1 relative pb-8 z-0 overflow-y-auto">
           <PageHeading
             currentUser={currentUser}
-            handlePrimaryButton={() => setDrawerOpen(true)}
-            // secondaryButtonText={"Thẻ điểm mới"}
-            primaryButtonText={"Nhân viên mới"}
+            handleSecondaryButton={() => setDrawerOpen(true)}
+            secondaryButtonText={"Nhân viên mới"}
+            primaryButtonText={"Cài đặt"}
           />
 
           <div className="mt-8">

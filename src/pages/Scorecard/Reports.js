@@ -36,7 +36,11 @@ export default function Reports() {
       <div className="flex-1 overflow-auto focus:outline-none">
         {/* <Topbar setSidebarOpen={setSidebarOpen} /> */}
         <main className="flex-1 relative pb-8 z-0">
-          <PageHeading currentUser={currentUser} />
+          <PageHeading
+            secondaryButtonText={""}
+            primaryButtonText={"Cài đặt"}
+            currentUser={currentUser}
+          />
 
           <div className="hidden mt-8 sm:block">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -60,7 +64,6 @@ export default function Reports() {
               </div>
             </div>
           </div>
-
         </main>
       </div>
     </div>

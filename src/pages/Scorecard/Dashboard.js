@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import Sidebar from "../../components/Scorecard/Sidebar";
 import Topbar from "../../components/Scorecard/Topbar";
 import Drawer from "../../components/Scorecard/CreateNewScorecardDrawer";
-import { useHistory, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getCurrentUser } from "../../actions/user";
 import {
@@ -25,7 +24,6 @@ import {
 } from "../../actions/scorecard";
 import Stats from "../../components/Dashboard/Stats";
 import Notification from "../../parts/shared/Notification";
-import { getAssignedObjectives } from "../../actions/objective";
 
 const data = [
   {
@@ -114,16 +112,10 @@ export default function Dashboard(props) {
   const [showNotification, setShowNotification] = useState(false);
 
   const dispatch = useDispatch();
-  const location = useLocation();
-  const history = useHistory();
 
   const scorecardName = useRef("");
   const scorecardDescription = useRef("");
   const scorecardType = useRef("");
-
-  const assignedObjectives = useSelector(
-    (state) => state.objective.assignedObjectives
-  );
 
   const [scorecardData, setScorecardData] = useState({
     name: "",
@@ -135,8 +127,8 @@ export default function Dashboard(props) {
     setScorecardData({
       ...scorecardData,
       name: scorecardName.current.value,
-      type: "Company",
-      description: scorecardDescription.current.value,
+      type: scorecardType.current.value,
+      description: scorecardDescription.current.value || "Không có mô tả.",
     });
   };
 
@@ -205,9 +197,9 @@ export default function Dashboard(props) {
           <PageHeading
             currentUser={currentUser}
             handleSecondaryButton={handleCreateNewScorecard}
-            handlePrimaryButton={handleCreateNewScorecardFromTemplate}
             secondaryButtonText={"Thẻ điểm mới"}
-            primaryButtonText={"Thẻ điểm theo mẫu"}
+            primaryButtonText={"Theo mẫu"}
+            handlePrimaryButton={handleCreateNewScorecardFromTemplate}
           />
 
           <div className="mt-8">
