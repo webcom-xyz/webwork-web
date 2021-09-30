@@ -11,7 +11,7 @@ export default function Stats(props) {
     const stats = [
         {
           id: 1,
-          name: "Nhân viên",
+          name: props.employeesText,
           stat: "N/a",
           icon: UsersIcon,
           change: "N/a",

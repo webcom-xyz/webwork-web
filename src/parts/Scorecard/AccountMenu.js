@@ -49,7 +49,7 @@ export default function AccountMenu(props) {
                     "block px-4 py-2 text-sm cursor-pointer"
                   )}
                 >
-                  Hồ sơ & Tài khoản
+                  {props.accountText}
                 </a>
               )}
             </Menu.Item>
@@ -61,7 +61,7 @@ export default function AccountMenu(props) {
                     "block px-4 py-2 text-sm cursor-pointer"
                   )}
                 >
-                  Cài đặt
+                  {props.settingsText}
                 </a>
               )}
             </Menu.Item>
@@ -73,7 +73,7 @@ export default function AccountMenu(props) {
                     "block px-4 py-2 text-sm cursor-pointer"
                   )}
                 >
-                  Thông báo
+                  {props.notificationText}
                 </a>
               )}
             </Menu.Item>
@@ -88,7 +88,7 @@ export default function AccountMenu(props) {
                     "block px-4 py-2 text-sm cursor-pointer"
                   )}
                 >
-                  Đăng xuất
+                  {props.signOutText}
                 </a>
               )}
             </Menu.Item>

@@ -9,7 +9,7 @@ i18n
   .use(initReactI18next)
   .init(
     {
-      fallbackLng: "vn",
+      fallbackLng: "en",
       debug: true,
       detection: {
         order: ["querystring", "cookie"],

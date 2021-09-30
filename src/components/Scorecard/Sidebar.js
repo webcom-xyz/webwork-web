@@ -28,6 +28,7 @@ import { getCurrentUser } from "../../actions/user";
 import { signOut } from "../../actions/auth";
 import { getAssignedObjectives } from "../../actions/objective";
 import { getAssignedPerspectives } from "../../actions/perspective";
+import { useTranslation } from "react-i18next";
 
 export default function Sidebar(props) {
   const history = useHistory();
@@ -46,24 +47,25 @@ export default function Sidebar(props) {
 
   const dispatch = useDispatch();
   const location = useLocation();
+  const { t, i18n } = useTranslation();
 
   const navigation = [
     {
-      name: "Bảng điều khiển",
+      name: t("sidebar.dashboard"),
       href: "#",
       icon: HomeIcon,
       current: props.homeActive,
       page: "/dashboard",
     },
     {
-      name: "Nhân viên",
+      name: t("sidebar.employee"),
       href: "#",
       icon: UserGroupIcon,
       current: props.employeesActive,
       page: "/employees",
     },
     {
-      name: "Báo cáo",
+      name: t("sidebar.report"),
       href: "#",
       icon: DocumentReportIcon,
       current: props.reportsActive,
@@ -73,14 +75,14 @@ export default function Sidebar(props) {
 
   const secondaryNavigation = [
     {
-      name: "Thanh toán",
+      name: t("sidebar.billing"),
       href: "#",
       icon: CreditCardIcon,
       current: props.billingActive,
       page: "/account/plan-billing",
     },
-    { name: "Hỗ trợ", href: "#", icon: SupportIcon },
-    { name: "Bảo mật", href: "#", icon: ShieldCheckIcon },
+    { name: t("sidebar.support"), href: "#", icon: SupportIcon },
+    { name: t("sidebar.security"), href: "#", icon: ShieldCheckIcon },
   ];
 
   const handleSignOut = () => {
@@ -324,6 +326,10 @@ export default function Sidebar(props) {
               email={currentUser?.data.email}
               history={history}
               handleSignOut={handleSignOut}
+              accountText={t("sidebar.accountMenu.account")}
+              settingsText={t("sidebar.accountMenu.settings")}
+              notificationText={t("sidebar.accountMenu.notification")}
+              signOutText={t("sidebar.accountMenu.signOut")}
             />
 
             <nav

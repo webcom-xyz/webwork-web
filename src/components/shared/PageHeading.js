@@ -63,7 +63,7 @@ export default function PageHeading(props) {
                           className="flex-shrink-0 mr-1.5 h-5 w-5 text-red-400"
                           aria-hidden="true"
                         />
-                        Chưa xác thực
+                        {props.unverifiedText}
                       </dd>
                     </>
                   ) : (

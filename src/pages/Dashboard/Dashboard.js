@@ -198,14 +198,15 @@ export default function Dashboard(props) {
           <PageHeading
             currentUser={currentUser}
             handleSecondaryButton={handleCreateNewScorecard}
-            secondaryButtonText={t("dashboard.pageHeading.secondaryButtonText")}
-            primaryButtonText={t("dashboard.pageHeading.primaryButtonText")}
+            secondaryButtonText={t("dashboard.pageHeading.secondaryButton")}
+            primaryButtonText={t("dashboard.pageHeading.primaryButton")}
             handlePrimaryButton={handleCreateNewScorecardFromTemplate}
+            unverifiedText={t("dashboard.pageHeading.unverified")}
           />
 
           <div className="mt-8">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-              <Stats />
+              <Stats performanceText={t("dashboard.stats.performance")} />
             </div>
 
             <h2 className="max-w-6xl mx-auto mt-8 px-4 text-lg leading-6 font-medium text-gray-900 sm:px-6 lg:px-8"></h2>

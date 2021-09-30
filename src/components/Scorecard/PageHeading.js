@@ -38,20 +38,22 @@ export default function PageHeading(props) {
                 <dl className="mt-6 flex flex-col sm:ml-3 sm:mt-1 sm:flex-row sm:flex-wrap">
                   <dt className="sr-only">Account status</dt>
                   <dd className="mt-3 flex items-center text-sm text-gray-500 font-medium sm:mr-6 sm:mt-0">
-                    {props.pageSubtitle}
+                    ID: {props.pageSubtitle}
                   </dd>
                 </dl>
               </div>
             </div>
           </div>
           <div className="mt-6 flex space-x-3 md:mt-0 md:ml-4">
-            <button
-              onClick={() => props.setDrawerOpen(true)}
-              className="bg-white p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500"
-            >
-              <span className="sr-only">View notifications</span>
-              <PlusCircleIcon className="h-6 w-6" aria-hidden="true" />
-            </button>
+            {props.setDrawerOpen && (
+              <button
+                onClick={() => props.setDrawerOpen(true)}
+                className="bg-white p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500"
+              >
+                <span className="sr-only">View notifications</span>
+                <PlusCircleIcon className="h-6 w-6" aria-hidden="true" />
+              </button>
+            )}
 
             <button className="bg-white p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500">
               <span className="sr-only">View notifications</span>

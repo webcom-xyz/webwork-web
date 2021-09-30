@@ -19,6 +19,7 @@ import MeasuresView from "../../components/Scorecard/MeasuresView";
 import Breadcrumbs from "../../components/shared/Breadcrumbs";
 import DetailsModal from "../../components/shared/DetailsDrawer";
 import Notification from "../../parts/shared/Notification";
+import { useTranslation } from "react-i18next";
 
 export default function Objective(props) {
   const dispatch = useDispatch();
@@ -47,7 +48,7 @@ export default function Objective(props) {
   const [overviewSelected, setOverviewSelected] = useState(true);
   const [strategyviewSelected, setStrategyviewSelected] = useState(false);
   const [measureviewSelected, setMeasureviewSelected] = useState(false);
-
+  const { t, i18n } = useTranslation();
   const kpis = useSelector((state) => state.objective.kpis);
   const objective = useSelector((state) => state.objective.objective);
   const [refetch, setRefetch] = useState(false);
@@ -104,7 +105,6 @@ export default function Objective(props) {
       <Sidebar
         sidebarOpen={sidebarOpen}
         setSidebarOpen={setSidebarOpen}
-        // perspectiveId={perspectiveId}
         objectiveId={objectiveId}
         refetch={refetch}
       />
@@ -121,6 +121,20 @@ export default function Objective(props) {
         calendar={calendar}
         handleChange={handleChange}
         handleCreateNewKPI={handleCreateNewKPI}
+        newMeasureText={t("objective.drawer.newMeasure")}
+        newMeasureDescription={t("objective.drawer.newMeasureDescription")}
+        measureNameText={t("objective.drawer.measureName")}
+        descriptionText={t("objective.drawer.description")}
+        weightText={t("objective.drawer.weight")}
+        dataTypeText={t("objective.drawer.dataType")}
+        redText={t("objective.drawer.red")}
+        goalText={t("objective.drawer.goal")}
+        calendarText={t("objective.drawer.calendar")}
+        actualValueText={t("objective.drawer.actualValue")}
+        copyIdText={t("objective.drawer.copyId")}
+        moreAboutMeasuresText={t("objective.drawer.moreAboutMeasures")}
+        createMeasureText={t("objective.drawer.createMeasure")}
+        cancelText={t("objective.drawer.cancel")}
       />
       <div className="flex-1 overflow-auto focus:outline-none">
         {/* <Topbar setSidebarOpen={setSidebarOpen} /> */}
@@ -143,6 +157,9 @@ export default function Objective(props) {
                 scorecardId={scorecardId}
                 perspectiveId={perspectiveId}
                 objectiveId={objectiveId}
+                scorecardText={t("breadcrumbs.scorecard")}
+                perspectiveText={t("breadcrumbs.perspective")}
+                objectiveText={t("breadcrumbs.objective")}
               />
             </div>
           </div>
@@ -156,6 +173,9 @@ export default function Objective(props) {
                   setStrategyviewSelected={setStrategyviewSelected}
                   measureviewSelected={measureviewSelected}
                   setMeasureviewSelected={setMeasureviewSelected}
+                  overviewText={t("tabs.overview")}
+                  detailsText={t("tabs.details")}
+                  strategyText={t("tabs.strategy")}
                 />
               </div>
             </div>
@@ -174,6 +194,9 @@ export default function Objective(props) {
               years={years}
               yearSelected={yearSelected}
               setYearSelected={setYearSelected}
+              byMonthText={t("timePeriodSelector.byMonth")}
+              byQuarterText={t("timePeriodSelector.byQuarter")}
+              byYearText={t("timePeriodSelector.byYear")}
             />
           )}
 
@@ -187,12 +210,28 @@ export default function Objective(props) {
               changeType={changeType}
               kpis={kpis?.data}
               history={history}
+              performanceTrendText={t("objective.overview.performanceTrend")}
+              historicalPerformancesText={t(
+                "objective.overview.historicalPerformances"
+              )}
+              measuresOverviewText={t("objective.overview.measuresOverview")}
+              performanceText={t("objective.overview.performance")}
+              anomalyText={t("objective.overview.anomaly")}
+              anomalyDescription={t("objective.overview.anomalyDescription")}
+              changepointText={t("objective.overview.changepoint")}
+              changepointDescription={t(
+                "objective.overview.changepointDescription"
+              )}
             />
           )}
 
           {strategyviewSelected && <StrategyView />}
 
-          {measureviewSelected && <MeasuresView />}
+          {measureviewSelected && (
+            <MeasuresView
+              measuresText={t("objective.measuresview.measuresText")}
+            />
+          )}
         </main>
       </div>
       <DetailsModal

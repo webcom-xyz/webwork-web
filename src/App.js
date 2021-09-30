@@ -7,19 +7,19 @@ import SignUp from "./pages/Public/SignUp";
 
 import Landing from "./pages/Public/Landing";
 
-import Dashboard from "./pages/Scorecard/Dashboard";
-import Employees from "./pages/Scorecard/Employees";
-import Reports from "./pages/Scorecard/Reports";
-import Billing from "./pages/Scorecard/Billing";
+import Dashboard from "./pages/Dashboard/Dashboard";
+import Employees from "./pages/Employee/Employees";
+import Reports from "./pages/Report/Reports";
+// import Billing from "./pages/Scorecard/Billing";
 import Account from "./pages/Account/Account";
-import Employee from "./pages/Employee/Home";
+// import Employee from "./pages/Employee/Home";
 import Scorecard from "./pages/Scorecard/Scorecard";
-import Perspective from "./pages/Scorecard/Perspective";
+import Perspective from "./pages/Perspective/Perspective";
 
 import PrivateRoute from "./components/Scorecard/PrivateRoute";
-import Home from "./pages/Manager/Home";
+// import Home from "./pages/Manager/Home";
 import ScorecardSettings from "./pages/Scorecard/ScorecardSettings";
-import Objective from "./pages/Scorecard/Objective";
+import Objective from "./pages/Objective/Objective";
 import KPI from "./pages/KPI/KPI";
 import KPISettings from "./pages/KPI/Settings";
 import ObjectiveSettings from "./pages/Objective/Settings";

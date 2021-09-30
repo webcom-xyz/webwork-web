@@ -8,6 +8,7 @@ import { useLocation } from "react-router-dom";
 import { getCurrentUser } from "../../actions/user";
 import Stats from "../../components/Reports/Stats";
 import { getAssignedKPIs } from "../../actions/kpi";
+import { useTranslation } from "react-i18next";
 export default function Reports() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const currentUser = useSelector((state) => state.user.currentUser);
@@ -15,7 +16,7 @@ export default function Reports() {
   const dispatch = useDispatch();
 
   const assignedKPIs = useSelector((state) => state.kpi.assignedKPIs);
-
+  const { t, i18n } = useTranslation();
   useEffect(() => {
     try {
       dispatch(getCurrentUser());
@@ -37,14 +38,15 @@ export default function Reports() {
         {/* <Topbar setSidebarOpen={setSidebarOpen} /> */}
         <main className="flex-1 relative pb-8 z-0">
           <PageHeading
-            secondaryButtonText={""}
-            primaryButtonText={"Cài đặt"}
+            secondaryButtonText={t("report.pageHeading.secondaryButton")}
+            primaryButtonText={t("report.pageHeading.primaryButton")}
             currentUser={currentUser}
+            unverifiedText={t("report.pageHeading.unverified")}
           />
 
           <div className="hidden mt-8 sm:block">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-              <Stats />
+              <Stats measureText={t("report.stats.measure")} />
             </div>
           </div>
 
@@ -53,13 +55,19 @@ export default function Reports() {
               <div className="flex flex-col mt-2">
                 <div className="bg-white shadow rounded-lg">
                   <h3 className="text-lg leading-6 font-medium text-gray-900 inline-block ml-4 mt-4">
-                    Cập nhật
+                    {t("report.update")}
                   </h3>
                   <p className="mt-1 text-sm text-gray-500 ml-4 mb-4">
                     Lorem ipsum dolor sit amet consectetur adipisicing elit quam
                     corrupti consectetur.
                   </p>
-                  <KPITable assignedKPIs={assignedKPIs?.data} />
+                  <KPITable
+                    measureText={t("report.measureTable.measure")}
+                    valueText={t("report.measureTable.value")}
+                    periodText={t("report.measureTable.period")}
+                    thresholdsText={t("report.measureTable.thresholds")}
+                    assignedKPIs={assignedKPIs?.data}
+                  />
                 </div>
               </div>
             </div>

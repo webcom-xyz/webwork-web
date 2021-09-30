@@ -45,7 +45,7 @@ export default function EmployeesList(props) {
                       <div className="hidden md:block">
                         <div>
                           <p className="text-sm text-gray-900">
-                            Onboarded on{" "}
+                            {props.onboardedOnText}{" "}
                             <time dateTime="">
                               {moment(member.createDate).format("DD/MM/YYYY")}
                             </time>

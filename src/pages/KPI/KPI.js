@@ -17,6 +17,7 @@ import Overview from "../../components/KPI/Overview";
 import StrategyView from "../../components/Scorecard/StrategyView";
 import MeasuresView from "../../components/Scorecard/MeasuresView";
 import Breadcrumbs from "../../components/shared/Breadcrumbs";
+import { useTranslation } from "react-i18next";
 
 export default function KPI() {
   const dispatch = useDispatch();
@@ -36,7 +37,7 @@ export default function KPI() {
   const [strategyviewSelected, setStrategyviewSelected] = useState(false);
   const [measureviewSelected, setMeasureviewSelected] = useState(false);
   const [refetch, setRefetch] = useState(false);
-
+  const { t, i18n } = useTranslation();
   const kpi = useSelector((state) => state.kpi.kpi);
 
   useEffect(() => {
@@ -63,13 +64,12 @@ export default function KPI() {
         perspectiveId={perspectiveId}
         refetch={refetch}
       />
-      <Drawer drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} />
+      {/* <Drawer drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} /> */}
       <div className="flex-1 overflow-auto focus:outline-none">
         <main className="flex-1 relative pb-8 z-0">
           <PageHeading
             pageTitle={`${kpi?.data.name}`}
             pageSubtitle={kpiId}
-            setDrawerOpen={setDrawerOpen}
             scorecardId={scorecardId}
             perspectiveId={perspectiveId}
             objectiveId={objectiveId}
@@ -84,6 +84,10 @@ export default function KPI() {
                 perspectiveId={perspectiveId}
                 objectiveId={objectiveId}
                 kpiId={kpiId}
+                scorecardText={t("breadcrumbs.scorecard")}
+                perspectiveText={t("breadcrumbs.perspective")}
+                objectiveText={t("breadcrumbs.objective")}
+                measureText={t("breadcrumbs.measure")}
               />
             </div>
           </div>
@@ -97,6 +101,9 @@ export default function KPI() {
                   setStrategyviewSelected={setStrategyviewSelected}
                   measureviewSelected={measureviewSelected}
                   setMeasureviewSelected={setMeasureviewSelected}
+                  overviewText={t("tabs.overview")}
+                  detailsText={t("tabs.details")}
+                  strategyText={t("tabs.strategy")}
                 />
               </div>
             </div>
@@ -115,6 +122,9 @@ export default function KPI() {
               years={years}
               yearSelected={yearSelected}
               setYearSelected={setYearSelected}
+              byMonthText={t("timePeriodSelector.byMonth")}
+              byQuarterText={t("timePeriodSelector.byQuarter")}
+              byYearText={t("timePeriodSelector.byYear")}
             />
           )}
 
@@ -124,12 +134,23 @@ export default function KPI() {
               data1={data1}
               changeType={changeType}
               kpis={kpi?.data}
+              performanceTrendText={t("measure.overview.performanceTrend")}
+              historicalPerformancesText={t(
+                "measure.overview.historicalPerformances"
+              )}
+              measureInformationText={t("measure.overview.measureInformation")}
+              performanceText={t("measure.overview.performance")}
+              actualValueText={t("measure.overview.actualValue")}
             />
           )}
 
           {strategyviewSelected && <StrategyView />}
 
-          {measureviewSelected && <MeasuresView />}
+          {measureviewSelected && (
+            <MeasuresView
+              measuresText={t("measure.measuresview.measuresText")}
+            />
+          )}
         </main>
       </div>
     </div>

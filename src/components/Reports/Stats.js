@@ -7,33 +7,32 @@ import {
 import classNames from "../../utils/classNames";
 
 export default function Stats(props) {
-
-    const stats = [
-        {
-          id: 1,
-          name: "Chỉ số",
-          stat: "N/a",
-          icon: UsersIcon,
-          change: "N/a",
-          changeType: "increase",
-        },
-        {
-          id: 2,
-          name: "N/a",
-          stat: "N/a",
-          icon: MailOpenIcon,
-          change: "N/a%",
-          changeType: "increase",
-        },
-        {
-          id: 3,
-          name: "N/a",
-          stat: "N/a%",
-          icon: CursorClickIcon,
-          change: "N/a%",
-          changeType: "decrease",
-        },
-      ];
+  const stats = [
+    {
+      id: 1,
+      name: props.measureText,
+      stat: "N/a",
+      icon: UsersIcon,
+      change: "N/a",
+      changeType: "increase",
+    },
+    {
+      id: 2,
+      name: "N/a",
+      stat: "N/a",
+      icon: MailOpenIcon,
+      change: "N/a%",
+      changeType: "increase",
+    },
+    {
+      id: 3,
+      name: "N/a",
+      stat: "N/a%",
+      icon: CursorClickIcon,
+      change: "N/a%",
+      changeType: "decrease",
+    },
+  ];
 
   return (
     <div>

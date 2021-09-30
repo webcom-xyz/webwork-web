@@ -14,6 +14,7 @@ import Stats from "../../components/Employee/Stats";
 import EmployeesList from "../../components/Employee/EmployeesList";
 import EmployeeDetails from "../../components/Employee/EmployeeDetails";
 import Notification from "../../parts/shared/Notification";
+import { useTranslation } from "react-i18next";
 
 export default function Employees() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -30,6 +31,7 @@ export default function Employees() {
   const [refetch, setRefetch] = useState(false);
   const [notificationTitle, setNotificationTitle] = useState("Thành công!");
   const [notificationSubtitle, setNotificationSubtitle] = useState("");
+  const { t, i18n } = useTranslation();
   // Employee details drawer
   const [employeeDetailsOpen, setEmployeeDetailsOpen] = useState(false);
   const [currentEmployeeId, setCurrentEmployeeId] = useState("");
@@ -111,13 +113,14 @@ export default function Employees() {
           <PageHeading
             currentUser={currentUser}
             handleSecondaryButton={() => setDrawerOpen(true)}
-            secondaryButtonText={"Nhân viên mới"}
-            primaryButtonText={"Cài đặt"}
+            secondaryButtonText={t("employee.pageHeading.secondaryButton")}
+            primaryButtonText={t("employee.pageHeading.primaryButton")}
+            unverifiedText={t("employee.pageHeading.unverified")}
           />
 
           <div className="mt-8">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-              <Stats />
+              <Stats employeesText={t("employee.stats.employees")} />
             </div>
           </div>
           <div className="mt-8">
@@ -127,6 +130,7 @@ export default function Employees() {
                 setCurrentEmployeeId={setCurrentEmployeeId}
                 setSelectedEmployeeEmail={setSelectedEmployeeEmail}
                 setEmployeeDetailsOpen={setEmployeeDetailsOpen}
+                onboardedOnText={t("employee.employeesList.onboardedOn")}
               />
             </div>
           </div>

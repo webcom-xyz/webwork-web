@@ -31,6 +31,7 @@ import Breadcrumbs from "../../components/shared/Breadcrumbs";
 import DetailsModal from "../../components/shared/DetailsDrawer";
 import { createNewPerspective } from "../../actions/perspective";
 import Notification from "../../parts/shared/Notification";
+import { useTranslation } from "react-i18next";
 // const initialElements = [
 //   { id: "edges-2", data: { label: "Node 2" }, position: { x: 150, y: 100 } },
 //   { id: "edges-2a", data: { label: "Node 2a" }, position: { x: 0, y: 180 } },
@@ -90,6 +91,7 @@ export default function Scorecard(props) {
   // const onConnect = (params) => setElements((els) => addEdge(params, els));
 
   // Perspective data to create perspective
+  const { t, i18n } = useTranslation();
   const [refetch, setRefetch] = useState(false);
   const [perspectiveData, setPerspectiveData] = useState({});
   const name = useRef("");
@@ -117,8 +119,6 @@ export default function Scorecard(props) {
       console.log(error);
     }
   };
-
-  
 
   useEffect(() => {
     try {
@@ -154,6 +154,21 @@ export default function Scorecard(props) {
         description={description}
         handleChange={handleChange}
         handleCreateNewPerspective={handleCreateNewPerspective}
+        newPerspectiveText={t("scorecard.drawer.newPerspective")}
+        newPerspectiveDescription={t(
+          "scorecard.drawer.newPerspectiveDescription"
+        )}
+        perspectiveNameText={t("scorecard.drawer.perspectiveName")}
+        customerText={t("scorecard.drawer.customer")}
+        financialText={t("scorecard.drawer.financial")}
+        learningAndGrowthText={t("scorecard.drawer.learningAndGrowth")}
+        internalProcessesText={t("scorecard.drawer.internalProcesses")}
+        descriptionText={t("scorecard.drawer.description")}
+        weightText={t("scorecard.drawer.weight")}
+        copyIdText={t("scorecard.drawer.copyId")}
+        moreAboutPerspectiveText={t("scorecard.drawer.moreAboutPerspective")}
+        createPerspectiveText={t("scorecard.drawer.createPerspective")}
+        cancelText={t("scorecard.drawer.cancel")}
       />
       <ConfirmDeleteDialog
         confirmDeleteDialogOpen={confirmDeleteDialogOpen}
@@ -165,7 +180,7 @@ export default function Scorecard(props) {
         <main className="flex-1 relative pb-8 z-0">
           <PageHeading
             pageTitle={`${scorecard?.data.name}`}
-            pageSubtitle={`ID: ${scorecardId}`}
+            pageSubtitle={scorecardId}
             setDrawerOpen={setDrawerOpen}
             scorecardId={scorecardId}
             history={history}
@@ -173,7 +188,11 @@ export default function Scorecard(props) {
           />
           <div className="bg-white">
             <div className="max-w-6xl mx-auto">
-              <Breadcrumbs history={history} scorecardId={scorecardId} />
+              <Breadcrumbs
+                history={history}
+                scorecardId={scorecardId}
+                scorecardText={t("breadcrumbs.scorecard")}
+              />
             </div>
           </div>
           <div className="mt-8">
@@ -186,6 +205,9 @@ export default function Scorecard(props) {
                   setStrategyviewSelected={setStrategyviewSelected}
                   measureviewSelected={measureviewSelected}
                   setMeasureviewSelected={setMeasureviewSelected}
+                  overviewText={t("tabs.overview")}
+                  detailsText={t("tabs.details")}
+                  strategyText={t("tabs.strategy")}
                 />
               </div>
             </div>
@@ -204,6 +226,9 @@ export default function Scorecard(props) {
               years={years}
               yearSelected={yearSelected}
               setYearSelected={setYearSelected}
+              byMonthText={t("timePeriodSelector.byMonth")}
+              byQuarterText={t("timePeriodSelector.byQuarter")}
+              byYearText={t("timePeriodSelector.byYear")}
             />
           )}
 
@@ -215,12 +240,30 @@ export default function Scorecard(props) {
               perspectives={perspectives?.data}
               scorecardId={scorecardId}
               history={history}
+              performanceTrendText={t("scorecard.overview.performanceTrend")}
+              historicalPerformancesText={t(
+                "scorecard.overview.historicalPerformances"
+              )}
+              perspectivesOverviewText={t(
+                "scorecard.overview.perspectivesOverview"
+              )}
+              performanceText={t("scorecard.overview.performance")}
+              anomalyText={t("scorecard.overview.anomaly")}
+              anomalyDescription={t("scorecard.overview.anomalyDescription")}
+              changepointText={t("scorecard.overview.changepoint")}
+              changepointDescription={t(
+                "scorecard.overview.changepointDescription"
+              )}
             />
           )}
 
           {strategyviewSelected && <StrategyView />}
 
-          {measureviewSelected && <MeasuresView />}
+          {measureviewSelected && (
+            <MeasuresView
+              measuresText={t("scorecard.measuresview.measuresText")}
+            />
+          )}
         </main>
       </div>
       <DetailsModal

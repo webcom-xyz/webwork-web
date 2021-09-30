@@ -77,7 +77,7 @@ export default function Drawer(props) {
                     <div className="py-6 px-4 bg-blue-700 sm:px-6">
                       <div className="flex items-center justify-between">
                         <Dialog.Title className="text-lg font-medium text-white">
-                          Mục tiêu mới
+                          {props.newObjectiveText}
                         </Dialog.Title>
                         <div className="ml-3 h-7 flex items-center">
                           <button
@@ -92,8 +92,7 @@ export default function Drawer(props) {
                       </div>
                       <div className="mt-1">
                         <p className="text-sm text-blue-300">
-                          Bắt đầu bằng cách điền những thông tin phù hợp vào để
-                          tạo mục tiêu mới.
+                          {props.newObjectiveDescription}
                         </p>
                       </div>
                     </div>
@@ -105,7 +104,7 @@ export default function Drawer(props) {
                               htmlFor="project_name"
                               className="block text-sm font-medium text-gray-900"
                             >
-                              Tên mục tiêu
+                              {props.objectiveNameText}
                             </label>
                             <div className="mt-1">
                               <input
@@ -124,7 +123,7 @@ export default function Drawer(props) {
                               htmlFor="description"
                               className="block text-sm font-medium text-gray-900"
                             >
-                              Mô tả
+                              {props.descriptionText}
                             </label>
                             <div className="mt-1">
                               <textarea
@@ -143,7 +142,7 @@ export default function Drawer(props) {
                               htmlFor="project_name"
                               className="block text-sm font-medium text-gray-900"
                             >
-                              Trọng số
+                              {props.weightText}
                             </label>
                             <div className="mt-1 relative">
                               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -162,7 +161,7 @@ export default function Drawer(props) {
                               />
                             </div>
                           </div>
-                          <div>
+                          {/* <div>
                             <h3 className="text-sm font-medium text-gray-900">
                               Nhân viên
                             </h3>
@@ -195,7 +194,7 @@ export default function Drawer(props) {
                                 </button>
                               </div>
                             </div>
-                          </div>
+                          </div> */}
                         </div>
                         <div className="pt-4 pb-6">
                           <div className="flex text-sm">
@@ -207,7 +206,7 @@ export default function Drawer(props) {
                                 className="h-5 w-5 text-blue-500 group-hover:text-blue-900"
                                 aria-hidden="true"
                               />
-                              <span className="ml-2">Sao chép ID</span>
+                              <span className="ml-2"> {props.copyIdText}</span>
                             </a>
                           </div>
                           <div className="mt-4 flex text-sm">
@@ -220,7 +219,7 @@ export default function Drawer(props) {
                                 aria-hidden="true"
                               />
                               <span className="ml-2">
-                                Tìm hiểu thêm về mục tiêu
+                                {props.moreAboutObjectiveText}
                               </span>
                             </a>
                           </div>
@@ -234,13 +233,13 @@ export default function Drawer(props) {
                       className="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                       onClick={() => props.setDrawerOpen(false)}
                     >
-                      Hủy
+                      {props.cancelText}
                     </button>
                     <button
                       type="submit"
                       className="ml-4 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                     >
-                      Tạo mục tiêu
+                      {props.createObjectiveText}
                     </button>
                   </div>
                 </form>

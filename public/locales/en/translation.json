@@ -1,8 +1,175 @@
 {
   "dashboard": {
     "pageHeading": {
-      "secondaryButtonText": "New scorecard",
-      "primaryButtonText": "From templates"
+      "secondaryButton": "New balanced scorecard",
+      "primaryButton": "From template",
+      "unverified": "Unverified"
+    },
+    "stats": {
+      "performance": "Performance"
+    }
+  },
+  "employee": {
+    "pageHeading": {
+      "secondaryButton": "New employee",
+      "primaryButton": "Settings",
+      "unverified": "Unverified"
+    },
+    "stats": {
+      "employees": "Employees"
+    },
+    "employeesList": {
+      "onboardedOn": "Onboarded on"
+    }
+  },
+  "report": {
+    "pageHeading": {
+      "secondaryButton": "",
+      "primaryButton": "",
+      "unverified": "Unverified"
+    },
+    "stats": {
+      "measure": "Measure"
+    },
+    "update": "Update",
+    "measureTable": {
+      "measure": "Measure",
+      "value": "Value",
+      "thresholds": "Thresholds",
+      "period": "Period"
+    }
+  },
+  "sidebar": {
+    "dashboard": "Dashboard",
+    "employee": "Employee",
+    "report": "Report",
+    "billing": "Billing",
+    "support": "Support",
+    "security": "Security",
+    "accountMenu": {
+      "account": "Profile & Account",
+      "settings": "Settings",
+      "notification": "Notifications",
+      "signOut": "Sign Out"
+    }
+  },
+  "breadcrumbs": {
+    "scorecard": "Scorecard",
+    "perspective": "Perspective",
+    "objective": "Objective",
+    "measure": "Measure"
+  },
+  "tabs": {
+    "overview": "Overview",
+    "details": "Details",
+    "strategy": "Strategy"
+  },
+  "timePeriodSelector": {
+    "byMonth": "Monthly",
+    "byYear": "Yearly",
+    "byQuarter": "Quarterly"
+  },
+  "scorecard": {
+    "overview": {
+      "performanceTrend": "Performance trend",
+      "historicalPerformances": "Historical performances",
+      "perspectivesOverview": "Perspectives overview",
+      "performance": "Performance",
+      "anomaly": "Anomaly",
+      "anomalyDescription": "Performance's value matches with the properties of an anomaly according to Webwork's anomaly assessment.",
+      "changepoint": "Change-point",
+      "changepointDescription": "Performance's value matches with the properties of a change-point according to Webwork's change-point assessment."
+    },
+    "measuresview": {
+      "measuresText": "Measures"
+    },
+    "drawer": {
+      "newPerspective": "New perspective",
+      "newPerspectiveDescription": "Get started by filling in the information below to create your perspective.",
+      "perspectiveName": "Perspective name",
+      "customer": "Customer",
+      "financial": "Financial",
+      "learningAndGrowth": "Learning & Growth",
+      "internalProcesses": "Internal Processes",
+      "description": "Description",
+      "weight": "Weight",
+      "copyId": "Copy ID",
+      "moreAboutPerspective": "More about perspectives",
+      "createPerspective": "Create perspective",
+      "cancel": "Cancel"
+    }
+  },
+  "perspective": {
+    "overview": {
+      "performanceTrend": "Performance trend",
+      "historicalPerformances": "Historical performances",
+      "perspectivesOverview": "Perspectives overview",
+      "performance": "Performance",
+      "anomaly": "Anomaly",
+      "anomalyDescription": "Performance's value matches with the properties of an anomaly according to Webwork's anomaly assessment.",
+      "changepoint": "Change-point",
+      "changepointDescription": "Performance's value matches with the properties of a change-point according to Webwork's change-point assessment."
+    },
+    "measuresview": {
+      "measuresText": "Measures"
+    },
+    "drawer": {
+      "newObjective": "New objective",
+      "newObjectiveDescription": "Get started by filling in the information below to create your objective.",
+      "objectiveName": "Objective name",
+      "description": "Description",
+      "weight": "Weight",
+      "copyId": "Copy ID",
+      "moreAboutObjective": "More about objectives",
+      "createObjective": "Create objective",
+      "cancel": "Cancel"
+    }
+  },
+  "objective": {
+    "overview": {
+      "performanceTrend": "Performance trend",
+      "historicalPerformances": "Historical performances",
+      "measuresOverview": "Measures overview",
+      "performance": "Performance",
+      "anomaly": "Anomaly",
+      "anomalyDescription": "Performance's value matches with the properties of an anomaly according to Webwork's anomaly assessment.",
+      "changepoint": "Change-point",
+      "changepointDescription": "Performance's value matches with the properties of a change-point according to Webwork's change-point assessment."
+    },
+    "measuresview": {
+      "measuresText": "Measures"
+    },
+    "drawer": {
+      "newMeasure": "New measure",
+      "newMeasureDescription": "Get started by filling in the information below to create your measure.",
+      "measureName": "Measure name",
+      "description": "Description",
+      "actualValue": "Actual value",
+      "red": "Red",
+      "goal": "Goal",
+      "dataType": "Data type",
+      "calendar": "Calendar",
+      "weight": "Weight",
+      "copyId": "Copy ID",
+      "moreAboutMeasures": "More about measures",
+      "createMeasure": "Create measure",
+      "cancel": "Cancel"
+    }
+  },
+  "measure": {
+    "overview": {
+      "performanceTrend": "Performance trend",
+      "historicalPerformances": "Historical performances",
+      "measureInformation": "Measure information",
+      "performance": "Performance",
+      "anomaly": "Anomaly",
+      "anomalyDescription": "Performance's value matches with the properties of an anomaly according to Webwork's anomaly assessment.",
+      "changepoint": "Thay đổi",
+      "changepointDescription": "Performance's value matches with the properties of a change-point according to Webwork's change-point assessment.",
+      "actualValue": "Actual value"
+    },
+    "measuresview": {
+      "measuresText": "Measure"
     }
   }
 }

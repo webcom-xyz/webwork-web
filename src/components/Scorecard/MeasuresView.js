@@ -1,16 +1,11 @@
-import React from "react";
-
-export default function MeasuresView() {
+export default function MeasuresView(props) {
   return (
     <div className="mt-8">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mt-2 grid grid-cols-1 gap-5 sm:grid-cols-1 lg:grid-cols-1">
           <div className="rounded-lg bg-white shadow">
-            {/* <h2 className="text-lg leading-6 font-medium text-gray-900 inline-block mb-2">
-                      KPIs
-                    </h2> */}
             <h3 className="text-lg leading-6 font-medium text-gray-900 ml-4 mt-4">
-              Chỉ số
+              {props.measuresText}
             </h3>
             <p className="mt-1 text-sm text-gray-500 ml-4">
               Lorem ipsum dolor sit amet consectetur adipisicing elit quam

@@ -22,6 +22,7 @@ import Breadcrumbs from "../../components/shared/Breadcrumbs";
 import DetailsModal from "../../components/shared/DetailsDrawer";
 import { createNewObjective } from "../../actions/objective";
 import Notification from "../../parts/shared/Notification";
+import { useTranslation } from "react-i18next";
 
 export default function Perspective(props) {
   const dispatch = useDispatch();
@@ -53,7 +54,7 @@ export default function Perspective(props) {
   const [objectiveData, setObjectiveData] = useState({});
 
   const [refetch, setRefetch] = useState(false);
-
+  const { t, i18n } = useTranslation();
   const handleChange = () => {
     setObjectiveData({
       ...objectiveData,
@@ -111,6 +112,17 @@ export default function Perspective(props) {
         description={description}
         handleChange={handleChange}
         handleCreateNewObjective={handleCreateNewObjective}
+        newObjectiveText={t("perspective.drawer.newObjective")}
+        newObjectiveDescription={t(
+          "perspective.drawer.newObjectiveDescription"
+        )}
+        objectiveNameText={t("perspective.drawer.objectiveName")}
+        descriptionText={t("perspective.drawer.description")}
+        weightText={t("perspective.drawer.weight")}
+        copyIdText={t("perspective.drawer.copyId")}
+        moreAboutObjectiveText={t("perspective.drawer.moreAboutObjective")}
+        createObjectiveText={t("perspective.drawer.createObjective")}
+        cancelText={t("perspective.drawer.cancel")}
       />
       <div className="flex-1 overflow-auto focus:outline-none">
         <main className="flex-1 relative pb-8 z-0">
@@ -130,6 +142,8 @@ export default function Perspective(props) {
                 history={history}
                 scorecardId={scorecardId}
                 perspectiveId={perspectiveId}
+                scorecardText={t("breadcrumbs.scorecard")}
+                perspectiveText={t("breadcrumbs.perspective")}
               />
             </div>
           </div>
@@ -143,6 +157,9 @@ export default function Perspective(props) {
                   setStrategyviewSelected={setStrategyviewSelected}
                   measureviewSelected={measureviewSelected}
                   setMeasureviewSelected={setMeasureviewSelected}
+                  overviewText={t("tabs.overview")}
+                  detailsText={t("tabs.details")}
+                  strategyText={t("tabs.strategy")}
                 />
               </div>
             </div>
@@ -161,6 +178,9 @@ export default function Perspective(props) {
               years={years}
               yearSelected={yearSelected}
               setYearSelected={setYearSelected}
+              byMonthText={t("timePeriodSelector.byMonth")}
+              byQuarterText={t("timePeriodSelector.byQuarter")}
+              byYearText={t("timePeriodSelector.byYear")}
             />
           )}
 
@@ -173,12 +193,30 @@ export default function Perspective(props) {
               changeType={changeType}
               objectives={objectives?.data}
               history={history}
+              performanceTrendText={t("perspective.overview.performanceTrend")}
+              historicalPerformancesText={t(
+                "perspective.overview.historicalPerformances"
+              )}
+              objectivesOverviewText={t(
+                "perspective.overview.perspectivesOverview"
+              )}
+              performanceText={t("perspective.overview.performance")}
+              anomalyText={t("perspective.overview.anomaly")}
+              anomalyDescription={t("perspective.overview.anomalyDescription")}
+              changepointText={t("perspective.overview.changepoint")}
+              changepointDescription={t(
+                "perspective.overview.changepointDescription"
+              )}
             />
           )}
 
           {strategyviewSelected && <StrategyView />}
 
-          {measureviewSelected && <MeasuresView />}
+          {measureviewSelected && (
+            <MeasuresView
+              measuresText={t("perspective.measuresview.measuresText")}
+            />
+          )}
         </main>
       </div>
       <DetailsModal

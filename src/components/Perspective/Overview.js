@@ -20,7 +20,7 @@ export default function Overview(props) {
           <div>
             <div className="bg-white shadow rounded-lg">
               <h3 className="text-lg leading-6 font-medium text-gray-900 inline-block ml-4 mt-4">
-                Xu hướng hiệu suất
+                {props.performanceTrendText}
               </h3>
               <p className="mt-1 text-sm text-gray-500 ml-4 mb-4">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit quam
@@ -53,7 +53,7 @@ export default function Overview(props) {
             </div>
             <div className="bg-white shadow rounded-lg mt-8">
               <h3 className="text-lg leading-6 font-medium text-gray-900 inline-block ml-4 mt-4">
-                Lịch sử hiệu suất
+                {props.historicalPerformancesText}
               </h3>
               <p className="mt-1 text-sm text-gray-500 ml-4 mb-4">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit quam
@@ -89,7 +89,7 @@ export default function Overview(props) {
           </div>
           <div className="bg-white shadow rounded-lg">
             <h3 className="text-lg leading-6 font-medium text-gray-900 mt-4 ml-4">
-              Khái quát mục tiêu
+              {props.objectivesOverviewText}
             </h3>
             <p className="mt-1 text-sm text-gray-500 ml-4 mb-4">
               Lorem ipsum dolor sit amet consectetur adipisicing elit quam
@@ -105,7 +105,7 @@ export default function Overview(props) {
                     />
                   </div>
                   <p className="ml-16 text-sm font-medium text-gray-500 truncate">
-                    Hiệu suất
+                    {props.performanceText}
                   </p>
                 </dt>
                 <dd className="ml-16 flex items-baseline">
@@ -150,12 +150,21 @@ export default function Overview(props) {
                           aria-hidden="true"
                         />
                       </div>
-                      <p className="ml-16 text-sm font-medium text-gray-500 truncate cursor-pointer hover:text-gray-900" onClick={() => props.history.push(`/${props.scorecardId}/${props.perspectiveId}/${objective.id}`)}>
+                      <p
+                        className="ml-16 text-sm font-medium text-gray-500 truncate cursor-pointer hover:text-gray-900"
+                        onClick={() =>
+                          props.history.push(
+                            `/${props.scorecardId}/${props.perspectiveId}/${objective.id}`
+                          )
+                        }
+                      >
                         {objective.name}
                       </p>
                     </dt>
                     <dd className="ml-16 flex items-baseline">
-                      <p className="text-xl font-semibold text-gray-900">N/a%</p>
+                      <p className="text-xl font-semibold text-gray-900">
+                        N/a%
+                      </p>
                       <p className="ml-2 flex items-baseline text-sm font-semibold text-gray-500">
                         {objective.weight}%
                       </p>

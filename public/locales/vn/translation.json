@@ -1,8 +1,175 @@
 {
   "dashboard": {
     "pageHeading": {
-      "secondaryButtonText": "Thẻ điểm cân bằng mới",
-      "primaryButtonText": "Tạo theo mẫu"
+      "secondaryButton": "Thẻ điểm cân bằng mới",
+      "primaryButton": "Tạo theo mẫu",
+      "unverified": "Chưa xác thực"
+    },
+    "stats": {
+      "performance": "Hiệu suất"
+    }
+  },
+  "employee": {
+    "pageHeading": {
+      "secondaryButton": "Nhân viên mới",
+      "primaryButton": "Cài đặt",
+      "unverified": "Chưa xác thực"
+    },
+    "stats": {
+      "employees": "Nhân viên"
+    },
+    "employeesList": {
+      "onboardedOn": "Tham gia vào"
+    }
+  },
+  "report": {
+    "pageHeading": {
+      "secondaryButton": "",
+      "primaryButton": "",
+      "unverified": "Chưa xác thực"
+    },
+    "stats": {
+      "measure": "Chỉ số"
+    },
+    "update": "Cập nhật",
+    "measureTable": {
+      "measure": "Chỉ số",
+      "value": "Giá trị",
+      "thresholds": "Ngưỡng",
+      "period": "Giai đoạn"
+    }
+  },
+  "sidebar": {
+    "dashboard": "Bảng điều khiển",
+    "employee": "Nhân viên",
+    "report": "Báo cáo",
+    "billing": "Thanh toán",
+    "support": "Hỗ trợ",
+    "security": "Bảo mật",
+    "accountMenu": {
+      "account": "Hồ sơ & Tài khoản",
+      "settings": "Cài đặt",
+      "notification": "Thông báo",
+      "signOut": "Đăng xuất"
+    }
+  },
+  "breadcrumbs": {
+    "scorecard": "Thẻ điểm",
+    "perspective": "Khía cạnh",
+    "objective": "Mục tiêu",
+    "measure": "Chỉ số"
+  },
+  "tabs": {
+    "overview": "Tổng quan",
+    "details": "Chi tiết",
+    "strategy": "Chiến lược"
+  },
+  "timePeriodSelector": {
+    "byMonth": "Tháng",
+    "byYear": "Năm",
+    "byQuarter": "Quý"
+  },
+  "scorecard": {
+    "overview": {
+      "performanceTrend": "Xu hướng hiệu suất",
+      "historicalPerformances": "Lịch sử hiệu suất",
+      "perspectivesOverview": "Khái quát khía cạnh",
+      "performance": "Hiệu suất",
+      "anomaly": "Bất thường",
+      "anomalyDescription": "Giá trị của hiệu suất phù hợp với thuộc tính của điểm bất thường theo sự đánh giá của chúng tôi.",
+      "changepoint": "Thay đổi",
+      "changepointDescription": "Giá trị của hiệu suất phù hợp với thuộc tính của điểm thay đổi theo sự đánh giá của chúng tôi."
+    },
+    "measuresview": {
+      "measuresText": "Chỉ số"
+    },
+    "drawer": {
+      "newPerspective": "Khía cạnh mới",
+      "newPerspectiveDescription": "Bắt đầu bằng cách điền những thông tin phù hợp vào để tạo khía cạnh mới.",
+      "perspectiveName": "Tên khía cạnh",
+      "customer": "Khách hàng",
+      "financial": "Tài chính",
+      "learningAndGrowth": "Học hỏi & Phát triển",
+      "internalProcesses": "Quy trình nội bộ",
+      "description": "Mô tả",
+      "weight": "Trọng số",
+      "copyId": "Sao chép ID",
+      "moreAboutPerspective": "Tìm hiểu thêm về khía cạnh",
+      "createPerspective": "Tạo khía cạnh",
+      "cancel": "Hủy"
+    }
+  },
+  "perspective": {
+    "overview": {
+      "performanceTrend": "Xu hướng hiệu suất",
+      "historicalPerformances": "Lịch sử hiệu suất",
+      "perspectivesOverview": "Khái quát khía cạnh",
+      "performance": "Hiệu suất",
+      "anomaly": "Bất thường",
+      "anomalyDescription": "Giá trị của hiệu suất phù hợp với thuộc tính của điểm bất thường theo sự đánh giá của chúng tôi.",
+      "changepoint": "Thay đổi",
+      "changepointDescription": "Giá trị của hiệu suất phù hợp với thuộc tính của điểm thay đổi theo sự đánh giá của chúng tôi."
+    },
+    "measuresview": {
+      "measuresText": "Chỉ số"
+    },
+    "drawer": {
+      "newObjective": "Mục tiêu mới",
+      "newObjectiveDescription": "Bắt đầu bằng cách điền những thông tin phù hợp vào để tạo mục tiêu mới.",
+      "objectiveName": "Tên mục tiêu",
+      "description": "Mô tả",
+      "weight": "Trọng số",
+      "copyId": "Sao chép ID",
+      "moreAboutObjective": "Tìm hiểu thêm về mục tiêu",
+      "createObjective": "Tạo mục tiêu",
+      "cancel": "Hủy"
+    }
+  },
+  "objective": {
+    "overview": {
+      "performanceTrend": "Xu hướng hiệu suất",
+      "historicalPerformances": "Lịch sử hiệu suất",
+      "measuresOverview": "Khái quát chỉ số",
+      "performance": "Hiệu suất",
+      "anomaly": "Bất thường",
+      "anomalyDescription": "Giá trị của hiệu suất phù hợp với thuộc tính của điểm bất thường theo sự đánh giá của chúng tôi.",
+      "changepoint": "Thay đổi",
+      "changepointDescription": "Giá trị của hiệu suất phù hợp với thuộc tính của điểm thay đổi theo sự đánh giá của chúng tôi."
+    },
+    "measuresview": {
+      "measuresText": "Chỉ số"
+    },
+    "drawer": {
+      "newMeasure": "Chỉ số mới",
+      "newMeasureDescription": "Bắt đầu bằng cách điền những thông tin phù hợp vào để tạo chỉ số mới.",
+      "measureName": "Tên chỉ số",
+      "description": "Mô tả",
+      "actualValue": "Giá trị thực",
+      "red": "Ngưỡng dưới",
+      "goal": "Ngưỡng trên",
+      "dataType": "Kiểu dữ liệu",
+      "calendar": "Chu kỳ",
+      "weight": "Trọng số",
+      "copyId": "Sao chép ID",
+      "moreAboutMeasures": "Tìm hiểu thêm về chỉ số",
+      "createMeasure": "Tạo chỉ số",
+      "cancel": "Hủy"
+    }
+  },
+  "measure": {
+    "overview": {
+      "performanceTrend": "Xu hướng hiệu suất",
+      "historicalPerformances": "Lịch sử hiệu suất",
+      "measureInformation": "Thông tin chỉ số",
+      "performance": "Hiệu suất",
+      "anomaly": "Bất thường",
+      "anomalyDescription": "Giá trị của hiệu suất phù hợp với thuộc tính của điểm bất thường theo sự đánh giá của chúng tôi.",
+      "changepoint": "Thay đổi",
+      "changepointDescription": "Giá trị của hiệu suất phù hợp với thuộc tính của điểm thay đổi theo sự đánh giá của chúng tôi.",
+      "actualValue": "Giá trị thực"
+    },
+    "measuresview": {
+      "measuresText": "Chỉ số"
     }
   }
 }

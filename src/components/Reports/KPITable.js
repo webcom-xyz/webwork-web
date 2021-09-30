@@ -1,38 +1,12 @@
-import { Fragment, useState } from "react";
-import { Dialog, Menu, Transition } from "@headlessui/react";
+import { Fragment } from "react";
+import { Menu, Transition } from "@headlessui/react";
 import {
-  ClockIcon,
-  HomeIcon,
-  MenuAlt1Icon,
-  ViewListIcon,
-  XIcon,
-} from "@heroicons/react/outline";
-import {
-  ChevronRightIcon,
   DotsVerticalIcon,
-  DuplicateIcon,
   PencilAltIcon,
-  SearchIcon,
-  SelectorIcon,
   TrashIcon,
-  UserAddIcon,
 } from "@heroicons/react/solid";
 import classNames from "../../utils/classNames";
 import moment from "moment";
-
-const projects = [
-  {
-    id: 1,
-    title: "Doanh thu",
-    period: "09/2021",
-    actual: "465000",
-    red: "450000",
-    goal: "465000",
-    lastUpdated: "March 17, 2020",
-    pinned: true,
-    bgColorClass: "bg-green-400",
-  },
-];
 
 export default function KPITable(props) {
   return (
@@ -41,16 +15,16 @@ export default function KPITable(props) {
         <thead>
           <tr className="border-t border-gray-200">
             <th className="px-6 py-3 whitespace-nowrap border-b border-gray-200 bg-white text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              <span className="lg:pl-2">Chỉ số</span>
+              <span className="lg:pl-2">{props.measureText}</span>
             </th>
             <th className="hidden md:table-cell whitespace-nowrap px-6 py-3 border-b border-gray-200 bg-white text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Giá trị
+              {props.valueText}
             </th>
             <th className="hidden md:table-cell whitespace-nowrap px-6 py-3 border-b border-gray-200 bg-white text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Giai đoạn
+              {props.periodText}
             </th>
             <th className="hidden md:table-cell whitespace-nowrap px-6 py-3 border-b border-gray-200 bg-white text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Ngưỡng
+              {props.thresholdsText}
             </th>
             <th className="pr-6 py-3 border-b whitespace-nowrap border-gray-200 bg-white text-left text-xs font-medium text-gray-500 uppercase tracking-wider" />
           </tr>
@@ -61,15 +35,19 @@ export default function KPITable(props) {
               <tr key={kpi?.id}>
                 <td className="px-6 py-3 max-w-0 w-full whitespace-nowrap text-sm font-medium text-gray-900">
                   <div className="flex items-center space-x-3 lg:pl-2">
-                    
                     <div
                       className={classNames(
-                        kpi?.actualValue < kpi?.goal && kpi?.actualValue > kpi?.red ? "bg-yellow-400" : kpi?.actualValue < kpi?.red ? "bg-red-400" : "bg-green-400",
+                        kpi?.actualValue < kpi?.goal &&
+                          kpi?.actualValue > kpi?.red
+                          ? "bg-yellow-400"
+                          : kpi?.actualValue < kpi?.red
+                          ? "bg-red-400"
+                          : "bg-green-400",
                         "flex-shrink-0 w-2.5 h-2.5 rounded-full"
                       )}
                       aria-hidden="true"
                     />
-                    
+
                     <a href="#" className="truncate hover:text-gray-600">
                       <span>
                         {kpi?.name}{" "}
