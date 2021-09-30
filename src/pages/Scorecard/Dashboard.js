@@ -24,6 +24,7 @@ import {
 } from "../../actions/scorecard";
 import Stats from "../../components/Dashboard/Stats";
 import Notification from "../../parts/shared/Notification";
+import { useTranslation } from "react-i18next";
 
 const data = [
   {
@@ -112,7 +113,7 @@ export default function Dashboard(props) {
   const [showNotification, setShowNotification] = useState(false);
 
   const dispatch = useDispatch();
-
+  const { t, i18n } = useTranslation();
   const scorecardName = useRef("");
   const scorecardDescription = useRef("");
   const scorecardType = useRef("");
@@ -197,8 +198,8 @@ export default function Dashboard(props) {
           <PageHeading
             currentUser={currentUser}
             handleSecondaryButton={handleCreateNewScorecard}
-            secondaryButtonText={"Thẻ điểm mới"}
-            primaryButtonText={"Theo mẫu"}
+            secondaryButtonText={t("dashboard.pageHeading.secondaryButtonText")}
+            primaryButtonText={t("dashboard.pageHeading.primaryButtonText")}
             handlePrimaryButton={handleCreateNewScorecardFromTemplate}
           />
 

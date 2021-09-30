@@ -1,0 +1,8 @@
+{
+  "dashboard": {
+    "pageHeading": {
+      "secondaryButtonText": "New scorecard",
+      "primaryButtonText": "From templates"
+    }
+  }
+}
