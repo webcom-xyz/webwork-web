@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Sidebar from "../../components/Scorecard/Sidebar";
 import Topbar from "../../components/Scorecard/Topbar";
 import KPITable from "../../components/Reports/KPITable";
@@ -7,16 +7,51 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { getCurrentUser } from "../../actions/user";
 import Stats from "../../components/Reports/Stats";
-import { getAssignedKPIs } from "../../actions/kpi";
+import {
+  createKPIValue,
+  getAssignedKPIs,
+  getKPIValues,
+} from "../../actions/kpi";
 import { useTranslation } from "react-i18next";
+import Drawer from "../../components/Reports/Drawer";
+import months from "../../utils/months";
+import years from "../../utils/years";
+import TimePeriodSelector from "../../components/Reports/TimePeriodSelector";
+
 export default function Reports() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const currentUser = useSelector((state) => state.user.currentUser);
   const location = useLocation();
   const dispatch = useDispatch();
-
+  const [drawerOpen, setDrawerOpen] = useState(false);
   const assignedKPIs = useSelector((state) => state.kpi.assignedKPIs);
   const { t, i18n } = useTranslation();
+  const [selectedKPIId, setSelectedKPIId] = useState("");
+  const [kpiUpdateData, setKPIUpdateData] = useState({});
+  const value = useRef(0);
+  const startDate = useRef("");
+  const monthSelected = useRef("");
+  const yearSelected = useRef("");
+
+  const handleChange = () => {
+    setKPIUpdateData({
+      ...kpiUpdateData,
+      value: value.current.value,
+      startDate: `${yearSelected.current.value}-${monthSelected.current.value}-01T15:07:34.339Z`,
+    });
+  };
+
+  const handleCreateKPIValue = (e) => {
+    e.preventDefault();
+
+    try {
+      // console.log(kpiUpdateData);
+      dispatch(createKPIValue(selectedKPIId, kpiUpdateData));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     try {
       dispatch(getCurrentUser());
@@ -33,7 +68,30 @@ export default function Reports() {
         setSidebarOpen={setSidebarOpen}
         reportsActive={true}
       />
-
+      <Drawer
+        drawerOpen={drawerOpen}
+        setDrawerOpen={setDrawerOpen}
+        assignedKPIs={assignedKPIs?.data}
+        selectedKPIId={selectedKPIId}
+        handleChange={handleChange}
+        handleCreateKPIValue={handleCreateKPIValue}
+        value={value}
+        startDate={startDate}
+        newMeasureText={t("objective.drawer.newMeasure")}
+        newMeasureDescription={t("objective.drawer.newMeasureDescription")}
+        measureNameText={t("objective.drawer.measureName")}
+        descriptionText={t("objective.drawer.description")}
+        weightText={t("objective.drawer.weight")}
+        dataTypeText={t("objective.drawer.dataType")}
+        redText={t("objective.drawer.red")}
+        goalText={t("objective.drawer.goal")}
+        calendarText={t("objective.drawer.calendar")}
+        actualValueText={t("objective.drawer.actualValue")}
+        copyIdText={t("objective.drawer.copyId")}
+        moreAboutMeasuresText={t("objective.drawer.moreAboutMeasures")}
+        createMeasureText={t("objective.drawer.createMeasure")}
+        cancelText={t("objective.drawer.cancel")}
+      />
       <div className="flex-1 overflow-auto focus:outline-none">
         {/* <Topbar setSidebarOpen={setSidebarOpen} /> */}
         <main className="flex-1 relative pb-8 z-0">
@@ -49,6 +107,13 @@ export default function Reports() {
               <Stats measureText={t("report.stats.measure")} />
             </div>
           </div>
+
+          <TimePeriodSelector
+            months={months}
+            monthSelected={monthSelected}
+            years={years}
+            yearSelected={yearSelected}
+          />
 
           <div className="hidden mt-8 sm:block">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -67,6 +132,9 @@ export default function Reports() {
                     periodText={t("report.measureTable.period")}
                     thresholdsText={t("report.measureTable.thresholds")}
                     assignedKPIs={assignedKPIs?.data}
+                    drawerOpen={drawerOpen}
+                    setDrawerOpen={setDrawerOpen}
+                    setSelectedKPIId={setSelectedKPIId}
                   />
                 </div>
               </div>

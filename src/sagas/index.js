@@ -45,6 +45,8 @@ import {
   GET_ASSIGNED_OBJECTIVES,
   GET_ASSIGNED_SCORECARDS,
   GET_ASSIGNED_PERSPECTIVES,
+  CREATE_KPI_VALUE,
+  GET_KPI_VALUES,
 } from "../constants/types";
 import {
   handleSignUp,
@@ -92,11 +94,13 @@ import {
 } from "../handlers/objective";
 import {
   handleAssignEmployeeToKPI,
+  handleCreateKPIValue,
   handleCreateNewKPI,
   handleDeleteKPI,
   handleGetAssignedEmployeesOfKPI,
   handleGetAssignKPIs,
   handleGetKPI,
+  handleGetKPIValues,
   handleUpdateKPI,
 } from "../handlers/kpi";
 import {
@@ -189,6 +193,8 @@ export function* watcherSaga() {
     GET_ASSIGNED_EMPLOYEES_OF_KPI,
     handleGetAssignedEmployeesOfKPI
   );
+  yield takeLatest(CREATE_KPI_VALUE, handleCreateKPIValue);
+  yield takeLatest(GET_KPI_VALUES, handleGetKPIValues);
 
   // Workspace
   yield takeLatest(ADD_MEMBER, handleAddMembers);

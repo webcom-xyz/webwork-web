@@ -9,6 +9,9 @@ import {
   GET_ASSIGNED_KPIS,
   SET_ASSIGNED_EMPLOYEES_OF_KPI,
   GET_ASSIGNED_EMPLOYEES_OF_KPI,
+  CREATE_KPI_VALUE,
+  GET_KPI_VALUES,
+  SET_KPI_VALUES,
 } from "../constants/types";
 
 export const createNewKPI = (kpiData) => ({
@@ -59,4 +62,19 @@ export const getAssignedEmployeesOfKPI = (kpiId) => ({
 export const setAssignedEmployeesOfKPI = (employeesData) => ({
   type: SET_ASSIGNED_EMPLOYEES_OF_KPI,
   payload: employeesData,
+});
+
+export const getKPIValues = (kpiId) => ({
+  type: GET_KPI_VALUES,
+  payload: kpiId
+});
+
+export const createKPIValue = (kpiId, kpiData) => ({
+  type: CREATE_KPI_VALUE,
+  payload: { kpiId, kpiData },
+});
+
+export const setKPIValues = (kpiData) => ({
+  type: SET_KPI_VALUES,
+  payload: { kpiData },
 });

@@ -61,7 +61,7 @@ export default function Objective(props) {
       name: name.current.value,
       weight: weight.current.value,
       description: description.current.value,
-      actualValue: actualValue.current.value,
+      // actualValue: actualValue.current.value,
       red: red.current.value,
       goal: goal.current.value,
       dataType: dataType.current.value,

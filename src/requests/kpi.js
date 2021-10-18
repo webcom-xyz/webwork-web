@@ -31,3 +31,11 @@ export const requestGetAssignedKPIs = () => {
 export const requestGetAssignedEmployeesOfKPI = (kpiId) => {
   return API.get(`/kpi/${kpiId}/employee`);
 };
+
+export const requestGetKPIValues = (kpiId) => {
+  return API.get(`/kpi/${kpiId}/value`);
+};
+
+export const requestCreateKPIValue = ({ kpiId, kpiData }) => {
+  return API.post(`/kpi/${kpiId}/value`, kpiData);
+};

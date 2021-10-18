@@ -157,7 +157,7 @@ export default function Drawer(props) {
                               />
                             </div>
                           </div>
-                          <div>
+                          {/* <div>
                             <label
                               htmlFor="project_name"
                               className="block text-sm font-medium text-gray-900"
@@ -165,11 +165,6 @@ export default function Drawer(props) {
                               {props.actualValueText}
                             </label>
                             <div className="mt-1 relative">
-                              {/* <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                <span className="text-gray-500 sm:text-sm">
-                                  %
-                                </span>
-                              </div> */}
                               <input
                                 type="text"
                                 name="weight"
@@ -180,7 +175,7 @@ export default function Drawer(props) {
                                 onChange={props.handleChange}
                               />
                             </div>
-                          </div>
+                          </div> */}
                           <div>
                             <label
                               htmlFor="project_name"

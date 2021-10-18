@@ -101,12 +101,15 @@ export default function KPITable(props) {
                           <Menu.Item>
                             {({ active }) => (
                               <a
-                                href="#"
+                                onClick={() => {
+                                  props.setDrawerOpen(true);
+                                  props.setSelectedKPIId(kpi?.id);
+                                }}
                                 className={classNames(
                                   active
                                     ? "bg-gray-100 text-gray-900"
                                     : "text-gray-700",
-                                  "group flex items-center px-4 py-2 text-sm"
+                                  "group flex items-center px-4 py-2 text-sm cursor-pointer"
                                 )}
                               >
                                 <PencilAltIcon
