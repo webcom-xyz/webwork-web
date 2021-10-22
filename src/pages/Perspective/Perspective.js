@@ -30,9 +30,9 @@ export default function Perspective(props) {
   const location = useLocation();
   const { scorecardId, perspectiveId } = useParams();
   const [enabled, setEnabled] = useState(false);
-  const [monthSelected, setMonthSelected] = useState(months[0]);
-  const [quarterSelected, setQuarterSelected] = useState(quarters[0]);
-  const [yearSelected, setYearSelected] = useState(years[0]);
+  const monthSelected = useRef("");
+  const quarterSelected = useRef("");
+  const yearSelected = useRef("");
   const [timePeriodSelected, setTimePeriodSelected] = useState("Monthly");
   const [drawerOpen, setDrawerOpen] = useState(false);
   const history = useHistory();
@@ -171,13 +171,10 @@ export default function Perspective(props) {
               setTimePeriodSelected={setTimePeriodSelected}
               months={months}
               monthSelected={monthSelected}
-              setMonthSelected={setMonthSelected}
               quarters={quarters}
               quarterSelected={quarterSelected}
-              setQuarterSelected={setQuarterSelected}
               years={years}
               yearSelected={yearSelected}
-              setYearSelected={setYearSelected}
               byMonthText={t("timePeriodSelector.byMonth")}
               byQuarterText={t("timePeriodSelector.byQuarter")}
               byYearText={t("timePeriodSelector.byYear")}

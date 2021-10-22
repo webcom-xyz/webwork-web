@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Sidebar from "../../components/Scorecard/Sidebar";
 import Topbar from "../../components/Scorecard/Topbar";
 import { getKPI } from "../../actions/kpi";
@@ -28,9 +28,9 @@ export default function KPI() {
   const location = useLocation();
 
   const [changeType, setChangeType] = useState("");
-  const [monthSelected, setMonthSelected] = useState(months[0]);
-  const [quarterSelected, setQuarterSelected] = useState(quarters[0]);
-  const [yearSelected, setYearSelected] = useState(years[0]);
+  const monthSelected = useRef("");
+  const quarterSelected = useRef("");
+  const yearSelected = useRef("");
   const [timePeriodSelected, setTimePeriodSelected] = useState("Monthly");
 
   const [overviewSelected, setOverviewSelected] = useState(true);
@@ -39,6 +39,16 @@ export default function KPI() {
   const [refetch, setRefetch] = useState(false);
   const { t, i18n } = useTranslation();
   const kpi = useSelector((state) => state.kpi.kpi);
+
+  const [valueArgs, setValueArgs] = useState({});
+
+  const handleChange = () => {
+    setValueArgs({
+      ...valueArgs,
+      month: monthSelected.current.value || "01",
+      year: yearSelected.current.value || "2021",
+    });
+  };
 
   useEffect(() => {
     try {
@@ -64,7 +74,6 @@ export default function KPI() {
         perspectiveId={perspectiveId}
         refetch={refetch}
       />
-      {/* <Drawer drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} /> */}
       <div className="flex-1 overflow-auto focus:outline-none">
         <main className="flex-1 relative pb-8 z-0">
           <PageHeading
@@ -115,13 +124,11 @@ export default function KPI() {
               setTimePeriodSelected={setTimePeriodSelected}
               months={months}
               monthSelected={monthSelected}
-              setMonthSelected={setMonthSelected}
               quarters={quarters}
               quarterSelected={quarterSelected}
-              setQuarterSelected={setQuarterSelected}
               years={years}
               yearSelected={yearSelected}
-              setYearSelected={setYearSelected}
+              handleChange={handleChange}
               byMonthText={t("timePeriodSelector.byMonth")}
               byQuarterText={t("timePeriodSelector.byQuarter")}
               byYearText={t("timePeriodSelector.byYear")}
@@ -134,6 +141,7 @@ export default function KPI() {
               data1={data1}
               changeType={changeType}
               kpis={kpi?.data}
+              valueArgs={valueArgs}
               performanceTrendText={t("measure.overview.performanceTrend")}
               historicalPerformancesText={t(
                 "measure.overview.historicalPerformances"

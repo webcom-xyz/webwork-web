@@ -39,9 +39,9 @@ export default function Objective(props) {
   const dataType = useRef("");
   const calendar = useRef("");
 
-  const [monthSelected, setMonthSelected] = useState(months[0]);
-  const [quarterSelected, setQuarterSelected] = useState(quarters[0]);
-  const [yearSelected, setYearSelected] = useState(years[0]);
+  const monthSelected = useRef("");
+  const quarterSelected = useRef("");
+  const yearSelected = useRef("");
   const [timePeriodSelected, setTimePeriodSelected] = useState("Monthly");
 
   const [changeType, setChangeType] = useState("");
@@ -52,7 +52,6 @@ export default function Objective(props) {
   const kpis = useSelector((state) => state.objective.kpis);
   const objective = useSelector((state) => state.objective.objective);
   const [refetch, setRefetch] = useState(false);
-  // Details modal
   const [detailsOpen, setDetailsOpen] = useState(false);
 
   const handleChange = () => {
@@ -61,7 +60,6 @@ export default function Objective(props) {
       name: name.current.value,
       weight: weight.current.value,
       description: description.current.value,
-      // actualValue: actualValue.current.value,
       red: red.current.value,
       goal: goal.current.value,
       dataType: dataType.current.value,
@@ -187,13 +185,10 @@ export default function Objective(props) {
               setTimePeriodSelected={setTimePeriodSelected}
               months={months}
               monthSelected={monthSelected}
-              setMonthSelected={setMonthSelected}
               quarters={quarters}
               quarterSelected={quarterSelected}
-              setQuarterSelected={setQuarterSelected}
               years={years}
               yearSelected={yearSelected}
-              setYearSelected={setYearSelected}
               byMonthText={t("timePeriodSelector.byMonth")}
               byQuarterText={t("timePeriodSelector.byQuarter")}
               byYearText={t("timePeriodSelector.byYear")}
