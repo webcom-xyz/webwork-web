@@ -13,23 +13,23 @@ export default function KPITable(props) {
     <div className="align-middle inline-block min-w-full border-b border-gray-200">
       <table className="min-w-full">
         <thead>
-          <tr className="border-t border-gray-200">
-            <th className="px-6 py-3 whitespace-nowrap border-b border-gray-200 bg-white text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          <tr className="border-b border-gray-200">
+            <th className="px-6 py-3 whitespace-nowrap bg-white text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
               <span className="lg:pl-2">{props.measureText}</span>
             </th>
-            <th className="hidden md:table-cell whitespace-nowrap px-6 py-3 border-b border-gray-200 bg-white text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            <th className="hidden md:table-cell whitespace-nowrap px-6 py-3 bg-white text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
               {props.valueText}
             </th>
-            <th className="hidden md:table-cell whitespace-nowrap px-6 py-3 border-b border-gray-200 bg-white text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            <th className="hidden md:table-cell whitespace-nowrap px-6 py-3 bg-white text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
               {props.periodText}
             </th>
-            <th className="hidden md:table-cell whitespace-nowrap px-6 py-3 border-b border-gray-200 bg-white text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            <th className="hidden md:table-cell whitespace-nowrap px-6 py-3 bg-white text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
               {props.thresholdsText}
             </th>
-            <th className="pr-6 py-3 border-b whitespace-nowrap border-gray-200 bg-white text-left text-xs font-medium text-gray-500 uppercase tracking-wider" />
+            <th className="pr-6 py-3 whitespace-nowrap bg-white text-left text-xs font-medium text-gray-500 uppercase tracking-wider" />
           </tr>
         </thead>
-        <tbody className="bg-white divide-y divide-gray-100">
+        <tbody className="bg-white">
           {props.assignedKPIs ? (
             props.assignedKPIs.map((kpi) => (
               <tr key={kpi?.id}>

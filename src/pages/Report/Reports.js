@@ -45,7 +45,6 @@ export default function Reports() {
     e.preventDefault();
 
     try {
-      // console.log(kpiUpdateData);
       dispatch(createKPIValue(selectedKPIId, kpiUpdateData));
     } catch (error) {
       console.log(error);
