@@ -5,7 +5,6 @@ import { getKPI } from "../../actions/kpi";
 import Tabs from "../../components/Scorecard/Tabs";
 import { useHistory, useLocation, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import Drawer from "../../components/Perspective/Drawer";
 import PageHeading from "../../components/Scorecard/PageHeading";
 import months from "../../utils/months";
 import years from "../../utils/years";
@@ -23,7 +22,6 @@ export default function KPI() {
   const dispatch = useDispatch();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const { scorecardId, perspectiveId, objectiveId, kpiId } = useParams();
-  const [drawerOpen, setDrawerOpen] = useState(false);
   const history = useHistory();
   const location = useLocation();
 
@@ -45,8 +43,8 @@ export default function KPI() {
   const handleChange = () => {
     setValueArgs({
       ...valueArgs,
-      month: monthSelected.current.value || "01",
-      year: yearSelected.current.value || "2021",
+      month: monthSelected.current.value,
+      year: yearSelected.current.value,
     });
   };
 
@@ -156,6 +154,7 @@ export default function KPI() {
 
           {measureviewSelected && (
             <MeasuresView
+              kpi={kpi?.data}
               measuresText={t("measure.measuresview.measuresText")}
             />
           )}

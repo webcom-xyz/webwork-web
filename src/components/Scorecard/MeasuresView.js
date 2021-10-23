@@ -1,3 +1,5 @@
+import classNames from "../../utils/classNames";
+
 export default function MeasuresView(props) {
   return (
     <div className="mt-8">
@@ -19,249 +21,50 @@ export default function MeasuresView(props) {
                       <tbody>
                         <tr className="bg-white">
                           <td className="px-6 py-4 text-sm text-gray-900">
-                            Tổng doanh thu
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-green-500">
-                            n/a%
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-yellow-500">
-                            n/a%
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-yellow-500">
-                            n/a%
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-green-500">
-                            n/a%
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-red-500">
-                            n/a%
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-green-500">
-                            n/a%
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-yellow-500">
-                            n/a%
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-yellow-500">
-                            n/a%
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-green-500">
-                            n/a%
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-red-500">
-                            n/a%
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-yellow-500">
-                            n/a%
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-yellow-500">
-                            n/a%
-                          </td>
-                        </tr>
-                        <tr className="bg-gray-50">
-                          <td className="px-6 py-4 text-sm text-gray-900">
-                            Tỷ trọng chi phí nguyên vật liệu trên giá thành
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-yellow-500">
-                            n/a%
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-red-500">
-                            n/a%
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-green-500">
-                            n/a%
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-green-500">
-                            n/a%
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-yellow-500">
-                            n/a%
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-red-500">
-                            n/a%
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-green-500">
-                            n/a%
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-yellow-500">
-                            n/a%
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-green-500">
-                            n/a%
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-red-500">
-                            n/a%
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-yellow-500">
-                            n/a%
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-yellow-500">
-                            n/a%
-                          </td>
-                        </tr>
-                        <tr className="">
-                          <td className="px-6 py-4 whitespace-normal text-sm text-gray-900">
-                            Tỷ lệ chênh lệch giá
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-green-500">
-                            n/a%
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-green-500">
-                            n/a%
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-green-500">
-                            n/a%
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-green-500">
-                            n/a%
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-green-500">
-                            n/a%
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-green-500">
-                            n/a%
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-yellow-500">
-                            n/a%
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-yellow-500">
-                            n/a%
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-red-500">
-                            n/a%
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-green-500">
-                            n/a%
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-green-500">
-                            n/a%
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-red-500">
-                            n/a%
-                          </td>
-                        </tr>
-                        <tr className="">
-                          <td className="px-6 py-4 text-sm text-gray-900">
-                            Tỷ lệ số vụ phản hồi yêu cầu bảo hành
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-yellow-500">
-                            n/a%
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-yellow-500">
-                            n/a%
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-red-500">
-                            n/a%
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-red-500">
-                            n/a%
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-green-500">
-                            n/a%
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-yellow-500">
-                            n/a%
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-yellow-500">
-                            n/a%
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-green-500">
-                            n/a%
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-yellow-500">
-                            n/a%
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-red-500">
-                            n/a%
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-red-500">
-                            n/a%
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-yellow-500">
-                            n/a%
-                          </td>
-                        </tr>
-                        <tr className="">
-                          <td className="px-6 py-4 text-sm text-gray-900">
-                            Tỷ lệ số vụ bảo hành, sửa chữa sản phẩm
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-green-500">
-                            n/a%
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-yellow-500">
-                            n/a%
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-red-500">
-                            n/a%
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-green-500">
-                            n/a%
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-red-500">
-                            n/a%
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-green-500">
-                            n/a%
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-yellow-500">
-                            n/a%
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-yellow-500">
-                            n/a%
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-green-500">
-                            n/a%
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-red-500">
-                            n/a%
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-yellow-500">
-                            n/a%
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-green-500">
-                            n/a%
-                          </td>
-                        </tr>
-                        <tr className="">
-                          <td className="px-6 py-4 text-sm text-gray-900">
-                            Điểm đánh giá bình quân của đại lý
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-green-500">
-                            n/a%
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-green-500">
-                            n/a%
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-green-500">
-                            n/a%
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-green-500">
-                            n/a%
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-red-500">
-                            n/a%
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-green-500">
-                            n/a%
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-yellow-500">
-                            n/a%
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-red-500">
-                            n/a%
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-green-500">
-                            n/a%
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-red-500">
-                            n/a%
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-yellow-500">
-                            n/a%
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-red-500">
-                            n/a%
-                          </td>
+                            {props.kpi.name}
+                          </td>
+                          {props.kpi ? (
+                            props.kpi.actualValues.map((value) =>
+                              (
+                                ((value.value - props.kpi.red) /
+                                  (props.kpi.goal - props.kpi.red)) *
+                                100
+                              ).toFixed(0) >= 33 ? (
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-yellow-500">
+                                  {(
+                                    ((value.value - props.kpi.red) /
+                                      (props.kpi.goal - props.kpi.red)) *
+                                    100
+                                  ).toFixed(0)}
+                                  %
+                                </td>
+                              ) : (
+                                  ((value.value - props.kpi.red) /
+                                    (props.kpi.goal - props.kpi.red)) *
+                                  100
+                                ).toFixed(0) >= 66 ? (
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-green-500">
+                                  {(
+                                    ((value.value - props.kpi.red) /
+                                      (props.kpi.goal - props.kpi.red)) *
+                                    100
+                                  ).toFixed(0)}
+                                  %
+                                </td>
+                              ) : (
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-red-500">
+                                  {(
+                                    ((value.value - props.kpi.red) /
+                                      (props.kpi.goal - props.kpi.red)) *
+                                    100
+                                  ).toFixed(0)}
+                                  %
+                                </td>
+                              )
+                            )
+                          ) : (
+                            <></>
+                          )}
                         </tr>
                       </tbody>
                     </table>
@@ -274,4 +77,10 @@ export default function MeasuresView(props) {
       </div>
     </div>
   );
+}
+{
+  /* <td className="px-6 py-4 whitespace-nowrap text-sm text-white bg-green-500">
+                               
+%
+</td> */
 }
