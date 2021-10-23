@@ -37,8 +37,7 @@ export default function Settings(props) {
   const kpi = useSelector((state) => state.kpi.kpi);
   const assignedEmployees = useSelector((state) => state.kpi.assignedEmployees);
 
-  const handleDeleteKPI = (e) => {
-    e.preventDefault();
+  const handleDeleteKPI = () => {
     try {
       dispatch(deleteKPI(kpiId));
     } catch (error) {
@@ -109,7 +108,7 @@ export default function Settings(props) {
         setConfirmDeleteDialogOpen={setConfirmDeleteDialogOpen}
         title={"Xóa KPI"}
         buttonTitle={"Xóa KPI"}
-        handleDeleteScorecard={handleDeleteKPI}
+        handleDeleteKPI={handleDeleteKPI}
       />
       <div className="flex-1 overflow-auto focus:outline-none">
         <main className="flex-1 relative pb-8 z-0">

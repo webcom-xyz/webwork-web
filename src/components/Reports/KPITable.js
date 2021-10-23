@@ -6,7 +6,6 @@ import {
   TrashIcon,
 } from "@heroicons/react/solid";
 import classNames from "../../utils/classNames";
-import moment from "moment";
 
 export default function KPITable(props) {
   return (
@@ -21,11 +20,18 @@ export default function KPITable(props) {
               {props.valueText}
             </th>
             <th className="hidden md:table-cell whitespace-nowrap px-6 py-3 bg-white text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              {props.periodText}
+              Dữ liệu
             </th>
             <th className="hidden md:table-cell whitespace-nowrap px-6 py-3 bg-white text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              {props.thresholdsText}
+              Chu kỳ
             </th>
+            <th className="hidden md:table-cell whitespace-nowrap px-6 py-3 bg-white text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Trọng số
+            </th>
+            <th className="hidden md:table-cell whitespace-nowrap px-6 py-3 bg-white text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Ngưỡng giá trị
+            </th>
+
             <th className="pr-6 py-3 whitespace-nowrap bg-white text-left text-xs font-medium text-gray-500 uppercase tracking-wider" />
           </tr>
         </thead>
@@ -60,10 +66,22 @@ export default function KPITable(props) {
                 </td>
 
                 <td className="hidden md:table-cell px-6 py-3 whitespace-nowrap text-sm text-gray-500 text-left">
-                  {kpi?.actualValue}
+                  {kpi.actualValues
+                    .filter((value) =>
+                      value.startDate.includes(
+                        `${props.valueArgs.year}-${props.valueArgs.month}`
+                      )
+                    )
+                    .map((value) => value.value)}
                 </td>
                 <td className="hidden md:table-cell px-6 py-3 whitespace-nowrap text-sm text-gray-500 text-left">
-                  {kpi?.calendar} {moment(moment().toDate()).format("MM, YYYY")}
+                  {kpi.dataType}
+                </td>
+                <td className="hidden md:table-cell px-6 py-3 whitespace-nowrap text-sm text-gray-500 text-left">
+                  {kpi.calendar}
+                </td>
+                <td className="hidden md:table-cell px-6 py-3 whitespace-nowrap text-sm text-gray-500 text-left">
+                  {kpi.weight}%
                 </td>
                 <td className="px-6 py-3 text-sm text-gray-500 text-left">
                   <div className="flex items-center space-x-2">

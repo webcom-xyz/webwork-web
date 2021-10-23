@@ -111,11 +111,10 @@ export default function Overview(props) {
                 <dd className="ml-16 flex items-baseline">
                   <p className="text-xl font-semibold text-gray-900">
                     {props.kpis?.actualValues
-                      .filter(
-                        (value) =>
-                          value.startDate.includes(
-                            `${props.valueArgs.year}-${props.valueArgs.month}`
-                          ) == true
+                      .filter((value) =>
+                        value.startDate.includes(
+                          `${props.valueArgs.year}-${props.valueArgs.month}`
+                        )
                       )
                       .map(
                         (value) =>
@@ -171,11 +170,10 @@ export default function Overview(props) {
                 <dd className="ml-16 flex items-baseline">
                   <p className="text-xl font-semibold text-gray-900">
                     {props.kpis?.actualValues
-                      .filter(
-                        (value) =>
-                          value.startDate.includes(
-                            `${props.valueArgs.year}-${props.valueArgs.month}`
-                          ) == true
+                      .filter((value) =>
+                        value.startDate.includes(
+                          `${props.valueArgs.year}-${props.valueArgs.month}`
+                        )
                       )
                       .map((value) => value.value) || "N/a"}
                   </p>

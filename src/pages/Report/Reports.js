@@ -7,11 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { getCurrentUser } from "../../actions/user";
 import Stats from "../../components/Reports/Stats";
-import {
-  createKPIValue,
-  getAssignedKPIs,
-  getKPIValues,
-} from "../../actions/kpi";
+import { createKPIValue, getAssignedKPIs } from "../../actions/kpi";
 import { useTranslation } from "react-i18next";
 import Drawer from "../../components/Reports/Drawer";
 import months from "../../utils/months";
@@ -32,8 +28,14 @@ export default function Reports() {
   const startDate = useRef("");
   const monthSelected = useRef("");
   const yearSelected = useRef("");
+  const [valueArgs, setValueArgs] = useState({});
 
   const handleChange = () => {
+    setValueArgs({
+      ...valueArgs,
+      month: monthSelected.current.value,
+      year: yearSelected.current.value,
+    });
     setKPIUpdateData({
       ...kpiUpdateData,
       value: value.current.value,
@@ -49,6 +51,7 @@ export default function Reports() {
     } catch (error) {
       console.log(error);
     }
+    setDrawerOpen(false);
   };
 
   useEffect(() => {
@@ -112,6 +115,7 @@ export default function Reports() {
             monthSelected={monthSelected}
             years={years}
             yearSelected={yearSelected}
+            handleChange={handleChange}
           />
 
           <div className="hidden mt-8 sm:block">
@@ -134,6 +138,7 @@ export default function Reports() {
                     drawerOpen={drawerOpen}
                     setDrawerOpen={setDrawerOpen}
                     setSelectedKPIId={setSelectedKPIId}
+                    valueArgs={valueArgs}
                   />
                 </div>
               </div>
