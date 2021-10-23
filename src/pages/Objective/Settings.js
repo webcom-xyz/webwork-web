@@ -14,6 +14,7 @@ import {
 } from "../../actions/objective";
 import AssignedEmployees from "../../components/shared/AssignedEmployees";
 import Breadcrumbs from "../../components/shared/Breadcrumbs";
+import { useTranslation } from "react-i18next";
 
 export default function Settings(props) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -31,6 +32,7 @@ export default function Settings(props) {
   const [employeeData, setEmployeeData] = useState({});
   const [objectiveData, setObjectiveData] = useState({});
   const objective = useSelector((state) => state.objective.objective);
+  const { t, i18n } = useTranslation();
   const assignedEmployees = useSelector(
     (state) => state.objective.assignedEmployees
   );
@@ -148,6 +150,9 @@ export default function Settings(props) {
                 scorecardId={scorecardId}
                 perspectiveId={perspectiveId}
                 objectiveId={objectiveId}
+                scorecardText={t("breadcrumbs.scorecard")}
+                perspectiveText={t("breadcrumbs.perspective")}
+                objectiveText={t("breadcrumbs.objective")}
               />
             </div>
           </div>

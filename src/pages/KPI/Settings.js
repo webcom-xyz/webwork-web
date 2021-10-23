@@ -13,6 +13,7 @@ import {
 } from "../../actions/kpi";
 import AssignedEmployees from "../../components/shared/AssignedEmployees";
 import Breadcrumbs from "../../components/shared/Breadcrumbs";
+import { useTranslation } from "react-i18next";
 
 export default function Settings(props) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -36,7 +37,7 @@ export default function Settings(props) {
   const calendar = useRef("");
   const kpi = useSelector((state) => state.kpi.kpi);
   const assignedEmployees = useSelector((state) => state.kpi.assignedEmployees);
-
+  const { t, i18n } = useTranslation();
   const handleDeleteKPI = () => {
     try {
       dispatch(deleteKPI(kpiId));
@@ -156,6 +157,10 @@ export default function Settings(props) {
                 perspectiveId={perspectiveId}
                 objectiveId={objectiveId}
                 kpiId={kpiId}
+                scorecardText={t("breadcrumbs.scorecard")}
+                perspectiveText={t("breadcrumbs.perspective")}
+                objectiveText={t("breadcrumbs.objective")}
+                measureText={t("breadcrumbs.measure")}
               />
             </div>
           </div>

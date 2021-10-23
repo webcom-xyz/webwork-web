@@ -14,6 +14,7 @@ import {
   updatePerspective,
 } from "../../actions/perspective";
 import Breadcrumbs from "../../components/shared/Breadcrumbs";
+import { useTranslation } from "react-i18next";
 
 export default function Settings(props) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -34,6 +35,8 @@ export default function Settings(props) {
   const assignedEmployees = useSelector(
     (state) => state.perspective.assignedEmployees
   );
+
+  const { t, i18n } = useTranslation();
 
   const handleDeletePerspective = (e) => {
     e.preventDefault();
@@ -145,6 +148,8 @@ export default function Settings(props) {
                 history={history}
                 scorecardId={scorecardId}
                 perspectiveId={perspectiveId}
+                scorecardText={t("breadcrumbs.scorecard")}
+                perspectiveText={t("breadcrumbs.perspective")}
               />
             </div>
           </div>

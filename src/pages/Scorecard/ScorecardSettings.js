@@ -14,6 +14,7 @@ import ConfirmDeleteDialog from "../../components/shared/ConfirmDeleteDialog";
 import Notification from "../../parts/shared/Notification";
 import AssignedEmployees from "../../components/shared/AssignedEmployees";
 import Breadcrumbs from "../../components/shared/Breadcrumbs";
+import { useTranslation } from "react-i18next";
 
 export default function Settings(props) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -37,7 +38,7 @@ export default function Settings(props) {
   const [refetch, setRefetch] = useState(false);
   const [notificationTitle, setNotificationTitle] = useState("Thành công!");
   const [notificationSubtitle, setNotificationSubtitle] = useState("");
-
+  const { t, i18n } = useTranslation();
   const handleDeleteScorecard = (e) => {
     e.preventDefault();
     try {
@@ -160,7 +161,11 @@ export default function Settings(props) {
           </div>
           <div className="bg-white">
             <div className="max-w-6xl mx-auto">
-              <Breadcrumbs history={history} scorecardId={scorecardId} />
+              <Breadcrumbs
+                history={history}
+                scorecardId={scorecardId}
+                scorecardText={t("breadcrumbs.scorecard")}
+              />
             </div>
           </div>
 
