@@ -35,6 +35,7 @@ export default function SignIn(): JSX.Element {
     try {
       setError("");
       dispatch(signIn(credentials, history));
+      console.log(credentials);
     } catch {
       setError("Failed to sign in.");
     }

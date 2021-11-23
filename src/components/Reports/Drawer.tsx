@@ -2,11 +2,12 @@ import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { XIcon } from "@heroicons/react/outline";
 import { LinkIcon, QuestionMarkCircleIcon } from "@heroicons/react/solid";
+import { IKPI } from "../../interfaces/kpi.interface";
 
 interface IProps {
   drawerOpen: boolean;
   setDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  assignedKPIs: any;
+  assignedKPIs: IKPI[];
   selectedKPIId: any;
   handleChange: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
   handleCreateKPIValue: React.FormEventHandler<HTMLFormElement>;
@@ -54,7 +55,7 @@ const Drawer: React.FC<IProps> = ({
 }) => {
   return (
     <>
-      {assignedKPIs?.data
+      {assignedKPIs
         ?.filter((kpi: any) => kpi.id == selectedKPIId)
         .map((kpi: any) => (
           <Transition.Root show={drawerOpen} as={Fragment}>

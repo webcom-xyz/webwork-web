@@ -6,18 +6,44 @@ import {
   TrashIcon,
 } from "@heroicons/react/solid";
 import classNames from "../../utils/classNames";
+import { IKPI } from "../../interfaces/kpi.interface";
 
-export default function KPITable(props) {
+interface IProps {
+  assignedKPIs: IKPI[];
+  drawerOpen: boolean;
+  setDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setSelectedKPIId: React.Dispatch<React.SetStateAction<string>>;
+  valueArgs: {
+    month?: string;
+    year?: string;
+  };
+  measureText: string;
+  valueText: string;
+  periodText: string;
+  thresholdsText: string;
+}
+
+const KPITable: React.FC<IProps> = ({
+  assignedKPIs,
+  drawerOpen,
+  setDrawerOpen,
+  valueArgs,
+  measureText,
+  valueText,
+  periodText,
+  thresholdsText,
+  setSelectedKPIId,
+}) => {
   return (
     <div className="align-middle inline-block min-w-full border-b border-gray-200">
       <table className="min-w-full">
         <thead>
           <tr className="border-b border-gray-200">
             <th className="px-6 py-3 whitespace-nowrap bg-white text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              <span className="lg:pl-2">{props.measureText}</span>
+              <span className="lg:pl-2">{measureText}</span>
             </th>
             <th className="hidden md:table-cell whitespace-nowrap px-6 py-3 bg-white text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              {props.valueText}
+              {valueText}
             </th>
             <th className="hidden md:table-cell whitespace-nowrap px-6 py-3 bg-white text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
               Dữ liệu
@@ -36,12 +62,12 @@ export default function KPITable(props) {
           </tr>
         </thead>
         <tbody className="bg-white">
-          {props.assignedKPIs?.data ? (
-            props.assignedKPIs.map((kpi) => (
+          {assignedKPIs ? (
+            assignedKPIs.map((kpi) => (
               <tr key={kpi?.id}>
                 <td className="px-6 py-3 max-w-0 w-full whitespace-nowrap text-sm font-medium text-gray-900">
                   <div className="flex items-center space-x-3 lg:pl-2">
-                    <div
+                    {/* <div
                       className={classNames(
                         kpi?.actualValue < kpi?.goal &&
                           kpi?.actualValue > kpi?.red
@@ -51,6 +77,12 @@ export default function KPITable(props) {
                           : "bg-green-400",
                         "flex-shrink-0 w-2.5 h-2.5 rounded-full"
                       )}
+                      aria-hidden="true"
+                    /> */}
+                    <div
+                      className={
+                        "flex-shrink-0 w-2.5 h-2.5 rounded-full bg-green-400"
+                      }
                       aria-hidden="true"
                     />
 
@@ -67,12 +99,12 @@ export default function KPITable(props) {
 
                 <td className="hidden md:table-cell px-6 py-3 whitespace-nowrap text-sm text-gray-500 text-left">
                   {kpi.actualValues
-                    .filter((value) =>
+                    .filter((value: any) =>
                       value.startDate.includes(
-                        `${props.valueArgs.year}-${props.valueArgs.month}`
+                        `${valueArgs.year}-${valueArgs.month}`
                       )
                     )
-                    .map((value) => value.value)}
+                    .map((value: any) => value.value)}
                 </td>
                 <td className="hidden md:table-cell px-6 py-3 whitespace-nowrap text-sm text-gray-500 text-left">
                   {kpi.dataType}
@@ -120,8 +152,8 @@ export default function KPITable(props) {
                             {({ active }) => (
                               <a
                                 onClick={() => {
-                                  props.setDrawerOpen(true);
-                                  props.setSelectedKPIId(kpi?.id);
+                                  setDrawerOpen(true);
+                                  setSelectedKPIId(kpi?.id);
                                 }}
                                 className={classNames(
                                   active
@@ -173,4 +205,5 @@ export default function KPITable(props) {
       </table>
     </div>
   );
-}
+};
+export default KPITable;

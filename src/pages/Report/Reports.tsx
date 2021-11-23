@@ -2,7 +2,6 @@ import React, {
   useState,
   useEffect,
   useRef,
-  ChangeEvent,
   FormEvent,
 } from "react";
 import Sidebar from "../../components/Scorecard/Sidebar";
@@ -16,11 +15,19 @@ import { createKPIValue, getAssignedKPIs } from "../../actions/kpi";
 import { useTranslation } from "react-i18next";
 import Drawer from "../../components/Reports/Drawer";
 import TimePeriodSelector from "../../components/Reports/TimePeriodSelector";
+import { RootState } from "../../store";
+import { IKPI } from "../../interfaces/kpi.interface";
 
 export interface IState {
   valueArgs: {
-    month: string | undefined;
-    year: string | undefined;
+    month?: string;
+    year?: string;
+  };
+  assignedKPIs: {
+    data: IKPI[];
+    details: {
+      message: string;
+    };
   };
 }
 
@@ -30,7 +37,9 @@ const Reports: React.FC = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const assignedKPIs = useSelector<any>((state) => state.kpi.assignedKPIs);
+  const assignedKPIs = useSelector<RootState, IState["assignedKPIs"]>(
+    (state) => state.kpi.assignedKPIs
+  );
   const { t, i18n } = useTranslation();
   const [selectedKPIId, setSelectedKPIId] = useState("");
   const [kpiUpdateData, setKPIUpdateData] = useState({});
@@ -38,7 +47,10 @@ const Reports: React.FC = () => {
   const startDate = useRef("");
   const monthSelectedRef = useRef<HTMLSelectElement>(null);
   const yearSelectedRef = useRef<HTMLSelectElement>(null);
-  const [valueArgs, setValueArgs] = useState<IState["valueArgs"]>();
+  const [valueArgs, setValueArgs] = useState<IState["valueArgs"]>({
+    month: "",
+    year: "",
+  });
 
   const handleChange = (): void => {
     setValueArgs({
@@ -83,8 +95,7 @@ const Reports: React.FC = () => {
       <Drawer
         drawerOpen={drawerOpen}
         setDrawerOpen={setDrawerOpen}
-        // assignedKPIs={assignedKPIs?.data}
-        assignedKPIs={assignedKPIs}
+        assignedKPIs={assignedKPIs?.data}
         selectedKPIId={selectedKPIId}
         handleChange={handleChange}
         handleCreateKPIValue={handleCreateKPIValue}
@@ -145,8 +156,7 @@ const Reports: React.FC = () => {
                     valueText={t("report.measureTable.value")}
                     periodText={t("report.measureTable.period")}
                     thresholdsText={t("report.measureTable.thresholds")}
-                    // assignedKPIs={assignedKPIs?.data}
-                    assignedKPIs={assignedKPIs}
+                    assignedKPIs={assignedKPIs?.data}
                     drawerOpen={drawerOpen}
                     setDrawerOpen={setDrawerOpen}
                     setSelectedKPIId={setSelectedKPIId}
