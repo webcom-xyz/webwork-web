@@ -109,7 +109,7 @@ export default function Settings(props) {
         setConfirmDeleteDialogOpen={setConfirmDeleteDialogOpen}
         title={"Xóa KPI"}
         buttonTitle={"Xóa KPI"}
-        handleDeleteKPI={handleDeleteKPI}
+        handleDelete={handleDeleteKPI}
       />
       <div className="flex-1 overflow-auto focus:outline-none">
         <main className="flex-1 relative pb-8 z-0">
@@ -192,7 +192,7 @@ export default function Settings(props) {
                             type="text"
                             name="name"
                             id="name"
-                            placeholder="..."
+                            placeholder={kpi?.data.name}
                             ref={name}
                             onChange={handleChange}
                             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
@@ -212,6 +212,9 @@ export default function Settings(props) {
                             onChange={handleChange}
                             className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
                           >
+                            <option hidden selected>
+                              {kpi?.data.calendar}
+                            </option>
                             <option value="Tháng">Theo tháng</option>
                             <option value="Quý">Theo quý</option>
                             <option value="Năm">Theo năm</option>
@@ -236,7 +239,7 @@ export default function Settings(props) {
                               name="weight"
                               id="weight"
                               className="block w-full shadow-sm sm:text-sm focus:ring-blue-500 focus:border-blue-500 border-gray-300 rounded-md pl-7"
-                              placeholder="0.00"
+                              placeholder={kpi?.data.weight}
                               ref={weight}
                               onChange={props.handleChange}
                             />
@@ -256,7 +259,7 @@ export default function Settings(props) {
                               name="description"
                               rows={3}
                               className="shadow-sm focus:ring-blue-500 focus:border-blue-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"
-                              placeholder="..."
+                              placeholder={kpi?.data.description}
                               ref={description}
                               onChange={handleChange}
                             />
@@ -274,7 +277,7 @@ export default function Settings(props) {
                             type="text"
                             name="red"
                             id="red"
-                            placeholder="..."
+                            placeholder={kpi?.data.red}
                             ref={red}
                             onChange={handleChange}
                             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
@@ -292,7 +295,7 @@ export default function Settings(props) {
                             type="text"
                             name="goal"
                             id="goal"
-                            placeholder="..."
+                            placeholder={kpi?.data.goal}
                             ref={goal}
                             onChange={handleChange}
                             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
@@ -313,6 +316,9 @@ export default function Settings(props) {
                             onChange={handleChange}
                             className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
                           >
+                            <option selected hidden>
+                              {kpi?.data.dataType}
+                            </option>
                             <option>Số liệu</option>
                             <option>Tiền tệ</option>
                             <option>Phần trăm</option>

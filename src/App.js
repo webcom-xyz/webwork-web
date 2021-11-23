@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./styles/App.css";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 
 import SignIn from "./pages/Public/SignIn";
 import SignUp from "./pages/Public/SignUp";
@@ -30,7 +30,9 @@ function App() {
     <Router>
       <div className="app">
         <Switch>
-          <Route exact path="/" component={Landing} />
+          <Route exact path="/">
+            <Redirect to="/sign-in" />
+          </Route>
           <Route path="/sign-in" component={SignIn} />
           <Route path="/sign-up" component={SignUp} />
           <PrivateRoute path="/dashboard" component={Dashboard} />

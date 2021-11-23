@@ -138,7 +138,7 @@ export default function CreateNewScorecardDrawer(props) {
                               />
                             </div>
                           </div>
-                          <div>
+                          {/* <div>
                             <h3 className="text-sm font-medium text-gray-900">
                               Nhân viên
                             </h3>
@@ -171,7 +171,7 @@ export default function CreateNewScorecardDrawer(props) {
                                 </button>
                               </div>
                             </div>
-                          </div>
+                          </div> */}
 
                           {/* {props.createFromTemplate && ( */}
                             <fieldset>
