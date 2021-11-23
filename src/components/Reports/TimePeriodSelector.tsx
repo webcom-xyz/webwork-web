@@ -1,6 +1,16 @@
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/solid";
 
-export default function TimePeriodSelector(props) {
+interface IProps {
+  monthSelected: React.RefObject<HTMLSelectElement> | null;
+  yearSelected: React.RefObject<HTMLSelectElement> | null;
+  handleChange: React.ChangeEventHandler<HTMLSelectElement>;
+}
+
+const TimePeriodSelector: React.FC<IProps> = ({
+  monthSelected,
+  yearSelected,
+  handleChange,
+}) => {
   return (
     <div className="mt-8">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -26,8 +36,9 @@ export default function TimePeriodSelector(props) {
             <select
               id="monthSelector"
               name="monthSelector"
-              ref={props.monthSelected}
-              onChange={props.handleChange}
+              // value={valueArgs.month}
+              ref={monthSelected}
+              onChange={handleChange}
               className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-lg"
             >
               <option value="01">Tháng 1</option>
@@ -49,8 +60,8 @@ export default function TimePeriodSelector(props) {
             <select
               id="yearSelector"
               name="yearSelector"
-              ref={props.yearSelected}
-              onChange={props.handleChange}
+              ref={yearSelected}
+              onChange={handleChange}
               className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-lg"
             >
               <option value="2021">Năm 2021</option>
@@ -63,4 +74,5 @@ export default function TimePeriodSelector(props) {
       </div>
     </div>
   );
-}
+};
+export default TimePeriodSelector;

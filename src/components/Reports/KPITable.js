@@ -36,7 +36,7 @@ export default function KPITable(props) {
           </tr>
         </thead>
         <tbody className="bg-white">
-          {props.assignedKPIs ? (
+          {props.assignedKPIs?.data ? (
             props.assignedKPIs.map((kpi) => (
               <tr key={kpi?.id}>
                 <td className="px-6 py-3 max-w-0 w-full whitespace-nowrap text-sm font-medium text-gray-900">

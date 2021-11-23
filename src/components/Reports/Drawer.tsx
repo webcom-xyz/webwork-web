@@ -3,19 +3,67 @@ import { Dialog, Transition } from "@headlessui/react";
 import { XIcon } from "@heroicons/react/outline";
 import { LinkIcon, QuestionMarkCircleIcon } from "@heroicons/react/solid";
 
-export default function Drawer(props) {
+interface IProps {
+  drawerOpen: boolean;
+  setDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  assignedKPIs: any;
+  selectedKPIId: any;
+  handleChange: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
+  handleCreateKPIValue: React.FormEventHandler<HTMLFormElement>;
+  value: React.RefObject<HTMLInputElement>;
+  startDate: React.MutableRefObject<string>;
+  newMeasureText?: string;
+  newMeasureDescription?: string;
+  measureNameText?: string;
+  descriptionText?: string;
+  weightText?: string;
+  dataTypeText?: string;
+  redText?: string;
+  goalText?: string;
+  calendarText?: string;
+  actualValueText?: string;
+  copyIdText?: string;
+  moreAboutMeasuresText?: string;
+  createMeasureText?: string;
+  cancelText?: string;
+}
+
+const Drawer: React.FC<IProps> = ({
+  assignedKPIs,
+  drawerOpen,
+  handleChange,
+  handleCreateKPIValue,
+  selectedKPIId,
+  setDrawerOpen,
+  value,
+  startDate,
+  actualValueText,
+  calendarText,
+  cancelText,
+  copyIdText,
+  createMeasureText,
+  dataTypeText,
+  descriptionText,
+  goalText,
+  measureNameText,
+  moreAboutMeasuresText,
+  newMeasureDescription,
+  newMeasureText,
+  redText,
+  weightText,
+}) => {
   return (
     <>
-      {props.assignedKPIs
-        ?.filter((kpi) => kpi.id == props.selectedKPIId)
-        .map((kpi) => (
-          <Transition.Root show={props.drawerOpen} as={Fragment}>
+      {assignedKPIs?.data
+        ?.filter((kpi: any) => kpi.id == selectedKPIId)
+        .map((kpi: any) => (
+          <Transition.Root show={drawerOpen} as={Fragment}>
             <Dialog
               as="div"
               static
               className="fixed inset-0 overflow-hidden z-50"
-              open={props.drawerOpen}
-              onClose={props.setDrawerOpen}
+              open={drawerOpen}
+              onClose={setDrawerOpen}
             >
               <div className="absolute inset-0 overflow-hidden">
                 <Dialog.Overlay className="absolute inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
@@ -33,7 +81,7 @@ export default function Drawer(props) {
                     <div className="w-screen max-w-md">
                       <form
                         className="h-full divide-y divide-gray-200 flex flex-col bg-white shadow-xl"
-                        onSubmit={(e) => props.handleCreateKPIValue(e)}
+                        onSubmit={handleCreateKPIValue}
                       >
                         <div className="flex-1 h-0 overflow-y-auto">
                           <div className="py-6 px-4 bg-blue-700 sm:px-6">
@@ -45,7 +93,7 @@ export default function Drawer(props) {
                                 <button
                                   type="button"
                                   className="bg-blue-700 rounded-md text-blue-200 hover:text-white focus:outline-none"
-                                  onClick={() => props.setDrawerOpen(false)}
+                                  onClick={() => setDrawerOpen(false)}
                                 >
                                   <span className="sr-only">Close panel</span>
                                   <XIcon
@@ -57,7 +105,7 @@ export default function Drawer(props) {
                             </div>
                             <div className="mt-1">
                               <p className="text-sm text-blue-300">
-                                {props.newMeasureDescription}
+                                {newMeasureDescription}
                               </p>
                             </div>
                           </div>
@@ -69,7 +117,7 @@ export default function Drawer(props) {
                                     htmlFor="project_name"
                                     className="block text-sm font-medium text-gray-900"
                                   >
-                                    {props.measureNameText}
+                                    {measureNameText}
                                   </label>
                                   <div className="mt-1">
                                     <input
@@ -78,8 +126,8 @@ export default function Drawer(props) {
                                       id="objectiveName"
                                       placeholder={kpi?.name}
                                       className="block w-full shadow-sm sm:text-sm focus:ring-blue-500 focus:border-blue-500 border-gray-300 rounded-md"
-                                      ref={props.name}
-                                      onChange={props.handleChange}
+                                      // ref={name}
+                                      onChange={handleChange}
                                       disabled
                                     />
                                   </div>
@@ -89,7 +137,7 @@ export default function Drawer(props) {
                                     htmlFor="description"
                                     className="block text-sm font-medium text-gray-900"
                                   >
-                                    {props.descriptionText}
+                                    {descriptionText}
                                   </label>
                                   <div className="mt-1">
                                     <textarea
@@ -98,8 +146,8 @@ export default function Drawer(props) {
                                       rows={4}
                                       className="block w-full shadow-sm sm:text-sm focus:ring-blue-500 focus:border-blue-500 border border-gray-300 rounded-md"
                                       placeholder={kpi?.description}
-                                      ref={props.description}
-                                      onChange={props.handleChange}
+                                      // ref={description}
+                                      onChange={handleChange}
                                       disabled
                                     />
                                   </div>
@@ -109,7 +157,7 @@ export default function Drawer(props) {
                               htmlFor="project_name"
                               className="block text-sm font-medium text-gray-900"
                             >
-                              {props.weightText}
+                              {weightText}
                             </label>
                             <div className="mt-1 relative">
                               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -123,8 +171,8 @@ export default function Drawer(props) {
                                 id="weight"
                                 className="block w-full shadow-sm sm:text-sm focus:ring-blue-500 focus:border-blue-500 border-gray-300 rounded-md pl-7"
                                 placeholder="0.00"
-                                ref={props.weight}
-                                onChange={props.handleChange}
+                                ref={weight}
+                                onChange={handleChange}
                               />
                             </div>
                           </div> */}
@@ -149,8 +197,8 @@ export default function Drawer(props) {
                                       id="actualValue"
                                       className="block w-full shadow-sm sm:text-sm focus:ring-blue-500 focus:border-blue-500 border-gray-300 rounded-md pl-7"
                                       placeholder="0.00"
-                                      ref={props.value}
-                                      onChange={props.handleChange}
+                                      ref={value}
+                                      onChange={handleChange}
                                     />
                                   </div>
                                 </div>
@@ -159,7 +207,7 @@ export default function Drawer(props) {
                               htmlFor="project_name"
                               className="block text-sm font-medium text-gray-900"
                             >
-                              {props.redText}
+                              {redText}
                             </label>
                             <div className="mt-1 relative">
                               <input
@@ -168,8 +216,8 @@ export default function Drawer(props) {
                                 id="weight"
                                 className="block w-full shadow-sm sm:text-sm focus:ring-blue-500 focus:border-blue-500 border-gray-300 rounded-md"
                                 placeholder="0.00"
-                                ref={props.red}
-                                onChange={props.handleChange}
+                                ref={red}
+                                onChange={handleChange}
                               />
                             </div>
                           </div>
@@ -178,7 +226,7 @@ export default function Drawer(props) {
                               htmlFor="project_name"
                               className="block text-sm font-medium text-gray-900"
                             >
-                              {props.goalText}
+                              {goalText}
                             </label>
                             <div className="mt-1 relative">
                               <input
@@ -187,8 +235,8 @@ export default function Drawer(props) {
                                 id="weight"
                                 className="block w-full shadow-sm sm:text-sm focus:ring-blue-500 focus:border-blue-500 border-gray-300 rounded-md"
                                 placeholder="0.00"
-                                ref={props.goal}
-                                onChange={props.handleChange}
+                                ref={goal}
+                                onChange={handleChange}
                               />
                             </div>
                           </div> */}
@@ -197,14 +245,14 @@ export default function Drawer(props) {
                               htmlFor="location"
                               className="block text-sm font-medium text-gray-900"
                             >
-                              {props.dataTypeText}
+                              {dataTypeText}
                             </label>
                             <select
                               id="dataType"
                               name="dataType"
                               className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
-                              ref={props.dataType}
-                              onChange={props.handleChange}
+                              ref={dataType}
+                              onChange={handleChange}
                             >
                               <option>Số liệu</option>
                               <option>Tiền tệ</option>
@@ -216,14 +264,14 @@ export default function Drawer(props) {
                               htmlFor="location"
                               className="block text-sm font-medium text-gray-900"
                             >
-                              {props.calendarText}
+                              {calendarText}
                             </label>
                             <select
                               id="calendar"
                               name="calendar"
                               className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
-                              ref={props.calendar}
-                              onChange={props.handleChange}
+                              ref={calendar}
+                              onChange={handleChange}
                             >
                               <option>Tháng</option>
                               <option>Quý</option>
@@ -241,9 +289,7 @@ export default function Drawer(props) {
                                       className="h-5 w-5 text-blue-500 group-hover:text-blue-900"
                                       aria-hidden="true"
                                     />
-                                    <span className="ml-2">
-                                      {props.copyIdText}
-                                    </span>
+                                    <span className="ml-2">{copyIdText}</span>
                                   </a>
                                 </div>
                                 <div className="mt-4 flex text-sm">
@@ -256,7 +302,7 @@ export default function Drawer(props) {
                                       aria-hidden="true"
                                     />
                                     <span className="ml-2">
-                                      {props.moreAboutMeasuresText}
+                                      {moreAboutMeasuresText}
                                     </span>
                                   </a>
                                 </div>
@@ -268,9 +314,9 @@ export default function Drawer(props) {
                           <button
                             type="button"
                             className="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                            onClick={() => props.setDrawerOpen(false)}
+                            onClick={() => setDrawerOpen(false)}
                           >
-                            {props.cancelText}
+                            {cancelText}
                           </button>
                           <button
                             type="submit"
@@ -289,4 +335,5 @@ export default function Drawer(props) {
         ))}
     </>
   );
-}
+};
+export default Drawer;

@@ -6,26 +6,35 @@ import { useDispatch } from "react-redux";
 import { signIn } from "../../actions/auth";
 import Alert from "../../parts/shared/Alert";
 
-const authInitial = { email: "", password: "" };
+interface IState {
+  credentials: {
+    email: string;
+    password: string;
+  };
+}
 
-export default function SignIn() {
+export default function SignIn(): JSX.Element {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const [authData, setAuthData] = useState(authInitial);
-  const [error, setError] = useState("");
+  const [credentials, setCredentials] = useState<IState["credentials"]>({
+    email: "",
+    password: "",
+  });
 
-  const handleChange = (e) => {
+  const [error, setError] = useState<string>("");
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setError("");
-    setAuthData({ ...authData, [e.target.name]: e.target.value });
+    setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
 
     try {
       setError("");
-      dispatch(signIn(authData, history));
+      dispatch(signIn(credentials, history));
     } catch {
       setError("Failed to sign in.");
     }
@@ -168,6 +177,7 @@ export default function SignIn() {
                         id="email"
                         name="email"
                         type="email"
+                        value={credentials.email}
                         onChange={handleChange}
                         autoComplete="email"
                         required
@@ -188,6 +198,7 @@ export default function SignIn() {
                         id="password"
                         name="password"
                         type="password"
+                        value={credentials.password}
                         onChange={handleChange}
                         autoComplete="current-password"
                         required
