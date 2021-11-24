@@ -2,7 +2,7 @@ import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { XIcon } from "@heroicons/react/outline";
 import { LinkIcon, QuestionMarkCircleIcon } from "@heroicons/react/solid";
-import { IKPI } from "../../interfaces/kpi.interface";
+import { IKPI } from "../../types/kpi";
 
 interface IProps {
   drawerOpen: boolean;

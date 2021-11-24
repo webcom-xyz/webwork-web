@@ -6,7 +6,7 @@ import {
   TrashIcon,
 } from "@heroicons/react/solid";
 import classNames from "../../utils/classNames";
-import { IKPI } from "../../interfaces/kpi.interface";
+import { IKPI } from "../../types/kpi";
 
 interface IProps {
   assignedKPIs: IKPI[];

@@ -10,3 +10,10 @@ export interface IKPI {
   calendar: string;
   createDate: string;
 }
+
+export type AssignedKPIsDTO = {
+  data: IKPI[];
+  details: {
+    message: string;
+  }
+}

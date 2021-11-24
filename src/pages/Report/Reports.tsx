@@ -1,9 +1,4 @@
-import React, {
-  useState,
-  useEffect,
-  useRef,
-  FormEvent,
-} from "react";
+import React, { useState, useEffect, useRef, FormEvent } from "react";
 import Sidebar from "../../components/Scorecard/Sidebar";
 import KPITable from "../../components/Reports/KPITable";
 import PageHeading from "../../components/shared/PageHeading";
@@ -16,28 +11,24 @@ import { useTranslation } from "react-i18next";
 import Drawer from "../../components/Reports/Drawer";
 import TimePeriodSelector from "../../components/Reports/TimePeriodSelector";
 import { RootState } from "../../store";
-import { IKPI } from "../../interfaces/kpi.interface";
+import { AssignedKPIsDTO } from "../../types/kpi";
+import { CurrentUserDTO } from "../../types/user";
 
 export interface IState {
   valueArgs: {
     month?: string;
     year?: string;
   };
-  assignedKPIs: {
-    data: IKPI[];
-    details: {
-      message: string;
-    };
-  };
+  assignedKPIs: AssignedKPIsDTO;
 }
 
 const Reports: React.FC = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const currentUser = useSelector<any>((state) => state.user.currentUser);
+  const currentUser = useSelector<RootState, CurrentUserDTO>((state) => state.user.currentUser);
   const location = useLocation();
   const dispatch = useDispatch();
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const assignedKPIs = useSelector<RootState, IState["assignedKPIs"]>(
+  const assignedKPIs = useSelector<RootState, AssignedKPIsDTO>(
     (state) => state.kpi.assignedKPIs
   );
   const { t, i18n } = useTranslation();

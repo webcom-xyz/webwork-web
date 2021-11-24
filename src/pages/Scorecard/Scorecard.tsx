@@ -1,19 +1,10 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, FormEvent } from "react";
 import Sidebar from "../../components/Scorecard/Sidebar";
-import Topbar from "../../components/Scorecard/Topbar";
 import Tabs from "../../components/Scorecard/Tabs";
 import { useHistory, useLocation, useParams } from "react-router-dom";
 import CreateNewPerspectiveDrawer from "../../components/Scorecard/CreateNewPerspectiveDrawer";
 import { useDispatch, useSelector } from "react-redux";
 import ConfirmDeleteDialog from "../../components/shared/ConfirmDeleteDialog";
-// import ReactFlow, {
-//   removeElements,
-//   addEdge,
-//   Controls,
-//   Background,
-// } from "react-flow-renderer";
-// import CustomEdge from "../../parts/Scorecard/CustomEdge";
-
 import PageHeading from "../../components/Scorecard/PageHeading";
 import months from "../../utils/months";
 import years from "../../utils/years";
@@ -32,42 +23,20 @@ import DetailsModal from "../../components/shared/DetailsDrawer";
 import { createNewPerspective } from "../../actions/perspective";
 import Notification from "../../parts/shared/Notification";
 import { useTranslation } from "react-i18next";
-// const initialElements = [
-//   { id: "edges-2", data: { label: "Node 2" }, position: { x: 150, y: 100 } },
-//   { id: "edges-2a", data: { label: "Node 2a" }, position: { x: 0, y: 180 } },
-//   {
-//     id: "edges-e1-2",
-//     source: "edges-1",
-//     target: "edges-2",
-//     label: "bezier edge (default)",
-//     className: "normal-edge",
-//   },
-//   {
-//     id: "edges-e2-2a",
-//     source: "edges-2",
-//     target: "edges-2a",
-//     type: "smoothstep",
-//     label: "smoothstep edge",
-//   },
-//   {
-//     id: "edges-e2-3",
-//     source: "edges-2",
-//     target: "edges-3",
-//     type: "step",
-//     label: "step edge",
-//   },
-// ];
+import { ScorecardDTO, ScorecardParams } from "../../types/scorecard";
+import { RootState } from "../../store";
+import { IPerspective, PerspectivesDTO } from "../../types/perspective";
 
-// const edgeTypes = {
-//   custom: CustomEdge,
-// };
+interface IState {
+  perspectiveData: IPerspective;
+}
 
-export default function Scorecard(props) {
+export default function Scorecard() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const { scorecardId } = useParams();
-  const monthSelected = useRef("");
-  const quarterSelected = useRef("");
-  const yearSelected = useRef("");
+  const { scorecardId } = useParams<ScorecardParams>();
+  const monthSelected = useRef<HTMLSelectElement>(null);
+  const quarterSelected = useRef<HTMLSelectElement>(null);
+  const yearSelected = useRef<HTMLSelectElement>(null);
   const [timePeriodSelected, setTimePeriodSelected] = useState("Monthly");
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [confirmDeleteDialogOpen, setConfirmDeleteDialogOpen] = useState(false);
@@ -79,36 +48,41 @@ export default function Scorecard(props) {
   const [showNotification, setShowNotification] = useState(false);
   const dispatch = useDispatch();
   const location = useLocation();
-  const scorecard = useSelector((state) => state.scorecard.scorecard);
-  const perspectives = useSelector((state) => state.scorecard.perspectives);
+  const scorecard = useSelector<RootState, ScorecardDTO>(
+    (state) => state.scorecard.scorecard
+  );
+  const perspectives = useSelector<RootState, PerspectivesDTO>(
+    (state) => state.scorecard.perspectives
+  );
 
   // Details modal
   const [detailsOpen, setDetailsOpen] = useState(false);
 
-  // const [elements, setElements] = useState(initialElements);
-  // const onElementsRemove = (elementsToRemove) =>
-  //   setElements((els) => removeElements(elementsToRemove, els));
-  // const onConnect = (params) => setElements((els) => addEdge(params, els));
-
-  // Perspective data to create perspective
   const { t, i18n } = useTranslation();
   const [refetch, setRefetch] = useState(false);
-  const [perspectiveData, setPerspectiveData] = useState({});
-  const name = useRef("");
-  const weight = useRef(0);
-  const description = useRef("");
+  const [perspectiveData, setPerspectiveData] = useState<
+    IState["perspectiveData"]
+  >({
+    name: "",
+    weight: 0,
+    description: "",
+    scorecardId: "",
+  });
+  const nameRef = useRef<HTMLInputElement>(null);
+  const weightRef = useRef<HTMLInputElement>(null);
+  const descriptionRef = useRef<HTMLInputElement>(null);
 
-  const handleChange = () => {
+  const handleChange = (): void => {
     setPerspectiveData({
       ...perspectiveData,
-      name: name.current.value,
-      weight: parseInt(weight.current.value),
-      description: description.current.value,
+      name: nameRef.current?.value,
+      weight: Number(weightRef.current?.value),
+      description: descriptionRef.current?.value,
       scorecardId: scorecardId,
     });
   };
 
-  const handleCreateNewPerspective = (e) => {
+  const handleCreateNewPerspective = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     try {
       dispatch(createNewPerspective(perspectiveData));
@@ -149,9 +123,9 @@ export default function Scorecard(props) {
       <CreateNewPerspectiveDrawer
         drawerOpen={drawerOpen}
         setDrawerOpen={setDrawerOpen}
-        name={name}
-        weight={weight}
-        description={description}
+        name={nameRef}
+        weight={weightRef}
+        description={descriptionRef}
         handleChange={handleChange}
         handleCreateNewPerspective={handleCreateNewPerspective}
         newPerspectiveText={t("scorecard.drawer.newPerspective")}

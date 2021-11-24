@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Fragment } from "react";
 import { Dialog, Transition, Disclosure } from "@headlessui/react";
 import {
@@ -29,19 +29,52 @@ import { signOut } from "../../actions/auth";
 import { getAssignedObjectives } from "../../actions/objective";
 import { getAssignedPerspectives } from "../../actions/perspective";
 import { useTranslation } from "react-i18next";
+import { RootState } from "../../store";
+import { CurrentUserDTO } from "../../types/user";
+import { ScorecardsDTO } from "../../types/scorecard";
+import { PerspectivesDTO } from "../../types/perspective";
+import { ObjectivesDTO } from "../../types/objective";
 
-export default function Sidebar(props) {
+interface IProps {
+  sidebarOpen: boolean;
+  setSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  scorecardId?: string;
+  refetch?: boolean;
+  homeActive?: boolean;
+  employeesActive?: boolean;
+  reportsActive?: boolean;
+  billingActive?: boolean;
+  perspectiveId?: string;
+  objectiveId?: string;
+}
+
+const Sidebar: React.FC<IProps> = ({
+  sidebarOpen,
+  setSidebarOpen,
+  scorecardId,
+  refetch,
+  homeActive,
+  employeesActive,
+  reportsActive,
+  billingActive,
+  perspectiveId,
+  objectiveId,
+}) => {
   const history = useHistory();
-  const currentUser = useSelector((state) => state.user.currentUser);
-  const scorecards = useSelector((state) => state.scorecard.scorecards);
+  const currentUser = useSelector<RootState, CurrentUserDTO>(
+    (state) => state.user.currentUser
+  );
+  const scorecards = useSelector<RootState, ScorecardsDTO>(
+    (state) => state.scorecard.scorecards
+  );
 
-  const assignedScorecards = useSelector(
+  const assignedScorecards = useSelector<RootState, ScorecardsDTO>(
     (state) => state.scorecard.assignedScorecards
   );
-  const assignedPerspectives = useSelector(
+  const assignedPerspectives = useSelector<RootState, PerspectivesDTO>(
     (state) => state.perspective.assignedPerspectives
   );
-  const assignedObjectives = useSelector(
+  const assignedObjectives = useSelector<RootState, ObjectivesDTO>(
     (state) => state.objective.assignedObjectives
   );
 
@@ -54,21 +87,21 @@ export default function Sidebar(props) {
       name: t("sidebar.dashboard"),
       href: "#",
       icon: HomeIcon,
-      current: props.homeActive,
+      current: homeActive,
       page: "/dashboard",
     },
     {
       name: t("sidebar.employee"),
       href: "#",
       icon: UserGroupIcon,
-      current: props.employeesActive,
+      current: employeesActive,
       page: "/employees",
     },
     {
       name: t("sidebar.report"),
       href: "#",
       icon: DocumentReportIcon,
-      current: props.reportsActive,
+      current: reportsActive,
       page: "/reports",
     },
   ];
@@ -78,14 +111,14 @@ export default function Sidebar(props) {
       name: t("sidebar.billing"),
       href: "#",
       icon: CreditCardIcon,
-      current: props.billingActive,
+      current: billingActive,
       page: "/account/plan-billing",
     },
     { name: t("sidebar.support"), href: "#", icon: SupportIcon },
     { name: t("sidebar.security"), href: "#", icon: ShieldCheckIcon },
   ];
 
-  const handleSignOut = () => {
+  const handleSignOut = (): void => {
     try {
       dispatch(signOut(history));
     } catch (error) {
@@ -93,10 +126,9 @@ export default function Sidebar(props) {
     }
   };
 
-  if (props.refetch) {
+  if (refetch) {
     try {
       dispatch(getAllScorecards());
-      // dispatch(getAssignedObjectives());
     } catch (error) {
       console.log(error);
     }
@@ -116,13 +148,13 @@ export default function Sidebar(props) {
 
   return (
     <>
-      <Transition.Root show={props.sidebarOpen} as={Fragment}>
+      <Transition.Root show={sidebarOpen} as={Fragment}>
         <Dialog
           as="div"
           static
           className="fixed inset-0 flex z-40 lg:hidden"
-          open={props.sidebarOpen}
-          onClose={props.setSidebarOpen}
+          open={sidebarOpen}
+          onClose={setSidebarOpen}
         >
           <Transition.Child
             as={Fragment}
@@ -157,7 +189,7 @@ export default function Sidebar(props) {
                 <div className="absolute top-0 right-0 -mr-12 pt-2">
                   <button
                     className="ml-1 flex items-center justify-center h-10 w-10 rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
-                    onClick={() => props.setSidebarOpen(false)}
+                    onClick={() => setSidebarOpen(false)}
                   >
                     <span className="sr-only">Close sidebar</span>
                     <XIcon className="h-6 w-6 text-white" aria-hidden="true" />
@@ -199,7 +231,7 @@ export default function Sidebar(props) {
 
                   {/* Scorecard section for mobile */}
                   {scorecards ? (
-                    scorecards.data.map((scorecard) => (
+                    scorecards.data.map((scorecard: any) => (
                       <>
                         <Disclosure
                           as="div"
@@ -210,7 +242,7 @@ export default function Sidebar(props) {
                             <>
                               <Disclosure.Button
                                 className={classNames(
-                                  scorecard.id === props.scorecardId
+                                  scorecard.id === scorecardId
                                     ? "bg-blue-800 text-white"
                                     : "text-blue-100 hover:text-white hover:bg-blue-600",
                                   "group w-full flex items-center px-2 py-2 text-left text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -246,27 +278,29 @@ export default function Sidebar(props) {
                               </Disclosure.Button>
 
                               <Disclosure.Panel className="space-y-1">
-                                {scorecard.perspectives.map((perspective) => (
-                                  <>
-                                    <a
-                                      onClick={(e) =>
-                                        handleLink(
-                                          e,
-                                          `/${scorecard.id}/${perspective.id}`,
-                                          history
-                                        )
-                                      }
-                                      className={classNames(
-                                        perspective.id === props.perspectiveId
-                                          ? "bg-blue-800 text-white"
-                                          : "text-blue-100 hover:text-white hover:bg-blue-600",
-                                        "group w-full flex items-center pl-11 pr-2 py-2 text-sm font-medium rounded-md hover:text-white hover:bg-blue-600 cursor-pointer"
-                                      )}
-                                    >
-                                      {perspective.name}
-                                    </a>
-                                  </>
-                                ))}
+                                {scorecard.perspectives.map(
+                                  (perspective: any) => (
+                                    <>
+                                      <a
+                                        onClick={(e) =>
+                                          handleLink(
+                                            e,
+                                            `/${scorecard.id}/${perspective.id}`,
+                                            history
+                                          )
+                                        }
+                                        className={classNames(
+                                          perspective.id === perspectiveId
+                                            ? "bg-blue-800 text-white"
+                                            : "text-blue-100 hover:text-white hover:bg-blue-600",
+                                          "group w-full flex items-center pl-11 pr-2 py-2 text-sm font-medium rounded-md hover:text-white hover:bg-blue-600 cursor-pointer"
+                                        )}
+                                      >
+                                        {perspective.name}
+                                      </a>
+                                    </>
+                                  )
+                                )}
                               </Disclosure.Panel>
                             </>
                           )}
@@ -338,7 +372,7 @@ export default function Sidebar(props) {
             >
               <div className="space-y-1 divide-y divide-blue-800">
                 <div className="px-2 mb-6">
-                  {navigation.map((item) =>
+                  {navigation.map((item: any) =>
                     !item.children ? (
                       <div key={item.name}>
                         <a
@@ -369,7 +403,9 @@ export default function Sidebar(props) {
                         {({ open }) => (
                           <>
                             <Disclosure.Button
-                              onClick={(e) => handleLink(e, item.page, history)}
+                              onClick={(e: any) =>
+                                handleLink(e, item.page, history)
+                              }
                               className={classNames(
                                 item.current
                                   ? "bg-blue-800 text-white"
@@ -407,7 +443,7 @@ export default function Sidebar(props) {
                             </Disclosure.Button>
 
                             <Disclosure.Panel className="space-y-1">
-                              {item.children.map((subItem) => (
+                              {item.children.map((subItem: any) => (
                                 <a
                                   key={subItem.name}
                                   href={subItem.href}
@@ -430,7 +466,7 @@ export default function Sidebar(props) {
                 <div className="px-2 mt-6 py-6">
                   {/* Scorecards section for desktop */}
                   {scorecards ? (
-                    scorecards.data.map((scorecard) => (
+                    scorecards.data.map((scorecard: any) => (
                       <Disclosure
                         as="div"
                         key={scorecard.id}
@@ -440,7 +476,7 @@ export default function Sidebar(props) {
                           <>
                             <Disclosure.Button
                               className={classNames(
-                                scorecard.id === props.scorecardId
+                                scorecard.id === scorecardId
                                   ? "bg-blue-800 text-white"
                                   : "text-blue-100 hover:text-white hover:bg-blue-600",
                                 "group w-full flex items-center pl-2 pr-1 py-2 text-left text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -452,9 +488,6 @@ export default function Sidebar(props) {
                               />
                               <span
                                 onClick={() => history.push(`/${scorecard.id}`)}
-                                // onClick={(e) =>
-                                //   handleLink(e, `/${scorecard.id}`, history)
-                                // }
                                 className="flex-1"
                               >
                                 {scorecard.name}
@@ -477,31 +510,26 @@ export default function Sidebar(props) {
                             </Disclosure.Button>
 
                             <Disclosure.Panel className="space-y-1">
-                              {scorecard.perspectives.map((perspective) => (
-                                <a
-                                  key={perspective.id}
-                                  onClick={() =>
-                                    history.push(
-                                      `/${scorecard.id}/${perspective.id}`
-                                    )
-                                  }
-                                  // onClick={(e) =>
-                                  //   handleLink(
-                                  //     e,
-                                  //     `/${scorecard.id}/${perspective.id}`,
-                                  //     history
-                                  //   )
-                                  // }
-                                  className={classNames(
-                                    perspective.id === props.perspectiveId
-                                      ? "bg-blue-800 text-white"
-                                      : "text-blue-100 hover:text-white hover:bg-blue-600",
-                                    "group w-full flex items-center pl-11 pr-2 py-2 text-sm font-medium rounded-md hover:text-white hover:bg-blue-600 cursor-pointer"
-                                  )}
-                                >
-                                  {perspective.name}
-                                </a>
-                              ))}
+                              {scorecard.perspectives.map(
+                                (perspective: any) => (
+                                  <a
+                                    key={perspective.id}
+                                    onClick={() =>
+                                      history.push(
+                                        `/${scorecard.id}/${perspective.id}`
+                                      )
+                                    }
+                                    className={classNames(
+                                      perspective.id === perspectiveId
+                                        ? "bg-blue-800 text-white"
+                                        : "text-blue-100 hover:text-white hover:bg-blue-600",
+                                      "group w-full flex items-center pl-11 pr-2 py-2 text-sm font-medium rounded-md hover:text-white hover:bg-blue-600 cursor-pointer"
+                                    )}
+                                  >
+                                    {perspective.name}
+                                  </a>
+                                )
+                              )}
                             </Disclosure.Panel>
                           </>
                         )}
@@ -515,14 +543,14 @@ export default function Sidebar(props) {
                 <div className="px-2 mt-6 py-6">
                   <div className="">
                     {assignedScorecards ? (
-                      assignedScorecards.data.map((objective) => (
+                      assignedScorecards.data.map((objective: any) => (
                         <div key={objective.id}>
                           <a
                             onClick={(e) =>
                               handleLink(e, `/${objective.id}`, history)
                             }
                             className={classNames(
-                              objective.id === props.scorecardId
+                              objective.id === scorecardId
                                 ? "bg-blue-800 text-white"
                                 : "text-blue-100 hover:text-white hover:bg-blue-600",
                               "cursor-pointer group w-full flex items-center pl-2 py-2 text-sm font-medium rounded-md"
@@ -530,7 +558,7 @@ export default function Sidebar(props) {
                           >
                             <ChartPieIcon
                               className={classNames(
-                                objective.id === props.scorecardId
+                                objective.id === scorecardId
                                   ? "text-blue-200"
                                   : "text-blue-200",
                                 "mr-3 flex-shrink-0 h-6 w-6"
@@ -577,7 +605,7 @@ export default function Sidebar(props) {
 
                   <div className="">
                     {assignedPerspectives ? (
-                      assignedPerspectives.data.map((objective) => (
+                      assignedPerspectives.data.map((objective: any) => (
                         <div key={objective.id}>
                           <a
                             onClick={(e) =>
@@ -588,7 +616,7 @@ export default function Sidebar(props) {
                               )
                             }
                             className={classNames(
-                              objective.id === props.perspectiveId
+                              objective.id === perspectiveId
                                 ? "bg-blue-800 text-white"
                                 : "text-blue-100 hover:text-white hover:bg-blue-600",
                               "cursor-pointer group w-full flex items-center pl-2 py-2 text-sm font-medium rounded-md"
@@ -596,7 +624,7 @@ export default function Sidebar(props) {
                           >
                             <OfficeBuildingIcon
                               className={classNames(
-                                objective.id === props.perspectiveId
+                                objective.id === perspectiveId
                                   ? "text-blue-200"
                                   : "text-blue-200",
                                 "mr-3 flex-shrink-0 h-6 w-6"
@@ -643,7 +671,7 @@ export default function Sidebar(props) {
 
                   <div className="">
                     {assignedObjectives ? (
-                      assignedObjectives.data.map((objective) => (
+                      assignedObjectives.data.map((objective: any) => (
                         <div key={objective.id}>
                           <a
                             onClick={(e) =>
@@ -654,7 +682,7 @@ export default function Sidebar(props) {
                               )
                             }
                             className={classNames(
-                              objective.id === props.objectiveId
+                              objective.id === objectiveId
                                 ? "bg-blue-800 text-white"
                                 : "text-blue-100 hover:text-white hover:bg-blue-600",
                               "cursor-pointer group w-full flex items-center pl-2 py-2 text-sm font-medium rounded-md"
@@ -662,7 +690,7 @@ export default function Sidebar(props) {
                           >
                             <StopIcon
                               className={classNames(
-                                objective.id === props.objectiveId
+                                objective.id === objectiveId
                                   ? "text-blue-200"
                                   : "text-blue-200",
                                 "mr-3 flex-shrink-0 h-6 w-6"
@@ -739,4 +767,5 @@ export default function Sidebar(props) {
       </div>
     </>
   );
-}
+};
+export default Sidebar;
