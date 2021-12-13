@@ -45,7 +45,7 @@ export default function Stats(props) {
         {stats.map((item) => (
           <div
             key={item.id}
-            className="relative bg-white pt-5 px-4 pb-12 sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden"
+            className="relative bg-white pt-5 px-4 pb-12 sm:pt-6 sm:px-6 shadow rounded-md overflow-hidden"
           >
             <dt>
               <div className="absolute bg-yellow-500 rounded-md p-3">

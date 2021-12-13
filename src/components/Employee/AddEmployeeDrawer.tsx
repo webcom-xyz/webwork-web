@@ -2,15 +2,33 @@ import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { XIcon } from "@heroicons/react/outline";
 import { LinkIcon, QuestionMarkCircleIcon } from "@heroicons/react/solid";
-export default function Drawer(props) {
+
+interface IProps {
+  drawerOpen: boolean;
+  setDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  handleAddEmployee: (e: React.FormEvent<HTMLFormElement>) => void;
+  handleChange: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => void;
+  emailRef: React.RefObject<HTMLInputElement>;
+  roleRef?: React.RefObject<HTMLSelectElement>;
+}
+export const AddEmployeeDrawer: React.FC<IProps> = ({
+  drawerOpen,
+  setDrawerOpen,
+  handleAddEmployee,
+  handleChange,
+  emailRef,
+  roleRef,
+}) => {
   return (
-    <Transition.Root show={props.drawerOpen} as={Fragment}>
+    <Transition.Root show={drawerOpen} as={Fragment}>
       <Dialog
         as="div"
         static
         className="fixed inset-0 overflow-hidden z-50"
-        open={props.drawerOpen}
-        onClose={props.setDrawerOpen}
+        open={drawerOpen}
+        onClose={setDrawerOpen}
       >
         <div className="absolute inset-0 overflow-hidden">
           <Dialog.Overlay className="absolute inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
@@ -28,7 +46,7 @@ export default function Drawer(props) {
               <div className="w-screen max-w-md">
                 <form
                   className="h-full divide-y divide-gray-200 flex flex-col bg-white shadow-xl"
-                  onSubmit={(e) => props.handleAddMembers(e)}
+                  onSubmit={handleAddEmployee}
                 >
                   <div className="flex-1 h-0 overflow-y-auto">
                     <div className="py-6 px-4 bg-blue-700 sm:px-6">
@@ -40,7 +58,7 @@ export default function Drawer(props) {
                           <button
                             type="button"
                             className="bg-blue-700 rounded-md text-blue-200 hover:text-white focus:outline-none"
-                            onClick={() => props.setDrawerOpen(false)}
+                            onClick={() => setDrawerOpen(false)}
                           >
                             <span className="sr-only">Close panel</span>
                             <XIcon className="h-6 w-6" aria-hidden="true" />
@@ -71,28 +89,31 @@ export default function Drawer(props) {
                                 id="email"
                                 placeholder="..."
                                 className="block w-full shadow-sm sm:text-sm focus:ring-blue-500 focus:border-blue-500 border-gray-300 rounded-md"
-                                ref={props.email}
-                                onChange={props.handleChange}
+                                ref={emailRef}
+                                onChange={handleChange}
                               />
                             </div>
                           </div>
-                          <div>
-                            <label
-                              htmlFor="location"
-                              className="block text-sm font-medium text-gray-900"
-                            >
-                              Quyền hạn
-                            </label>
-                            <select
-                              id="location"
-                              name="location"
-                              className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
-                            >
-                              <option value="Cấp C">Cấp C</option>
-                              <option value="Quản lý">Quản lý</option>
-                              <option value="Nhân viên">Nhân viên</option>
-                            </select>
-                          </div>
+                          {roleRef && (
+                            <div>
+                              <label
+                                htmlFor="location"
+                                className="block text-sm font-medium text-gray-900"
+                              >
+                                Quyền hạn
+                              </label>
+                              <select
+                                id="location"
+                                name="location"
+                                className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
+                                ref={roleRef}
+                                onChange={handleChange}
+                              >
+                                <option value="WATCHER">Người xem</option>
+                                <option value="UPDATER">Người cập nhật</option>
+                              </select>
+                            </div>
+                          )}
                         </div>
                         <div className="pt-4 pb-6">
                           <div className="flex text-sm">
@@ -129,7 +150,7 @@ export default function Drawer(props) {
                     <button
                       type="button"
                       className="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                      onClick={() => props.setDrawerOpen(false)}
+                      onClick={() => setDrawerOpen(false)}
                     >
                       Hủy
                     </button>
@@ -148,4 +169,5 @@ export default function Drawer(props) {
       </Dialog>
     </Transition.Root>
   );
-}
+};
+export default AddEmployeeDrawer;

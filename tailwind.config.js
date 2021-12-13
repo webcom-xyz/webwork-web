@@ -4,14 +4,15 @@ const { fontFamily } = require("tailwindcss/defaulttheme");
 module.exports = {
   purge: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
   darkMode: false, // or 'media' or 'class'
+  // important: true,
   theme: {
     extend: {
       colors: {
         blue: colors.blue,
       },
       fontFamily: {
-        "sans": ["Roboto", "sans-serif"]
-      }
+        sans: ["Roboto", "sans-serif"],
+      },
     },
   },
   variants: {

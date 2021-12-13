@@ -7,6 +7,15 @@ export interface IPerspective {
   createDate?: string;
 }
 
+
+export type PerspectiveDTO = {
+  data: IPerspective;
+  details: {
+    message: string;
+  };
+};
+
+
 export type PerspectivesDTO = {
   data: IPerspective[];
   details: {

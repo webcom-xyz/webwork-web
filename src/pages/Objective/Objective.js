@@ -3,7 +3,7 @@ import Sidebar from "../../components/Scorecard/Sidebar";
 import Topbar from "../../components/Scorecard/Topbar";
 import { useParams, useLocation, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import Drawer from "../../components/Objective/Drawer";
+import Drawer from "../../components/Objective/CreateMeasureDrawer";
 import { createNewKPI } from "../../actions/kpi";
 import { getKPIsOfObjective, getObjective } from "../../actions/objective";
 import PageHeading from "../../components/Scorecard/PageHeading";

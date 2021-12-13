@@ -3,7 +3,7 @@ export default function TimePeriodSelector(props) {
     <div className="mt-8">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mt-2 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          <span className="col-span-1 relative z-0 inline-flex rounded-lg">
+          <span className="col-span-1 relative z-0 inline-flex rounded-md">
             <button
               type="button"
               onClick={() => props.setTimePeriodSelected("Monthly")}
@@ -36,7 +36,7 @@ export default function TimePeriodSelector(props) {
                   ref={props.monthSelected}
                   onChange={props.handleChange}
                   defaultValue="01"
-                  className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-lg"
+                  className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
                 >
                   <option value="01" selected>Tháng 1</option>
                   <option value="02">Tháng 2</option>
@@ -60,7 +60,7 @@ export default function TimePeriodSelector(props) {
                   ref={props.yearSelected}
                   onChange={props.setYearSelected}
                   defaultValue="2021"
-                  className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-lg"
+                  className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
                 >
                   <option value="2021" selected>Năm 2021</option>
                   <option value="2022">Năm 2022</option>
@@ -77,7 +77,7 @@ export default function TimePeriodSelector(props) {
                   name="quarterSelector"
                   ref={props.quarterSelected}
                   onChange={props.setQuarterSelected}
-                  className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-lg"
+                  className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
                 >
                   <option>Quý 1</option>
                   <option>Quý 2</option>
@@ -92,7 +92,7 @@ export default function TimePeriodSelector(props) {
                   name="yeaSelector"
                   ref={props.yearSelected}
                   onChange={props.setYearSelected}
-                  className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-lg"
+                  className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
                 >
                   <option>Năm 2021</option>
                   <option>Năm 2022</option>
@@ -109,7 +109,7 @@ export default function TimePeriodSelector(props) {
                   name="yeaSelector"
                   ref={props.yearSelected}
                   onChange={props.setYearSelected}
-                  className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-lg"
+                  className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
                 >
                   <option>Năm 2021</option>
                   <option>Năm 2022</option>

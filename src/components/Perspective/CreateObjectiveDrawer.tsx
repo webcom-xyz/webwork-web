@@ -1,7 +1,11 @@
 import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { XIcon } from "@heroicons/react/outline";
-import { LinkIcon, QuestionMarkCircleIcon } from "@heroicons/react/solid";
+import {
+  LinkIcon,
+  PlusIcon,
+  QuestionMarkCircleIcon,
+} from "@heroicons/react/solid";
 
 const team = [
   {
@@ -41,15 +45,55 @@ const team = [
   },
 ];
 
-export default function Drawer(props) {
+interface IProps {
+  drawerOpen: boolean;
+  setDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  nameRef?: React.RefObject<HTMLInputElement>;
+  weightRef?: React.RefObject<HTMLInputElement>;
+  descriptionRef?: React.RefObject<HTMLTextAreaElement>;
+  handleChange: (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
+  ) => void;
+  handleCreateNewObjective: (e: React.FormEvent<HTMLFormElement>) => void;
+  newObjectiveText: string;
+  newObjectiveDescription: string;
+  objectiveNameText: string;
+  descriptionText: string;
+  weightText: string;
+  copyIdText: string;
+  moreAboutObjectiveText: string;
+  createObjectiveText: string;
+  cancelText: string;
+}
+
+const CreateObjectiveDrawer: React.FC<IProps> = ({
+  drawerOpen,
+  handleChange,
+  setDrawerOpen,
+  descriptionRef,
+  nameRef,
+  weightRef,
+  handleCreateNewObjective,
+  cancelText,
+  copyIdText,
+  createObjectiveText,
+  descriptionText,
+  moreAboutObjectiveText,
+  newObjectiveDescription,
+  newObjectiveText,
+  objectiveNameText,
+  weightText,
+}) => {
   return (
-    <Transition.Root show={props.drawerOpen} as={Fragment}>
+    <Transition.Root show={drawerOpen} as={Fragment}>
       <Dialog
         as="div"
         static
         className="fixed inset-0 overflow-hidden z-50"
-        open={props.drawerOpen}
-        onClose={props.setDrawerOpen}
+        open={drawerOpen}
+        onClose={setDrawerOpen}
       >
         <div className="absolute inset-0 overflow-hidden">
           <Dialog.Overlay className="absolute inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
@@ -67,19 +111,19 @@ export default function Drawer(props) {
               <div className="w-screen max-w-md">
                 <form
                   className="h-full divide-y divide-gray-200 flex flex-col bg-white shadow-xl"
-                  onSubmit={(e) => props.handleCreateNewKPI(e)}
+                  onSubmit={handleCreateNewObjective}
                 >
                   <div className="flex-1 h-0 overflow-y-auto">
                     <div className="py-6 px-4 bg-blue-700 sm:px-6">
                       <div className="flex items-center justify-between">
                         <Dialog.Title className="text-lg font-medium text-white">
-                          {props.newMeasureText}
+                          {newObjectiveText}
                         </Dialog.Title>
                         <div className="ml-3 h-7 flex items-center">
                           <button
                             type="button"
                             className="bg-blue-700 rounded-md text-blue-200 hover:text-white focus:outline-none"
-                            onClick={() => props.setDrawerOpen(false)}
+                            onClick={() => setDrawerOpen(false)}
                           >
                             <span className="sr-only">Close panel</span>
                             <XIcon className="h-6 w-6" aria-hidden="true" />
@@ -88,7 +132,7 @@ export default function Drawer(props) {
                       </div>
                       <div className="mt-1">
                         <p className="text-sm text-blue-300">
-                          {props.newMeasureDescription}
+                          {newObjectiveDescription}
                         </p>
                       </div>
                     </div>
@@ -100,7 +144,7 @@ export default function Drawer(props) {
                               htmlFor="project_name"
                               className="block text-sm font-medium text-gray-900"
                             >
-                              {props.measureNameText}
+                              {objectiveNameText}
                             </label>
                             <div className="mt-1">
                               <input
@@ -109,8 +153,8 @@ export default function Drawer(props) {
                                 id="objectiveName"
                                 placeholder="..."
                                 className="block w-full shadow-sm sm:text-sm focus:ring-blue-500 focus:border-blue-500 border-gray-300 rounded-md"
-                                ref={props.name}
-                                onChange={props.handleChange}
+                                ref={nameRef}
+                                onChange={handleChange}
                               />
                             </div>
                           </div>
@@ -119,7 +163,7 @@ export default function Drawer(props) {
                               htmlFor="description"
                               className="block text-sm font-medium text-gray-900"
                             >
-                              {props.descriptionText}
+                              {descriptionText}
                             </label>
                             <div className="mt-1">
                               <textarea
@@ -128,8 +172,8 @@ export default function Drawer(props) {
                                 rows={4}
                                 className="block w-full shadow-sm sm:text-sm focus:ring-blue-500 focus:border-blue-500 border border-gray-300 rounded-md"
                                 placeholder="..."
-                                ref={props.description}
-                                onChange={props.handleChange}
+                                ref={descriptionRef}
+                                onChange={handleChange}
                               />
                             </div>
                           </div>
@@ -138,7 +182,7 @@ export default function Drawer(props) {
                               htmlFor="project_name"
                               className="block text-sm font-medium text-gray-900"
                             >
-                              {props.weightText}
+                              {weightText}
                             </label>
                             <div className="mt-1 relative">
                               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -152,106 +196,45 @@ export default function Drawer(props) {
                                 id="weight"
                                 className="block w-full shadow-sm sm:text-sm focus:ring-blue-500 focus:border-blue-500 border-gray-300 rounded-md pl-7"
                                 placeholder="0.00"
-                                ref={props.weight}
-                                onChange={props.handleChange}
+                                ref={weightRef}
+                                onChange={handleChange}
                               />
                             </div>
                           </div>
                           {/* <div>
-                            <label
-                              htmlFor="project_name"
-                              className="block text-sm font-medium text-gray-900"
-                            >
-                              {props.actualValueText}
-                            </label>
-                            <div className="mt-1 relative">
-                              <input
-                                type="text"
-                                name="weight"
-                                id="weight"
-                                className="block w-full shadow-sm sm:text-sm focus:ring-blue-500 focus:border-blue-500 border-gray-300 rounded-md"
-                                placeholder="0.00"
-                                ref={props.actualValue}
-                                onChange={props.handleChange}
-                              />
+                            <h3 className="text-sm font-medium text-gray-900">
+                              Nhân viên
+                            </h3>
+                            <div className="mt-2">
+                              <div className="flex space-x-2">
+                                {team.map((person) => (
+                                  <a
+                                    key={person.email}
+                                    href={person.href}
+                                    className="rounded-full hover:opacity-75"
+                                  >
+                                    <img
+                                      className="inline-block h-8 w-8 rounded-full"
+                                      src={person.imageUrl}
+                                      alt={person.name}
+                                    />
+                                  </a>
+                                ))}
+                                <button
+                                  type="button"
+                                  className="flex-shrink-0 bg-white inline-flex h-8 w-8 items-center justify-center rounded-full border-2 border-dashed border-gray-200 text-gray-400 hover:text-gray-500 hover:border-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                                >
+                                  <span className="sr-only">
+                                    Add team member
+                                  </span>
+                                  <PlusIcon
+                                    className="h-5 w-5"
+                                    aria-hidden="true"
+                                  />
+                                </button>
+                              </div>
                             </div>
                           </div> */}
-                          <div>
-                            <label
-                              htmlFor="project_name"
-                              className="block text-sm font-medium text-gray-900"
-                            >
-                              {props.redText}
-                            </label>
-                            <div className="mt-1 relative">
-                              <input
-                                type="text"
-                                name="weight"
-                                id="weight"
-                                className="block w-full shadow-sm sm:text-sm focus:ring-blue-500 focus:border-blue-500 border-gray-300 rounded-md"
-                                placeholder="0.00"
-                                ref={props.red}
-                                onChange={props.handleChange}
-                              />
-                            </div>
-                          </div>
-                          <div>
-                            <label
-                              htmlFor="project_name"
-                              className="block text-sm font-medium text-gray-900"
-                            >
-                              {props.goalText}
-                            </label>
-                            <div className="mt-1 relative">
-                              <input
-                                type="text"
-                                name="weight"
-                                id="weight"
-                                className="block w-full shadow-sm sm:text-sm focus:ring-blue-500 focus:border-blue-500 border-gray-300 rounded-md"
-                                placeholder="0.00"
-                                ref={props.goal}
-                                onChange={props.handleChange}
-                              />
-                            </div>
-                          </div>
-                          <div>
-                            <label
-                              htmlFor="location"
-                              className="block text-sm font-medium text-gray-900"
-                            >
-                              {props.dataTypeText}
-                            </label>
-                            <select
-                              id="dataType"
-                              name="dataType"
-                              className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
-                              ref={props.dataType}
-                              onChange={props.handleChange}
-                            >
-                              <option>Số liệu</option>
-                              <option>Tiền tệ</option>
-                              <option>Phần trăm</option>
-                            </select>
-                          </div>
-                          <div>
-                            <label
-                              htmlFor="location"
-                              className="block text-sm font-medium text-gray-900"
-                            >
-                              {props.calendarText}
-                            </label>
-                            <select
-                              id="calendar"
-                              name="calendar"
-                              className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
-                              ref={props.calendar}
-                              onChange={props.handleChange}
-                            >
-                              <option>Tháng</option>
-                              <option>Quý</option>
-                              <option>Năm</option>
-                            </select>
-                          </div>
                         </div>
                         <div className="pt-4 pb-6">
                           <div className="flex text-sm">
@@ -263,7 +246,7 @@ export default function Drawer(props) {
                                 className="h-5 w-5 text-blue-500 group-hover:text-blue-900"
                                 aria-hidden="true"
                               />
-                              <span className="ml-2">{props.copyIdText}</span>
+                              <span className="ml-2"> {copyIdText}</span>
                             </a>
                           </div>
                           <div className="mt-4 flex text-sm">
@@ -276,7 +259,7 @@ export default function Drawer(props) {
                                 aria-hidden="true"
                               />
                               <span className="ml-2">
-                                {props.moreAboutMeasuresText}
+                                {moreAboutObjectiveText}
                               </span>
                             </a>
                           </div>
@@ -288,15 +271,15 @@ export default function Drawer(props) {
                     <button
                       type="button"
                       className="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                      onClick={() => props.setDrawerOpen(false)}
+                      onClick={() => setDrawerOpen(false)}
                     >
-                      {props.cancelText}
+                      {cancelText}
                     </button>
                     <button
                       type="submit"
                       className="ml-4 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                     >
-                      {props.createMeasureText}
+                      {createObjectiveText}
                     </button>
                   </div>
                 </form>
@@ -307,4 +290,5 @@ export default function Drawer(props) {
       </Dialog>
     </Transition.Root>
   );
-}
+};
+export default CreateObjectiveDrawer;

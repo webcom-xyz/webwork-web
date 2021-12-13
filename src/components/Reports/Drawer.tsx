@@ -2,12 +2,12 @@ import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { XIcon } from "@heroicons/react/outline";
 import { LinkIcon, QuestionMarkCircleIcon } from "@heroicons/react/solid";
-import { IKPI } from "../../types/kpi";
+import { IMeasure } from "../../types/measure";
 
 interface IProps {
   drawerOpen: boolean;
   setDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  assignedKPIs: IKPI[];
+  assignedKPIs: IMeasure[];
   selectedKPIId: any;
   handleChange: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
   handleCreateKPIValue: React.FormEventHandler<HTMLFormElement>;

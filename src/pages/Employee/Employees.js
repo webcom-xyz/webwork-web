@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Sidebar from "../../components/Scorecard/Sidebar";
 import Topbar from "../../components/Scorecard/Topbar";
 import { useDispatch, useSelector } from "react-redux";
-import Drawer from "../../components/Employee/Drawer";
+import Drawer from "../../components/Employee/AddEmployeeDrawer";
 import {
   addMembers,
   getMembers,
@@ -15,6 +15,7 @@ import EmployeesList from "../../components/Employee/EmployeesList";
 import EmployeeDetails from "../../components/Employee/EmployeeDetails";
 import Notification from "../../parts/shared/Notification";
 import { useTranslation } from "react-i18next";
+import AddEmployeeDrawer from "../../components/Employee/AddEmployeeDrawer";
 
 export default function Employees() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -93,7 +94,7 @@ export default function Employees() {
         setSidebarOpen={setSidebarOpen}
         employeesActive={true}
       />
-      <Drawer
+      <AddEmployeeDrawer
         drawerOpen={drawerOpen}
         setDrawerOpen={setDrawerOpen}
         email={email}

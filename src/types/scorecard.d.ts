@@ -1,9 +1,9 @@
 export interface IScorecard {
-  id: string;
-  name: string;
-  type: string;
-  description: string;
-  createDate: string;
+  id?: string;
+  name: string | undefined;
+  type?: string;
+  description: string | undefined;
+  createDate?: string;
 }
 
 export type ScorecardDTO = {

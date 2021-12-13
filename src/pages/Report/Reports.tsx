@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef, FormEvent } from "react";
-import Sidebar from "../../components/Scorecard/Sidebar";
 import KPITable from "../../components/Reports/KPITable";
 import PageHeading from "../../components/shared/PageHeading";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,15 +10,16 @@ import { useTranslation } from "react-i18next";
 import Drawer from "../../components/Reports/Drawer";
 import TimePeriodSelector from "../../components/Reports/TimePeriodSelector";
 import { RootState } from "../../store";
-import { AssignedKPIsDTO } from "../../types/kpi";
+import { AssignedMeasuresDTO } from "../../types/measure";
 import { CurrentUserDTO } from "../../types/user";
+import { NewSidebar } from "../../components/shared/NewSidebar";
 
 export interface IState {
   valueArgs: {
     month?: string;
     year?: string;
   };
-  assignedKPIs: AssignedKPIsDTO;
+  assignedKPIs: AssignedMeasuresDTO;
 }
 
 const Reports: React.FC = () => {
@@ -28,7 +28,7 @@ const Reports: React.FC = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const assignedKPIs = useSelector<RootState, AssignedKPIsDTO>(
+  const assignedKPIs = useSelector<RootState, AssignedMeasuresDTO>(
     (state) => state.kpi.assignedKPIs
   );
   const { t, i18n } = useTranslation();
@@ -77,8 +77,8 @@ const Reports: React.FC = () => {
   }, [location, dispatch]);
 
   return (
-    <div className="h-screen flex overflow-hidden bg-gray-100">
-      <Sidebar
+    <div className="h-screen flex overflow-hidden bg-white">
+      <NewSidebar
         sidebarOpen={sidebarOpen}
         setSidebarOpen={setSidebarOpen}
         reportsActive={true}
@@ -110,12 +110,14 @@ const Reports: React.FC = () => {
       <div className="flex-1 overflow-auto focus:outline-none">
         {/* <Topbar setSidebarOpen={setSidebarOpen} /> */}
         <main className="flex-1 relative pb-8 z-0">
-          <PageHeading
-            secondaryButtonText={t("report.pageHeading.secondaryButton")}
-            primaryButtonText={t("report.pageHeading.primaryButton")}
-            currentUser={currentUser}
-            unverifiedText={t("report.pageHeading.unverified")}
-          />
+          {/* <PageHeading
+            // secondaryButtonText={t("report.pageHeading.secondaryButton")}
+            // primaryButtonText={t("report.pageHeading.primaryButton")}
+            // handlePrimaryButton={}
+            // currentUser={currentUser}
+            // unverifiedText={t("report.pageHeading.unverified")}
+            heading="Reports"
+          /> */}
 
           <div className="hidden mt-8 sm:block">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -134,7 +136,7 @@ const Reports: React.FC = () => {
           <div className="hidden mt-8 sm:block">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="flex flex-col mt-2">
-                <div className="bg-white shadow rounded-lg">
+                <div className="bg-white shadow-sm rounded-md">
                   <h3 className="text-lg leading-6 font-medium text-gray-900 inline-block ml-4 mt-4">
                     {t("report.update")}
                   </h3>

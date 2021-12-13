@@ -4,7 +4,7 @@ import Topbar from "../../components/Scorecard/Topbar";
 import Tabs from "../../components/Scorecard/Tabs";
 import { useHistory, useLocation, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import Drawer from "../../components/Perspective/Drawer";
+import Drawer from "../../components/Perspective/CreateObjectiveDrawer";
 import PageHeading from "../../components/Scorecard/PageHeading";
 import TimePeriodSelector from "../../components/Scorecard/TimePeriodSelector";
 import Overview from "../../components/Perspective/Overview";

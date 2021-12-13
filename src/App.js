@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import "./styles/App.css";
-import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 
 import SignIn from "./pages/Public/SignIn";
 import SignUp from "./pages/Public/SignUp";
@@ -24,7 +29,9 @@ import KPI from "./pages/KPI/KPI";
 import KPISettings from "./pages/KPI/Settings";
 import ObjectiveSettings from "./pages/Objective/Settings";
 import PerspectiveSettings from "./pages/Perspective/Settings";
-
+import NewEmployee from "./pages/Employee/NewEmployee";
+import NewReports from "./pages/Report/NewReport";
+import Scorecards from "./pages/Scorecard/Scorecards";
 function App() {
   return (
     <Router>
@@ -35,13 +42,13 @@ function App() {
           </Route>
           <Route path="/sign-in" component={SignIn} />
           <Route path="/sign-up" component={SignUp} />
-          <PrivateRoute path="/dashboard" component={Dashboard} />
-          <PrivateRoute path="/employees" component={Employees} />
-          <PrivateRoute path="/reports" component={Reports} />
+          {/* <PrivateRoute path="/dashboard" component={Dashboard} /> */}
+
+          <PrivateRoute path="/employees" component={NewEmployee} />
+          <PrivateRoute path="/reports" component={NewReports} />
           <PrivateRoute exact path="/user/account" component={Account} />
 
-
-          <PrivateRoute
+          {/* <PrivateRoute
             exact
             path="/:scorecardId/settings"
             component={ScorecardSettings}
@@ -60,19 +67,35 @@ function App() {
             exact
             path="/:scorecardId/:perspectiveId/:objectiveId/:kpiId/settings"
             component={KPISettings}
-          />
+          /> */}
 
-
-          <PrivateRoute 
+          {/* <PrivateRoute 
             exact 
             path="/:scorecardId" 
-            component={Scorecard} />
+            component={Scorecard} /> */}
           <PrivateRoute
+            exact
+            path={[
+              "/scorecards",
+              "/scorecards/:scorecardId",
+              "/scorecards/:scorecardId/perspectives/:perspectiveId",
+              "/scorecards/:scorecardId/perspectives/:perspectiveId/objectives/:objectiveId",
+              "/scorecards/:scorecardId/perspectives/:perspectiveId/objectives/:objectiveId/measures/:measureId",
+            ]}
+            component={Scorecards}
+          />
+
+          {/* <PrivateRoute
+            exact
+            path="/scorecards/:scorecardId/perspectives/:perspectiveId"
+            component={Scorecards}
+          /> */}
+          {/* <PrivateRoute
             exact
             path="/:scorecardId/:perspectiveId"
             component={Perspective}
-          />
-          <PrivateRoute
+          /> */}
+          {/* <PrivateRoute
             exact
             path="/:scorecardId/:perspectiveId/:objectiveId"
             component={Objective}
@@ -81,7 +104,7 @@ function App() {
             exact
             path="/:scorecardId/:perspectiveId/:objectiveId/:kpiId"
             component={KPI}
-          />
+          /> */}
         </Switch>
       </div>
     </Router>

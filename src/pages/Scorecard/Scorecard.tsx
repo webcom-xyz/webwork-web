@@ -113,14 +113,14 @@ export default function Scorecard() {
   }, [location, dispatch, refetch]);
 
   return (
-    <div className="h-screen flex overflow-hidden bg-gray-100">
+    <div className="h-screen flex overflow-hidden bg-gray-100 dark:bg-gray-800">
       <Sidebar
         sidebarOpen={sidebarOpen}
         setSidebarOpen={setSidebarOpen}
         scorecardId={scorecardId}
         refetch={refetch}
       />
-      <CreateNewPerspectiveDrawer
+      {/* <CreateNewPerspectiveDrawer
         drawerOpen={drawerOpen}
         setDrawerOpen={setDrawerOpen}
         name={nameRef}
@@ -143,7 +143,7 @@ export default function Scorecard() {
         moreAboutPerspectiveText={t("scorecard.drawer.moreAboutPerspective")}
         createPerspectiveText={t("scorecard.drawer.createPerspective")}
         cancelText={t("scorecard.drawer.cancel")}
-      />
+      /> */}
       <ConfirmDeleteDialog
         confirmDeleteDialogOpen={confirmDeleteDialogOpen}
         setConfirmDeleteDialogOpen={setConfirmDeleteDialogOpen}
@@ -172,7 +172,7 @@ export default function Scorecard() {
           <div className="mt-8">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 ">
               <div>
-                <Tabs
+                {/* <Tabs
                   overviewSelected={overviewSelected}
                   setOverviewSelected={setOverviewSelected}
                   strategyviewSelected={strategyviewSelected}
@@ -182,7 +182,7 @@ export default function Scorecard() {
                   overviewText={t("tabs.overview")}
                   detailsText={t("tabs.details")}
                   strategyText={t("tabs.strategy")}
-                />
+                /> */}
               </div>
             </div>
           </div>
@@ -205,8 +205,6 @@ export default function Scorecard() {
 
           {overviewSelected && (
             <Overview
-              data={data}
-              data1={data1}
               changeType={changeType}
               perspectives={perspectives?.data}
               scorecardId={scorecardId}

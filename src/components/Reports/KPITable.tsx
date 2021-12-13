@@ -6,10 +6,10 @@ import {
   TrashIcon,
 } from "@heroicons/react/solid";
 import classNames from "../../utils/classNames";
-import { IKPI } from "../../types/kpi";
+import { IMeasure } from "../../types/measure";
 
 interface IProps {
-  assignedKPIs: IKPI[];
+  assignedKPIs: IMeasure[];
   drawerOpen: boolean;
   setDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setSelectedKPIId: React.Dispatch<React.SetStateAction<string>>;
@@ -81,7 +81,7 @@ const KPITable: React.FC<IProps> = ({
                     /> */}
                     <div
                       className={
-                        "flex-shrink-0 w-2.5 h-2.5 rounded-full bg-green-400"
+                        "flex-shrink-0 w-2.5 h-2.5 rounded-md bg-green-400"
                       }
                       aria-hidden="true"
                     />
@@ -130,7 +130,7 @@ const KPITable: React.FC<IProps> = ({
                     as="div"
                     className="relative flex justify-end items-center"
                   >
-                    <Menu.Button className="w-8 h-8 bg-white inline-flex items-center justify-center text-gray-400 rounded-full hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    <Menu.Button className="w-8 h-8 bg-white inline-flex items-center justify-center text-gray-400 rounded-md hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                       <span className="sr-only">Open options</span>
                       <DotsVerticalIcon
                         className="w-5 h-5"
@@ -146,14 +146,14 @@ const KPITable: React.FC<IProps> = ({
                       leaveFrom="transform opacity-100 scale-100"
                       leaveTo="transform opacity-0 scale-95"
                     >
-                      <Menu.Items className="mx-3 origin-top-right absolute right-7 top-0 w-48 mt-1 rounded-md shadow z-10 bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-200 focus:outline-none">
+                      <Menu.Items className="mx-3 origin-top-right absolute right-7 top-0 w-48 mt-1 rounded-md shadow-sm z-10 bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-200 focus:outline-none">
                         <div className="py-1">
                           <Menu.Item>
                             {({ active }) => (
                               <a
                                 onClick={() => {
                                   setDrawerOpen(true);
-                                  setSelectedKPIId(kpi?.id);
+                                  // setSelectedKPIId(kpi?.id);
                                 }}
                                 className={classNames(
                                   active

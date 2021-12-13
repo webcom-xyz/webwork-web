@@ -313,7 +313,7 @@ const Sidebar: React.FC<IProps> = ({
                 </div>
 
                 {/* Secondary navigation for smaller screen sizes */}
-                <div className="mt-6 pt-6">
+                {/* <div className="mt-6 pt-6">
                   <div className="px-2 space-y-1">
                     {secondaryNavigation.map((item) => (
                       <a
@@ -330,7 +330,7 @@ const Sidebar: React.FC<IProps> = ({
                       </a>
                     ))}
                   </div>
-                </div>
+                </div> */}
               </nav>
             </div>
           </Transition.Child>
@@ -738,7 +738,7 @@ const Sidebar: React.FC<IProps> = ({
               </div>
 
               {/* Secondary navigation for desktop */}
-              <div className="pt-6">
+              {/* <div className="pt-6">
                 <div className="px-2 space-y-1">
                   {secondaryNavigation.map((item) => (
                     <a
@@ -760,7 +760,7 @@ const Sidebar: React.FC<IProps> = ({
                     </a>
                   ))}
                 </div>
-              </div>
+              </div> */}
             </nav>
           </div>
         </div>
